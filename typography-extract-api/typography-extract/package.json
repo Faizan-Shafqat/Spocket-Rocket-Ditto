@@ -1,0 +1,19 @@
+{
+  "name": "sprocket-reference-backend",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js",
+    "build": "npx playwright install chromium --with-deps",
+    "postinstall": "npx playwright install chromium"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.36.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "playwright": "^1.58.2"
+  }
+}

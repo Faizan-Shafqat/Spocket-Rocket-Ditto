@@ -1,0 +1,149 @@
+{
+  "generated_at": "2026-04-14T14:11:59.725Z",
+  "source": {
+    "custom_modules_path": "C:\\Users\\Dell\\Documents\\Mine\\sr\\custom-modules"
+  },
+  "module_count": 3,
+  "modules": [
+    {
+      "folder": "SR Footer 04.module",
+      "label": "SR Footer 04",
+      "module_id": 209349530642,
+      "global": false,
+      "content_types": [
+        "LANDING_PAGE",
+        "SITE_PAGE",
+        "BLOG_LISTING",
+        "BLOG_POST"
+      ],
+      "host_template_types": [
+        "PAGE",
+        "BLOG_POST",
+        "BLOG_LISTING"
+      ],
+      "icon": "https://www.sprocketrocket.co/hubfs/sr-assets/icons/sr-icon-footer.svg",
+      "docs_url": "https://docs.sprocketrocket.co/modules/footers/sr-footer-04",
+      "fields_summary": {
+        "count": 19,
+        "root_field_ids": [
+          "background_video",
+          "background_video_md",
+          "background_video_sm",
+          "enabled",
+          "sr_module_id",
+          "class",
+          "design_settings",
+          "logo",
+          "logo_link",
+          "e902f670-19a5-82a0-384e-c2faa3ed70df",
+          "logo_align",
+          "show_menu",
+          "menu",
+          "menu_align",
+          "menu_depth",
+          "copyright",
+          "social_icons",
+          "7765022b-d985-9756-09ce-cf9d23063e19",
+          "9e177cdf-4a1a-3939-dbd1-75cd8114b70c"
+        ]
+      },
+      "files_present": {
+        "module_html": true,
+        "module_css": true,
+        "module_js": true,
+        "fields_json": true
+      },
+      "content_sha256_16": "65d0693b677018e6"
+    },
+    {
+      "folder": "SR Hero 01.module",
+      "label": "SR Hero 01",
+      "module_id": 209349530635,
+      "global": false,
+      "content_types": [
+        "LANDING_PAGE",
+        "SITE_PAGE",
+        "BLOG_LISTING",
+        "BLOG_POST"
+      ],
+      "host_template_types": [
+        "PAGE",
+        "BLOG_POST",
+        "BLOG_LISTING"
+      ],
+      "icon": "https://www.sprocketrocket.co/hubfs/sr-assets/icons/sr-icon-hero.svg",
+      "docs_url": "https://docs.sprocketrocket.co/modules/heros/sr-hero-01",
+      "fields_summary": {
+        "count": 14,
+        "root_field_ids": [
+          "background_video",
+          "background_video_md",
+          "background_video_sm",
+          "enabled",
+          "sr_module_id",
+          "class",
+          "design_settings",
+          "heading",
+          "description",
+          "lead_text",
+          "cta",
+          "height",
+          "parallax",
+          "12315b24-dc5a-720e-99f5-0b9c1ef90e5f"
+        ]
+      },
+      "files_present": {
+        "module_html": true,
+        "module_css": true,
+        "module_js": true,
+        "fields_json": true
+      },
+      "content_sha256_16": "3088c02cebd3e4bc"
+    },
+    {
+      "folder": "SR Offer Bar 06.module",
+      "label": "SR Offer Bar 06",
+      "module_id": 209349530640,
+      "global": false,
+      "content_types": [
+        "LANDING_PAGE",
+        "SITE_PAGE",
+        "BLOG_LISTING",
+        "BLOG_POST"
+      ],
+      "host_template_types": [
+        "PAGE",
+        "BLOG_POST",
+        "BLOG_LISTING"
+      ],
+      "icon": "https://www.sprocketrocket.co/hubfs/sr-assets/icons/sr-icon-offers.svg",
+      "docs_url": "https://docs.sprocketrocket.co/modules/offers/sr-offer-bar-06",
+      "fields_summary": {
+        "count": 14,
+        "root_field_ids": [
+          "background_video",
+          "background_video_md",
+          "background_video_sm",
+          "enabled",
+          "sr_module_id",
+          "class",
+          "design_settings",
+          "bling_image",
+          "heading",
+          "description",
+          "lead_text",
+          "cta",
+          "columns",
+          "cc6e9528-59a8-3fe0-d2d3-1b8cdd759d1b"
+        ]
+      },
+      "files_present": {
+        "module_html": true,
+        "module_css": true,
+        "module_js": true,
+        "fields_json": true
+      },
+      "content_sha256_16": "d8dd655fa846194b"
+    }
+  ]
+}

@@ -1,0 +1,949 @@
+{
+  "timestamp": "2026-05-13T13:54:49.355Z",
+  "website_url": "https://opinionuniverse.com/",
+  "page_title": "OpinionUniverse",
+  "typography_extracted": {
+    "fonts": {
+      "headings": "",
+      "body": ""
+    },
+    "headings": {
+      "h1": {
+        "fontFamily": "Montserrat, sans-serif",
+        "fontSize": "45px",
+        "fontWeight": "600",
+        "lineHeight": "54px",
+        "letterSpacing": "normal",
+        "color": "#0f172a"
+      },
+      "h3": {
+        "fontFamily": "Montserrat, sans-serif",
+        "fontSize": "45px",
+        "fontWeight": "600",
+        "lineHeight": "54px",
+        "letterSpacing": "normal",
+        "color": "#0f172a"
+      }
+    },
+    "body": {},
+    "links": {
+      "color": "#334155",
+      "textDecoration": "none",
+      "fontWeight": "900"
+    },
+    "buttons": {
+      "fontFamily": "Montserrat, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "900",
+      "color": "#334155",
+      "backgroundColor": "",
+      "borderRadius": "12px",
+      "borderColor": "#e5e7eb",
+      "borderWidth": "0px"
+    },
+    "colors": {
+      "text": [
+        "#0f172a",
+        "#ea580c",
+        "#475569",
+        "#334155",
+        "#ffffff",
+        "#ff5300",
+        "#cbd5e1"
+      ],
+      "background": [
+        "#ea580c",
+        "#ffffff",
+        "#ff5300",
+        "#ffb84d",
+        "#ffe6ba",
+        "#fff3ec",
+        "#1e293b"
+      ],
+      "primary": "#e5e7eb"
+    },
+    "google_fonts_urls": [
+      "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap",
+      "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap",
+      "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    ],
+    "font_face_urls": [],
+    "font_stylesheet_urls": [],
+    "buttons_secondary": {
+      "fontFamily": "Montserrat, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "900",
+      "color": "#ffffff",
+      "backgroundColor": "",
+      "borderRadius": "12px",
+      "borderColor": "#e5e7eb",
+      "borderWidth": "0px"
+    }
+  },
+  "typography_full_page": {
+    "fonts": {
+      "headings": "Montserrat, sans-serif",
+      "body": "Montserrat, sans-serif"
+    },
+    "headings": {
+      "h1": {
+        "fontFamily": "Montserrat, sans-serif",
+        "fontSize": "45px",
+        "fontWeight": "600",
+        "lineHeight": "54px",
+        "letterSpacing": "normal",
+        "color": "#0f172a"
+      },
+      "h3": {
+        "fontFamily": "Montserrat, sans-serif",
+        "fontSize": "45px",
+        "fontWeight": "600",
+        "lineHeight": "54px",
+        "letterSpacing": "normal",
+        "color": "#0f172a"
+      }
+    },
+    "body": {
+      "fontFamily": "Montserrat, sans-serif",
+      "fontSize": "15px",
+      "fontWeight": "400",
+      "lineHeight": "22.5px",
+      "letterSpacing": "normal",
+      "color": "#0f172a"
+    },
+    "links": {
+      "color": "#0f172a",
+      "textDecoration": "none",
+      "fontWeight": "400"
+    },
+    "buttons": {
+      "fontFamily": "Montserrat, sans-serif",
+      "fontSize": "14px",
+      "fontWeight": "700",
+      "color": "#475569",
+      "backgroundColor": "",
+      "borderRadius": "0px"
+    },
+    "colors": {
+      "text": [
+        "#0f172a",
+        "#ea580c",
+        "#475569",
+        "#334155",
+        "#ffffff",
+        "#ff5300",
+        "#cbd5e1"
+      ],
+      "background": [
+        "#ea580c",
+        "#ffffff",
+        "#ff5300",
+        "#ffb84d",
+        "#ffe6ba",
+        "#fff3ec",
+        "#1e293b"
+      ],
+      "primary": ""
+    },
+    "google_fonts_urls": [
+      "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap",
+      "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap",
+      "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    ],
+    "font_face_urls": [],
+    "font_stylesheet_urls": []
+  },
+  "hero": {
+    "found": true,
+    "strategy": "header",
+    "score": 137692.80000000002,
+    "text": {
+      "title": "",
+      "titleTag": "",
+      "preheading": "",
+      "preheadingHtml": "",
+      "preheadingTag": "",
+      "subtitle": "",
+      "subtitleHtml": "",
+      "subtitleRole": "",
+      "subtitleHeadingSize": "",
+      "subtitleDisplaySize": ""
+    },
+    "layout": {
+      "textAlign": "LEFT"
+    },
+    "ctas": [
+      {
+        "label": "Login",
+        "href": "https://opinionuniverse.com/login",
+        "cta_style": "primary"
+      },
+      {
+        "label": "Join Now",
+        "href": "https://opinionuniverse.com/signup",
+        "cta_style": "primary"
+      }
+    ],
+    "background": {
+      "type": "image",
+      "backgroundColor": "#ffffff",
+      "backgroundImage": "",
+      "imageUrls": [
+        "https://opinionuniverse.com/assets/opinionuniverse_logo-BUDVpw3E.png"
+      ],
+      "recommendedImageUrl": "https://opinionuniverse.com/assets/opinionuniverse_logo-BUDVpw3E.png",
+      "backgroundSize": "auto",
+      "backgroundPosition": "0% 0%",
+      "backgroundRepeat": "repeat",
+      "gradient": null,
+      "backdrop": {
+        "backgroundColor": "#ffffff",
+        "backgroundImage": "",
+        "imageUrls": [],
+        "gradient": null,
+        "walkDepth": 3,
+        "backgroundSize": "auto",
+        "backgroundPosition": "0% 0%",
+        "backgroundRepeat": "repeat"
+      }
+    },
+    "media": [
+      {
+        "kind": "img",
+        "url": "https://opinionuniverse.com/assets/opinionuniverse_logo-BUDVpw3E.png",
+        "score": 10363.8,
+        "displayWidth": 188,
+        "displayHeight": 48,
+        "naturalWidth": 1596,
+        "naturalHeight": 408,
+        "alt": "Opinion Universe Logo"
+      }
+    ],
+    "extractionMeta": {
+      "confidence": 0.77,
+      "warnings": [
+        "no_h1_h2_title"
+      ],
+      "imageCandidateCount": 1
+    },
+    "typography": {
+      "fonts": {
+        "headings": "",
+        "body": ""
+      },
+      "headings": {},
+      "body": {},
+      "links": {
+        "color": "#334155",
+        "textDecoration": "none",
+        "fontWeight": "900"
+      },
+      "buttons": {
+        "fontFamily": "Montserrat, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "900",
+        "color": "#334155",
+        "backgroundColor": "",
+        "borderRadius": "12px",
+        "borderColor": "#e5e7eb",
+        "borderWidth": "0px"
+      },
+      "buttons_secondary": {
+        "fontFamily": "Montserrat, sans-serif",
+        "fontSize": "14px",
+        "fontWeight": "900",
+        "color": "#ffffff",
+        "backgroundColor": "",
+        "borderRadius": "12px",
+        "borderColor": "#e5e7eb",
+        "borderWidth": "0px"
+      },
+      "colors": {
+        "text": [
+          "#0f172a",
+          "#ea580c",
+          "#475569",
+          "#334155",
+          "#ffffff"
+        ],
+        "background": [],
+        "primary": "#e5e7eb"
+      },
+      "google_fonts_urls": [
+        "https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap",
+        "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap",
+        "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      ],
+      "font_face_urls": [],
+      "font_stylesheet_urls": []
+    },
+    "rect": {
+      "top": 0,
+      "left": 0,
+      "width": 1366,
+      "height": 96
+    }
+  },
+  "sr_modules_analyzed": [
+    {
+      "name": "SR Bling Graphic 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-bling-graphic-01.jpg"
+    },
+    {
+      "name": "SR Bling Graphic 02",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-bling-graphic-02.jpg"
+    },
+    {
+      "name": "SR Cards Articles 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-articles-01.jpg"
+    },
+    {
+      "name": "SR Cards Articles 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-articles-02.jpg"
+    },
+    {
+      "name": "SR Cards Categories 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-categories-01.jpg"
+    },
+    {
+      "name": "SR Cards Features 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-features-01.jpg"
+    },
+    {
+      "name": "SR Cards Filter 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-filter-01.jpg"
+    },
+    {
+      "name": "SR Cards Filter 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-filter-02.jpg"
+    },
+    {
+      "name": "SR Cards Flip 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-flip-01.jpg"
+    },
+    {
+      "name": "SR Cards Grid 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-grid-01.jpg"
+    },
+    {
+      "name": "SR Cards Grid 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-grid-02.jpg"
+    },
+    {
+      "name": "SR Cards Pricing 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-pricing-01.jpg"
+    },
+    {
+      "name": "SR Cards Pricing 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-pricing-02.jpg"
+    },
+    {
+      "name": "SR Cards Pricing 03",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-pricing-03.jpg"
+    },
+    {
+      "name": "SR Cards Slider 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-slider-01.jpg"
+    },
+    {
+      "name": "SR Cards Steps 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-steps-01.jpg"
+    },
+    {
+      "name": "SR Cards Steps 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-steps-02.jpg"
+    },
+    {
+      "name": "SR Cards Team 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-team-01.jpg"
+    },
+    {
+      "name": "SR Cards Team 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-team-02.jpg"
+    },
+    {
+      "name": "SR Cards Team 03",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-team-03.jpg"
+    },
+    {
+      "name": "SR Cards Team 04",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-team-04.jpg"
+    },
+    {
+      "name": "SR Cards Testimonial Grid 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-testimonial-grid-01.jpg"
+    },
+    {
+      "name": "SR Cards Testimonial Grid 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-testimonial-grid-02.jpg"
+    },
+    {
+      "name": "SR Cards Testimonial Slider 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-testimonial-slider-01.jpg"
+    },
+    {
+      "name": "SR Cards Testimonial Slider 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-testimonial-slider-02.jpg"
+    },
+    {
+      "name": "SR Cards Testimonial Slider 03",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-testimonial-slider-03.jpg"
+    },
+    {
+      "name": "SR Cards Testimonial Slider 04",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-testimonial-slider-04.jpg"
+    },
+    {
+      "name": "SR Cards Testimonial Slider 05",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-testimonial-slider-05.jpg"
+    },
+    {
+      "name": "SR Cards Three Cols 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-three-cols-01.jpg"
+    },
+    {
+      "name": "SR Cards Timeline 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-timeline-01.jpg"
+    },
+    {
+      "name": "SR Case Studies Slider 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-case-studies-slider-02.jpg"
+    },
+    {
+      "name": "SR Clients Carousel 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-clients-carousel-01.jpg"
+    },
+    {
+      "name": "SR Contact 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-contact-01.jpg"
+    },
+    {
+      "name": "SR FAQ 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-faq-01.jpg"
+    },
+    {
+      "name": "SR Five Col 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-five-col-01.jpg"
+    },
+    {
+      "name": "SR Footer 01",
+      "category": "footer",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-footer-01.jpg"
+    },
+    {
+      "name": "SR Footer 02",
+      "category": "footer",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-footer-02.jpg"
+    },
+    {
+      "name": "SR Footer 03",
+      "category": "footer",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-footer-03.jpg"
+    },
+    {
+      "name": "SR Footer 04",
+      "category": "footer",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-footer-04.jpg"
+    },
+    {
+      "name": "SR Footer Min 01",
+      "category": "footer",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-footer-min-01.jpg"
+    },
+    {
+      "name": "SR Footer Min 02",
+      "category": "footer",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-footer-min-02.jpg"
+    },
+    {
+      "name": "SR Gallery 02",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-gallery-02.jpg"
+    },
+    {
+      "name": "SR Gated Content 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-gated-content-01.jpg"
+    },
+    {
+      "name": "SR Hero 01",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-01.jpg"
+    },
+    {
+      "name": "SR Hero 02",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-02.jpg"
+    },
+    {
+      "name": "SR Hero 03",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-03.jpg"
+    },
+    {
+      "name": "SR Hero 04",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-04.jpg"
+    },
+    {
+      "name": "SR Hero Card 01",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-card-01.jpg"
+    },
+    {
+      "name": "SR Hero Form 01",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-form-01.jpg"
+    },
+    {
+      "name": "SR Hero Parallax 01",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-parallax-01.jpg"
+    },
+    {
+      "name": "SR Hero Two Col 01",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-two-col-01.jpg"
+    },
+    {
+      "name": "SR Job Listing 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-job-listing-01.jpg"
+    },
+    {
+      "name": "SR Nav Min 01",
+      "category": "navigation",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-nav-min-01.jpg"
+    },
+    {
+      "name": "SR Nav Progress Bar 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-nav-progress-bar-01.jpg"
+    },
+    {
+      "name": "SR Navigation 01",
+      "category": "navigation",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-navigation-01.jpg"
+    },
+    {
+      "name": "SR Notification 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-notification-01.jpg"
+    },
+    {
+      "name": "SR Offer Bar 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-bar-01.jpg"
+    },
+    {
+      "name": "SR Offer Bar 02",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-bar-02.jpg"
+    },
+    {
+      "name": "SR Offer Bar 03",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-bar-03.jpg"
+    },
+    {
+      "name": "SR Offer Bar 04",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-bar-04.jpg"
+    },
+    {
+      "name": "SR Offer Bar 05",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-bar-05.jpg"
+    },
+    {
+      "name": "SR Offer Bar 06",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-bar-06.jpg"
+    },
+    {
+      "name": "SR Offer Bar 07",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-bar-07.jpg"
+    },
+    {
+      "name": "SR Offer Bar 08",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-bar-08.jpg"
+    },
+    {
+      "name": "SR Offer Exit Modal 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-exit-modal-01.jpg"
+    },
+    {
+      "name": "SR Offer Faux Modal 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-faux-modal-01.jpg"
+    },
+    {
+      "name": "SR Offer One Col 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-one-col-01.jpg"
+    },
+    {
+      "name": "SR Offer Parallax 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-parallax-01.jpg"
+    },
+    {
+      "name": "SR Offer Parallax 02",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-parallax-02.jpg"
+    },
+    {
+      "name": "SR Offer Slide In 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-slide-in-01.jpg"
+    },
+    {
+      "name": "SR Offer Smart Pop 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-smart-pop-01.jpg"
+    },
+    {
+      "name": "SR Offer Two Col 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-two-col-01.jpg"
+    },
+    {
+      "name": "SR Offer Two Col 02",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-two-col-02.jpg"
+    },
+    {
+      "name": "SR Offer Two Col 03",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-two-col-03.jpg"
+    },
+    {
+      "name": "SR Offer Video CTA 01",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-offer-video-cta-01.jpg"
+    },
+    {
+      "name": "SR One Col 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-one-col-01.jpg"
+    },
+    {
+      "name": "SR One Col Media 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-one-col-media-01.jpg"
+    },
+    {
+      "name": "SR Pattern 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-pattern-01.jpg"
+    },
+    {
+      "name": "SR Pricing 02",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-pricing-02.jpg"
+    },
+    {
+      "name": "SR Pricing 03",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-pricing-03.jpg"
+    },
+    {
+      "name": "SR Showcase 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-showcase-01.jpg"
+    },
+    {
+      "name": "SR Stats 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-stats-01.jpg"
+    },
+    {
+      "name": "SR Stats 02",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-stats-02.jpg"
+    },
+    {
+      "name": "SR Stats 03",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-stats-03.jpg"
+    },
+    {
+      "name": "SR Stats 04",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-stats-04.jpg"
+    },
+    {
+      "name": "SR Stats 05",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-stats-05.jpg"
+    },
+    {
+      "name": "SR Stats 06",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-stats-06.jpg"
+    },
+    {
+      "name": "SR Tabs 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-01.jpg"
+    },
+    {
+      "name": "SR Tabs 02",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-02.jpg"
+    },
+    {
+      "name": "SR Tabs Accordion 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-accordion-01.jpg"
+    },
+    {
+      "name": "SR Tabs Accordion 02",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-accordion-02.jpg"
+    },
+    {
+      "name": "SR Tabs Horizontal 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-horizontal-01.jpg"
+    },
+    {
+      "name": "SR Tabs Horizontal 02",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-horizontal-02.jpg"
+    },
+    {
+      "name": "SR Tabs Slider 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-slider-01.jpg"
+    },
+    {
+      "name": "SR Tabs Slider 02",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-slider-02.jpg"
+    },
+    {
+      "name": "SR Tabs Split Screen 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-split-screen-01.jpg"
+    },
+    {
+      "name": "SR Tabs Testimonials 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-testimonials-01.jpg"
+    },
+    {
+      "name": "SR Tabs Vertical 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-tabs-vertical-01.jpg"
+    },
+    {
+      "name": "SR Testimonials 03",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-testimonials-03.jpg"
+    },
+    {
+      "name": "SR Three Col 02",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-three-col-02.jpg"
+    },
+    {
+      "name": "SR Three Col 03",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-three-col-03.jpg"
+    },
+    {
+      "name": "SR Three Col Features 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-three-col-features-01.jpg"
+    },
+    {
+      "name": "SR Two Col 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-01.jpg"
+    },
+    {
+      "name": "SR Two Col 03",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-03.jpg"
+    },
+    {
+      "name": "SR Two Col 04",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-04.jpg"
+    },
+    {
+      "name": "SR Two Col 07",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-07.jpg"
+    },
+    {
+      "name": "SR Two Col 08",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-08.jpg"
+    },
+    {
+      "name": "SR Two Col 10",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-10.jpg"
+    },
+    {
+      "name": "SR Two Col Features 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-features-01.jpg"
+    },
+    {
+      "name": "SR Two Col Features 02",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-features-02.jpg"
+    },
+    {
+      "name": "SR Two Col Gallery 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-gallery-01.jpg"
+    },
+    {
+      "name": "SR Two Col Slider 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-slider-01.jpg"
+    },
+    {
+      "name": "SR Two Col TOC 01",
+      "category": "columns",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-two-col-toc-01.jpg"
+    },
+    {
+      "name": "SR Video Overlay 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-video-overlay-01.jpg"
+    },
+    {
+      "name": "SR Video Slider 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-video-slider-01.jpg"
+    },
+    {
+      "name": "SR Separator 01",
+      "category": "elements",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-separator-01.jpg"
+    },
+    {
+      "name": "SR Nav Off Canvas 01",
+      "category": "navigation",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-nav-off-canvas-01.jpg"
+    },
+    {
+      "name": "SR Modal",
+      "category": "elements",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-modal.jpg"
+    },
+    {
+      "name": "SR Locations 02",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-locations-02.jpg"
+    },
+    {
+      "name": "SR Locations 01",
+      "category": "tabs",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-locations-01.jpg"
+    },
+    {
+      "name": "SR Image Hotspot 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-image-hotspot-01.jpg"
+    },
+    {
+      "name": "SR HTML",
+      "category": "structure",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-html.jpg"
+    },
+    {
+      "name": "SR Hero 500",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-500.jpg"
+    },
+    {
+      "name": "SR Hero 404",
+      "category": "hero",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-hero-404.jpg"
+    },
+    {
+      "name": "SR Events 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-events-01.jpg"
+    },
+    {
+      "name": "SR Event Listing 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-event-listing-01.jpg"
+    },
+    {
+      "name": "SR Event Details 01",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-event-details-01.jpg"
+    },
+    {
+      "name": "SR Cards Articles 03",
+      "category": "cards",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-cards-articles-03.jpg"
+    },
+    {
+      "name": "SR Bento Grid 01",
+      "category": "bling",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-bento-grid-01.jpg"
+    },
+    {
+      "name": "SR Animations",
+      "category": "elements",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/sr-animations.jpg"
+    },
+    {
+      "name": "Pricing Comparison",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/pricing-comparison.jpg"
+    },
+    {
+      "name": "Multistep Form",
+      "category": "offers",
+      "image": "https://ik.imagekit.io/vw0mli0bz/module-previews/stardust/multistep-form.jpg"
+    }
+  ]
+}
