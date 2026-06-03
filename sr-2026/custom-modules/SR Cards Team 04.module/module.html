@@ -1,0 +1,147 @@
+{% if module.enabled %}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% require_css %}
+<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+	.{{ name }} .content-wrapper {
+		overflow: hidden;
+		{% if module.design_settings.card_styles.border.css %}
+		{{ module.design_settings.card_styles.border.css }}
+		{% endif %}
+		{% if module.design_settings.card_styles.border_radius >= 0 %}
+		border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+		{% endif %}
+		{% if module.design_settings.card_styles.shadow %}
+		box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+		{% endif %}
+	}
+	.{{ name }} .sr-cards-team__info {
+		{{ module.design_settings.card_styles.spacing.css }}
+		{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+		background: {{ module.design_settings.card_styles.background_gradient.css }};
+		{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+		background-color: {{ module.design_settings.card_styles.background_custom.css }};
+		{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+		background-color: var(--{{ module.design_settings.card_styles.background_color }});
+		{%- endif -%}
+		{%- if module.design_settings.card_styles.text_color == "custom" %}
+		color: {{ module.design_settings.card_styles.text_color_custom.css }};
+		{%- endif -%}
+		{% if module.design_settings.card_styles.meta_border_radius >= 0 %}
+		border-radius: {{ module.design_settings.card_styles.meta_border_radius }}px;
+		{% endif %}
+		{% if module.design_settings.card_styles.text_align %}
+		{{module.design_settings.card_styles.text_align.css|lower}}
+		{% endif %}
+	}
+
+	.{{name}} .blaze-slider {
+		--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.xl }};
+		--slide-gap: 30px;
+	}
+	@media only screen and (max-width: 1199px) {
+		.{{name}} .blaze-slider {
+			--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.lg }};
+		}
+	}
+	@media only screen and (max-width: 991px) {
+		.{{name}} .blaze-slider {
+			--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.md }};
+		}
+	}
+	@media only screen and (max-width: 768px) {
+		.{{name}} .blaze-slider {
+			--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.sm }};
+		}
+	}
+</style>
+{% end_require_css %}
+
+{% set width_class =
+module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+'col-lg-12'
+%}
+
+
+<div class="sr-cards-team-04 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }}  {% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+	
+	{{ macros.module_bg_video(module) }}
+
+	<div class="{{ module.design_settings.layout }}">
+
+		{% if module.design_settings.container_width != 'max' %}
+		<div class="row">
+			<div class="{{ width_class }}">
+		{% endif %}
+
+				{% if module.heading || module.description %}
+				<div class="{{ macros.text_align(module.design_settings) }} sr-spacer-bottom-50 text-{{ module.design_settings.text_color }}">
+					{{ macros.heading(module.heading)}}
+					{% if module.description %}
+					<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+					{% endif %}
+				</div>
+				{% endif %}
+
+				{% set slider = module.team_members|length >= 4 %}
+				<div class="{{name}} blaze-slider slider-{{ slider }}" data-autoplay="{{ module.autoplay }}" data-autoplayspeed="{{ module.autoplay_speed }}" {{ macros.slides_to_show(module.design_settings) }} style="--dots-color:{{module.design_settings.slide_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slide_styles.dots_color_default.css}};--arrows-color:{{module.design_settings.slide_styles.arrows_color.css}}">
+					<div class="blaze-container">
+
+						{% if module.arrows && slider %}
+						<button aria-label="Previous Slide" type="button" class="blaze-arrow blaze-prev chevron-left">{% icon name="chevron-left" style="SOLID" unicode="f053" icon_set="fontawesome-5.14.0" width="12" height="12" no_wrapper=true %}</button>
+						{% endif %}
+
+						<div class="blaze-track-container">
+							<div class="blaze-track">
+								{% for item in module.team_members %}
+								<div class="{% if item.text_color != 'auto' %} text-{{item.text_color}}{% endif %} slider-item">
+									<div class="content-wrapper">
+										{% if item.image_link.url.href %}<a {{ macros.link(item.image_link)}}>{% else %}<div>{% endif %}
+											<div class="sr-cards-team__image">
+												{{ macros.image(item.member_image) }}
+												<div class="sr-cards-team__info description">
+													<h3 class="sr-cards-team__name mb-0 h6">
+														{{ item.team_name }}
+													</h3>
+													{% if item.role %}
+													<div class="sr-cards-team__role">
+														{{ item.role }}
+													</div>
+													{% endif %}
+												</div>
+											</div>
+										{% if item.image_link.url.href %}</a>{% else %}</div>{% endif %}
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+
+						{% if module.arrows && slider %}
+						<button aria-label="Next Slide" type="button" class="blaze-arrow blaze-next chevron-right">{% icon name="chevron-right" style="SOLID" unicode="f054" icon_set="fontawesome-5.14.0" width="12" height="12" no_wrapper=true %}</button>
+						{% endif %}
+
+						{% if module.dots && slider %}
+						<div class="blaze-pagination mt-4"></div>
+						{% endif %}
+
+					</div>
+				</div>
+
+		{% if module.design_settings.container_width != 'max' %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+{% if slider %}
+{{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+{% endif %}
+
+{% endif %}

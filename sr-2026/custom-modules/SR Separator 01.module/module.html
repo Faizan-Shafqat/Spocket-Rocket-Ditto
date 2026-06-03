@@ -1,0 +1,68 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{ name }} .separator-line:before, .{{ name }} .separator-line:after{
+			content: '';
+			flex: 1;
+			{% if module.line_color == 'custom' %}
+			border-bottom: {{ module.line_size }}px {{ module.line_style }} {{ module.line_color_custom.css }};
+			{% elif module.line_color == 'auto' %}
+			border-bottom: {{ module.line_size }}px {{ module.line_style }} currentColor;
+			{% else %}
+			border-bottom: {{ module.line_size }}px {{ module.line_style }} var(--{{ module.line_color }});
+			{% endif %}
+			margin: auto;
+		}
+		{% if module.separator_type == 'text' %}
+		.{{ name }} .separator-text {
+			font-size: {{ module.text_size / 16}}rem;
+			line-height: 1.25;
+			text-align: center;
+			display: block;
+		}
+		{% endif %}
+	</style>
+	{% end_require_css %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-separator-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+	{{ macros.module_bg_video(module) }}
+		<div class="{{ module.design_settings.layout }} px-0">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+				<div class="separator-line {% if module.separator_type == 'shadow' %}separator-line--shadow{% endif %}">
+					<div>
+						{% if module.separator_type == 'text' %}
+						<span class="separator-text">{{ module.text }}</span>
+						{% elif module.separator_type == 'image' %}
+						{{ macros.image(module.image) }}
+						{% elif module.separator_type == 'icon' %}
+						{% icon
+							name="{{ module.icon.name }}"
+							style="{{ module.icon.type }}"
+							unicode="{{ module.icon.unicode }}"
+							icon_set="{{ module.icon.icon_set }}"
+							width="{{ module.icon_size }}"
+						%}
+						{% endif %}
+					</div>
+				</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

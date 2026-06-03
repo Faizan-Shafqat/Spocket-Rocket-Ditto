@@ -1,0 +1,142 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+	
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-md-12'
+	%}
+	
+	<div class="sr-multicol-media sr-event-details-01 {{ name }} {{ macros.text_align(module.design_settings) }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+	
+		{{ macros.module_bg_video(module) }}
+	
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+	
+					<div class="mb-5">
+						{{ macros.heading(module.heading)}}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+						{% endif %}
+					</div>
+	
+					<div class="img-wrapper position-relative">
+						{% if module.image.src %}
+						<div class="responsive-image mn">
+							{{ macros.image(module.image, "{{ 'style=\"--img-corner: {{ module.image_corner_radius }}px\"' if module.image_corner_radius }}") }}
+						</div>
+						{% endif %}
+	
+						<div class="d-flex flex-column event-meta" {{ 'style=\"border-radius: {{ module.image_corner_radius / 2 }}px\"' if module.image_corner_radius }}>
+							{% if module.length %}
+							<div class="listing-legnth text-heading small d-flex align-items-center mb-3">
+								<svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+									<path d="M19 4.48547H17V3.48547C17 3.22026 16.8946 2.9659 16.7071 2.77837C16.5196 2.59083 16.2652 2.48547 16 2.48547C15.7348 2.48547 15.4804 2.59083 15.2929 2.77837C15.1054 2.9659 15 3.22026 15 3.48547V4.48547H9V3.48547C9 3.22026 8.89464 2.9659 8.70711 2.77837C8.51957 2.59083 8.26522 2.48547 8 2.48547C7.73478 2.48547 7.48043 2.59083 7.29289 2.77837C7.10536 2.9659 7 3.22026 7 3.48547V4.48547H5C4.20435 4.48547 3.44129 4.80154 2.87868 5.36415C2.31607 5.92676 2 6.68982 2 7.48547V19.4855C2 20.2811 2.31607 21.0442 2.87868 21.6068C3.44129 22.1694 4.20435 22.4855 5 22.4855H19C19.7956 22.4855 20.5587 22.1694 21.1213 21.6068C21.6839 21.0442 22 20.2811 22 19.4855V7.48547C22 6.68982 21.6839 5.92676 21.1213 5.36415C20.5587 4.80154 19.7956 4.48547 19 4.48547ZM20 19.4855C20 19.7507 19.8946 20.005 19.7071 20.1926C19.5196 20.3801 19.2652 20.4855 19 20.4855H5C4.73478 20.4855 4.48043 20.3801 4.29289 20.1926C4.10536 20.005 4 19.7507 4 19.4855V12.4855H20V19.4855ZM20 10.4855H4V7.48547C4 7.22026 4.10536 6.9659 4.29289 6.77837C4.48043 6.59083 4.73478 6.48547 5 6.48547H7V7.48547C7 7.75069 7.10536 8.00504 7.29289 8.19258C7.48043 8.38012 7.73478 8.48547 8 8.48547C8.26522 8.48547 8.51957 8.38012 8.70711 8.19258C8.89464 8.00504 9 7.75069 9 7.48547V6.48547H15V7.48547C15 7.75069 15.1054 8.00504 15.2929 8.19258C15.4804 8.38012 15.7348 8.48547 16 8.48547C16.2652 8.48547 16.5196 8.38012 16.7071 8.19258C16.8946 8.00504 17 7.75069 17 7.48547V6.48547H19C19.2652 6.48547 19.5196 6.59083 19.7071 6.77837C19.8946 6.9659 20 7.22026 20 7.48547V10.4855Z" fill="#151515"/>
+								</svg>
+								{{ module.length }}
+							</div>
+							{% endif %}
+							<div class="d-flex flex-wrap align-items-center event-heading">
+								{% if module.price || module.promo_price %}
+								<div class="d-flex align-items-center">
+									{% if module.price %}
+									<div class="price h3 mb-0 {{ 'strikeout text-body_color' if module.promo_price }}">{{ module.price }}</div>
+									{% endif %}
+									{% if module.promo_price %}
+									<div class="promo-price h3 mb-0 ml-4 ">{{ module.promo_price }}</div>
+									{% endif %}
+								</div>
+								{% endif %}
+								{% if module.stars.stars %}
+								<div class="stars ml-5">
+									{% for i in range(0, module.stars.stars) %}
+									<svg style="color: {{ module.stars.color.css }};" xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+										<path d="M7.02447 0.463525C7.17415 0.00286961 7.82585 0.00287008 7.97553 0.463525L9.29611 4.52786C9.36305 4.73388 9.55503 4.87336 9.77164 4.87336L14.0451 4.87336C14.5295 4.87336 14.7309 5.49316 14.339 5.77786L10.8817 8.28976C10.7065 8.41709 10.6331 8.64277 10.7001 8.84878L12.0206 12.9131C12.1703 13.3738 11.6431 13.7568 11.2512 13.4721L7.79389 10.9602C7.61865 10.8329 7.38135 10.8329 7.20611 10.9602L3.74877 13.4721C3.35692 13.7568 2.82968 13.3738 2.97935 12.9131L4.29994 8.84878C4.36687 8.64277 4.29355 8.41709 4.1183 8.28976L0.660968 5.77786C0.269111 5.49316 0.470499 4.87336 0.954861 4.87336L5.22836 4.87336C5.44497 4.87336 5.63695 4.73388 5.70389 4.52786L7.02447 0.463525Z" fill="currentColor"/>
+									</svg>
+									{% endfor %}
+								</div>
+								{% endif %}
+							</div>
+							{% if module.location %}
+							<div class="listing-location text-heading small d-flex align-items-center">
+								{{ module.location }}
+							</div>
+							{% endif %}
+						</div>
+					</div>
+	
+					{% if module.listing_features %}
+					<div class="listing-features sr-spacer-50">
+						<div class="column_features" style="--gap: 30px">
+							{% for feature in module.listing_features %}
+							<div class="column_feature{% if !feature.heading || (!feature.description && feature.heading|length == 1) %} align-items-center{% endif %}">
+								<div>
+									{% if feature.icon.icon_type == 'icon' %}
+									<span class="icon-icon" style="--icon-width: {{ feature.icon.icon_size ~ "px" }}; --icon-color: {{ feature.icon.icon_color.css }};{% if feature.icon.icon_background.opacity != 0 %} --icon-background: {{ feature.icon.icon_background.css }};{% endif %}">
+										{% icon
+											name="{{ feature.icon.icon.name }}"
+											style="{{ feature.icon.icon.type }}"
+											unicode="{{ feature.icon.icon.unicode }}"
+											icon_set="{{ feature.icon.icon.icon_set }}"
+											no_wrapper=true
+										%}
+									</span>
+									{% else %}
+									<span class="icon-image" style="--icon-width: {{ feature.icon.image.width }}px">
+										{{ macros.image(feature.icon.image) }}
+									</span>
+									{% endif %}
+								</div>
+								<div>
+									{{ macros.heading(feature.heading)}}
+									{% if feature.description %}
+									<div class="description mt-2 {% if feature.lead_text %} lead{% endif %}">
+										{{ feature.description }}
+									</div>
+									{% endif %}
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+					{% endif %}
+	
+					{% if module.listing_sections %}
+					<div class="listing-sections">
+						{% for section in module.listing_sections %}
+						<div class="listing-section">
+							{{ macros.heading(section.heading)}}
+							<div class="listing-row no-gutters">
+								{% for section_item in section.section_items %}
+								<div class="col">
+									{{ macros.heading(section_item.heading)}}
+									{% if section_item.description %}
+									<div class="section_item description{% if section_item.lead_text %} lead{% endif %}">{{ section_item.description }}</div>
+									{% endif %}
+									{{ macros.cta(section_item.ctas, '{{ "sr-spacer-top-25" if section_item.description || section_item.heading }}') }}
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+					{% endif %}
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+	</style>
+	{% end_require_css %}
+	{% endif %}

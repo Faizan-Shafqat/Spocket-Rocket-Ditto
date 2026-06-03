@@ -1,0 +1,190 @@
+# SR Cards Three Cols 01
+
+**Slug:** `sr-cards-three-cols-01`
+**HubSpot module ID:** 210345441381
+**Inferred category:** Cards
+**Documentation:** https://docs.sprocketrocket.co/
+**Host templates:** PAGE, BLOG_POST, BLOG_LISTING
+**Content types:** LANDING_PAGE, SITE_PAGE, BLOG_LISTING, BLOG_POST
+**Available for new content:** yes
+
+**Module path:** `sr-2026/custom-modules/SR Cards Three Cols 01.module`
+
+## Notable defaults
+- design_settings.background_option: default background: image
+
+## Top-level groups
+- **design_settings** (group) — Design Settings
+  - **design_settings.card_styles** (group) — Card Styles
+  - **design_settings.responsive_settings** (group) — Responsive Settings
+    - **design_settings.responsive_settings.tablet** (group) — Tablet
+    - **design_settings.responsive_settings.mobile** (group) — Mobile
+- **heading** (group) — Heading
+- **columns** (group — repeater(default=2, max=2)) — Columns
+  - **card_heading** (group) — Heading
+  - **card_cta** (group) — CTA
+    - **card_cta.default** (group — when card_cta.cta_style EQUAL custom) — Default
+    - **card_cta.hover** (group — when card_cta.cta_style EQUAL custom) — Hover
+    - **card_cta.icon** (group — when card_cta.cta_type NOT_EQUAL cta AND card_cta.add_icon EQUAL true) — Icon
+- **middle_column** (group) — Middle Column
+  - **column_styles** (group) — Styles
+    - **43dab781-0fa9-9b82-ccb3-ea586daf0236** (group — when middle_column.column_styles.background EQUAL gradient) — Background Gradient
+    - **63d0f74e-8e8a-e7eb-0523-803cefdb01c4** (group) — Padding
+    - **9c0d4f52-d90b-c9e3-35c1-6cc193e78f6d** (group) — Border
+  - **middle_card_heading** (group) — Heading
+  - **middle_card_cta** (group) — CTA
+    - **middle_card_cta.default** (group — when middle_card_cta.cta_style EQUAL custom) — Default
+    - **middle_card_cta.hover** (group — when middle_card_cta.cta_style EQUAL custom) — Hover
+    - **middle_card_cta.icon** (group — when middle_card_cta.cta_type NOT_EQUAL cta AND middle_card_cta.add_icon EQUAL true) — Icon
+
+## Fields
+- `background_video` (file/video) — Background Video [when design_settings.background_option EQUAL video] — _Add multiple file formats in order to provide compatibility with a broad range of browsers_
+- `background_video_md` (file/video) — Background Video Tablet [when design_settings.responsive_settings.mobile.mobile_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX video] — _This background video will only be used on tablet devices_
+- `background_video_sm` (file/video) — Background Video Mobile [when design_settings.responsive_settings.mobile.mobile_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX video] — _This background video will only be used on mobile devices_
+- `enabled` (boolean) — Enabled
+- `sr_module_id` (text) — ID — _Assign a ID to the module_
+- `class` (text) — Class — _Assign a CLASS to the module_
+- `card_styles.background_color` (choice) — Background Color [required]
+- `card_styles.background_custom` (color) — Background Color [when card_styles.background_color EQUAL custom]
+- `card_styles.text_color` (choice) — Text Color [required]
+- `card_styles.text_color_custom` (color) — Text Color [when card_styles.text_color EQUAL custom]
+- `card_styles.spacing` (spacing) — Spacing
+- `design_settings.card_styles.border` (border) — Border
+- `design_settings.card_styles.border_radius` (number) — Border Radius
+- `design_settings.card_styles.shadow` (boolean) — Shadow
+- `design_settings.card_styles.horizontal` (number) — Horizontal [when design_settings.card_styles.shadow EQUAL true] — _A positive value puts the shadow on the right side of the box, a negative value puts the shadow on the left side of the box_
+- `design_settings.card_styles.vertical` (number) — Vertical [when design_settings.card_styles.shadow EQUAL true] — _The vertical offset of the shadow. A positive value puts the shadow below the box, a negative value puts the shadow above the box_
+- `design_settings.card_styles.blur` (number) — Blur [when design_settings.card_styles.shadow EQUAL true] — _The blur radius. The higher the number, the more blurred the shadow will be_
+- `design_settings.card_styles.spread` (number) — Spread [when design_settings.card_styles.shadow EQUAL true] — _The spread radius. A positive value increases the size of the shadow, a negative value decreases the size of the shadow_
+- `design_settings.card_styles.inset` (boolean) — Inset [when design_settings.card_styles.shadow EQUAL true] — _Changes the shadow to an inner shadow_
+- `design_settings.card_styles.color` (color) — Color [when design_settings.card_styles.shadow EQUAL true] — _The color of the shadow_
+- `design_settings.layout` (choice) — Layout [required]
+- `design_settings.container_width` (choice) — Container Width [required] — _Maximum: 100% of the container Wide: 83% of the container Narrow: 66% of the container Minimum: 50% of the container_
+- `design_settings.top_bottom_padding` (choice) — Top Bottom Padding [required] — _Use default values: Uses any inherit padding valuesNo Padding: Set padding to 0Small: Uses a preset small paddingLarge: Uses a preset lar…_
+- `design_settings.spacing` (spacing) — Spacing [when design_settings.top_bottom_padding EQUAL custom]
+- `design_settings.background_option` (choice) — Background Option [required]
+- `design_settings.background_image` (backgroundimage) — Background Image [when design_settings.background_option MATCHES_REGEX image|video] — _Source for background image or before the video loads_
+- `design_settings.background_overlay_color` (color) — Background Overlay Color [when design_settings.background_option MATCHES_REGEX image|video] — _Overlay color on top of the image/video_
+- `design_settings.background_color` (choice) — Background Color [when design_settings.background_option EQUAL color] [required]
+- `design_settings.background_custom` (color) — Background Color [when design_settings.background_option MATCHES_REGEX custom|image|video] — _For transparent images or before the image/video loads_
+- `design_settings.background_gradient` (gradient) — Background Gradient [when design_settings.background_option EQUAL gradient]
+- `b2775136-cbf8-999c-2281-662e175a3ff5` (boolean) — Fixed Background [when design_settings.background_option EQUAL image]
+- `design_settings.text_align` (textalignment) — Text Align
+- `design_settings.text_color` (choice) — Text Color [required] — _Set to Auto to use the default text colorSet to Custom to set a custom text color_
+- `design_settings.text_color_custom` (color) — Text Color [when design_settings.text_color EQUAL custom]
+- `design_settings.border` (border) — Border
+- `design_settings.responsive_settings.tablet.tablet_text_align` (textalignment) — Text Align
+- `design_settings.responsive_settings.tablet.tablet_top_bottom_padding` (choice) — Top Bottom Padding [required]
+- `design_settings.responsive_settings.tablet.tablet_spacing` (spacing) — Tablet Spacing [when design_settings.responsive_settings.tablet.tablet_top_bottom_padding EQUAL custom]
+- `design_settings.responsive_settings.tablet.tablet_background_option` (choice) — Background Option [required]
+- `design_settings.responsive_settings.tablet.tablet_background_image` (backgroundimage) — Background Image [when design_settings.responsive_settings.tablet.tablet_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX image|video] — _Source for background image or before the video loads_
+- `design_settings.responsive_settings.tablet.tablet_background_overlay_color` (color) — Background Overlay Color [when design_settings.responsive_settings.tablet.tablet_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX image|video] — _Overlay color on top of the image/video_
+- `design_settings.responsive_settings.tablet.tablet_background_color` (choice) — Background Color [when design_settings.responsive_settings.tablet.tablet_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX color] [required]
+- `design_settings.responsive_settings.tablet.tablet_background_custom` (color) — Background Color [when design_settings.responsive_settings.tablet.tablet_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX custom|image|video] — _For transparent images or before the image/video loads_
+- `design_settings.responsive_settings.tablet.tablet_background_gradient` (gradient) — Background Gradient [when design_settings.responsive_settings.tablet.tablet_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX gradient]
+- `design_settings.responsive_settings.tablet.tablet_fixed_background` (boolean) — Fixed Background [when design_settings.responsive_settings.tablet.tablet_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX image|video]
+- `design_settings.responsive_settings.mobile.mobile_text_align` (textalignment) — Text Align
+- `design_settings.responsive_settings.mobile.mobile_top_bottom_padding` (choice) — Top Bottom Padding [required]
+- `design_settings.responsive_settings.mobile.mobile_spacing` (spacing) — Mobile Spacing [when design_settings.responsive_settings.mobile.mobile_top_bottom_padding EQUAL custom]
+- `design_settings.responsive_settings.mobile.mobile_background_option` (choice) — Background Option [required]
+- `design_settings.responsive_settings.mobile.mobile_background_image` (backgroundimage) — Background Image [when design_settings.responsive_settings.mobile.mobile_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX image|video] — _Source for background image or before the video loads_
+- `design_settings.responsive_settings.mobile.mobile_background_overlay_color` (color) — Background Overlay Color [when design_settings.responsive_settings.mobile.mobile_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX image|video] — _Overlay color on top of the image/video_
+- `design_settings.responsive_settings.mobile.mobile_background_color` (choice) — Background Color [when design_settings.responsive_settings.mobile.mobile_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX color] [required]
+- `design_settings.responsive_settings.mobile.mobile_background_custom` (color) — Background Color [when design_settings.responsive_settings.mobile.mobile_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX custom|image|video] — _For transparent images or before the image/video loads_
+- `design_settings.responsive_settings.mobile.mobile_background_gradient` (gradient) — Background Gradient [when design_settings.responsive_settings.mobile.mobile_background_option EQUAL custom AND design_settings.background_option MATCHES_REGEX gradient]
+- `heading.heading` (text) — Heading
+- `heading.heading_size` (choice) — Size [required] — _HTML heading size_
+- `heading.heading_display_size` (choice) — Display Size [required] — _Size that heading is displayed at_
+- `heading.heading_color` (choice) — Color [required]
+- `heading.heading_color_custom` (color) — Color [when heading.heading_color EQUAL custom]
+- `heading.heading_align` (choice) — Align [required]
+- `heading.class` (text) — CSS Class
+- `description` (richtext) — Description
+- `lead_text` (boolean) — Lead Text — _Turn on to make the Description text larger_
+- `columns.card_image` (image) — Image
+- `card_heading.heading` (text) — Heading
+- `card_heading.heading_size` (choice) — Size [required] — _HTML heading size_
+- `card_heading.heading_display_size` (choice) — Display Size [required] — _Size that heading is displayed at_
+- `card_heading.heading_color` (choice) — Color
+- `card_heading.heading_color_custom` (color) — Color [when card_heading.heading_color EQUAL custom]
+- `card_heading.heading_align` (choice) — Align [required]
+- `columns.card_heading.class` (text) — CSS Class
+- `columns.card_description` (richtext) — Description
+- `columns.lead_text` (boolean) — Lead Text — _Turn on to make the Description text larger_
+- `card_cta.cta_type` (choice) — CTA Type [required]
+- `card_cta.cta_style` (choice) — CTA Style [when card_cta.cta_type NOT_EQUAL none] [required]
+- `columns.ctas.default.background` (color) — Background
+- `columns.ctas.default.text` (color) — Text
+- `columns.ctas.default.border` (color) — Border
+- `columns.ctas.hover.background` (color) — Background
+- `columns.ctas.hover.text` (color) — Text
+- `columns.ctas.hover.border` (color) — Border Color
+- `card_cta.cta` (cta) — CTA [when card_cta.cta_type EQUAL cta]
+- `card_cta.button_text` (text) — Button Text [when card_cta.cta_type MATCHES_REGEX btn|modal]
+- `card_cta.modal_target` (text) — Modal Target [when card_cta.cta_type EQUAL modal]
+- `card_cta.link` (link) — Link [when card_cta.cta_type EQUAL btn]
+- `card_cta.payment` (payment) — Payment link [when card_cta.cta_type EQUAL hs_payment]
+- `card_cta.checkout_location` (choice) — Checkout behavior [when card_cta.payment MATCHES_REGEX id":\d+ AND card_cta.cta_type EQUAL hs_payment]
+- `card_cta.cta_size` (choice) — CTA Size [when card_cta.cta_type NOT_EQUAL none] [required]
+- `card_cta.add_icon` (boolean) — Add icon [when card_cta.cta_type NOT_EQUAL cta]
+- `card_cta.icon.icon` (icon) — Icon [required]
+- `card_cta.icon.position` (choice) — Position [required]
+- `card_cta.icon.purpose` (choice) — Purpose [required] — _The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden="true" will be added to the…_
+- `middle_column.column_styles.background_color` (choice) — Background [required]
+- `middle_column.column_styles.background_custom` (color) — Background Color [when middle_column.column_styles.background_color EQUAL custom]
+- `74045b62-9ca4-6d2e-988b-c795796948c8` (color) — Background Overlay Color
+- `a2b31abb-a027-17fb-66e5-c43b2dfecfa3` (choice) — Direction [required]
+- `20038fca-c3e7-aa5d-6225-31d0c70f499e` (color) — Color [repeater(default=2, max=∞)]
+- `middle_column.column_styles.backdrop_blur` (number) — Backdrop Blur
+- `8557dd26-72ce-e3b3-aa50-9bfd074738ab` (number) — Top
+- `8a94bfb0-85dd-31cd-077f-462db2d64ede` (number) — Bottom
+- `8b33a7fe-88f3-947e-b9b9-e9cfc63af6cc` (number) — Left
+- `bdbc3381-e584-bcda-ca8d-94e9e470e2fd` (number) — Right
+- `middle_column.column_styles.text_align` (choice) — Text Align [required]
+- `a51d243d-b617-1e91-79cc-d1173827fe09` (choice) — Style [required]
+- `72ebb26d-d93b-4a0a-bef4-53537ac4cf88` (color) — Color [when a51d243d-b617-1e91-79cc-d1173827fe09 NOT_EQUAL none]
+- `5239df55-22de-f08b-2335-8ded36d75a86` (number) — Width [when a51d243d-b617-1e91-79cc-d1173827fe09 NOT_EQUAL none]
+- `8e889739-2bf7-a2e1-c139-d29622b71a16` (number) — Radius [when a51d243d-b617-1e91-79cc-d1173827fe09 NOT_EQUAL none]
+- `655c2b51-ab98-1fc3-a197-14c818c99ede` (boolean) — Top [when a51d243d-b617-1e91-79cc-d1173827fe09 NOT_EQUAL none]
+- `4039e651-f175-b512-3ee7-11fcfa60c32d` (boolean) — Bottom [when a51d243d-b617-1e91-79cc-d1173827fe09 NOT_EQUAL none]
+- `762e0add-42b0-1018-22db-3ae14469a725` (boolean) — Left [when a51d243d-b617-1e91-79cc-d1173827fe09 NOT_EQUAL none]
+- `93d314f3-a1f7-434a-52d0-7672ccd001d2` (boolean) — Right [when a51d243d-b617-1e91-79cc-d1173827fe09 NOT_EQUAL none]
+- `column_styles.shadow` (boolean) — Shadow
+- `column_styles.horizontal` (number) — Horizontal [when column_styles.shadow EQUAL true] — _A positive value puts the shadow on the right side of the box, a negative value puts the shadow on the left side of the box_
+- `column_styles.vertical` (number) — Vertical [when column_styles.shadow EQUAL true] — _The vertical offset of the shadow. A positive value puts the shadow below the box, a negative value puts the shadow above the box_
+- `column_styles.blur` (number) — Blur [when column_styles.shadow EQUAL true] — _The blur radius. The higher the number, the more blurred the shadow will be_
+- `column_styles.spread` (number) — Spread [when column_styles.shadow EQUAL true] — _The spread radius. A positive value increases the size of the shadow, a negative value decreases the size of the shadow_
+- `column_styles.inset` (boolean) — Inset [when column_styles.shadow EQUAL true] — _Changes the shadow to an inner shadow_
+- `column_styles.color` (color) — Color [when column_styles.shadow EQUAL true] — _The color of the shadow_
+- `middle_column.middle_card_image` (image) — Image — _Recommended Size: 1080x1420px_
+- `middle_card_heading.heading` (text) — Heading
+- `middle_card_heading.heading_size` (choice) — Size [required] — _HTML heading size_
+- `middle_card_heading.heading_display_size` (choice) — Display Size [required] — _Size that heading is displayed at_
+- `middle_card_heading.heading_color` (choice) — Color
+- `middle_card_heading.heading_color_custom` (color) — Color [when middle_card_heading.heading_color EQUAL custom]
+- `middle_card_heading.heading_align` (choice) — Align [required]
+- `middle_column.middle_card_heading.class` (text) — CSS Class
+- `middle_column.middle_card_description` (richtext) — Description
+- `middle_column.lead_text` (boolean) — Lead Text — _Turn on to make the Description text larger_
+- `middle_card_cta.cta_type` (choice) — CTA Type [required]
+- `middle_card_cta.cta_style` (choice) — CTA Style [when middle_card_cta.cta_type NOT_EQUAL none] [required]
+- `middle_column.ctas.default.background` (color) — Background
+- `middle_column.ctas.default.text` (color) — Text
+- `middle_column.ctas.default.border` (color) — Border
+- `middle_column.ctas.hover.background` (color) — Background
+- `middle_column.ctas.hover.text` (color) — Text
+- `middle_column.ctas.hover.border` (color) — Border Color
+- `middle_card_cta.cta` (cta) — CTA [when middle_card_cta.cta_type EQUAL cta]
+- `middle_card_cta.button_text` (text) — Button Text [when middle_card_cta.cta_type MATCHES_REGEX btn|modal]
+- `middle_card_cta.modal_target` (text) — Modal Target [when middle_card_cta.cta_type EQUAL modal]
+- `middle_card_cta.link` (link) — Link [when middle_card_cta.cta_type EQUAL btn]
+- `middle_card_cta.payment` (payment) — Payment link [when middle_card_cta.cta_type EQUAL hs_payment]
+- `middle_card_cta.checkout_location` (choice) — Checkout behavior [when middle_card_cta.payment MATCHES_REGEX id":\d+ AND middle_card_cta.cta_type EQUAL hs_payment]
+- `middle_card_cta.cta_size` (choice) — CTA Size [when middle_card_cta.cta_type NOT_EQUAL none] [required]
+- `middle_card_cta.add_icon` (boolean) — Add icon [when middle_card_cta.cta_type NOT_EQUAL cta]
+- `middle_card_cta.icon.icon` (icon) — Icon [required]
+- `middle_card_cta.icon.position` (choice) — Position [required]
+- `middle_card_cta.icon.purpose` (choice) — Purpose [required] — _The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden="true" will be added to the…_
+- `middle_column.content_align` (choice) — Content Vertical Alignment
+- `middle_card.text_color` (choice) — Text Color [required] — _Set to Auto to use the default text colorSet to Custom to set a custom text color_
+- `middle_card.text_color_custom` (color) — Text Color [when middle_card.text_color EQUAL custom]

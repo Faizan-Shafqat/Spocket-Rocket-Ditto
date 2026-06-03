@@ -1,0 +1,91 @@
+.sr-tabs-accordion-02 .container {
+    position: relative
+}
+
+.sr-tabs-accordion-02 .details-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.sr-tabs-accordion-02 .details {
+    overflow: hidden;
+    transition: height 300ms ease-in-out;
+}
+
+.sr-tabs-accordion-02 .details__summary {
+    list-style: none;
+    position: relative;
+    transition: color .3s ease-in-out;
+    cursor: pointer;
+    position: relative;
+}
+
+.sr-tabs-accordion-02 .details__content {
+    position: relative;
+}
+
+.sr-tabs-accordion-02 .details__summary::-webkit-details-marker {
+    display: none;
+}
+
+.sr-tabs-accordion-02 .details__summary::-webkit-details-marker {
+    display: none;
+}
+
+.sr-tabs-accordion-02 .details-icon {
+    height: 2rem;
+    pointer-events: none;
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    border-radius: 100%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+    width: 2rem;
+}
+
+.sr-tabs-accordion-02 .details-icon:before,
+.sr-tabs-accordion-02 .details-icon:after {
+    content: "";
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.sr-tabs-accordion-02 .details-icon:before {
+    height: .125rem;
+    width: 1rem;
+}
+
+.sr-tabs-accordion-02 .details-icon:after {
+    height: 1rem;
+    transition: all .2s ease-in;
+    width: .125rem;
+}
+
+.sr-tabs-accordion-02 [open] .details-icon:after {
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%) rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sr-tabs-accordion-02 .details,
+    .sr-tabs-accordion-02 .details__summary,
+    .sr-tabs-accordion-02 .details-icon {
+        transition: none;
+    }
+}
+
+@media(min-width: 992px) {
+    .sr-tabs-accordion-02 .details-group {
+        padding-top: 3.125rem;
+    }
+}

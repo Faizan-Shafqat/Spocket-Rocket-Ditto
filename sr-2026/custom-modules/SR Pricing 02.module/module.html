@@ -1,0 +1,120 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-pricing-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					{% if module.heading || module.description %}
+					<div class="text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} sr-spacer-bottom-75">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">
+							{{ module.description}}
+						</div>
+						{% endif %}
+					</div>
+					{% endif %}
+					<div class="row align-items-center flex-lg-row">
+						{% if module.pricing_description || module.pricing_heading %}
+						<div class="{{ macros.col_size(module.columns.left_column) }} text-{{ module.design_settings.text_color }}">
+							{{ macros.heading(module.pricing_heading) }}
+							{% if module.pricing_description %}
+							<div class="pricing_description{% if module.pricing_description_lead_text %} lead{% endif %}">
+								{{ module.pricing_description }}
+							</div>
+							{% endif %}
+						</div>
+						{% endif %}
+						<div class="{{ macros.col_size(module.columns.right_column) }}">
+							<div class="cards card-row align-items-center cards-{{module.column|length}}">
+								{% for item in module.column %}
+								<div class="card sr-card sr-border text-{{ module.design_settings.card_styles.text_color }} {% if item.highlight_plan %}active{% endif %} col-auto" {% if item.highlight_plan %}style="background: linear-gradient(134.57deg, {{item.card_gradient_from.color}} 0%, {{item.card_gradient_to.color}} 100%); color: {{ item.column_text_color.css }} !important"{% endif %}>
+									<div class="card-inner">
+										<div class="pricing-name">
+											{{ macros.heading(item.pricing_name) }}
+										</div>
+										{{ macros.heading(item.price) }}
+
+										{{ macros.cta(item.ctas, 'btn-block sr-spacer-top-25') }}
+
+										<ul class="feature-list">
+											{% for item2 in item.features %}
+											<li>
+												{% if item2.icon.icon_type == 'icon' %}
+                                                <span class="icon-icon" style="--icon-width: {{ item2.icon.icon_size|default(12) ~ 'px' }};--icon-color: {{item2.icon.icon_color.css}};{% if item2.icon.icon_background.opacity != 0 %} --icon-background: {{item2.icon.icon_background.css}};{% endif %}" role="presentation">
+                                                    {% icon
+                                                        name="{{ item2.icon.icon.name }}"
+                                                        style="{{ item2.icon.icon.type }}"
+                                                        unicode="{{ item2.icon.icon.unicode }}"
+                                                        icon_set="{{ item2.icon.icon.icon_set }}"
+                                                        width="{{ item2.icon.icon_size }}"
+                                                        no_wrapper=true
+                                                    %}
+                                                </span>
+                                                {% else %}
+                                                <span class="icon-image" style="--icon-width: {{item2.icon.image.width}}px" role="presentation">
+                                                    {{ macros.image(item2.icon.image) }}
+                                                </span>
+                                                {% endif %}
+												{{ item2.feature }}
+											</li>
+											{% endfor %}
+										</ul>
+
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+
+					{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+
+		.{{ name }} .sr-card {
+			{{ module.design_settings.card_styles.spacing.css }}
+			{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient.css }};
+			{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom.css }};
+			{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{%- endif -%}
+			{% if module.design_settings.card_styles.border.css %}
+			{{ module.design_settings.card_styles.border.css }}
+			{% endif %}
+			{% if module.design_settings.card_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+			{% endif %}
+			{% if module.design_settings.card_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+			{% endif %}
+		}
+	</style>
+	{% end_require_css %}
+{% endif %}

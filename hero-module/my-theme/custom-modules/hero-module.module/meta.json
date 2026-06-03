@@ -1,0 +1,12 @@
+{
+  "label": "Hero Module",
+  "host_template_types": ["PAGE", "BLOG_POST", "BLOG_LISTING"],
+  "is_available_for_new_content": true,
+  "categories": ["TEXT", "MEDIA"],
+  "icon": "https://cdn2.hubspotqa.com/hubfs/423190/module-icons/hero.svg",
+  "description": "Hero with hardcoded typography in module.css; copy and CTA (default: Get Started) in page editor fields.",
+  "content_types": ["SITE_PAGE", "LANDING_PAGE", "BLOG_POST", "BLOG_LISTING"],
+  "tags": ["hero", "banner", "header"],
+  "is_DEPRECATED": false,
+  "editable_contexts": ["TEMPLATE", "CONTENT"]
+}

@@ -1,0 +1,292 @@
+
+<div class="pricing-comparison srp {{ name }}" data-toggle="srpone">
+	<div class="{{ "md:grid grid-cols-2" if (module.style.pricing_toggle.position == "left" || module.style.pricing_toggle.position == "right") && module.pricing_toggle.enabled }}">
+		{% if module.style.pricing_toggle.position == "right" || module.style.pricing_toggle.position == "bottom" || !module.pricing_toggle.enabled %}
+		<div class="pricing-comparison txt-{{ module.style.heading.text_alignment.text_align|lower }} ">
+			<{{ module.heading_tag }} class="m-0 mb-3">{{ module.heading }}</{{ module.heading_tag }}>
+			<div class="pricing-comparison srp-description mt-2">{{ module.description }}</div>
+		</div>
+		{% endif %}
+		{% if module.pricing_toggle.enabled %}
+		<div class="pricing_toggle md:txt-{{ module.style.pricing_toggle.position == "top" || module.style.pricing_toggle.position == "bottom" ? module.style.heading.text_alignment.text_align|lower : module.style.pricing_toggle.position }} txt-{{ module.style.heading.text_alignment.text_align|lower }} {{ "mt-10" if module.style.pricing_toggle.position == "bottom" }}">
+			{% if module.pricing_toggle.heading %}
+			<p class="m-0 inline-block">{{ module.pricing_toggle.heading }}</p>
+			{% endif %}
+			<div class="switch-wrapper">
+				<input class="srpone" id="srpone_{{ name }}" type="radio" name="switch_{{ name }}" value="srpone" checked>
+				<input class="srptwo" id="srptwo_{{ name }}" type="radio" name="switch_{{ name }}" value="srptwo">
+				<label for="srpone_{{ name }}" role="button">{{ module.pricing_toggle.toggle_left }}</label>
+				<label for="srptwo_{{ name }}" role="button">{{ module.pricing_toggle.toggle_right }}</label>
+				<span class="highlighter" aria-hidden="true"></span>
+			</div>
+		</div>
+		{% if module.style.pricing_toggle.position == "left" || module.style.pricing_toggle.position == "top" %}
+		<div class="txt-{{ module.style.heading.text_alignment.text_align|lower }}">
+			<{{ module.heading_tag }} class="m-0 mb-3">{{ module.heading }}</{{ module.heading_tag }}>
+			<p class="mt-2">{{ module.description }}</p>
+		</div>
+		{% endif %}
+		{% endif %} {# module.pricing_toggle.enabled #}
+	</div>
+	<div class="pricing-comparison {{ "mt-4" if module.style.pricing_toggle.position == "bottom" else "mt-20" }} gap-30 md:grid grid-container plan_row py-4">
+		{% for plan in module.plans %}
+		<div class="col-w-1 w-full md:mt-0 mt-6{{ " md:col-start-3" if module.plans|length == 1 else " md:col-start-2" if loop.first && module.rows|length }}">
+			<div class="p-card flex flex-col justify-end gap-10 md:gap-3 h-full{{' txt-{{ module.style.plan_card.text_alignment.text_align|lower }}' if !plan.plan_label }}" style="--p-border: {{ plan.accent_color.css }}">
+				<div{{" class='flex items-center justify-between'" if plan.plan_label }}>
+					<h3 class="font-semibold plan_name">{{ plan.plan_name }}</h3>
+					{% if plan.plan_label %}
+					<span class="plan_label" style="--bg: {{ plan.background.css }}; --color: {{ plan.color.css }}">
+						{{ plan.plan_label }}
+					</span>
+					{% endif %}
+				</div>
+				<p class="plan_cost_suffix">
+					<span class="plan_cost">{{ plan.symbol }}<span class="priceone">{{ plan.price }}</span><span class="pricetwo">{{ plan.alt_price }}</span></span>
+					<span class="suffixone">{{ plan.suffix }}</span><span class="suffixtwo">{{ plan.alt_suffix }}</span>
+				</p>
+				<div class="{{ 'md:hidden' if module.rows|length }} description srp-description">
+					{{ plan.description }}
+				</div>
+				{% if plan.button.type != "none" %}
+				<div class="p-btn p-btn__{{ plan.button.style }} {{ 'p-btn__main' if plan.alt_button.type != "none" }}">
+					{% if plan.button.type == "cta" %}
+					{% cta guid="{{ plan.button.cta }}" %}
+					{% elif plan.button.type == "link" %}
+					{%- set href = plan.button.link.url.href -%}
+					{%- if plan.button.link.url.type is equalto "EMAIL_ADDRESS" -%}{%- set href = "mailto:" + href -%}{%- endif -%}
+					{%- if plan.button.link.url.type is equalto "PHONE_NUMBER" -%}{%- set href = "tel:" + href -%}{%- endif -%}
+					<a href="{{ href }}"
+						{% if plan.button.link.open_in_new_tab %}target="_blank" aria-label="(Opens in new tab)"{% endif %}
+						{% if plan.button.link.rel %}rel="{{ plan.button.link.rel }}"{% endif %}
+						>
+						{{ plan.button.text }}
+					</a>
+					{% endif %} {# plan.button.type #}
+				</div>
+				{% endif %} {# plan.button.type != "none" #}
+				{% if plan.alt_button.type != "none" %}
+				<div class="p-btn p-btn__{{ plan.alt_button.style }} p-btn__alt">
+					{% if plan.alt_button.type == "cta" %}
+					{% cta guid="{{ plan.alt_button.cta }}" %}
+					{% elif plan.alt_button.type == "link" %}
+					{%- set href = plan.alt_button.link.url.href -%}
+					{%- if plan.alt_button.link.url.type is equalto "EMAIL_ADDRESS" -%}{%- set href = "mailto:" + href -%}{%- endif -%}
+					{%- if plan.alt_button.link.url.type is equalto "PHONE_NUMBER" -%}{%- set href = "tel:" + href -%}{%- endif -%}
+					<a href="{{ href }}"
+						{% if plan.alt_button.link.open_in_new_tab %}target="_blank" aria-label="(Opens in new tab)"{% endif %}
+						{% if plan.alt_button.link.rel %}rel="{{ plan.alt_button.link.rel }}"{% endif %}
+						>
+						{{ plan.alt_button.text }}
+					</a>
+					{% endif %} {# plan.alt_button.type #}
+				</div>
+				{% endif %} {# plan.alt_button.type != "none #}
+			</div>
+		</div>
+		{% endfor %} {# plan in module.plans #}
+	</div>
+	<div class="pricing-comparison sm:plan_row py-4 mb-3 grid grid-cols-{{ module.plans|length }} md:hidden txt-center">
+		{% for plan in module.plans %}
+		<p class="txt-heading">{{ plan.plan_name }}</p>
+		{% endfor %}
+	</div>
+	<div class="pricing-comparison details-row">
+		{% for row in module.rows %}
+		{% set lastRow = loop.last %}
+		<details class="{{ 'end' if !lastRow }}{{ ' closed-m' if row.start_collapsed_mobile }}" {{ "open" if not row.start_collapsed }}>
+			<summary>
+				{% if row.category %}
+				<h2 class="p-rowHeading" role="button" tabindex="0">{{ row.category }}</h2>
+				{% endif %}
+			</summary>
+			<div class="grid-container row-gap-4 grid">
+				{% for feature in row.features %}
+				<div class="p-row col-w-full flex items-center gap-2 md:col-w-1 relative pr-0 {{ " md:col-w-2" if module.plans|length == 1 else " md:col-w-1" }}">
+					{{ feature.title }}
+					{% if feature.tooltip %}
+					<div class="tooltip txt-center">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+							<path d="M12 3C7.03125 3 3 7.03125 3 12C3 16.9688 7.03125 21 12 21C16.9688 21 21 16.9688 21 12C21 7.03125 16.9688 3 12 3ZM11.7188 17.25C11.5333 17.25 11.3521 17.195 11.1979 17.092C11.0437 16.989 10.9236 16.8426 10.8526 16.6713C10.7817 16.5 10.7631 16.3115 10.7993 16.1296C10.8354 15.9477 10.9247 15.7807 11.0558 15.6496C11.1869 15.5185 11.354 15.4292 11.5359 15.393C11.7177 15.3568 11.9062 15.3754 12.0775 15.4464C12.2488 15.5173 12.3952 15.6375 12.4983 15.7917C12.6013 15.9458 12.6562 16.1271 12.6562 16.3125C12.6562 16.5611 12.5575 16.7996 12.3817 16.9754C12.2058 17.1512 11.9674 17.25 11.7188 17.25ZM13.2863 12.4688C12.5264 12.9788 12.4219 13.4461 12.4219 13.875C12.4219 14.049 12.3527 14.216 12.2297 14.339C12.1066 14.4621 11.9397 14.5312 11.7656 14.5312C11.5916 14.5312 11.4247 14.4621 11.3016 14.339C11.1785 14.216 11.1094 14.049 11.1094 13.875C11.1094 12.848 11.5819 12.0314 12.5541 11.3784C13.4578 10.7719 13.9688 10.3875 13.9688 9.54234C13.9688 8.96766 13.6406 8.53125 12.9614 8.20828C12.8016 8.13234 12.4458 8.05828 12.008 8.06344C11.4586 8.07047 11.032 8.20172 10.7034 8.46609C10.0837 8.96484 10.0312 9.50766 10.0312 9.51562C10.0271 9.60181 10.006 9.68632 9.96919 9.76435C9.93237 9.84238 9.88054 9.9124 9.81667 9.9704C9.75279 10.0284 9.67811 10.0732 9.5969 10.1024C9.51569 10.1315 9.42954 10.1444 9.34336 10.1402C9.25718 10.1361 9.17266 10.115 9.09463 10.0782C9.0166 10.0414 8.94659 9.98953 8.88859 9.92565C8.83059 9.86177 8.78574 9.7871 8.7566 9.70589C8.72745 9.62468 8.71459 9.53852 8.71875 9.45234C8.72391 9.33844 8.80313 8.31234 9.87984 7.44609C10.4381 6.99703 11.1483 6.76359 11.9892 6.75328C12.5845 6.74625 13.1437 6.84703 13.523 7.02609C14.6578 7.56281 15.2812 8.45766 15.2812 9.54234C15.2812 11.1281 14.2214 11.8402 13.2863 12.4688Z" fill="#D0D0D0"/>
+						</svg>
+						<span class="tooltip-text">
+							{{ feature.tooltip }}
+						</span>
+					</div>
+					{% endif %} {# feature.tooltip #}
+				</div>
+				{% for column in feature.columns %}
+				{% if loop.index <= module.plans|length %}
+				<div class="p-row flex items-center justify-center flex-col col-w-1 txt-center" style="--icon: {{ column.icon_color.css }}">
+					{% if column.icon.name %}
+					{% icon
+						name="{{ column.icon.name }}"
+						style="{{ column.icon.type  }}"
+						unicode="{{ column.icon.unicode }}"
+						icon_set="{{ column.icon.icon_set }}"
+						width="22"
+						no_wrapper=true
+					%}
+					{% endif %}
+					{% if column.text %}
+					<div class="mt-1 txt" style="--txt: {{ column.text_color.css }}">{{ column.text }}</div>
+					{% endif %}
+					{% if !column.text && !column.icon.name %}
+					<div class="txt-dash">-</div>
+					{% endif %}
+				</div>
+				{% endif %} {# loop.index <= module.plans|length #}
+			{% endfor %} {# column in feature.columns #}
+			{% endfor %} {# feature in row.features #}
+			</div>
+		</details>
+		{% endfor %} {# row in module.rows #}
+	</div>
+</div>
+{% require_css %}
+<style>
+	.srp.{{ name }} {
+		--primary-color: {{ module.style.primary_color.css }};
+		--primary-font-color: {{ module.style.primary_font.color }};
+		--secondary-font-color: {{ module.style.secondary_font.color }};
+		background-color: {{ module.style.background.background_color.css }};
+		{{ module.style.background.border.css }}
+		border-radius: {{ module.style.background.radius ~ "px" }};
+		{{ module.style.background.spacing.css }};
+		{{ module.style.primary_font.css }};
+	}
+	.srp.{{ name }} .srp-description,
+	.srp.{{ name }} .srp-description * {
+		{{ module.style.primary_font.css }};
+	}
+	.srp.{{ name }} h1,
+	.srp.{{ name }} h2,
+	.srp.{{ name }} h3,
+	.srp.{{ name }} h4,
+	.srp.{{ name }} h5,
+	.srp.{{ name }} h6 {
+		{{ module.style.secondary_font.css }};
+	}
+	.srp.{{ name }} .p-card {
+		{{ module.style.plan_card.padding.css }};
+		{{ module.style.plan_card.border.css }};
+		background: {{ module.style.plan_card.background.css }};
+		border-radius: {{ module.style.plan_card.corner_radius ~ "px" }};
+		border-top: 4px solid var(--p-border, var(--primary-color));
+	}
+	.srp.{{ name }} .plan_name {
+		{{ module.style.plan_card.plan_name.css }}
+	}
+	.srp.{{ name }} .plan_cost_suffix {
+		{{ module.style.plan_card.plan_cost_suffix.css }}
+	}
+	.srp.{{ name }} .plan_cost {
+		{{ module.style.plan_card.plan_cost.css }}
+	}
+	.srp.{{ name }} .description {
+		{{ module.style.plan_card.plan_description.css }}
+	}
+	.srp.{{ name }} .description ul {
+		font-size: {{ module.style.plan_card.plan_description_list ~ "px" }};
+		line-height: 1.4
+	}
+	.srp.{{ name }} .p-btn.p-btn__fill a,
+	.srp.{{ name }} .p-btn.p-btn__outline a:hover {
+		{{ module.style.buttons.default.font.css }}
+		background-color: {{ module.style.buttons.default.background.css }};
+		{{ module.style.buttons.default.border.css }}
+		border-radius: {{ module.style.buttons.default.border_radius ~ "px" }};
+		{{ module.style.buttons.default.padding.css }}
+	}
+	.srp.{{ name }} .p-btn.p-btn__outline a {
+		{{ module.style.buttons.default.font.css }}
+		color: {{ module.style.buttons.default.background.css }};
+		{{ module.style.buttons.default.border.css }}
+		border-radius: {{ module.style.buttons.default.border_radius ~ "px" }};
+		{{ module.style.buttons.default.padding.css }}
+	}
+	.srp.{{ name }} .p-btn.p-btn__fill a:hover {
+		background-color: {{ module.style.buttons.hover.background.css }};
+		color: {{ module.style.buttons.hover.font_color.css }};
+		{% if module.style.buttons.hover.border_color.css %}
+		border-color: {{ module.style.buttons.hover.border_color.css }}
+		{% endif %}
+	}
+	.srp.{{ name }} .p-btn.p-btn__link a {
+		{{ module.style.buttons.default.font.css }}
+		color: {{ module.style.buttons.default.background.css }};
+		{{ module.style.buttons.default.padding.top.value }}
+		padding-bottom: {{ module.style.buttons.default.padding.padding.bottom.value ~ module.style.buttons.default.padding.padding.bottom.units }};
+		padding-top: {{ module.style.buttons.default.padding.padding.top.value ~ module.style.buttons.default.padding.padding.top.units }};
+		{{ module.style.buttons.default.border.css }}
+		border-color: transparent;
+		text-align: inherit
+	}
+	.srp.{{ name }} .sm\:plan_row {
+		{{ module.style.rows.border.css }};
+		background-color: {{ module.style.background.background_color.css }};
+		position: sticky;
+		top: 0;
+		z-index: 1;
+	}
+	.srp.{{ name }} .plan_row {
+		background-color: {{ module.style.background.background_color.css }};
+	}
+	.srp.{{ name }} .p-rowHeading {
+		background-color: {{ module.style.rows.category.background.css }};
+		{{ module.style.rows.category.padding.css }};
+		border-radius: {{ module.style.rows.category.corner_radius ~ "px" }};
+		{{ module.style.rows.category.font.css }}
+	}
+	.srp.{{ name }} .p-row {
+		{{ module.style.rows.padding.css }};
+		{{ module.style.rows.border.css }};
+		border-radius: {{ module.style.rows.corner_radius ~ "px" }};
+		{{ module.style.rows.font.css }}
+	}
+	.srp.{{ name }} .p-card li:before {
+		height: 24px;
+		content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M20.9557 5.9022L9.05075 19.5079L3.04211 13.4992L4.50052 12.0408L8.95029 16.4906L19.4035 4.54404L20.9557 5.9022Z' fill='%23{{ module.style.plan_card.icon_color.color|replace("#", "") || "000" }}'/%3E%3C/svg%3E")
+	}
+	.srp.{{ name }} .pricing_toggle {
+		{{ module.style.pricing_toggle.padding.css }};
+		{{ module.style.pricing_toggle.label_font.css }};
+	}
+	.srp.{{ name }} .switch-wrapper {
+		background: {{ module.style.pricing_toggle.toggle.default.background.css }};
+	}
+	.srp.{{ name }} .switch-wrapper label {
+		{{ module.style.pricing_toggle.toggle.default.font.css }};
+	}
+	.srp.{{ name }} .switch-wrapper .highlighter {
+		background: {{ module.style.pricing_toggle.toggle.active.background.css }};
+	}
+	.srp.{{ name }} .switch-wrapper [type="radio"]:checked.srpone~label[for*="srpone"],
+	.srp.{{ name }} .switch-wrapper [type="radio"]:checked.srptwo~label[for*="srptwo"] {
+		{{ module.style.pricing_toggle.toggle.active.font.css }};
+	}
+	{% set num_columns = module.plans|length + (module.rows|length ? 1 : 0) %}
+	.srp.{{ name }} .grid-container {
+		content: '{{num_columns}}';
+		grid-template-columns: repeat({{ num_columns - 1 }}, minmax(0, 1fr));
+	}
+	.srp.{{ name }} .end .grid-container > .p-row:nth-last-child(-n+{{ num_columns - 1 }}) {
+		border-bottom: 0 !important;
+	}
+	@container srp (min-width: 993px) {
+		.srp.{{ name }} .grid-container {
+			display: grid;
+			grid-template-columns: repeat({{ num_columns == 2 ? "3" : num_columns }}, minmax(0, 1fr));
+		}
+		.srp.{{ name }} .end .grid-container > .p-row:nth-last-child(-n+{{ num_columns }}) {
+			border-bottom: 0 !important;
+		}
+	}
+	{% if module.style.rows.odd_background.css != module.style.rows.even_background.css %}
+	{% for i in range(1, num_columns * 2 + 1) %}
+	.srp.{{ name }} .grid-container > .p-row:nth-child({{ num_columns * 2 }}n+{{ i }}) {
+		background-color: {% if loop.index <= num_columns %} {{ module.style.rows.odd_background.css }} {% else %} {{ module.style.rows.even_background.css }} {% endif %};
+	}
+	{%- endfor %}
+	{% endif %}
+</style>
+{% end_require_css %}

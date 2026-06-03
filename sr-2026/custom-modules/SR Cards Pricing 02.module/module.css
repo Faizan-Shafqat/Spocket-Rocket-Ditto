@@ -1,0 +1,63 @@
+.sr-cards-pricing-02 {
+  overflow: hidden;
+}
+
+.sr-cards-pricing-02 .content-row {
+  overflow: hidden;
+  border-radius: var(--border_radius);
+  transition: all 0.2s ease;
+}
+
+.sr-cards-pricing-02 .sr-card {
+  position: relative;
+  transition: all 0.2s ease;
+  height: 100%;
+  border-radius: 0;
+}
+
+.sr-cards-pricing-02 .sr-card:hover,
+.sr-cards-pricing-02 .sr-card:has(.hiddenBtn .hiddenBtn:focus) {
+  z-index: 6;
+  box-shadow: 5px 10px 40px -20px rgba(0, 0, 0, 0.05);
+  border-radius: var(--border_radius);
+  transform: scale(1.02);
+}
+
+.sr-cards-pricing-02 .sr-card:has(.hiddenBtn .hiddenBtn:focus) {
+  outline: -webkit-focus-ring-color auto 1px;
+}
+
+.sr-cards-pricing-02 .pricing-features .column_features {
+  padding-top: 10px;
+}
+
+.hiddenBtn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.hiddenBtn a {
+  height: 100%;
+  display: block;
+  width: 100%;
+  opacity: 0;
+  z-index: 1;
+}
+
+@media (min-width: 992px) {
+  .sr-cards-pricing-02 .content-row [data-gap="false"] {
+    margin: 0;
+  }
+
+  .sr-cards-pricing-02 .content-row:has(.sr-card:hover) {
+    overflow: visible;
+  }
+
+  .sr-cards-pricing-02 .content-row [data-gap="false"] > div {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

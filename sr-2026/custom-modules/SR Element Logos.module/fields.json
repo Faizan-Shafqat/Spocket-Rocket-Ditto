@@ -1,0 +1,315 @@
+[ {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "spacing",
+    "default" : { }
+  }, {
+    "id" : "77cdc1c3-520f-0b79-476a-4079233e313e",
+    "name" : "align",
+    "label" : "Align",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : null,
+      "controlling_field_path" : "carousel",
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "NOT_EQUAL",
+      "access" : null
+    },
+    "alignment_direction" : "BOTH",
+    "display_width" : null,
+    "type" : "alignment",
+    "default" : {
+      "horizontal_align" : "CENTER",
+      "vertical_align" : "MIDDLE"
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group"
+}, {
+  "id" : "f71e69d0-2f60-3d71-7d43-738ed3bc3980",
+  "name" : "image",
+  "label" : "Image",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 5
+  },
+  "children" : [ {
+    "id" : "53cf4a68-fe94-cec4-07ad-3f30084f6160",
+    "name" : "image",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "display_width" : null,
+    "type" : "image",
+    "default" : {
+      "alt" : "sr-logo@2x-3",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-logo@2x-3.png",
+      "width" : 220,
+      "height" : 50,
+      "loading" : "lazy",
+      "size_type" : "exact"
+    }
+  }, {
+    "id" : "0dd68492-3b03-4b12-4d16-15f299997e7e",
+    "name" : "link",
+    "label" : "link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : true,
+    "display_width" : null,
+    "type" : "link",
+    "default" : {
+      "url" : {
+        "href" : "",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    }
+  }, {
+    "id" : "69687a49-e871-aafe-17a1-fa9b710a2491",
+    "name" : "caption",
+    "label" : "Caption",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "display_width" : null,
+    "type" : "text"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : [ {
+    "link" : {
+      "url" : {
+        "href" : "",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    },
+    "image" : {
+      "alt" : "sr-logo@2x-3",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-logo@2x-3.png",
+      "width" : 220,
+      "height" : 50,
+      "loading" : "lazy",
+      "size_type" : "exact"
+    }
+  }, {
+    "link" : {
+      "url" : {
+        "href" : "",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    },
+    "image" : {
+      "alt" : "sr-logo@2x-3",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-logo@2x-3.png",
+      "width" : 220,
+      "height" : 50,
+      "loading" : "lazy",
+      "size_type" : "exact"
+    }
+  }, {
+    "link" : {
+      "url" : {
+        "href" : "",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    },
+    "image" : {
+      "alt" : "sr-logo@2x-3",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-logo@2x-3.png",
+      "width" : 220,
+      "height" : 50,
+      "loading" : "lazy",
+      "size_type" : "exact"
+    }
+  }, {
+    "link" : {
+      "url" : {
+        "href" : "",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    },
+    "image" : {
+      "alt" : "sr-logo@2x-3",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-logo@2x-3.png",
+      "width" : 220,
+      "height" : 50,
+      "loading" : "lazy",
+      "size_type" : "exact"
+    }
+  }, {
+    "link" : {
+      "url" : {
+        "href" : "",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : false
+    },
+    "image" : {
+      "alt" : "sr-logo@2x-3",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-logo@2x-3.png",
+      "width" : 220,
+      "height" : 50,
+      "loading" : "lazy",
+      "size_type" : "exact"
+    }
+  } ]
+}, {
+  "id" : "682fabdb-1041-6aae-542a-158693ca4636",
+  "name" : "carousel",
+  "label" : "Carousel",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "display_width" : null,
+  "type" : "boolean",
+  "default" : true
+}, {
+  "id" : "29858098-edf4-dcea-294c-e08a1adbba37",
+  "name" : "carousel_settings",
+  "label" : "Carousel Settings",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "682fabdb-1041-6aae-542a-158693ca4636",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "true",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "children" : [ {
+    "id" : "fcf69c1a-7d7e-7117-c40f-bc6926ef7d14",
+    "name" : "dots",
+    "label" : "Dots",
+    "help_text" : "Show dot indicators",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : true
+  }, {
+    "id" : "0f06c44b-daf6-0b61-48a1-83cf1736c22d",
+    "name" : "arrow",
+    "label" : "Arrow",
+    "help_text" : "Show arrow indicators",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : false
+  }, {
+    "id" : "bc718dc4-36ec-0e1f-0509-f4309853b691",
+    "name" : "slides_to_show",
+    "label" : "Slides To Show",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "display_width" : null,
+    "type" : "number",
+    "default" : 3
+  }, {
+    "id" : "4c32c153-a095-e2a8-45f3-1d800f521bbf",
+    "name" : "slides_to_scroll",
+    "label" : "Slides To Scroll",
+    "help_text" : "# of slides to scroll",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "display_width" : null,
+    "type" : "number",
+    "default" : 1
+  }, {
+    "id" : "4096702b-4ea9-292b-a38d-e6f03471793b",
+    "name" : "autoplay",
+    "label" : "Autoplay",
+    "help_text" : "Enables Autoplay",
+    "required" : false,
+    "locked" : false,
+    "display" : "checkbox",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : true
+  }, {
+    "id" : "cbd7466c-2b8f-6ad4-e444-b1b64b8c90fd",
+    "name" : "autoplay_speed",
+    "label" : "Autoplay Speed",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "4096702b-4ea9-292b-a38d-e6f03471793b",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "step" : 1,
+    "suffix" : " seconds",
+    "display_width" : null,
+    "type" : "number",
+    "default" : 2
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : true,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : {
+    "dots" : true,
+    "arrow" : false,
+    "autoplay" : true,
+    "autoplay_speed" : 2,
+    "slides_to_show" : 3,
+    "slides_to_scroll" : 1
+  }
+} ]

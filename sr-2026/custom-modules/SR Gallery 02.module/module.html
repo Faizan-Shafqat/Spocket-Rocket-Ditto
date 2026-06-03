@@ -1,0 +1,103 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+
+		.{{ name }} .content-row {
+		overflow: hidden;
+		{% if module.design_settings.row_styles.spacing.css -%}
+		{{ module.design_settings.row_styles.spacing.css }}
+		{%- endif -%}
+		{%- if module.design_settings.row_styles.background_color == "gradient" -%}
+		background: {{ module.design_settings.row_styles.background_gradient.css }};
+		{%- elif module.design_settings.row_styles.background_color == "custom" -%}
+		background-color: {{ module.design_settings.row_styles.background_custom.css }};
+		{% elif module.design_settings.row_styles.background_color != "auto" %}
+		background-color: var(--{{ module.design_settings.row_styles.background_color }});
+		{%- endif -%}
+		{% if module.design_settings.row_styles.border.css %}
+		{{ module.design_settings.row_styles.border.css }}
+		{%- endif -%}
+		{% if module.design_settings.row_styles.border_radius >= 0 %}
+		border-radius: {{ module.design_settings.row_styles.border_radius }}px;
+		{%- endif -%}
+		{% if module.design_settings.row_styles.shadow %}
+		box-shadow: {{ "inset" if module.design_settings.row_styles.inset }} {{ module.design_settings.row_styles.horizontal ~ "px" }} {{ module.design_settings.row_styles.vertical ~ "px" }} {{ module.design_settings.row_styles.blur ~ "px" }} {{ module.design_settings.row_styles.spread ~ "px" }} {{ module.design_settings.row_styles.color.css }};
+		{%- endif %}
+	}
+
+	{% if module.design_settings.responsive_settings.tablet.row_styles.spacing.css %}
+	@media{{"(min-width: 768px) and" if module.design_settings.responsive_settings.mobile.column_styles.spacing.css }} (max-width: 991.99px) {
+		.{{ name }} .content-row {
+			{{ module.design_settings.responsive_settings.tablet.row_styles.spacing.css }}
+		}
+	}
+	{%- endif %}
+	{% if module.design_settings.responsive_settings.mobile.row_styles.spacing.css %}
+	@media(max-width: 767.99px) {
+		.{{ name }} .content-row {
+			{{ module.design_settings.responsive_settings.mobile.row_styles.spacing.css }}
+		}
+	}
+	{%- endif %}
+	</style>
+	{% end_require_css %}
+
+	<div class="sr-gallery-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					{% if module.heading || module.description %}
+					<div class="sr-spacer-bottom-75 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+						{{ macros.heading(module.heading) }}
+
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+						{% endif %}
+					</div>
+					{% endif %}
+					<div class="gallery-container">
+						<div class="sr-gallery">
+							<div class="row no-gutters content-row">
+								{% for item in module.gallery_images %}
+								{% if item.gallery_image.src %}
+								<div class="{{ macros.col_size(module.columns) }}">
+									<a class="lightbox" data-fslightbox="gallery" href="{{ item.gallery_image.src }}" style="--overlay: {{ item.overlay.css }}" role="button"
+										aria-label="View larger version of image">
+										{{ macros.image(item.gallery_image) }}
+										<div class="overlay">
+											<span class="icon-wrapper bg-primary" aria-hidden="true">
+											<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none">
+												<path fill-rule="evenodd" clip-rule="evenodd" d="M6.16 16.52V10.08H0V6.44H6.16V0H9.94V6.44H16.1V10.08H9.94V16.52H6.16Z" fill="white"/>
+											</svg>
+										</div>
+									</a>
+								</div>
+								{% endif %}
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{{ require_js(get_asset_url('../../js/fslightbox.js'), { defer: true }) }}
+{% endif %}

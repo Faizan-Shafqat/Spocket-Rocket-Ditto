@@ -1,0 +1,109 @@
+{% if module.enabled %}
+
+    {% import "../../templates/macros.html" as macros %}
+
+    {% set width_class =
+        module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+        module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+        module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+        'col-md-12'
+    %}
+
+
+
+    <div class="sr-cards-timeline-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+        {{ macros.module_bg_video(module) }}
+
+        <div class="{{ module.design_settings.layout }}">
+            {% if module.design_settings.container_width != 'max' %}
+                <div class="row">
+                    <div class="{{ width_class }}">
+            {% endif %}
+
+                        {% if module.heading ||  module.description %}
+                        <div class="text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+                            {{ macros.heading(module.heading) }}
+                            {% if module.description %}
+                                <div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+
+                        <div class="row">
+                            <div class="col-lg-12 col-xl-10 offset-xl-1">
+                                <div class="timeline-card-row cards-row {% if module.design_settings.text_color != 'auto' %}border-{{ module.design_settings.text_color }}{% endif %}">
+                                    {% for item in module.timeline_card %}
+                                    <div class="timeline-card card-{{loop.index}}">
+                                    <div class="timeline-card-inner">
+                                        <div class="timeline-image">
+                                            {{ macros.image(item.timeline_image) }}
+                                        </div>
+                                        <div class="timeline-details">
+                                            {{ macros.heading(item.timeline_heading) }}
+                                            {% if item.timeline_description %}
+                                                <div class="description">{{ item.timeline_description}}</div>
+                                            {% endif %}
+                                            {{ macros.cta(item.ctas, 'sr-spacer-top-25') }}
+                                        </div>
+                                    </div>
+                                    <div class="timeline-year">
+                                        {{item.timeline_year}}
+                                    </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+        {% if module.design_settings.container_width != 'max' %}
+                </div>
+            </div>
+        {% endif %}
+
+        </div>
+    </div>
+
+    {% require_css %}
+    <style>
+        {{ macros.design_settings(name, module.design_settings) }}
+        .{{ name }} .timeline-card-inner {
+            {%- if module.design_settings.card_styles.background_color == "gradient" -%}
+            background: {{ module.design_settings.card_styles.background_gradient.css }};
+            {%- elif module.design_settings.card_styles.background_color == "custom" -%}
+            background-color: {{ module.design_settings.card_styles.background_custom.css }};
+            {%- elif module.design_settings.card_styles.background_color != "auto" -%}
+            background-color: var(--{{ module.design_settings.card_styles.background_color }});
+            {%- endif -%}
+            {%- if module.design_settings.card_styles.text_color == "custom" %}
+            color: {{ module.design_settings.card_styles.text_color_custom.css }};
+            {%- endif -%}
+            {% if module.design_settings.card_styles.border.css %}
+            {{ module.design_settings.card_styles.border.css }}
+            {% endif %}
+            {% if module.design_settings.card_styles.border_radius >= 0 %}
+            border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+            {% endif %}
+            {% if module.design_settings.card_styles.shadow %}
+            box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+            {% endif %}
+        }
+        .{{ name }} .timeline-details {
+            {{ module.design_settings.card_styles.spacing.css }}
+        }
+        .{{name}} .timeline-year {
+            backdrop-filter: blur({{ module.design_settings.timeline_styles.background_blur }}px);
+            background: {{ module.design_settings.timeline_styles.background_color.css }};
+            color: {{ module.design_settings.timeline_styles.text_color.css }}
+        }
+        .{{name}} .timeline-card-row:after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7' fill='none'%3E%3Cpath d='M6.50742 6.80994L11.8097 1.50758C11.9324 1.38495 12 1.22124 12 1.04668C12 0.872118 11.9324 0.708408 11.8097 0.585771L11.4193 0.195289C11.1649 -0.0587999 10.7515 -0.0587999 10.4975 0.195289L6.04496 4.64781L1.58751 0.190349C1.46477 0.0677115 1.30116 -4.67663e-07 1.1267 -4.75289e-07C0.95204 -4.82923e-07 0.788426 0.0677114 0.665595 0.190348L0.275308 0.58083C0.152574 0.703564 0.084959 0.867177 0.084959 1.04174C0.084959 1.2163 0.152574 1.38001 0.275308 1.50264L5.58241 6.80994C5.70553 6.93287 5.86992 7.00039 6.04467 7C6.2201 7.00039 6.3844 6.93287 6.50742 6.80994Z' fill='{{module.design_settings.timeline_styles.arrows_color.css|replace('#', '%23')}}'/%3E%3C/svg%3E");
+        }
+        
+        {% for item in module.timeline_card %}
+        .{{name}} .timeline-card.card-{{loop.index}} .timeline-image img {
+            object-fit: {{item.image_background_fit}};
+        }
+        {% endfor %}
+    </style>
+    {% end_require_css %}
+{% endif %}

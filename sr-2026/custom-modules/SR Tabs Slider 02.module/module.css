@@ -1,0 +1,105 @@
+.sr-tabs-slider-02 {
+  overflow: hidden;
+}
+
+.sr-tabs-slider-02 .splide__track {
+  overflow: visible;
+}
+
+.sr-tabs-slider-02 .splide__slide .slider-item {
+  height: 100%;
+  opacity: 0.3;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.sr-tabs-slider-02 .splide__slide.is-active .slider-item {
+  opacity: 1;
+}
+
+.sr-tabs-slider-02-image {
+	min-width: 30%;
+  overflow: hidden;
+}
+
+.sr-tabs-slider-02-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sr-tabs-slider-02 .slider-name {
+	display: block;
+	font-weight: 600;
+}
+
+.sr-tabs-slider-02 .splide__arrow {
+  color: var(--arrows-color, var(--primary));
+  border-radius: 100%;
+  border: 2px solid var(--arrows-color, var(--primary));
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 500ms ease;
+  background: none;
+  background-color: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  padding: 0;
+  line-height: 0;
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.sr-tabs-slider-02 .splide__arrow svg {
+  color: var(--arrows-color, var(--primary));
+  fill: currentColor;
+}
+
+.sr-tabs-slider-02 .splide__arrow:hover svg {
+  color: #fff;
+}
+
+.sr-tabs-slider-02 .splide__arrow:hover {
+  color: #fff;
+  background-color: var(--arrows-color, var(--primary));
+}
+
+.sr-tabs-slider-02 .splide__pagination {
+  margin-top: 30px;
+}
+
+.sr-tabs-slider-02 .splide__arrows:not(.unstyled) .splide__arrow--prev svg {
+  transform: scaleX(1);
+  margin-left: 0px;
+}
+
+.splide__arrows:not(.unstyled) .splide__arrow.chevron-right {
+  right: 0;
+  transform: translateY(calc(-50% - 25px)) translateX(50%);
+}
+.splide__arrows:not(.unstyled) .splide__arrow.chevron-left {
+  left: 0;
+  transform: translateY(calc(-50% - 25px)) translateX(-50%);
+}
+
+@media (min-width: 992px) {
+  .sr-tabs-slider-02 .splide__pagination {
+    margin-top: 50px;
+  }
+}
+
+@media(min-width: 1300px) {
+    .splide__arrows:not(.unstyled) .splide__arrow.chevron-right {
+      right: -30px;
+      transform: translateY(calc(-50% - 25px)) translateX(50%);
+    }
+    .splide__arrows:not(.unstyled) .splide__arrow.chevron-left {
+      left: -30px;
+      transform: translateY(calc(-50% - 25px)) translateX(-50%);
+    }
+}

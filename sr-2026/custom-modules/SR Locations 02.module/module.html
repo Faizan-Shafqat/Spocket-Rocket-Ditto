@@ -1,0 +1,139 @@
+{% if module.enabled %}
+{% import "../../templates/macros.html" as macros %}
+
+{{ require_css(get_asset_url('../../css/tippy.css')) }}
+{{ require_js(get_asset_url('../../js/tippy.js'), { position: 'head', defer: true }) }}
+
+{% require_css %}
+<style>
+    .sr-locations-02 {
+        --dot-color: {{ module.design_settings.map_styles.dot_color.color|convert_rgb }};
+        --border-color: {{ module.design_settings.map_styles.border.top.color|convert_rgb }};
+        --border-width: {{ module.design_settings.map_styles.border.top.width.value == 1 ? "0px" : module.design_settings.map_styles.border.top.width.value ~ module.design_settings.map_styles.border.top.width.units }};
+        {% if module.design_settings.map_styles.background_color == 'custom' %}
+        --bg-color: {{ module.design_settings.map_styles.background_custom.css }}
+        {% else %}
+        --bg-color: var(--{{ module.design_settings.map_styles.background_color }});
+        {% endif %}
+    }
+    .tooltip-{{ name }} .tippy-box[data-theme~='custom'] {
+        {{ module.design_settings.map_styles.spacing.css }};
+        {%- if module.design_settings.map_styles.background_color == "gradient" -%}
+            background: {{ module.design_settings.map_styles.background_gradient.css }};
+        {%- elif module.design_settings.map_styles.background_color == "custom" -%}
+            background-color: {{ module.design_settings.map_styles.background_custom.css }};
+        {%- elif module.design_settings.map_styles.background_color != "auto" -%}
+            background-color: var(--{{ module.design_settings.map_styles.background_color }});
+        {%- endif -%}
+        {%- if module.design_settings.map_styles.text_color == "custom" %}
+            color: {{ module.design_settings.map_styles.text_color_custom.css }};
+        {% elif module.design_settings.map_styles.text_color == "auto" %}
+            color: inherit;
+        {%- endif -%}
+        {% if module.design_settings.map_styles.border.css %}
+            {{ module.design_settings.map_styles.border.css }};
+        {% endif %}
+        {% if module.design_settings.map_styles.border_radius >= 0 %}
+            border-radius: {{ module.design_settings.map_styles.border_radius }}px;
+        {% endif %}
+        {% if module.design_settings.map_styles.shadow %}
+            box-shadow: {{ "inset" if module.design_settings.map_styles.inset }} {{ module.design_settings.map_styles.horizontal ~ "px" }} {{ module.design_settings.map_styles.vertical ~ "px" }} {{ module.design_settings.map_styles.blur ~ "px" }} {{ module.design_settings.map_styles.spread ~ "px" }} {{ module.design_settings.map_styles.color.css }};
+        {% endif %}
+    }
+    {% if module.tooltip_settings.arrow %}
+    .tooltip-{{ name }} .tippy-arrow {
+        {%- if module.design_settings.map_styles.background_color == "custom" -%}
+            color: {{ module.design_settings.map_styles.background_custom.css }};
+        {%- elif module.design_settings.map_styles.background_color != "auto" -%}
+            color: var(--{{ module.design_settings.map_styles.background_color }});
+        {%- endif -%}
+    }
+    {% endif %}
+</style>
+{% end_require_css %}
+
+{% set width_class =
+    module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+    module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+    module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+    'col-md-12'
+%}
+
+<div class="sr-locations-02 {{name}} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }}"
+    {{ "data-preview" if module_preview }}
+    data-arrow="{{ module.tooltip_settings.arrow }}"
+    data-animation="{{ module.tooltip_settings.animation }}"
+    data-duration="{{ module.tooltip_settings.duration }}"
+    data-width="{{ module.design_settings.map_styles.width }}"
+    data-module-id="{{ name }}"
+    {% if module.edit_mode %}data-edit-mode="true"{% endif %}
+>
+    {{macros.module_bg_video(module.background_video, module.design_settings.background_image.src, module.background_video_md, module.design_settings.responsive_settings.tablet.tablet_background_image.src, module.background_video_sm, module.design_settings.responsive_settings.mobile.mobile_background_image.src)}}
+
+    <div class="{{ module.design_settings.layout }}">
+        {% if module.design_settings.container_width != 'max' %}
+        <div class="row">
+            <div class="{{ width_class }}">
+        {% endif %}
+
+        {% if module.heading or module.description %}
+            <div class="{{ macros.text_align(module.design_settings) }} text-{{ module.design_settings.text_color }} sr-spacer-bottom-50">
+                {{ macros.heading(module.heading)}}
+                {% if module.description %}
+                    <div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <div class="map-bg" style="--size: {{ module.design_settings.map_styles.dot_size }}px;">
+            <div class="map">
+                {{macros.image(module.map)}}
+            </div>
+
+            {% for point in module.points %}
+            <button class="dot"
+                type="button"
+                data-index="{{ loop.index }}"
+                style="--y: {{ point.y_coordinates }}%;--x: {{ point.x_coordinates }}%;"
+                data-placement="{{ point.placement }}"
+
+            >
+                <div class="dot-pointer" style="transition-delay: {{ (loop.index0 * 100) }}ms;"></div>
+
+                {% if module.edit_mode %}
+                <div class="coordinate-display">
+                    <p>X:<span class="x-coordinate">0</span>%</p>
+                    <p>Y:<span class="y-coordinate">0</span>%</p>
+                </div>
+                {% endif %}
+
+                <div class="dot-card-wrapper bg-{{ module.design_settings.map_styles.background_color }} text-{{module.design_settings.map_styles.text_color }}" data-index="{{ loop.index }}">
+                    <div class="dot-card text-{{ module.design_settings.map_styles.text_color }} {{ macros.text_align(module.design_settings.map_styles) }}">
+                        <div class="dot-card-header">
+                            {% if point.image.src %}
+                            <div class="dot-card__image-wrapper">
+                                {{ macros.image(point.image)}}
+                            </div>
+                            {% endif %}
+                            <div class="dot-card__info d-flex flex-column justify-content-center">
+                                {{ macros.heading(point.heading) }}
+                            </div>
+                        </div>
+                        {% if point.content %}
+                        <div class="dot-card__description {{'lead' if point.lead_text}}">
+                            {{ point.content }}
+                        </div>
+                        {% endif %}
+                        {{macros.cta(point.ctas)}}
+                    </div>
+                </div>
+            </button>
+            {% endfor %}
+        </div>
+        {% if module.design_settings.container_width != 'max' %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endif %}

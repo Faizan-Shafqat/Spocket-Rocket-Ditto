@@ -1,0 +1,86 @@
+{% import "../../templates/macros.html" as macros %}
+
+<div class="sr-element-card {{ name }} {{ macros.module_background(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+	{% if module.design_settings.background_option == 'video' %}
+	{{macros.bg_video(module.background_video, module.design_settings.background_image.src)}}
+	{% endif %}
+
+	{% if module.image.src && module.image_block %}
+	<div class="card-image" style="height: {{ module.image_height}}px">
+		{% if module.image_link.url.href %}
+		<a {{ macros.link(module.image_link) }} role="link" aria-label="{{module.image.alt}}'s link {{ ' (Opens in new tab)' if module.image_link.open_in_new_tab }}">
+		{% endif %}
+		{{ macros.image(module.image) }}
+		{% if module.image_link.url.href %}
+		</a>
+		{% endif %}
+	</div>
+	{% endif %}
+	<div class="card-body">
+		{% if !module.image_block %}
+		<div class="text-{{ module.image_align}}">
+			{% if module.image_link.url.href %}
+			<a {{macros.link(module.image_link)}} role="link" aria-label="{{module.image.alt}}'s link {{ ' (Opens in new tab)' if module.image_link.open_in_new_tab }}">
+			{% endif %}
+			{{ macros.image(module.image, 'class="mb-4"') }}
+			{% if module.image_link.url.href %}
+			</a>
+			{% endif %}
+		</div>
+		{% endif %}
+		{% if module.heading || module.description %}
+		<div>
+			{{ macros.heading(module.heading) }}
+			{% if module.description %}
+			<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+			{% endif %}
+		</div>
+		{% endif %}
+		{{ macros.cta(module.ctas, '{% if module.heading || module.description %}sr-spacer-top-25{% endif %}') }}
+	</div>
+</div>
+
+{% require_css %}
+<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+	.{{ name }} {
+		{{ module.design_settings.spacing.css}}
+	}
+	{% if module.design_settings.background_option == 'video' %}
+	.{{ name }} .card-body,
+	.{{ name }} .card-image {
+		position: relative;
+	}
+	{% endif %}
+	{% if module.design_settings.border_radius || module.design_settings.enabled_box_shadow %}
+	.{{ name }} {
+		{% if module.design_settings.border_radius %}
+		border-radius: {{ module.design_settings.border_radius ~ 'px' }};
+		{% endif %}
+		{% if module.design_settings.enabled_box_shadow %}
+		box-shadow: 0px 5px 20px {{ module.design_settings.box_shadow.css }};
+		{% endif %}
+	}
+	{% if module.design_settings.border_radius %}
+	.{{ name }}::before,
+	.{{ name }} .sr-bg-video,
+	.{{ name }} .sr-bg-video-wrapper {
+		border-radius: {{ module.design_settings.border_radius ~ 'px' }};
+	}
+	{% endif %}
+	{% endif %}
+	.{{ name }} .card-body {
+		{{ module.design_settings.card_spacing.css }}
+	}
+	.{{ name }} .card-image img {
+		{% if module.design_settings.border_radius %}
+		border-top-left-radius: {{ module.design_settings.border_radius ~ 'px' }};
+		border-top-right-radius: {{ module.design_settings.border_radius ~ 'px' }};
+		{% endif %}
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+</style>
+{% end_require_css %}

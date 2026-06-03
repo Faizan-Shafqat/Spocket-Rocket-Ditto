@@ -1,0 +1,41 @@
+[
+  {
+    "module_name": "SR Hero 01",
+    "category": "Hero Section",
+    "theme": "Sprocket Rocket (SR)",
+    "deep_explanation": "This is a core Hero section module used at the very top of a website or landing page. It is designed to grab the user's attention immediately.",
+    "key_features": [
+      "Headings & Subheadings: Supports dynamic H1-H6 tags for SEO optimization.",
+      "Call To Action (CTA): Includes fully customizable primary and secondary buttons.",
+      "Media Backgrounds: Allows setting a solid color, gradient, image, or autoplaying video as the background.",
+      "Design Settings: Includes responsive spacing (padding/margins), content alignment options, and overlay opacities to ensure text is readable over images."
+    ],
+    "best_use_case": "Ideal for the homepage header or the main welcoming section of a service/product page where a strong initial impact is required."
+  },
+  {
+    "module_name": "SR Footer 04",
+    "category": "Footer Navigation",
+    "theme": "Sprocket Rocket (SR)",
+    "deep_explanation": "A specialized global footer module designed to close out a web page professionally. It organizes essential navigational links without cluttering the UI.",
+    "key_features": [
+      "Single-Step Navigation: Perfect for simple, straightforward footer menus instead of complex mega-menus.",
+      "Brand Assets: Dedicated space for the company logo and copyright text.",
+      "Social Media Integration: Built-in options to link to Facebook, Twitter, LinkedIn, Instagram, etc., with vector icons.",
+      "Legal & Compliance: Features stylized text fields specifically meant for Privacy Policies and Terms of Service links."
+    ],
+    "best_use_case": "Best used globally across the entire website at the bottom of the page to provide users with important secondary links and compliance information."
+  },
+  {
+    "module_name": "SR Offer Bar 06",
+    "category": "Offers & Conversions",
+    "theme": "Sprocket Rocket (SR)",
+    "deep_explanation": "A conversion-focused module created to highlight special offers, resources, or lead magnets without interrupting the user's reading flow.",
+    "key_features": [
+      "Clean Typography Layout: Minimalist design focusing purely on the offer text (body text) and a single action point.",
+      "Direct Call To Action (CTA): Provides a straightforward button for users to act on the offer (e.g., 'Download Now', 'Learn More').",
+      "No Visual Distractions: Unlike other Offer Bars, version 06 removes heavy images or forms in favor of pure, persuasive copy.",
+      "Responsive Spacing: Automatically adjusts padding on mobile devices to maintain a sleek appearance."
+    ],
+    "best_use_case": "Ideal for placing in the middle or end of blog posts, or on pricing pages, to convert visitors into downloading guides, templates, e-books, or signing up for a newsletter."
+  }
+]

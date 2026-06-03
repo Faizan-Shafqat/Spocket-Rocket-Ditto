@@ -1,0 +1,9 @@
+# Uses the same account as C:\Users\Dell\.hscli\config.yml — do not commit secrets here.
+# defaultPortal must match a valid account in your global `hs` config.
+defaultPortal: fake-demo-account
+portals:
+  - name: fake-demo-account
+    portalId: 40576602
+    env: prod
+    authType: personalaccesskey
+    accountType: DEVELOPER_TEST

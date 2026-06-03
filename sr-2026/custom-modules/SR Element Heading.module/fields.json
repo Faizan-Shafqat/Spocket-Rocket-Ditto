@@ -1,0 +1,121 @@
+[ {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "spacing",
+    "default" : { }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group"
+}, {
+  "id" : "heading.heading",
+  "name" : "heading",
+  "label" : "Heading",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : null,
+  "type" : "text",
+  "default" : "High-Conversion Websites Without The Hassle"
+}, {
+  "id" : "heading.heading_size",
+  "name" : "heading_size",
+  "label" : "Size",
+  "help_text" : "HTML heading size",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "display_width" : "half_width",
+  "type" : "choice",
+  "default" : "h2"
+}, {
+  "id" : "heading.heading_display_size",
+  "name" : "heading_display_size",
+  "label" : "Display Size",
+  "help_text" : "Size that heading is displayed at",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "display_width" : "half_width",
+  "type" : "choice",
+  "default" : "h1"
+}, {
+  "id" : "heading.heading_color",
+  "name" : "heading_color",
+  "label" : "Color",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "display_width" : null,
+  "type" : "choice",
+  "default" : "auto"
+}, {
+  "id" : "heading.heading_color_custom",
+  "name" : "heading_color_custom",
+  "label" : "Color",
+  "required" : false,
+  "locked" : false,
+  "visibility" : {
+    "controlling_field" : "heading.heading_color",
+    "controlling_field_path" : null,
+    "controlling_value_regex" : "custom",
+    "property" : null,
+    "operator" : "EQUAL",
+    "access" : null
+  },
+  "display_width" : null,
+  "type" : "color",
+  "default" : {
+    "color" : "#30343b",
+    "opacity" : 100
+  }
+}, {
+  "id" : "heading.heading_align",
+  "name" : "heading_align",
+  "label" : "Align",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "display_width" : null,
+  "type" : "choice",
+  "default" : "auto"
+}, {
+  "id" : "heading.class",
+  "name" : "class",
+  "label" : "CSS Class",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : null,
+  "type" : "text"
+} ]

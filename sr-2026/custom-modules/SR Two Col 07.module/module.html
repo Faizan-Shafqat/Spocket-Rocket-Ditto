@@ -1,0 +1,101 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+	</style>
+	{% end_require_css %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-two-col-07 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %}" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+						<div class="row">
+							<div class="col">
+								{% if module.heading || module.description %}
+								<div class="{{ macros.text_align(module.design_settings) }} sr-spacer-bottom-50">
+									{{ macros.heading(module.heading)}}
+									{% if module.description %}
+									<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+									{% endif %}
+									{{ macros.cta(module.ctas, 'sr-spacer-top-25') }}
+								</div>
+								{% endif %}
+							</div>
+						</div>
+
+						<div class="row row-gap sr-valign-{{ module.column_vertical_align }}">
+							{% for item in module.column %}
+
+							{% set colsize = 12 / loop.length %}
+							<div class="{% if item.class %}{{ item.class }} {% endif %}{% if !item.custom_column_size %}col-md-{{ colsize|int }}{% else %}{{macros.col_size(item.column_size)}}{% endif %} sr-col{% if item.col_text_align != 'auto' %} text-{{item.col_text_align}}{% else %} {{ macros.text_align(module.design_settings) }}{% endif %}{% if item.text_color != 'auto' %} text-{{item.text_color}}{% endif %}sr-repeater-{{loop.index}}{% if module.column_vertical_align == 'stretch' %} d-flex flex-wrap{% endif %}">
+								<div class="content-wrapper">
+									{% if item.col_media_type == "image" %}
+									{% if item.col_image.src and !module.use_image_as_background %}
+									<div class="responsive-image{% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}">
+										{% if item.add_to_lightbox %}
+										{{ require_js(get_asset_url('../../js/fslightbox.js'), { defer: true }) }}
+										<a data-fslightbox="col-gallery" role="button" aria-label="View larger version of image" href="{{ item.col_image.src }}">
+										{% endif %}
+										{% if item.image_link.url.href && !item.add_to_lightbox %}
+										<a {{ macros.link(item.image_link) }} role="link" aria-label="{{item.col_image.alt}}'s link {{ ' (Opens in new tab)' if item.image_link.open_in_new_tab }}">
+										{% endif %}
+										{{ macros.image(item.col_image, "{{ 'style=\"--img-corner: {{ item.image_corner_radius }}px\"' if item.image_corner_radius }}") }}
+										{% if item.image_link.url.href && !item.add_to_lightbox %}
+										</a>
+										{% endif %}
+										{% if item.add_to_lightbox %}
+										</a>
+										{% endif %}
+									</div>
+									{% endif %}
+									{% elif item.col_media_type == "form" %}
+									<div{% if item.heading || item.col_content || item.ctas %} class="mb-4"{% endif %}>
+										{{ macros.form(item.form) }}
+									</div>
+									{% elif item.col_media_type == "video" %}
+									{{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+									{{ macros.video(item.video, '{% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}') }}
+									{% elif item.col_media_type == "lottie" %}
+									{{ require_js("https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js", {defer:true, position: "head", type: "module"}) }}
+									<div class="lottie {% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}">
+										{{item.lottie_embed_code}}
+									</div>
+									{% endif %}
+									{{ macros.heading(item.heading)}}
+									{% if item.description %}
+									<div class="description {% if item.lead_text %} lead{% endif %}">
+										{{ item.description }}
+									</div>
+									{% endif %}
+									{{macros.features(item.features, module.design_settings.features_styles)}}
+									{{ macros.cta(item.ctas, '{{ "sr-spacer-top-25" if item.description || item.heading || item.features|length }}') }}
+									{%if item.col_media_type == "meeting" %}
+										{{macros.meeting(item.meeting)}}
+									{% endif %}
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

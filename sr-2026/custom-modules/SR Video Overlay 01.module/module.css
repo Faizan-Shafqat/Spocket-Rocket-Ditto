@@ -1,0 +1,74 @@
+.sr-video-overlay-01 {
+	min-height: 360px;
+	max-height: 100%;
+}
+.sr-video-overlay-01 .play-button-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 100%;
+	max-height: 100%;
+	transition: all 0.2s ease;
+	border: none;
+	background: none;
+	padding: 0;
+	margin: 0;
+	appearance: none;
+	z-index: 2;
+}
+
+.sr-video-overlay-01 .play-button-wrapper:hover {
+	opacity: 0.7;
+}
+
+.sr-video-overlay-01 .modal-container {
+	background-color: rgba(0,0,0,0.3);
+	display: flex;
+	justify-content: center;
+	z-index: 9999;
+	align-items: center;
+	position: fixed;
+	display: none;
+	pointer-events: none;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
+.sr-video-overlay-01 .modal-container.show {
+	display: flex;
+	pointer-events: auto;
+}
+.sr-video-overlay-01 .video-modal {
+	width: 1280px;
+	max-width: 100%;
+	padding: 1.5rem;
+	position: relative;
+}
+.sr-video-overlay-01 .video-modal .close-button {
+	position: absolute;
+	top: 1%;
+	right: 1%;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	aspect-ratio: 1/1;
+	z-index: 10;
+	background-color: var(--bg);;
+	transition: all 0.3s ease;
+	opacity: 0.7;
+}
+.sr-video-overlay-01 .video-modal .close-button:hover {
+	transform: scale(1.2);
+	transform: scale(1.2);
+	opacity: 1;
+}
+.sr-video-overlay-01 .video-modal .close-button svg,
+.sr-video-overlay-01 .video-modal .close-button svg g,
+.sr-video-overlay-01 .video-modal .close-button svg path {
+	fill: var(--color);
+}

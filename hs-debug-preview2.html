@@ -1,0 +1,34 @@
+<!--
+templateType: page
+isAvailableForNewContent: true
+label: SR Hero Preview (DND)
+screenshotPath: ../images/sr-page.jpg
+-->
+
+{% include './header.html' %}
+
+<body class="{{ builtin_body_classes }}">
+	{% dnd_area "main", class='body_dnd_area' label="Main Content" %}
+		{% dnd_section %}
+			{% dnd_module overrideable=True, widget_name='SR Hero 01', path='../custom-modules/SR Hero 01', label='SR Hero 01' %}
+				{% module_attribute "enabled" %}true{% end_module_attribute %}
+				{% module_attribute "design_settings.background_option" %}custom{% end_module_attribute %}
+				{% module_attribute "design_settings.background_custom" %}{"color":"#1f255b","opacity":100}{% end_module_attribute %}
+				{% module_attribute "design_settings.text_color" %}white{% end_module_attribute %}
+				{% module_attribute "heading.heading_color" %}white{% end_module_attribute %}
+				{% module_attribute "heading.heading_align" %}center{% end_module_attribute %}
+				{% module_attribute "ctas.0.cta_type" %}btn{% end_module_attribute %}
+				{% module_attribute "ctas.0.cta_style" %}gradient_one{% end_module_attribute %}
+				{% module_attribute "ctas.0.button_text" %}{{ Query.hero_cta_text or "Get Started" }}{% end_module_attribute %}
+				{% module_attribute "ctas.0.link" %}{"url":{"type":"EXTERNAL","href":"https://www.hubspot.com","content_id":null},"open_in_new_tab":true,"no_follow":false}{% end_module_attribute %}
+				{% module_attribute "height" %}medium{% end_module_attribute %}
+				{% module_attribute "parallax" %}false{% end_module_attribute %}
+				{% module_attribute "heading.heading" %}{{ Query.hero_heading or "Welcome to Our Website" }}{% end_module_attribute %}
+				{% module_attribute "description" %}{{ Query.hero_description or "<p>Discover amazing solutions for your business</p>" }}{% end_module_attribute %}
+			{% end_dnd_module %}
+		{% end_dnd_section %}
+	{% end_dnd_area %}
+
+	{% include './footer-includes.html' %}
+</body>
+</html>

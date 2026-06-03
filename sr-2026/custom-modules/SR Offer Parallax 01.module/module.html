@@ -1,0 +1,110 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.{{ name }} .sr-card {
+				{{ module.design_settings.card_styles.spacing.css }}
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+
+			{% if module.design_settings.responsive_settings.tablet.card_styles.spacing.css || module.design_settings.responsive_settings.tablet.card_styles.background_color != "auto" %}
+			@media{{"(min-width: 768px) and" if module.design_settings.responsive_settings.mobile.card_styles.spacing.css }} (max-width: 991.99px) {
+				.{{ name }} .sr-card {
+					{%- if module.design_settings.responsive_settings.tablet.card_styles.background_color == "gradient" -%}
+					background: {{ module.design_settings.responsive_settings.tablet.card_styles.background_gradient.css }};
+					{%- elif module.design_settings.responsive_settings.tablet.card_styles.background_color == "custom" -%}
+					background-color: {{ module.design_settings.responsive_settings.tablet.card_styles.background_custom.css }};
+					{%- elif module.design_settings.responsive_settings.tablet.card_styles.background_color == "image" -%}
+					background-image: url({{ resize_image_url(module.design_settings.responsive_settings.tablet.card_styles.background_image.src, '1440') }});
+					background-size: {{ module.design_settings.responsive_settings.tablet.card_styles.background_image.background_size }};
+					background-position: {{ module.design_settings.responsive_settings.tablet.card_styles.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+					{% elif module.design_settings.responsive_settings.tablet.card_styles.background_color != "auto" %}
+					background-color: var(--{{ module.design_settings.responsive_settings.tablet.card_styles.background_color }});
+					{%- endif -%}
+					{{ module.design_settings.responsive_settings.tablet.card_styles.spacing.css }}
+				}
+			}
+			{%- endif %}
+			{% if module.design_settings.responsive_settings.mobile.card_styles.spacing.css || module.design_settings.responsive_settings.mobile.card_styles.background_color != "auto" %}
+			@media(max-width: 767.99px) {
+				.{{ name }} .sr-card {
+					{%- if module.design_settings.responsive_settings.mobile.card_styles.background_color == "gradient" -%}
+					background: {{ module.design_settings.responsive_settings.mobile.card_styles.background_gradient.css }};
+					{%- elif module.design_settings.responsive_settings.mobile.card_styles.background_color == "custom" -%}
+					background-color: {{ module.design_settings.responsive_settings.mobile.card_styles.background_custom.css }};
+					{%- elif module.design_settings.responsive_settings.mobile.card_styles.background_color == "image" -%}
+					background-image: url({{ resize_image_url(module.design_settings.responsive_settings.mobile.card_styles.background_image.src, '1440') }});
+					background-size: {{ module.design_settings.responsive_settings.mobile.card_styles.background_image.background_size }};
+					background-position: {{ module.design_settings.responsive_settings.mobile.card_styles.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+					{% elif module.design_settings.responsive_settings.mobile.card_styles.background_color != "auto" %}
+					background-color: var(--{{ module.design_settings.responsive_settings.mobile.card_styles.background_color }});
+					{%- endif -%}
+					{{ module.design_settings.responsive_settings.mobile.card_styles.spacing.css }}
+				}
+			}
+			{%- endif %}
+		</style>
+	{% end_require_css %}
+
+	<div class="sr-offer-parallax-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }} sr-offer-parallax-page-wrapper">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+						<div class="row row-gap">
+							<div class="col-lg-7 col-md-9 sr-offer-parallax-01-content sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}">
+								{{ macros.heading(module.heading) }}
+								{% if module.description %}
+									<div class="description sr-spacer-bottom-50{% if module.lead_text %} lead{% endif %}">
+										{{module.description}}
+									</div>
+								{% endif %}
+								{{ macros.cta(module.ctas) }}
+							</div>
+							<div class="col-md-11 offset-md-1 sr-offer-parallax-01-image">
+								<div class="parallax-background" role="img" aria-label="{{module.parallax_image.alt}} Image">
+									{{macros.image(module.parallax_image, 'class="parallax-image"')}}
+								</div>
+							</div>
+						</div>
+
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{{ require_js(get_asset_url('../../js/gsap.js'), { defer: true }) }}
+	{{ require_js(get_asset_url('../../js/ScrollTrigger.js'), { defer: true }) }}
+{% endif %}

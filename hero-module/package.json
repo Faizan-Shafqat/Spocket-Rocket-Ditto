@@ -1,0 +1,18 @@
+{
+  "name": "hero-module",
+  "private": true,
+  "description": "Local SR theme + HubSpot CLI pull/push",
+  "scripts": {
+    "hs": "hs",
+    "hs:auth": "hs auth",
+    "hs:accounts": "hs accounts list",
+    "hs:push:sr": "hs cms upload ./sr ./sr -a fake-demo-account -o",
+    "hs:pull:module": "node tools/run-fetch.cjs",
+    "theme:fetch": "hs cms fetch /sr ./hubspot-fetched/sr -a fake-demo-account -o",
+    "theme:publish": "node tools/publish-new-theme.cjs",
+    "theme:button": "node tools/create-theme-button-server.cjs"
+  },
+  "devDependencies": {
+    "@hubspot/cli": "^6.0.0"
+  }
+}

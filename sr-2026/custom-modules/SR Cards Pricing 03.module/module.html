@@ -1,0 +1,155 @@
+{% if module.enabled %}
+
+    {% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+
+
+    <div class="sr-cards-pricing-03 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+        {{ macros.module_bg_video(module) }}
+
+        <div class="{{ module.design_settings.layout }}">
+            {% if module.design_settings.container_width != 'max' %}
+            <div class="row">
+                <div class="{{ width_class }}">
+            {% endif %}
+                    <div class="row">
+						<div class="col-12">
+							<div class="w-100 content-wrapper sr-card sr-border">
+								{% if module.heading || module.description %}
+								<div class="sr-spacer-bottom-75 {{ macros.text_align(module.design_settings) }} text-{{ module.design_settings.card_styles.text_color }}">
+									{{ macros.heading(module.heading) }}
+
+									{% if module.description %}
+									<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+									{% endif %}
+								</div>
+								{% endif %}
+
+								<div class="row align-items-center">
+									<div class="col-lg-5">
+										<div class="pricing-box sr-card sr-border text-{{ module.design_settings.cardinner_styles.text_color }}">
+											{{ macros.heading(module.pricing_card.pricing_heading) }}
+
+											{% if module.pricing_card.pricing_value %}
+											<h4 class="h1 {{'mb-3' if module.pricing_card.pricing_description else 'mb-0'}}">{{ module.pricing_card.pricing_value}}</h4>
+											{% endif %}
+
+											{% if module.pricing_card.pricing_description %}
+											<div class="description{% if module.pricing_card.pricing_description_lead_text %} lead{% endif %}">{{ module.pricing_card.pricing_description }}</div>
+											{% endif %}
+											{{ macros.cta(module.pricing_card.ctas, 'justify-content-center sr-spacer-top-50') }}
+										</div>
+									</div>
+									<div class="col-lg-6 offset-lg-1">
+										<div class="features-box text-{{ module.design_settings.card_styles.text_color }}">
+											{{ macros.heading(module.features_heading) }}
+											<ul {{'class="mb-0"' if !module.features_description }}>
+												{% for item in module.features %}
+												<li>
+													{% if item.icon.icon_type == 'icon' %}
+													<span class="icon-icon" style="--icon-color: {{item.icon.icon_color.css}};{% if item.icon.icon_background.opacity != 0 %} --icon-background: {{item.icon.icon_background.css}};{% endif %}">
+														{% icon
+															name="{{ item.icon.icon.name }}"
+															style="{{ item.icon.icon.type }}"
+															unicode="{{ item.icon.icon.unicode }}"
+															icon_set="{{ item.icon.icon.icon_set }}"
+															width="{{ item.icon.icon_size }}"
+															no_wrapper=true
+														%}
+													</span>
+													{% else %}
+													<span class="icon-image" style="--icon-width: {{item.icon.image.width}}px">
+														{{ macros.image(item.icon.image) }}
+													</span>
+													{% endif %}
+													<span class="p mb-0">{{ item.feature_text }}</span>
+												</li>
+												{% endfor %}
+											</ul>
+											{% if module.features_description %}<div class="description{% if module.features_description_lead_text %} lead{% endif %}">{{ module.features_description}}</div>{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+                    </div>
+                    {% if module.design_settings.container_width != 'max' %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% require_css %}
+    <style>
+        {{ macros.design_settings(name, module.design_settings) }}
+        .{{ name }} .content-wrapper {
+            {{ module.design_settings.card_styles.spacing.css }}
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+        }
+        .{{ name }} .pricing-box {
+            {{ module.design_settings.cardinner_styles.spacing.css }};
+            {%- if module.design_settings.cardinner_styles.background_color == "gradient" -%}
+            background: {{ module.design_settings.cardinner_styles.background_gradient.css }};
+            {%- elif module.design_settings.cardinner_styles.background_color == "custom" -%}
+            background-color: {{ module.design_settings.cardinner_styles.background_custom.css }};
+            {%- elif module.design_settings.cardinner_styles.background_color != "auto" -%}
+            background-color: var(--{{ module.design_settings.cardinner_styles.background_color }});
+            {%- endif -%}
+            {%- if module.design_settings.cardinner_styles.text_color == "custom" %}
+            color: {{ module.design_settings.cardinner_styles.text_color_custom.css }};
+            {%- endif -%}
+            {% if module.design_settings.cardinner_styles.border.css %}
+            {{ module.design_settings.cardinner_styles.border.css }};
+            {% endif %}
+            {% if module.design_settings.cardinner_styles.border_radius >= 0 %}
+            border-radius: {{ module.design_settings.cardinner_styles.border_radius }}px;
+            {% endif %}
+            {% if module.design_settings.cardinner_styles.shadow %}
+            box-shadow: {{ "inset" if module.design_settings.cardinner_styles.inset }} {{ module.design_settings.cardinner_styles.horizontal ~ "px" }} {{ module.design_settings.cardinner_styles.vertical ~ "px" }} {{ module.design_settings.cardinner_styles.blur ~ "px" }} {{ module.design_settings.cardinner_styles.spread ~ "px" }} {{ module.design_settings.cardinner_styles.color.css }};
+            {% endif %}
+        }
+
+		{% if module.design_settings.responsive_settings.tablet.card_styles.spacing.css %}
+			@media{{"(min-width: 768px) and" if module.design_settings.responsive_settings.mobile.card_styles.spacing.css }} (max-width: 991.99px) {
+				.{{ name }} .content-wrapper {
+					{{ module.design_settings.responsive_settings.tablet.card_styles.spacing.css }}
+				}
+			}
+			{%- endif %}
+			{% if module.design_settings.responsive_settings.mobile.card_styles.spacing.css %}
+			@media(max-width: 767.99px) {
+				.{{ name }} .content-wrapper {
+					{{ module.design_settings.responsive_settings.mobile.card_styles.spacing.css }}
+				}
+			}
+			{%- endif %}
+    </style>
+    {% end_require_css %}
+{% endif %}

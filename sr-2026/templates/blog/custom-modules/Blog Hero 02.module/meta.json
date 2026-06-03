@@ -1,0 +1,8 @@
+{
+  "global" : false,
+  "content_types" : [ "BLOG_LISTING" ],
+  "host_template_types" : [ "BLOG_LISTING" ],
+  "module_id" : 210345399345,
+  "icon" : "fontawesome-5.14.0:Square:SOLID",
+  "is_available_for_new_content" : true
+}

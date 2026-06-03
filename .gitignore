@@ -1,0 +1,13 @@
+.env
+node_modules/
+hs-upload-tmp/
+*.zip
+lightrag.log
+my-theme-old/
+client-delivery-theme/
+.slim-staging/
+typography-extract-cache/
+cache/lightrag/.lightrag_data/*
+!cache/lightrag/.lightrag_data/.gitkeep
+!cache/lightrag/.lightrag_data/README.md
+cache/lightrag/.naive_data/

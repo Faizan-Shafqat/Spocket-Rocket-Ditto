@@ -1,0 +1,134 @@
+[ {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "spacing",
+    "default" : { }
+  }, {
+    "id" : "design_settings.text_align",
+    "name" : "text_align",
+    "label" : "Text Align",
+    "required" : false,
+    "locked" : false,
+    "display_width" : "half_width",
+    "type" : "textalignment",
+    "default" : {
+      "text_align" : "LEFT"
+    }
+  }, {
+    "id" : "design_settings.text_color",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "help_text" : "Set to <strong>Auto</strong> to use the default text color<br><br>Set to <strong>Custom</strong> to set a custom text color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : "half_width",
+    "type" : "choice",
+    "default" : "auto"
+  }, {
+    "id" : "design_settings.text_color_custom",
+    "name" : "text_color_custom",
+    "label" : "Text Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.text_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "color",
+    "default" : {
+      "color" : "#87909e",
+      "opacity" : 100
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group"
+}, {
+  "id" : "tabs",
+  "name" : "tabs",
+  "label" : "Tabs",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : 1,
+    "max" : null,
+    "sorting_label_field" : null,
+    "default" : 4
+  },
+  "children" : [ {
+    "id" : "tabs.tab_label",
+    "name" : "tab_label",
+    "label" : "Tab Label",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "display_width" : null,
+    "type" : "text",
+    "default" : "Website Game Plan"
+  }, {
+    "id" : "tabs.tab_content",
+    "name" : "tab_content",
+    "label" : "Tab Content",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "richtext",
+    "default" : "A great user experience can make or break a potential customer relationship. So when it's time for a website redesign, the pressure is on to make your site exceptional. However, with the wrong approach, website designs can quickly get out of hand. Traditional website design processes are notorious for going over budget, and way beyond their projected launch date. That's why the key to building an incredible site is coming up with an exceptional website project plan."
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : [ {
+    "tab_label" : "Website Game Plan",
+    "tab_content" : "A great user experience can make or break a potential customer relationship. So when it's time for a website redesign, the pressure is on to make your site exceptional. However, with the wrong approach, website designs can quickly get out of hand. Traditional website design processes are notorious for going over budget, and way beyond their projected launch date. That's why the key to building an incredible site is coming up with an exceptional website project plan."
+  }, {
+    "tab_label" : "White Glove Service",
+    "tab_content" : "With the right building blocks in place, your content marketing strategy will be designed in a way that increases traffic, leads and sales opportunities - the primary focuses of any industry-leading content marketing expert! Master these five building blocks of a content marketing strategy to create more audience-driven, growth-oriented, and high-value roadmap."
+  }, {
+    "tab_label" : "Built for HubSpot",
+    "tab_content" : "Often, this day-to-day friction leads to an all-in-one solution such as HubSpot. With HubSpot, you can centralize your marketing and sales efforts. If you migrate to HubSpot's CMS (Content Management System), you get even more benefits, such as better reporting, mobile responsive web pages, and increased speed and security.<br><br>The decision to migrate to HubSpot may seem like a given, but it's not a fix-all solution. A lot of teams move to the platform to resolve ongoing marketing and website problems. That's why it's crucial to understand whether or not your site is ready for migration."
+  }, {
+    "tab_label" : "Content Creation",
+    "tab_content" : "By the time a trend is being mass-marketed — like many of the ones mentioned in this article — innovators are already experimenting with new strategies behind the scenes. With this in mind, it's important to keep trends in perspective by following the ones that compliment your business and continuing to experiment outside of mainstream practices. In other words, don’t overlook the possibility of starting your own trends."
+  } ]
+}, {
+  "id" : "tab_style",
+  "name" : "tab_style",
+  "label" : "Tab Style",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "outline-primary", "Outline Primary" ], [ "outline-secondary", "Outline Secondary" ], [ "outline-tertiary", "Outline Tertiary" ], [ "outline-white", "Outline White" ], [ "outline-black", "Outline Black" ], [ "none", "None" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "display_width" : null,
+  "type" : "choice",
+  "default" : "primary"
+} ]

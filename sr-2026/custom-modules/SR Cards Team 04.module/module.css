@@ -1,0 +1,119 @@
+.sr-cards-team-04 .blaze-slider {
+	--slides-to-show: 3;
+	--slide-gap: 30px;
+}
+
+@media (max-width: 992px) {
+	.sr-cards-team-04 .blaze-slider .blaze-track {
+		align-items: stretch;
+	}
+}
+
+.sr-cards-team-04 .blaze-arrow {
+	color: var(--arrows-color, var(--primary));
+	border-radius: 100%;
+	border: 2px solid var(--arrows-color, var(--primary));
+	width: 2rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 500ms ease;
+	background: none;
+	background-color: transparent;
+	appearance: none;
+	-webkit-appearance: none;
+	padding: 0;
+}
+
+.sr-cards-team-04 .blaze-arrow {
+	position: absolute;
+	top: 50%;
+	font-size: 30px;
+	z-index: 1;
+	cursor: pointer;
+}
+
+.sr-cards-team-04 .blaze-arrow svg {
+	color: var(--arrows-color, var(--primary));
+	fill: currentColor
+}
+
+.sr-cards-team-04 .blaze-arrow:hover svg {
+	color: #fff;
+}
+
+.sr-cards-team-04 .blaze-arrow:hover {
+	color: #fff;
+	border: var(--primary);
+	background-color: var(--primary);
+}
+
+.sr-cards-team-04 .chevron-left {
+	left: 0.5rem;
+	transform: translateY(-50%) translateX(-50%);
+}
+
+.sr-cards-team-04 .chevron-right {
+	right: 0.5rem;
+	transform: translateY(-50%) translateX(50%);
+}
+
+.sr-cards-team-04 .sr-cards-team__name {
+	font-weight: 600;
+	margin-bottom: .625rem;
+	color: var(--heading);
+}
+
+.sr-cards-team-04 .content-wrapper>a {
+	color: inherit
+}
+
+.sr-cards-team-04 .sr-cards-team__image {
+	position: relative;
+}
+
+.sr-cards-team-04 .blaze-pagination button {
+	padding: 0 !important;
+}
+
+.sr-cards-team-04 .sr-cards-team__info {
+	backdrop-filter: blur(15px);
+	position: absolute;
+	bottom: 15px;
+	width: calc(100% - 1.875rem);
+	left: 0;
+	right: 0;
+	margin: auto;
+}
+
+.sr-cards-team-04 .blaze-track .sr-cards-team__image,
+.sr-cards-team-04 .blaze-track .content-wrapper,
+.sr-cards-team-04 .blaze-track .content-wrapper>a {
+	height: 100%;
+	display: block
+}
+
+.sr-cards-team-04 .sr-cards-team__image img {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
+
+@media(min-width: 1200px) {
+	.sr-cards-team-04 .chevron-left {
+		left: -1rem
+	}
+	.sr-cards-team-04 .chevron-right {
+		right: -1rem
+	}
+}
+
+@media(min-width: 1300px) {
+	.sr-cards-team-04 .chevron-left {
+		left: -2.5rem
+	}
+	.sr-cards-team-04 .chevron-right {
+		right: -2.5rem
+	}
+}

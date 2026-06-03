@@ -1,0 +1,136 @@
+{% import "../../../../templates/macros.html" as macros %}
+
+<div class="blog-nav" >
+    <div class="{{ module.design_settings.layout }}">
+		{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+		{% endif %}
+        <div class="row no-gutters d-flex align-items-center justify-content-between">
+            <div class="col-md-9 col-12 mb-4 mb-md-0 menu">
+                {% if module.enable_left_menu %}
+                <div class="d-inline-block">
+                    {{ macros.cta(module.ctas_left) }}
+                </div>
+                {% endif %}
+                {% if module.categories.enabled %}
+                <div class="cta-group">
+                    <div class="btn-wrapper btn-{{ module.categories.cta_style }}-wrapper btn-wrapper-{{module.categories.cta_size}}">
+                        <a class="cta-button categories-trigger" href="#">{{ module.categories.button_text }}</a>
+                    </div>
+                </div>
+                {% endif %}
+                {% if module.enable_right_menu %}
+                <div class="d-inline-block mb-4 mb-md-0">
+                    {{ macros.cta(module.ctas_right) }}
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-md-3 col-12 text-md-auto text-right pl-3">
+                {% if module.search.enabled %}
+                <div class="d-block">
+                    <div class="hs-search-field">
+                        <div class="hs-search-field__bar">
+                            <form action="/{{ site_settings.content_search_results_page_path }}">
+                                <input type="text" class="hs-search-field__input" name="term" autocomplete="off" aria-label="{{ module.search.field_label || "Search" }}" placeholder="{{ module.search.placeholder }}">
+                                {% if module.search.content_types.website_pages %}
+                                <input type="hidden" name="type" value="SITE_PAGE">
+                                {% endif %}
+                                {% if module.search.content_types.landing_pages %}
+                                <input type="hidden" name="type" value="LANDING_PAGE">
+                                {% endif %}
+                                {% if module.search.content_types.blog_posts %}
+                                <input type="hidden" name="type" value="BLOG_POST">
+                                <input type="hidden" name="type" value="LISTING_PAGE">
+                                {% endif %}
+                                {% if module.search.content_types.knowledge_articles %}
+                                <input type="hidden" name="type" value="KNOWLEDGE_ARTICLE">
+                                {% endif %}
+                                {% if module.search.include_search_button %}
+                                <button aria-label="Search">{% icon name="search" style="solid" %}</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                        <ul class="hs-search-field__suggestions"></ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% if module.design_settings.container_width != 'max' %}
+        </div>
+    </div>
+    {% endif %}
+    </div>
+    <div class="container">
+        <div class="categories-container py-3">
+            {% set blog_tags = blog_tags(group.id, 250) %}
+            <ul>
+                {% for item in blog_tags %}
+                <li><a href="{{ blog_tag_url(group.id, item.slug) }}">{{ item }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% require_css %}
+<style>
+    {% scope_css %}
+    .menu {
+        display: flex;
+        justify-content: space-between;
+    }
+    .blog-nav {
+        background-color: {{ module.design_settings.background_color.css }};
+        color: {{ module.design_settings.text_color.css }};
+        {{ module.design_settings.spacing_field.css }}
+    }
+    .btn-wrapper.btn-none-wrapper .cta_button:not(:hover),
+    .btn-wrapper.btn-none-wrapper .cta-button:not(:hover) {
+        color: {{ module.design_settings.text_color.css }};
+    }
+    .blog-nav .hs-search-field svg,
+    .blog-nav .hs-search-field svg g {
+        fill: {{ theme.forms.fields.placeholder.color.css }};
+    }
+    .blog-nav .hs-search-field button:hover svg,
+    .blog-nav .hs-search-field button:hover svg g {
+        fill: {{ theme.forms.fields.text.color.css }};
+    }
+    .hs-search-field__bar form input,
+    .hs-search-field button {
+        color: {{ theme.forms.fields.text.color.css }};
+        background: {{ theme.forms.fields.background.color.css }};
+        {{theme.forms.fields.border.border.css}};
+    }
+    .hs-search-field button {
+        border-left: none;
+        border-top-right-radius: {{ theme.forms.fields.border.radius }}px;
+        border-bottom-right-radius: {{ theme.forms.fields.border.radius }}px;
+        aspect-ratio: 1/1;
+        min-width: 40px;
+    }
+    {% end_scope_css %}
+</style>
+{% end_require_css %}
+
+{% require_js %}
+<script defer>
+    // Slide on click
+    let categoriesTrigger = document.querySelector('.categories-trigger');
+
+    if (categoriesTrigger) {
+        categoriesTrigger.addEventListener('click', function(e) {
+            let categoriesContainer = document.querySelector('.categories-container');
+
+            if (categoriesContainer.style.display === 'none' || !categoriesContainer.style.display) {
+                categoriesContainer.style.display = 'block';
+            } else {
+                categoriesContainer.style.display = 'none';
+            }
+
+            e.preventDefault();
+        });
+    }
+</script>
+{% end_require_js %}

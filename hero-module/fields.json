@@ -1,0 +1,71 @@
+[
+  {
+    "id": "hero_headline",
+    "name": "hero_headline",
+    "label": "Headline",
+    "type": "text",
+    "default": "Welcome to Our Website",
+    "required": false,
+    "locked": false
+  },
+  {
+    "id": "hero_subheadline",
+    "name": "hero_subheadline",
+    "label": "Subheadline",
+    "type": "text",
+    "default": "Discover amazing solutions for your business",
+    "required": false,
+    "locked": false
+  },
+  {
+    "id": "hero_button_text",
+    "name": "hero_button_text",
+    "label": "Button Text",
+    "type": "text",
+    "default": "Get Started",
+    "required": false,
+    "locked": false
+  },
+  {
+    "id": "hero_button_url",
+    "name": "hero_button_url",
+    "label": "Button URL",
+    "type": "text",
+    "default": "#contact",
+    "required": false,
+    "locked": false
+  },
+  {
+    "id": "hero_background_image",
+    "name": "hero_background_image",
+    "label": "Background Image",
+    "type": "image",
+    "required": false,
+    "locked": false
+  },
+  {
+    "id": "hero_alignment",
+    "name": "hero_alignment",
+    "label": "Content Alignment",
+    "type": "choice",
+    "choices": [
+      ["left", "Left"],
+      ["center", "Center"],
+      ["right", "Right"]
+    ],
+    "default": "center",
+    "required": false,
+    "locked": false
+  },
+  {
+    "id": "hero_overlay_opacity",
+    "name": "hero_overlay_opacity",
+    "label": "Overlay Opacity",
+    "type": "number",
+    "default": 50,
+    "min": 0,
+    "max": 100,
+    "required": false,
+    "locked": false
+  }
+]

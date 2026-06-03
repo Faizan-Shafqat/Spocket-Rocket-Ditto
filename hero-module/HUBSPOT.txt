@@ -1,0 +1,22 @@
+HubSpot CLI (global 8.x uses "hs cms ...")
+===========================================
+
+Account: use `hs accounts list` — this repo uses default name `fake-demo-account` (test portal 40576602) in scripts. Override: set HS_ACCOUNT=other-name
+
+1) Re-fetch live /sr from Design Manager into this project
+   npm run theme:fetch
+   (writes: hubspot-fetched/sr)
+
+2) Publish a COPY as a NEW theme folder (same account, new folder name)
+   npm run theme:publish -- "Your-New-Theme-Name"
+   or:  node tools/publish-new-theme.cjs "Your-New-Theme-Name"
+   Source folder: hubspot-fetched/sr  (override with THEME_SOURCE=...)
+
+3) "Button" to create the new theme (local browser, still uses your hs CLI on this PC)
+   npm run theme:button
+   Open http://127.0.0.1:3710/  — enter folder name, submit. Runs hs cms upload.
+
+4) Single module pull (if path known)
+   hs cms fetch "/path/Module.module" "./hubspot-pulled/Module.module" -a fake-demo-account -o
+
+Note: A browser on another machine cannot run these; the button server is localhost only.

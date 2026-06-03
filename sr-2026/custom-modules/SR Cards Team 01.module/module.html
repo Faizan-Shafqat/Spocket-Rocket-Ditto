@@ -1,0 +1,103 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.{{ name }} .sr-card {
+				{{ module.design_settings.card_styles.spacing.css }}
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+		</style>
+	{% end_require_css %}
+
+	<div class="sr-cards-team {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					{% if module.heading || module.description || module.cta.cta_type != 'none'%}
+					<div class="intro-section sr-spacer-bottom-50 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+							<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+						{% endif %}
+						{{ macros.cta(module.ctas, 'sr-spacer-top-25') }}
+					</div>
+					{% endif %}
+					<div class="section-content">
+						<div class="row row-gap justify-content-center">
+							{% for item in module.card %}
+							<div class="{{ macros.col_size(module.columns) }} team-column">
+								<div class="team-card sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}">
+									<div class="card-img-top">
+										{{ macros.image(item.team_image) }}
+									</div>
+									<div class="card-text-wrapper description">
+										<h3 class="card-title">{{ item.team_name }}</h3>
+										<div class="card-text">{{ item.team_title }}</div>
+										{% if item.social_icons|length %}
+										<div class="social-links">
+											<ul class="social">
+											{% for item2 in item.social_icons %}
+											<li>
+												<a class="no-decoration" {{ macros.link(item2.link) }} role="link">
+													<span style="background-color: {{ item2.background_color.color }}; fill: {{ item2.icon_color.color }}">
+														{% icon
+															name="{{ item2.icon.name }}"
+															style="{{ item2.icon.type }}"
+															unicode="{{ item2.icon.unicode }}"
+															icon_set="{{ item2.icon.icon_set }}"
+															width="17"
+															no_wrapper=true
+														%}
+													</span>
+												</a>
+											</li>
+											{% endfor %}
+											</ul>
+										</div>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

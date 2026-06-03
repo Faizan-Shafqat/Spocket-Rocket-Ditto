@@ -1,0 +1,202 @@
+{% if module.enabled %}
+
+  {% import "../../templates/macros.html" as macros %}
+  
+  {% set splide = module.slides|length <= 1 ? false : true %}
+  
+  
+  {% if splide %}
+  {{ require_css(get_asset_url('../../css/splide.css')) }}
+  {{ require_js(get_asset_url('../../js/splide.js'), { position: 'head', defer: true }) }}
+  {% endif %}
+  
+  {% require_css %}
+  <style>
+    {{ macros.design_settings(name, module.design_settings) }}
+    .{{ name }} .content-wrapper {
+      {% if module.design_settings.column_styles.spacing.css -%}
+      {{ module.design_settings.column_styles.spacing.css }}
+      {%- endif -%}
+      {%- if module.design_settings.column_styles.background_color == "gradient" -%}
+      background: {{ module.design_settings.column_styles.background_gradient.css }};
+      {%- elif module.design_settings.column_styles.background_color == "custom" -%}
+      background-color: {{ module.design_settings.column_styles.background_custom.css }};
+      {% elif module.design_settings.column_styles.background_color != "auto" %}
+      background-color: var(--{{ module.design_settings.column_styles.background_color }});
+      {%- endif -%}
+      {% if module.design_settings.column_styles.text_color == "custom" %}
+      color: {{ module.design_settings.column_styles.text_color_custom.css }};
+      {%- endif -%}
+      {% if module.design_settings.column_styles.border.css %}
+      {{ module.design_settings.column_styles.border.css }}
+      {%- endif -%}
+      {% if module.design_settings.column_styles.border_radius >= 0 %}
+      border-radius: {{ module.design_settings.column_styles.border_radius }}px;
+      {%- endif -%}
+      {% if module.design_settings.column_styles.shadow %}
+      box-shadow: {{ "inset" if module.design_settings.column_styles.inset }} {{ module.design_settings.column_styles.horizontal ~ "px" }} {{ module.design_settings.column_styles.vertical ~ "px" }} {{ module.design_settings.column_styles.blur ~ "px" }} {{ module.design_settings.column_styles.spread ~ "px" }} {{ module.design_settings.column_styles.color.css }};
+      {%- endif %}
+      height: auto;
+      width: auto;
+    }
+    .{{ name }} .media-break .content-wrapper {
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+    }
+    .{{ name }} .media-break .media-item {
+      {% if module.design_settings.column_styles.border_radius >= 0 %}
+      border-radius: {{ module.design_settings.column_styles.border_radius }}px;
+      {% endif %}
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-bottom: -2px;
+      overflow: hidden;
+    }
+  
+    .{{name}} .splide__arrows .splide__arrow svg {
+      height: 12px;
+      fill: currentColor;
+    }
+  
+    {% for slide in module.slides %}
+    {% set slideIndex = loop.index %}
+  
+    {% for item in slide.column %}
+    {% if item.features|length > 0 %}
+    .{{name}} .sr-two-col-slider-01-slide-{{ slideIndex }} .column_feature {
+        align-items: {{slide.design_settings.features_styles.icon_align}};
+      }
+      {% endif %}
+    {% endfor %}
+  
+    {% endfor %}
+  </style>
+  {% end_require_css %}
+  
+  {%- macro media(item, media_padding)  -%}
+  {% if item.col_media_type == "image" %}
+  {% if item.col_image.src %}
+  <div class="media-item responsive-image{% if media_padding && (item.heading || item.col_content || item.ctas) %} mb-4{% endif %}">
+    {% if item.image_link.url.href %}
+    <a {{ macros.link(item.image_link) }} role="link" aria-label="{{item.col_image.alt}}'s link {{ ' (Opens in new tab)' if item.image_link.open_in_new_tab }}">
+    {% endif %}
+    {{ macros.image(item.col_image, "{{ 'style=\"--img-corner: {{ item.image_corner_radius }}px\"' if item.image_corner_radius }}") }}
+    {% if item.image_link.url.href  %}
+    </a>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% elif item.col_media_type == "video" %}
+  <div class="media-item">
+    {{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+    {{ macros.video(item.video, '{% if media_padding && (item.heading || item.col_content || item.ctas) %} mb-4{% endif %}') }}
+  </div>
+  {% elif item.col_media_type == "lottie" %}
+  <div class="lottie media-item{% if media_padding && (item.heading || item.col_content || item.ctas) %} mb-4{% endif %}">
+  {{ require_js("https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js", {defer:true, position: "head", type: "module"}) }}
+    {{ item.lottie_embed_code }}
+  </div>
+  {% endif %}
+  {%- endmacro -%}
+  
+  <div class="sr-multicol-media sr-two-col-slider-01 {{ name }} sr_module {{ "splide" if splide }} {{ "{{module.class}}" if module.class }}" role="group" aria-label="SR Two Col Slider 01" data-arrows="{{ module.arrows }}" data-pagination="{{ module.dots }}" data-fade="{{ module.fade }}" data-autoplay="{{ module.autoplay && !module.autoscroll }}" data-autoplayspeed="{{ module.autoplay_speed }}" data-scroll="{{ module.autoplay && module.autoscroll }}" data-scrollspeed="{{ module.scroll_speed }}" {{ "data-preview" if module_preview }} {{"id='{{ module.sr_module_id }}'" if module.sr_module_id}} style="--dots-color:{{module.design_settings.slider_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slider_styles.dots_color_default.css}};--arrows-color:{{module.design_settings.slider_styles.arrows_color.css}}">
+  
+    {% if module.arrows && splide %}
+    <div class="splide__arrows">
+      <button type="button" aria-label="Previous Slide" class="splide__arrow splide__arrow--prev default">
+        <span class="show-for-sr">Previous Slide</span>
+        {{macros.icon(module.design_settings.slider_styles.arrow_left_icon, 12)}}
+      </button>
+      <button type="button" aria-label="Next Slide" class="splide__arrow splide__arrow--next default">
+        <span class="show-for-sr">Next Slide</span>
+        {{macros.icon(module.design_settings.slider_styles.arrow_right_icon, 12)}}
+      </button>
+    </div>
+    {% endif %}
+  
+  
+    <div class="splide__track">
+      <div class="splide__list unstyle-list sr-valign-{{ module.slider_vertical_align }}">
+        {% for slide in module.slides %}
+          {%- do slide.design_settings.update({"background_image" :
+            {
+              "src": slide.design_settings.background_image.src,
+              "background_size": "cover",
+              "background_position": "center"
+            }
+          }) -%}
+  
+          {%- set slide_name = "sr-two-col-slider-01-slide-" ~ loop.index -%}
+  
+          {%- require_css -%}
+          <style>
+            {{ macros.design_settings(slide_name, slide.design_settings) }}
+          </style>
+          {%- end_require_css -%}
+  
+          <div class="splide__slide {{ slide_name }} {{ macros.padding(module.design_settings) }} {% if slide.design_settings.background_option == 'color' %} bg-{{ slide.design_settings.background_color }}{% endif %} text-{{ slide.design_settings.text_align }} text-{{ slide.design_settings.text_color }} prototype-no-background sr_module{% if slide.class %} {{ slide.class }}{% endif %}">
+  
+            {% if slide.design_settings.container_width == 'min' %}
+              {% set width_class = 'col-md-6 offset-md-3' %}
+            {% elif slide.design_settings.container_width == 'narrow' %}
+              {% set width_class = 'col-md-8 offset-md-2' %}
+            {% elif slide.design_settings.container_width == 'wide' %}
+              {% set width_class = 'col-md-10 offset-md-1' %}
+            {% endif %}
+  
+            {% if slide.design_settings.background_option == 'video' %}
+            {{ macros.bg_video(slide.design_settings.background_video, slide.design_settings.background_image.src) }}
+            {% endif %}
+  
+            <div class="{{ slide.design_settings.layout }} {{ 'h-100' if module.slider_vertical_align == 'stretch' }}">
+              {% if slide.design_settings.container_width != 'max' %}
+              <div class="row {{ 'h-100' if module.slider_vertical_align == 'stretch' }}">
+                <div class="{{ width_class }} {{ 'h-100' if module.slider_vertical_align == 'stretch' }}">
+              {% endif %}
+                  <div class="row row-gap sr-valign-{{ slide.column_vertical_align }} {{ 'h-100' if module.slider_vertical_align == 'stretch' }}">
+                    {% for item in slide.column %}
+                    {% set colsize = 12 / loop.length %}
+                    <div class="{% if item.class %}{{ item.class }} {% endif %}{% if !item.custom_column_size %}col-md-{{ colsize|int }}{% else %}{{ macros.col_size(item.column_size) }}{% endif %} sr-col{% if item.col_text_align != 'auto' %} text-{{item.col_text_align}}{% else %} {{ macros.text_align(module.design_settings) }}{% endif %}{% if item.text_color != 'auto' %} text-{{item.text_color}}{% elif module.design_settings.column_styles.text_color != 'auto' %} text-{{ module.design_settings.column_styles.text_color }} {% endif %} sr-repeater-{{loop.index}}{% if module.column_vertical_align == 'stretch' %} d-flex flex-wrap{% endif %} {% if !item.media_padding %}media-break{% endif %}" style="{%- if item.video.background_video_design != 'none'  -%}--v-accent: var(--{{ item.video.video_accent_color }}); {% if item.video.video_accent_color == 'custom' %}--v-custom: {{ item.video.custom_accent_color.css }}{% endif %}{% endif %}">
+                      <div class="media-wrapper d-flex flex-column h-100">
+                        {% if !item.media_padding %}
+                        {{ media(item, false) }}
+                        {% endif %}
+                        <div class="content-wrapper flex-fill">
+                          {% if item.media_padding %}
+                          {{ media(item, true) }}
+                          {% endif %}
+                          {{ macros.heading(item.heading)}}
+                          {% if item.col_content %}
+                          <div class="col-content{% if item.lead_text %} lead{% endif %}">
+                            {{ item.col_content }}
+                          </div>
+                          {% endif %}
+                          {{ macros.features(item.features, slide.design_settings.features_styles) }}
+                          {{ macros.cta(item.ctas, '{{ "sr-spacer-top-25" if item.col_content || item.heading }}') }}
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+              {% if slide.design_settings.container_width != 'max' %}
+                </div>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+      </div>
+      {% if module.dots && splide %}
+      <ul class="splide__pagination overlay"></ul>
+      {% endif %}
+    </div>
+  
+    {% if module.progressbar && splide %}
+    <div class="splide__progress" style="--bar-color: {{ module.progressbar_color.css }}">
+      <div class="splide__progress__bar">
+      </div>
+    </div>
+    {% endif %}
+  
+  </div>
+  {% endif %}

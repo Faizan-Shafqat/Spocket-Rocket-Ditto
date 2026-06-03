@@ -1,0 +1,12 @@
+.sr-footer-min p {
+    margin: 0;
+    padding: 0;
+}
+.sr-footer-min p a {
+    border-color: inherit;
+    text-decoration: none;
+}
+
+.sr-footer-min p a:hover {
+    color: var(--primary);
+}

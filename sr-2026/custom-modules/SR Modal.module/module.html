@@ -1,0 +1,71 @@
+{% import "../../templates/macros.html" as macros %}
+
+	{% if is_in_editor %}
+	<div class="hs-placeholder mb-0">
+		<div class="hs-placeholder__inner">
+			<h4 class="hs-placeholder__title py-4">Edit Modal ({{ module.modal_target }})</h4>
+		</div>
+	</div>
+	{% endif %}
+	
+	<div class="{{ name }} modal fade sr-modal" id="{{ module.modal_target }}" tabindex="-1" role="dialog" aria-labelledby="{{ module.modal_target }}Title" aria-hidden="true" {{ "data-preview" if module_preview }}>
+		<div class="modal-dialog modal-dialog-centered" role="document" style=" max-width: {{ module.design_settings.modal_width }}px; ">
+			<div class="modal-content sr-border {{ macros.module_background(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					&times;
+				</button>
+				<div class="modal-body">
+	
+					{{ macros.image( module.image, 'class="sr-spacer-bottom-25"') }}
+	
+					{{ macros.heading(module.heading) }}
+					<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+					{{ macros.cta(module.ctas, 'sr-spacer-top-50') }}
+	
+					{% if module.form.enabled %}
+					<div class="sr-spacer-top-50">
+					{{ macros.form(module.form) }}
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	{% require_css %}
+	<style>
+		{% if module.form_show %}
+		{% if module.design_settings.text_color != 'auto' %}
+		#{{ module.modal_target }} .field > label,
+		#{{ module.modal_target }} .form-group label {
+			color: inherit;
+		}
+		{% endif %}
+		.sr-modal-form .hs-form-field {
+			text-align: left;
+		}
+		{% endif %}
+		#{{ module.modal_target }} button.close:hover {
+			color: #fff;
+			background: var(--primary);
+		}
+		{% if module.design_settings.background_option == 'gradient' %}
+		#{{ module.modal_target }} .modal-content {
+			background: {{ module.design_settings.background_gradient.css }} !important;
+		}
+		{% elif module.design_settings.background_option == 'custom' %}
+		#{{ module.modal_target }} .modal-content {
+			background-color: {{ module.design_settings.background_custom.css }} !important;
+		}
+		{% endif %}
+		{% if module.design_settings.overlay_option == 'gradient' %}
+		#{{ module.modal_target }} {
+			background: {{ module.design_settings.overlay_gradient.css }};
+		}
+		{% elif module.design_settings.overlay_option == 'custom' %}
+		#{{ module.modal_target }} {
+			background-color: {{ module.design_settings.overlay_custom.css }}
+		}
+		{% endif %}
+	</style>
+	{% end_require_css %}

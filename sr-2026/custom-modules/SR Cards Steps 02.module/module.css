@@ -1,0 +1,88 @@
+.sr-cards-steps-02 .cards.row {
+	row-gap: 5rem;
+}
+
+.sr-cards-steps-02 .card {
+	border: none;
+	background-color: transparent;
+}
+.sr-cards-steps-02 .card-content :is(h1,h2,h3,h4,h5,h6,.display-1,.display-2,.display-3,.display-4) {
+  color: inherit
+}
+
+.sr-cards-steps-02 .step-num-wrap {
+	color: #fff;
+	position: relative;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	-webkit-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+.sr-cards-steps-02 .step-circle {
+	border-radius: 30px;
+	width: 4.6875rem;
+	height: 4.6875rem;
+	margin: 0 auto;
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.sr-cards-steps-02 .card .step-circle {
+	background: var(--card-accent);
+}
+.sr-cards-steps-02 .card:hover .step-circle,
+.sr-cards-steps-02 .card:has(:is(.cta_button,.cta-button,[data-hubspot-cta-id]):focus) .step-circle {
+	background: var(--card-accent-hover);
+}
+.sr-cards-steps-02 .step-text {
+	font-weight: bold;
+	font-size: 1rem;
+}
+
+.sr-cards-steps-02 .card:hover .card-content,
+.sr-cards-steps-02 .card:has(:is(.cta_button,.cta-button,[data-hubspot-cta-id]):focus) .card-content {
+	box-shadow: 15px 25px 60px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sr-cards-steps-02 .card .cta-group {
+	padding-top: 3.125rem;
+	opacity: 0;
+	transform: translateY(-10px);
+	transition: all 300ms ease;
+	margin-top: auto;
+}
+.sr-cards-steps-02 .card:hover .cta-group,
+.sr-cards-steps-02 .card:has(:is(.cta_button,.cta-button,[data-hubspot-cta-id]):focus) .cta-group {	
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.sr-cards-steps-02 .card :is(.card-content, .card-inner) {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .sr-cards-steps-02 .card .cta-group {
+    padding-top: 1rem;
+    opacity: 1;
+    transform: translateY(0);
+  }
+	.sr-cards-steps-02 .description br {
+		display: none;
+	}
+}
+
+@media (min-width: 992px) {
+	.sr-cards-steps-02 .cards.row {
+		padding-top: 2.8125rem
+	}
+}

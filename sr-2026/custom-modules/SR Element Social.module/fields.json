@@ -1,0 +1,439 @@
+[ {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "spacing",
+    "default" : { }
+  }, {
+    "id" : "design_settings.style",
+    "name" : "style",
+    "label" : "Style",
+    "required" : true,
+    "locked" : false,
+    "display" : "radio",
+    "choices" : [ [ "vertical", "Vertical" ], [ "horizontal", "Horizontal" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "vertical"
+  }, {
+    "id" : "design_settings.vertical_alignment",
+    "name" : "vertical_alignment",
+    "label" : "Alignment",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "vertical",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "alignment_direction" : "BOTH",
+    "display_width" : null,
+    "type" : "alignment",
+    "default" : {
+      "horizontal_align" : "CENTER",
+      "vertical_align" : "MIDDLE"
+    }
+  }, {
+    "id" : "design_settings.horizontal_alignment",
+    "name" : "horizontal_alignment",
+    "label" : "Alignment",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.style",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "horizontal",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "alignment_direction" : "HORIZONTAL",
+    "display_width" : null,
+    "type" : "alignment",
+    "default" : {
+      "horizontal_align" : "CENTER"
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group"
+}, {
+  "id" : "2d69b990-48be-cfc0-d48a-cb65549cafa6",
+  "name" : "icons",
+  "label" : "Icons",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : "be6e663b-2a35-b54f-eae5-b4ecad7d76f2",
+    "default" : 4
+  },
+  "children" : [ {
+    "id" : "bde00217-8904-3367-263e-06d582bdbbdf",
+    "name" : "icon_type",
+    "label" : "Type",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "icon", "Icon" ], [ "image", "Image" ], [ "svg", "SVG" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "icon"
+  }, {
+    "id" : "a7f776b8-b857-a6ca-3bbb-8a8c9e93c31f",
+    "name" : "icon",
+    "label" : "Icon",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "bde00217-8904-3367-263e-06d582bdbbdf",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "icon",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "icon_set" : "fontawesome-5.0.10",
+    "display_width" : null,
+    "type" : "icon",
+    "default" : {
+      "name" : "facebook-f",
+      "unicode" : "f39e",
+      "type" : "REGULAR"
+    }
+  }, {
+    "id" : "7a018851-6a6f-b756-a735-03780f232063",
+    "name" : "image",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "bde00217-8904-3367-263e-06d582bdbbdf",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "image",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "display_width" : null,
+    "type" : "image",
+    "default" : {
+      "alt" : "sr-social-facebook",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-social-facebook.png",
+      "width" : 32,
+      "height" : 32,
+      "max_width" : 48,
+      "size_type" : "exact",
+      "max_height" : 48,
+      "loading" : "disabled"
+    }
+  }, {
+    "id" : "e94d2d59-ad2a-b61f-3a54-fd902212c533",
+    "name" : "svg",
+    "label" : "SVG",
+    "inline_help_text" : "Paste your SVG code below",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "bde00217-8904-3367-263e-06d582bdbbdf",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "svg",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "allow_new_line" : false,
+    "display_width" : null,
+    "type" : "text",
+    "default" : "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"15.8862\" cy=\"15.8862\" r=\"15.8862\" fill=\"#87909E\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M19.8799 16.508H17.0452V26.893H12.7504V16.508H10.7078V12.8583H12.7504V10.4966C12.7504 8.80764 13.5526 6.16296 17.0834 6.16296L20.2647 6.17627V9.71893H17.9565C17.5779 9.71893 17.0455 9.9081 17.0455 10.7138V12.8617H20.2551L19.8799 16.508Z\" fill=\"white\"/></svg>"
+  }, {
+    "id" : "b51bdfec-c41f-58e4-ff6a-3364b51183da",
+    "name" : "icon_size",
+    "label" : "Size",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "bde00217-8904-3367-263e-06d582bdbbdf",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "icon",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "display_width" : null,
+    "type" : "number",
+    "default" : 32
+  }, {
+    "id" : "9ffbdf21-cd1d-4871-1f95-700f6e1b2845",
+    "name" : "icon_color",
+    "label" : "Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "bde00217-8904-3367-263e-06d582bdbbdf",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "icon",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "color",
+    "default" : {
+      "color" : "#fff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "d5885ab8-618b-2c14-212d-b8b93356a02f",
+    "name" : "background",
+    "label" : "Background",
+    "inline_help_text" : "Set opacity to 0 to disable the background.",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "bde00217-8904-3367-263e-06d582bdbbdf",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "icon",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "color",
+    "default" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "be6e663b-2a35-b54f-eae5-b4ecad7d76f2",
+    "name" : "link",
+    "label" : "Link",
+    "required" : false,
+    "locked" : false,
+    "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+    "show_advanced_rel_options" : true,
+    "display_width" : null,
+    "type" : "link",
+    "default" : {
+      "url" : {
+        "href" : "https://www.facebook.com/CompanyName",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : true
+    }
+  }, {
+    "id" : "icons.aria_label",
+    "name" : "aria_label",
+    "label" : "Aria Label",
+    "help_text" : "The aria-label attribute is used on links that have no accessible name to give it meaning to screen readers.",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "validation_error_message" : "",
+    "placeholder" : "",
+    "allow_new_line" : false,
+    "display_width" : null,
+    "type" : "text",
+    "default" : "Facebook social link"
+  }, {
+    "id" : "2d69b990-48be-cfc0-d48a-cb65549cafa6.purpose",
+    "name" : "purpose",
+    "label" : "Purpose",
+    "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "decorative"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : [ {
+    "icon_type" : "icon",
+    "icon" : {
+      "name" : "facebook-f",
+      "unicode" : "f39e",
+      "type" : "REGULAR"
+    },
+    "image" : {
+      "alt" : "sr-social-facebook",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-social-facebook.png",
+      "width" : 32,
+      "height" : 32,
+      "max_width" : 48,
+      "size_type" : "exact",
+      "max_height" : 48,
+      "loading" : "disabled"
+    },
+    "svg" : "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"15.8862\" cy=\"15.8862\" r=\"15.8862\" fill=\"#87909E\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M19.8799 16.508H17.0452V26.893H12.7504V16.508H10.7078V12.8583H12.7504V10.4966C12.7504 8.80764 13.5526 6.16296 17.0834 6.16296L20.2647 6.17627V9.71893H17.9565C17.5779 9.71893 17.0455 9.9081 17.0455 10.7138V12.8617H20.2551L19.8799 16.508Z\" fill=\"white\"/></svg>",
+    "icon_size" : 32,
+    "icon_color" : {
+      "color" : "#fff",
+      "opacity" : 100
+    },
+    "background" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    },
+    "link" : {
+      "url" : {
+        "href" : "https://www.facebook.com/CompanyName",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : true
+    },
+    "aria_label" : "Facebook social link"
+  }, {
+    "icon_type" : "icon",
+    "icon" : {
+      "name" : "facebook-f",
+      "unicode" : "f39e",
+      "type" : "REGULAR"
+    },
+    "image" : {
+      "alt" : "sr-social-facebook",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-social-facebook.png",
+      "width" : 32,
+      "height" : 32,
+      "max_width" : 48,
+      "size_type" : "exact",
+      "max_height" : 48,
+      "loading" : "disabled"
+    },
+    "svg" : "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"15.8862\" cy=\"15.8862\" r=\"15.8862\" fill=\"#87909E\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M19.8799 16.508H17.0452V26.893H12.7504V16.508H10.7078V12.8583H12.7504V10.4966C12.7504 8.80764 13.5526 6.16296 17.0834 6.16296L20.2647 6.17627V9.71893H17.9565C17.5779 9.71893 17.0455 9.9081 17.0455 10.7138V12.8617H20.2551L19.8799 16.508Z\" fill=\"white\"/></svg>",
+    "icon_size" : 32,
+    "icon_color" : {
+      "color" : "#fff",
+      "opacity" : 100
+    },
+    "background" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    },
+    "link" : {
+      "url" : {
+        "href" : "https://www.facebook.com/CompanyName",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : true
+    },
+    "aria_label" : "Facebook social link"
+  }, {
+    "icon_type" : "icon",
+    "icon" : {
+      "name" : "facebook-f",
+      "unicode" : "f39e",
+      "type" : "REGULAR"
+    },
+    "image" : {
+      "alt" : "sr-social-facebook",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-social-facebook.png",
+      "width" : 32,
+      "height" : 32,
+      "max_width" : 48,
+      "size_type" : "exact",
+      "max_height" : 48,
+      "loading" : "disabled"
+    },
+    "svg" : "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"15.8862\" cy=\"15.8862\" r=\"15.8862\" fill=\"#87909E\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M19.8799 16.508H17.0452V26.893H12.7504V16.508H10.7078V12.8583H12.7504V10.4966C12.7504 8.80764 13.5526 6.16296 17.0834 6.16296L20.2647 6.17627V9.71893H17.9565C17.5779 9.71893 17.0455 9.9081 17.0455 10.7138V12.8617H20.2551L19.8799 16.508Z\" fill=\"white\"/></svg>",
+    "icon_size" : 32,
+    "icon_color" : {
+      "color" : "#fff",
+      "opacity" : 100
+    },
+    "background" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    },
+    "link" : {
+      "url" : {
+        "href" : "https://www.facebook.com/CompanyName",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : true
+    },
+    "aria_label" : "Facebook social link"
+  }, {
+    "icon_type" : "icon",
+    "icon" : {
+      "name" : "facebook-f",
+      "unicode" : "f39e",
+      "type" : "REGULAR"
+    },
+    "image" : {
+      "alt" : "sr-social-facebook",
+      "src" : "https://www.lean-labs.com/hubfs/sr-assets/images/sr-social-facebook.png",
+      "width" : 32,
+      "height" : 32,
+      "max_width" : 48,
+      "size_type" : "exact",
+      "max_height" : 48,
+      "loading" : "disabled"
+    },
+    "svg" : "<svg width=\"32\" height=\"32\" viewBox=\"0 0 32 32\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><circle cx=\"15.8862\" cy=\"15.8862\" r=\"15.8862\" fill=\"#87909E\"/><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M19.8799 16.508H17.0452V26.893H12.7504V16.508H10.7078V12.8583H12.7504V10.4966C12.7504 8.80764 13.5526 6.16296 17.0834 6.16296L20.2647 6.17627V9.71893H17.9565C17.5779 9.71893 17.0455 9.9081 17.0455 10.7138V12.8617H20.2551L19.8799 16.508Z\" fill=\"white\"/></svg>",
+    "icon_size" : 32,
+    "icon_color" : {
+      "color" : "#fff",
+      "opacity" : 100
+    },
+    "background" : {
+      "color" : "#0c63ff",
+      "opacity" : 100
+    },
+    "link" : {
+      "url" : {
+        "href" : "https://www.facebook.com/CompanyName",
+        "type" : "EXTERNAL",
+        "content_id" : null
+      },
+      "no_follow" : false,
+      "open_in_new_tab" : true
+    },
+    "aria_label" : "Facebook social link"
+  } ]
+} ]

@@ -1,0 +1,116 @@
+.sr-offer-smart-pop-01 .smart-pop-open:hover, .smart-pop-close:hover {
+    cursor: pointer;
+}
+
+.sr_module.sr-offer-smart-pop-01 {
+    width: 100%;
+    position: fixed;
+    opacity: 0;
+    left: 0;
+    -webkit-transition: all ease-in-out .3s;
+    -o-transition: all ease-in-out .3s;
+    transition: all ease-in-out .3s;
+    z-index: 9999;
+}
+
+.sr-offer-smart-pop-01 .smart-pop-content {
+    padding-bottom: 3.125rem;
+}
+
+.sr-offer-smart-pop-01 .smart-pop-close {
+    opacity: 0;
+    display: none;
+}
+
+.sr-offer-smart-pop-01.up .smart-pop-close {
+    opacity: 1;
+    display: block;
+}
+
+.sr-offer-smart-pop-01 .smart-pop-open {
+    -webkit-transition: all ease-in-out .2s;
+    -o-transition: all ease-in-out .2s;
+    transition: all ease-in-out .2s;
+    position: relative;
+    z-index: 1;
+    padding: 1rem 0;
+}
+
+.sr-offer-smart-pop-01.up .smart-pop-open {
+    opacity: 0;
+}
+
+.sr-offer-smart-pop-01.up {
+    bottom: -1px !important;
+}
+
+.sr-offer-smart-pop-01 .smart-pop-img {
+    width: 10rem;
+    padding-right: 1rem;
+}
+
+.sr-offer-smart-pop-01 .smart-pop-close {
+    border: 2px solid;
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+    line-height: 1.9;
+    text-align: center;
+    padding: 0 !important;
+    font-size: 0.9rem;
+    font-weight: 600;
+    -webkit-transition: all ease-in-out .2s;
+    -o-transition: all ease-in-out .2s;
+    transition: all ease-in-out .2s;
+    position: absolute;
+    top: 1rem;
+    z-index: 1;
+    right: 2rem;
+}
+
+.sr-offer-smart-pop-01 .smart-pop-close:hover {
+    background: #333;
+    background: #fff;
+    border-color: #333;
+    border-color: #fff;
+    color: var(--primary);
+}
+
+.sr-offer-smart-pop-01 .smart-pop-img img {
+    width: 100%;
+    height: auto;
+}
+
+.sr-offer-smart-pop-01 .sr-form {
+    padding-left: 1rem;
+}
+
+@media only screen and (max-width:1200px) {
+    .sr-offer-smart-pop-01 .smart-pop-img img {
+        opacity: 0
+    }
+
+    .sr-offer-smart-pop-01.up .smart-pop-img img {
+        opacity: 1;
+    }
+}
+
+@media only screen and (max-width:992px) {
+    .sr-offer-smart-pop-01 .hs-form .hs_submit {
+        margin-top: 0;
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .sr-offer-smart-pop-01.up .smart-pop-img img {
+        margin-top: -10.5rem;
+        padding-bottom: 1.389rem;
+    }
+
+    .sr-offer-smart-pop-01 .smart-pop-img img {
+        max-width: 8.889rem;
+        margin-top: -10.5rem;
+        padding-bottom: 1.389rem;
+    }
+}

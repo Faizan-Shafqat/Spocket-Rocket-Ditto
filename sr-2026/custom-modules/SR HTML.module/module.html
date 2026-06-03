@@ -1,0 +1,54 @@
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+	</style>
+	{% end_require_css %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	{%- if is_in_hs_app || is_in_editor || is_in_blog_post_editor || is_in_previewer -%}
+	<div class="hs-placeholder">
+		<div class="hs-placeholder__inner">
+			<h3 class="hs-placeholder__title">SR HTML</h3>
+		</div>
+	</div>
+	{%- endif -%}
+	
+
+	<div class="sr-html {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+		{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+		{% endif %}
+
+					{% if module.heading || module.description %}
+					<div class="sr-spacer-bottom-25">
+						{{ macros.heading(module.heading) }}
+
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+						{% endif %}
+					</div>
+					{% endif %}
+
+					{{module.html}}
+
+		{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+		{% endif %}
+		</div>
+	</div>
+{% endif %}

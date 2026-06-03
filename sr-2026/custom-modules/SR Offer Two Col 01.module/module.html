@@ -1,0 +1,62 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			{% if module.side_image.src %}
+			.{{name}} .sr-offer-two-col-01-image {
+				background-image: url({{module.side_image.src}});
+				background-position: center center;
+				background-size: cover;
+				min-height: 30rem;
+			}
+			{% endif %}
+			{% if module.design_settings.top_bottom_padding == "custom" %}
+				.{{ name }} .sr-offer-two-col-01 .sr-offer-two-col-01-content {
+					padding: {{ module.design_settings.custom_padding }};
+				}
+			{% endif %}
+		</style>
+	{% end_require_css %}
+
+	<div class="sr-offer-two-col-01 {{ name }} {{ macros.module_background(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.grid == 'one-col' %}
+				<div class="row">
+					<div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+			{% endif %}
+						<div class="row d-flex align-items-stretch">
+							{% if (module.grid == 'one-col' or (module.grid == 'two-col' and module.content_side == 'right'))  %}
+							<div class="{% if module.grid == 'one-col' %}col-12{% else %}col-md-6{% endif %} sr-offer-two-col-01-image" role="img" aria-label="Offer Image"></div>
+							{% endif %}
+							<div class="{% if module.grid == 'one-col' %}col-12{% else %}col-md-6{% endif %} sr-offer-two-col-01-content">
+								<div class="{{ macros.padding(module.design_settings) }}">
+									<div class="column-content text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+										{{ macros.heading(module.heading) }}
+										{% if module.description %}
+										<div class="description{% if module.lead_text %} lead{% endif %}">
+											{{ module.description }}
+										</div>
+										{% endif %}
+										{{ macros.cta(module.ctas, 'sr-spacer-top-25') }}
+									</div>
+									{{ macros.form(module.form, false, false, 'Get Started', 'sr-spacer-top-50') }}
+								</div>
+							</div>
+							{% if (module.grid == 'two-col' and module.content_side == 'left')  %}
+							<div class="col-md-6 sr-offer-two-col-01-image"></div>
+							{% endif %}
+						</div>
+			{% if module.grid == 'one-col' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+{% endif %}

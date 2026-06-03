@@ -1,0 +1,97 @@
+.sr-tabs-accordion-01 .container {
+    position: relative
+}
+
+.sr-tabs-accordion-01 .sticky {
+    position: sticky;
+    top: 6.25rem;
+
+}
+
+.sr-tabs-accordion-01 .details-group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sr-tabs-accordion-01 .details {
+    overflow: hidden;
+    transition: height 300ms ease-in-out, box-shadow 200ms ease-in-out;
+    box-shadow: 15px 25px 60px 0px rgba(0, 0, 0, 0%);
+    border-width: 1px;
+    border-style: solid;
+}
+
+.sr-tabs-accordion-01 .details[open] {
+    box-shadow: 15px 25px 60px 0px rgba(0, 0, 0, 10%);
+}
+
+.sr-tabs-accordion-01 .details__summary {
+    list-style: none;
+    position: relative;
+    transition: color .3s ease-in-out;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    cursor: pointer;
+    font-size: 1.125rem;
+    padding: 2rem 62px 2rem 1.55rem;
+    position: relative;
+}
+
+.sr-tabs-accordion-01 .details__content {
+    padding: 1.875rem 1.875rem 2.5rem;
+    position: relative;
+}
+
+.sr-tabs-accordion-01 .details__summary::-webkit-details-marker {
+    display: none;
+}
+
+.sr-tabs-accordion-01 .details__summary::-webkit-details-marker {
+    display: none;
+}
+
+.sr-tabs-accordion-01 .details-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform .2s ease-in;
+    height: 32px;
+    width: 32px;
+    border-radius: 100%;
+}
+
+.sr-tabs-accordion-01 .details-icon:before,
+.sr-tabs-accordion-01 .details-icon:after {
+    content: "";
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
+    height: 2px;
+    width: 12px;
+}
+
+.sr-tabs-accordion-01 .details-icon:before {
+    height: 2.5px;
+    width: .7rem;
+}
+
+.sr-tabs-accordion-01 .details-icon:after {
+    height: .7rem;
+    width: 2.5px;
+}
+
+
+.sr-tabs-accordion-01 [open] .details-icon {
+    transform: translateY(-50%) rotate(135deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sr-tabs-accordion-01 .details,
+    .sr-tabs-accordion-01 .details__summary,
+    .sr-tabs-accordion-01 .details-icon {
+        transition: none;
+    }
+}

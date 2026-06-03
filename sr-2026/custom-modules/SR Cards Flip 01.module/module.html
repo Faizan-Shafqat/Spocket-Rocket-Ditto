@@ -1,0 +1,131 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-cards-flip-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+						{% if module.heading ||  module.description %}
+						<div class="sr-spacer-bottom-75 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+							<div class="description {% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+						{% endif %}
+						</div>
+						{% endif %}
+						<div class="row card-wrapper sr-valign-{{ module.column_vertical_align }} trigger-{{ module.design_settings.column_styles.trigger_type }} row-gap">
+						{% for item in  module.card_details %}
+							<div class="{{macros.col_size(module.col_size)}} card-column">
+								<div role="button" class="card-block card__{{loop.index}} txt-{{ module.design_settings.column_styles.text_alignment.text_align|lower }}" tabindex="0">
+
+									{{ macros.image(item.card_image || item.default[0].card_image, 'class="mb-3"') }}
+									{{ macros.heading(item.card_heading || item.default[0].card_heading) }}
+									{% if item.default[0].card_description %}
+									<div class="description{% if item.default[0].lead_text %} lead{% endif %}">
+										{{item.default[0].card_description }}
+									</div>
+									{% endif %}
+
+									{% if item.card_description || item.active[0].card_description || item.active[0].card_heading %}
+									{% if module.design_settings.column_styles.trigger_type == 'click' %}
+									<div class="card-icon bg-light active" role="presentation">
+										<span class="bg-primary"></span>
+									</div>
+									{% endif %}
+									<div class="card-overlay text-left">
+										<div class="card-description d-flex flex-column justify-content-center">
+											{{ macros.heading(item.active[0].card_heading) }}
+											<div class="description{% if item.lead_text || item.active[0].lead_text %} lead{% endif %}">
+												{{item.card_description || item.active[0].card_description }}
+											</div>
+											{{ macros.cta(item.active[0].ctas, 'sr-spacer-top-50') }}
+										</div>
+									</div>
+									{% endif %}
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+
+		.{{ name }} :is(.card-block, .card-description) {
+			{% if module.design_settings.column_styles.spacing.css -%}
+			{{ module.design_settings.column_styles.spacing.css }}
+			{%- endif -%}
+		}
+		.{{ name }} .card-block {
+			{%- if module.design_settings.column_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.column_styles.background_gradient.css }};
+			{%- elif module.design_settings.column_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.column_styles.background_custom.css }};
+			{% elif module.design_settings.column_styles.background_color != "auto" %}
+			background-color: var(--{{ module.design_settings.column_styles.background_color }});
+			{%- endif -%}
+			{% if module.design_settings.column_styles.text_color == "custom" %}
+			color: {{ module.design_settings.column_styles.text_color_custom.css }};
+			{% elif module.design_settings.column_styles.text_color != "auto" %}
+			color: var(--{{ module.design_settings.column_styles.text_color }});
+			{%- endif -%}
+			{% if module.design_settings.column_styles.border.css %}
+			{{ module.design_settings.column_styles.border.css }}
+			{%- endif -%}
+			{% if module.design_settings.column_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.column_styles.border_radius }}px;
+			{%- endif -%}
+			{% if module.design_settings.column_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.column_styles.inset }} {{ module.design_settings.column_styles.horizontal ~ "px" }} {{ module.design_settings.column_styles.vertical ~ "px" }} {{ module.design_settings.column_styles.blur ~ "px" }} {{ module.design_settings.column_styles.spread ~ "px" }} {{ module.design_settings.column_styles.color.css }};
+			{%- endif %}
+		}
+
+		.{{ name }} .card-overlay {
+			{%- if module.design_settings.column_styles.background_color_active == "gradient" -%}
+			background: {{ module.design_settings.column_styles.background_gradient_active.css }};
+			{%- elif module.design_settings.column_styles.background_color_active == "custom" -%}
+			background-color: {{ module.design_settings.column_styles.background_custom_active.css }};
+			{% elif module.design_settings.column_styles.background_color_active != "auto" %}
+			background-color: var(--{{ module.design_settings.column_styles.background_color_active }});
+			{%- endif -%}
+			{% if module.design_settings.column_styles.text_color_active == "custom" %}
+			color: {{ module.design_settings.column_styles.text_color_custom_active.css }};
+			{% elif module.design_settings.column_styles.text_color_active != "auto" %}
+			color: var(--{{ module.design_settings.column_styles.text_color_active }});
+			{%- endif -%}
+		}
+		
+		{% for item in  module.card_details %}
+		{% if item.card_styles.icon.background_color == 'custom' %}
+		.{{name}} .card-icon {
+			background: {{ item.card_styles.icon.background_custom.css }};
+		}
+		{% endif %}
+		{% if item.card_styles.icon.text_color == 'custom' %}
+		.{{name}} .card-icon span {
+			background: {{ item.card_styles.icon.text_custom.css }};
+		}
+		{% endif %}
+		{% endfor %}
+	</style>
+	{% end_require_css %}
+{% endif %}

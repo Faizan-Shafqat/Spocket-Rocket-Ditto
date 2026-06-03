@@ -1,0 +1,68 @@
+.sr-tabs-slider-01 .blaze-pagination {
+    margin-top: 30px;
+}
+
+.sr-tabs-slider-01 .blaze-arrow {
+    color: var(--arrows-color, var(--primary));
+    border-radius: 100%;
+    border: 2px solid var(--arrows-color, var(--primary));
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 500ms ease;
+    background: none;
+    background-color: #fff;
+    appearance: none;
+    line-height: 0;
+    -webkit-appearance: none;
+    padding: 0;
+}
+
+.sr-tabs-slider-01 .blaze-arrow {
+    position: absolute;
+    top: 50%;
+    font-size: 30px;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.sr-tabs-slider-01 .blaze-arrow svg {
+    color: var(--arrows-color, var(--primary));
+    fill: currentColor;
+}
+
+.sr-tabs-slider-01 .blaze-arrow:hover svg {
+    color: #fff;
+}
+
+.sr-tabs-slider-01 .blaze-arrow:hover {
+    color: #fff;
+    background-color: var(--arrows-color, var(--primary));
+}
+
+.sr-tabs-slider-01 .chevron-left {
+    left: 30px;
+    transform: translateY(calc(-50% - 25px)) translateX(-50%);
+}
+
+.sr-tabs-slider-01 .chevron-right {
+    right: 30px;
+    transform: translateY(calc(-50% - 25px)) translateX(50%);
+}
+
+@media(min-width: 992px) {
+    .sr-tabs-slider-01 .blaze-pagination {
+        margin-top: 50px;
+    }
+}
+
+@media(min-width: 1300px) {
+    .sr-tabs-slider-01 .chevron-right {
+        right: -40px;
+    }
+    .sr-tabs-slider-01 .chevron-left {
+        left: -40px;
+    }
+}

@@ -1,0 +1,1637 @@
+[ {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "display_width" : null,
+  "type" : "boolean",
+  "default" : true
+}, {
+  "id" : "sr_module_id",
+  "name" : "sr_module_id",
+  "label" : "ID",
+  "help_text" : "Assign a ID to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : "half_width",
+  "type" : "text"
+}, {
+  "id" : "class",
+  "name" : "class",
+  "label" : "Class",
+  "help_text" : "Assign a CLASS to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : "half_width",
+  "type" : "text"
+}, {
+  "id" : "3620c7f9-f11f-70ba-ffa7-f67115dad0da",
+  "name" : "col_alignment",
+  "label" : "Column Alignment",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "image_content", "Image/Content" ], [ "content_image", "Content/Image" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "display_width" : null,
+  "type" : "choice",
+  "default" : "image_content"
+}, {
+  "id" : "23162831-736e-df1d-4bfa-5028cbeb3ebc",
+  "name" : "tabs",
+  "label" : "Tabs",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : "1911cf44-bb79-b30f-915b-75039a207564",
+    "default" : 3
+  },
+  "children" : [ {
+    "id" : "58ff6122-da96-d65d-621a-1472b0a533d9",
+    "name" : "styles",
+    "label" : "Styles",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.content_background_option",
+      "name" : "content_background_option",
+      "label" : "Content Background Option",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "color"
+    }, {
+      "id" : "9ab71491-3c1a-dd7c-1034-7a4386d7c426",
+      "name" : "content_background_image",
+      "label" : "Content Background Image",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.content_background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "responsive" : true,
+      "resizable" : true,
+      "show_loading" : false,
+      "display_width" : null,
+      "type" : "image",
+      "default" : {
+        "alt" : null,
+        "src" : null,
+        "loading" : "lazy",
+        "size_type" : "auto"
+      }
+    }, {
+      "id" : "design_settings.content_background_color",
+      "name" : "content_background_color",
+      "label" : "Content Background Color",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.content_background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "white"
+    }, {
+      "id" : "4cbb8f51-86ad-0f60-2862-a72c76e939e0",
+      "name" : "content_background_custom",
+      "label" : "Content Background Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "design_settings.content_background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : null,
+        "opacity" : null
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : {
+      "content_background_option" : "color",
+      "content_background_image" : {
+        "alt" : null,
+        "src" : null,
+        "loading" : "lazy",
+        "size_type" : "auto"
+      },
+      "content_background_color" : "white",
+      "content_background_custom" : {
+        "color" : null,
+        "opacity" : null
+      }
+    }
+  }, {
+    "id" : "1911cf44-bb79-b30f-915b-75039a207564",
+    "name" : "menu_title",
+    "label" : "Menu Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "display_width" : null,
+    "type" : "text",
+    "default" : "Easy-to-use tools"
+  }, {
+    "id" : "fdeec0dc-e59c-22dc-15f6-4bce407e70a8",
+    "name" : "menu_title_color",
+    "label" : "Menu Title Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "white"
+  }, {
+    "id" : "heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "heading.heading",
+      "name" : "heading",
+      "label" : "Heading",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "Easy-to-use tools"
+    }, {
+      "id" : "heading.heading_size",
+      "name" : "heading_size",
+      "label" : "Size",
+      "help_text" : "HTML heading size",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : "half_width",
+      "type" : "choice",
+      "default" : "h2"
+    }, {
+      "id" : "heading.heading_display_size",
+      "name" : "heading_display_size",
+      "label" : "Display Size",
+      "help_text" : "Size that heading is displayed at",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : "half_width",
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "heading.heading_color",
+      "name" : "heading_color",
+      "label" : "Color",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "heading.heading_color_custom",
+      "name" : "heading_color_custom",
+      "label" : "Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "heading.heading_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "heading.heading_align",
+      "name" : "heading_align",
+      "label" : "Align",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "heading.class",
+      "name" : "class",
+      "label" : "CSS Class",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : [ {
+      "heading" : "Easy-to-use tools",
+      "heading_size" : "h2",
+      "heading_display_size" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_align" : "auto"
+    } ]
+  }, {
+    "id" : "description",
+    "name" : "description",
+    "label" : "Description",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "richtext",
+    "default" : "<p>Sprocket Rocket lets you transform your rapid prototype into a beautiful design by adjusting every aspect of the design to fit brand standards.</p>"
+  }, {
+    "id" : "lead_text",
+    "name" : "lead_text",
+    "label" : "Lead Text",
+    "help_text" : "Turn on to make the Description text larger",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : false
+  }, {
+    "id" : "81a6a8e3-b33d-a937-514d-13a70ca69bee",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "auto"
+  }, {
+    "id" : "cta",
+    "name" : "ctas",
+    "label" : "CTA",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "cta.cta_type",
+      "name" : "cta_type",
+      "label" : "CTA Type",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "cta", "HubSpot CTA" ], [ "hs_payment", "HubSpot Payment" ], [ "btn", "Button" ], [ "modal", "Modal" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "btn"
+    }, {
+      "id" : "cta.cta_style",
+      "name" : "cta_style",
+      "label" : "CTA Style",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "none",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "outline-primary", "Outline Primary" ], [ "outline-secondary", "Outline Secondary" ], [ "outline-tertiary", "Outline Tertiary" ], [ "outline-white", "Outline White" ], [ "outline-black", "Outline Black" ], [ "outline-dark", "Outline Dark" ], [ "outline-light", "Outline Light" ], [ "outline-success", "Outline Success" ], [ "outline-info", "Outline Info" ], [ "outline-warning", "Outline Warning" ], [ "outline-danger", "Outline Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "primary"
+    }, {
+      "id" : "d9c99fd3-9582-08e7-456e-6e4149f6960e",
+      "name" : "default",
+      "label" : "Default",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_style",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "014fc65d-0f21-b7a4-b2b6-82a68c93c2d2",
+        "name" : "background",
+        "label" : "Background",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "39ae7cf4-7538-9211-4d0c-6cd70e8e2bd2",
+        "name" : "text",
+        "label" : "Text",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "307a28e0-1fd7-05b8-5bca-5dc0a39d0fd0",
+        "name" : "border",
+        "label" : "Border",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "background" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        },
+        "text" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "border" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "cb1eae09-89d7-b2c4-b3b3-c252b2bd2970",
+      "name" : "hover",
+      "label" : "Hover",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_style",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "4c0d845e-4323-d811-ee70-ef9669bb7e7d",
+        "name" : "background",
+        "label" : "Background",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "b31e466d-7e6c-405e-facf-86aa542363bc",
+        "name" : "text",
+        "label" : "Text",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "9509621e-f195-2665-21bb-6db2ab686647",
+        "name" : "border",
+        "label" : "Border",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "background" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        },
+        "text" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "border" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "cta.cta",
+      "name" : "cta",
+      "label" : "CTA",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "cta",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "cta"
+    }, {
+      "id" : "cta.button_text",
+      "name" : "button_text",
+      "label" : "Button Text",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "btn|modal",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "Let's Do This"
+    }, {
+      "id" : "cta.modal_target",
+      "name" : "modal_target",
+      "label" : "Modal Target",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "modal",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "demo"
+    }, {
+      "id" : "cta.link",
+      "name" : "link",
+      "label" : "Link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "btn",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+      "show_advanced_rel_options" : true,
+      "display_width" : null,
+      "type" : "link",
+      "default" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      }
+    }, {
+      "id" : "cta.payment",
+      "name" : "payment",
+      "label" : "Payment link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "hs_payment",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "payment",
+      "default" : { }
+    }, {
+      "id" : "cta.checkout_location",
+      "name" : "checkout_location",
+      "label" : "Checkout behavior",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : "cta.payment",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "id\":\\d+",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        }, {
+          "controlling_field" : "cta.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "hs_payment",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "radio",
+      "choices" : [ [ "new_tab", "Open in a new tab" ], [ "overlay", "Sliding overlay" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "new_tab"
+    }, {
+      "id" : "cta.cta_size",
+      "name" : "cta_size",
+      "label" : "CTA Size",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "none",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "sm", "Small" ], [ "md", "Default" ], [ "lg", "Large" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "md"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : [ {
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "gradient_one",
+      "button_text" : "Let's Do This",
+      "modal_target" : "demo"
+    } ]
+  }, {
+    "id" : "32164d41-793c-7399-8628-deea88ed8173",
+    "name" : "image_heading",
+    "label" : "Image Heading",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : 1,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "d10891ff-707a-692d-c4a8-7de9e16318a2",
+      "name" : "heading",
+      "label" : "Heading",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "Easy-to-use tools"
+    }, {
+      "id" : "5219851b-2aad-df3c-cb21-2915e04b4534",
+      "name" : "heading_size",
+      "label" : "Size",
+      "help_text" : "HTML heading size",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : "half_width",
+      "type" : "choice",
+      "default" : "h2"
+    }, {
+      "id" : "83db1b2b-acf8-d0a8-439f-03171b6d7cb7",
+      "name" : "heading_display_size",
+      "label" : "Display Size",
+      "help_text" : "Size that heading is displayed at",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : "half_width",
+      "type" : "choice",
+      "default" : "h1"
+    }, {
+      "id" : "04dbec50-012c-91d2-5a2e-590a49952475",
+      "name" : "heading_color",
+      "label" : "Color",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "white"
+    }, {
+      "id" : "eb01de96-dbce-da16-d19f-b40024ea11b2",
+      "name" : "heading_color_custom",
+      "label" : "Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "04dbec50-012c-91d2-5a2e-590a49952475",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "e66c1480-a981-ea20-808e-b26d4d9f3a5b",
+      "name" : "heading_align",
+      "label" : "Align",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "1dadd4fe-a376-1819-6e04-c96f405c02a4",
+      "name" : "class",
+      "label" : "CSS Class",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : [ {
+      "heading" : "Prototype with robust modules",
+      "heading_size" : "h2",
+      "heading_display_size" : "h1",
+      "heading_color" : "white",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_align" : "auto"
+    } ]
+  }, {
+    "id" : "parallax_image",
+    "name" : "image",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "display_width" : null,
+    "type" : "image",
+    "default" : {
+      "alt" : "Parallax Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/astronaut-1.jpg",
+      "width" : "1440",
+      "height" : "1076",
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "1647b1c9-2988-63e2-9c94-201f9a9e1be0",
+    "name" : "image_overlay",
+    "label" : "Image Overlay",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : true
+  }, {
+    "id" : "9618e598-d3e1-146c-daa0-4c119f60760f",
+    "name" : "image_overlay_color",
+    "label" : "Image Overlay Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "1647b1c9-2988-63e2-9c94-201f9a9e1be0",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "true",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "color",
+    "default" : {
+      "color" : "#000",
+      "opacity" : 30
+    }
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : [ {
+    "styles" : {
+      "content_background_color" : "white",
+      "content_background_image" : {
+        "alt" : null,
+        "src" : null,
+        "loading" : "lazy",
+        "size_type" : "auto"
+      },
+      "content_background_option" : "color"
+    },
+    "menu_title" : "Easy-to-use tools",
+    "menu_title_color" : "white",
+    "heading" : [ {
+      "heading" : "Easy-to-use tools",
+      "heading_size" : "h2",
+      "heading_display_size" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_align" : "auto"
+    } ],
+    "description" : "<p>Select from a  collection of modules and quickly populate and draft website and landing pages right to HubSpot.</p><p>It was easy to put together pages and when I was done, I could just click and have the page automatically created in HubSpot.</p><p>Our toolkit has all of the resources and guidance needed to create a high-conversion website.</p>",
+    "lead_text" : false,
+    "text_color" : "auto",
+    "ctas" : [ {
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "gradient_one",
+      "button_text" : "Let's Do This",
+      "modal_target" : "demo"
+    } ],
+    "image_heading" : [ {
+      "heading" : "Prototype with robust modules",
+      "heading_size" : "h2",
+      "heading_display_size" : "h1",
+      "heading_color" : "white",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_align" : "auto"
+    } ],
+    "image" : {
+      "alt" : "Parallax Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/astronaut-1.jpg",
+      "width" : "1440",
+      "height" : "1076",
+      "loading" : "lazy"
+    },
+    "image_overlay" : true,
+    "image_overlay_color" : {
+      "color" : "#000",
+      "opacity" : 30
+    }
+  }, {
+    "styles" : {
+      "content_background_color" : "light",
+      "content_background_image" : {
+        "alt" : null,
+        "src" : null,
+        "loading" : "lazy",
+        "size_type" : "auto"
+      },
+      "content_background_option" : "color"
+    },
+    "menu_title" : "No templates",
+    "menu_title_color" : "white",
+    "heading" : [ {
+      "heading" : "No templates",
+      "heading_size" : "h2",
+      "heading_display_size" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_align" : "auto"
+    } ],
+    "description" : "<p>Without rigid templates, you can build the exact type of website necessary to hit your website performance goals.</p><p>We built our old site using a template, and it left a lot to be desired. With SprocketRocket, we can go page by page and get the exact flow of content we need.</p><p>Download the eBook to learn why building websites without the use of templates is the way to go. </p>",
+    "lead_text" : false,
+    "text_color" : "auto",
+    "ctas" : [ {
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "gradient_one",
+      "button_text" : "Let's Do This",
+      "modal_target" : "demo"
+    } ],
+    "image_heading" : [ {
+      "heading" : "Prototype with robust modules",
+      "heading_size" : "h2",
+      "heading_display_size" : "h1",
+      "heading_color" : "white",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_align" : "auto"
+    } ],
+    "image" : {
+      "alt" : "Parallax Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tabs-horizontal-01-02.jpg",
+      "width" : "1440",
+      "height" : "1076",
+      "loading" : "lazy"
+    },
+    "image_overlay" : true,
+    "image_overlay_color" : {
+      "color" : "#000",
+      "opacity" : 30
+    }
+  }, {
+    "styles" : {
+      "content_background_color" : "white",
+      "content_background_image" : {
+        "alt" : null,
+        "src" : null,
+        "loading" : "lazy",
+        "size_type" : "auto"
+      },
+      "content_background_option" : "color"
+    },
+    "menu_title" : "Modular design tool",
+    "menu_title_color" : "white",
+    "heading" : [ {
+      "heading" : "Modular design tool",
+      "heading_size" : "h2",
+      "heading_display_size" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_align" : "auto"
+    } ],
+    "description" : "<p>You can use modular design to get the exact building blocks you need to build beautiful website and landing pages.</p><p>Our existing site is clunky and all of our website pages have way too much copy, photos, and elements. It makes it confusing for our visitors to know where they should go next. We love the types of pages we're able to create using SprocketRocket.</p>",
+    "lead_text" : false,
+    "text_color" : "auto",
+    "ctas" : [ {
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "gradient_one",
+      "button_text" : "Let's Do This",
+      "modal_target" : "demo"
+    } ],
+    "image_heading" : [ {
+      "heading" : "Prototype with robust modules",
+      "heading_size" : "h2",
+      "heading_display_size" : "h1",
+      "heading_color" : "white",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_align" : "auto"
+    } ],
+    "image" : {
+      "alt" : "Parallax Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/sr-two-col-gallery-01-02.jpg",
+      "width" : "1440",
+      "height" : "1076",
+      "loading" : "lazy"
+    },
+    "image_overlay" : true,
+    "image_overlay_color" : {
+      "color" : "#000",
+      "opacity" : 30
+    }
+  } ]
+}, {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.layout",
+    "name" : "layout",
+    "label" : "Layout",
+    "help_text" : "",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "container", "Default" ], [ "container container-small", "Small" ], [ "container container-large", "Large" ], [ "container-fluid", "Full Width" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "container-fluid"
+  }, {
+    "id" : "design_settings.container_width",
+    "name" : "container_width",
+    "label" : "Container Width",
+    "help_text" : "<strong>Maximum:</strong> 100% of the container<br><br>\n<strong>Wide:</strong> 83% of the container<br><br>\n<strong>Narrow:</strong> 66% of the container<br><br>\n<strong>Minimum:</strong> 50% of the container",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "min", "Minimum" ], [ "narrow", "Narrow" ], [ "wide", "Wide" ], [ "max", "Maximum" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "max"
+  }, {
+    "id" : "design_settings.top_bottom_padding",
+    "name" : "top_bottom_padding",
+    "label" : "Top Bottom Padding",
+    "help_text" : "<strong>Use default values:</strong> Uses any inherit padding values<br><br><strong>No Padding:</strong> Set padding to 0<br><br><strong>Small:</strong> Uses a preset small padding<br><br><strong>Large:</strong> Uses a preset large padding<br><br><strong>Custom:</strong> Custom padding",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom padding" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "zero"
+  }, {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.top_bottom_padding",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "spacing",
+    "default" : {
+      "margin" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 0
+        }
+      },
+      "padding" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 6.25
+        },
+        "left" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "right" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 6.25
+        }
+      }
+    }
+  }, {
+    "id" : "design_settings.text_align",
+    "name" : "text_align",
+    "label" : "Text Align",
+    "required" : false,
+    "locked" : false,
+    "display_width" : "half_width",
+    "type" : "textalignment",
+    "default" : { }
+  }, {
+    "id" : "design_settings.text_color",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "help_text" : "Set to <strong>Auto</strong> to use the default text color<br><br>Set to <strong>Custom</strong> to set a custom text color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : "half_width",
+    "type" : "choice",
+    "default" : "auto"
+  }, {
+    "id" : "design_settings.text_color_custom",
+    "name" : "text_color_custom",
+    "label" : "Text Color",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.text_color",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "color",
+    "default" : {
+      "color" : "#87909e",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "design_settings.border",
+    "name" : "border",
+    "label" : "Border",
+    "required" : false,
+    "locked" : false,
+    "allow_custom_border_sides" : true,
+    "display_width" : null,
+    "type" : "border",
+    "default" : {
+      "top" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "bottom" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      }
+    }
+  }, {
+    "id" : "design_settings.responsive_settings",
+    "name" : "responsive_settings",
+    "label" : "Responsive Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.responsive_settings.tablet",
+      "name" : "tablet",
+      "label" : "Tablet",
+      "inline_help_text" : "Breakpoint: 992px",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.responsive_settings.tablet.tablet_text_align",
+        "name" : "tablet_text_align",
+        "label" : "Text Align",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "textalignment",
+        "default" : { }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_top_bottom_padding",
+        "name" : "tablet_top_bottom_padding",
+        "label" : "Top Bottom Padding",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom Padding" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_spacing",
+        "name" : "tablet_spacing",
+        "label" : "Tablet Spacing",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.responsive_settings.tablet.tablet_top_bottom_padding",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display_width" : null,
+        "type" : "spacing",
+        "default" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group"
+    }, {
+      "id" : "design_settings.responsive_settings.mobile",
+      "name" : "mobile",
+      "label" : "Mobile",
+      "inline_help_text" : "Breakpoint: 768px",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.responsive_settings.mobile.mobile_text_align",
+        "name" : "mobile_text_align",
+        "label" : "Text Align",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "textalignment",
+        "default" : { }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_top_bottom_padding",
+        "name" : "mobile_top_bottom_padding",
+        "label" : "Top Bottom Padding",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom Padding" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_spacing",
+        "name" : "mobile_spacing",
+        "label" : "Mobile Spacing",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.responsive_settings.mobile.mobile_top_bottom_padding",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display_width" : null,
+        "type" : "spacing",
+        "default" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group"
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : {
+      "tablet" : {
+        "tablet_top_bottom_padding" : "auto",
+        "tablet_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      },
+      "mobile" : {
+        "mobile_top_bottom_padding" : "auto",
+        "mobile_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : {
+    "layout" : "container-fluid",
+    "container_width" : "max",
+    "top_bottom_padding" : "zero",
+    "spacing" : {
+      "margin" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 0
+        }
+      },
+      "padding" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 6.25
+        },
+        "left" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "right" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 6.25
+        }
+      }
+    },
+    "text_color" : "auto",
+    "text_color_custom" : {
+      "color" : "#87909e",
+      "opacity" : 100
+    },
+    "border" : {
+      "top" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "bottom" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      }
+    },
+    "responsive_settings" : {
+      "tablet" : {
+        "tablet_top_bottom_padding" : "auto",
+        "tablet_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      },
+      "mobile" : {
+        "mobile_top_bottom_padding" : "auto",
+        "mobile_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }
+    }
+  }
+} ]

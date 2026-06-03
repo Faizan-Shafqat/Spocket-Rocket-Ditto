@@ -1,0 +1,164 @@
+.sr-cards-timeline-01 .timeline-card-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative;
+    align-items: start;
+    max-width: 69.375rem;
+    margin: 4.6875rem auto 0
+}
+
+.sr-cards-timeline-01 .timeline-card-row:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    display: inline-block;
+    height: 100%;
+    background-repeat: repeat-y;
+    background-position: center;
+    opacity: 0.3;
+}
+
+.sr-cards-timeline-01 .timeline-card-row .timeline-card {
+    width: 50%;
+    display: flex;
+    position: relative;
+}
+
+.sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(even) {
+    justify-content: flex-end;
+    margin-top: 10.5rem;
+}
+
+.sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(even):not(:nth-child(2)) {
+    margin-top: 7rem
+}
+
+.sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(odd):not(:first-child) {
+    margin-top: -3.5rem;
+}
+
+.sr-cards-timeline-01 .timeline-card .timeline-card-inner {
+    overflow: hidden;
+    max-width: 21.875rem;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.sr-cards-timeline-01 .timeline-image {
+    aspect-ratio: 350/198;
+    overflow: hidden;
+}
+
+.sr-cards-timeline-01 .timeline-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.sr-cards-timeline-01 .timeline-year {
+    position: absolute;
+    right: 0;
+    transform: translateX(50%);
+    top: 4.5rem;
+    padding: 0.5625rem 1.5625rem;
+    font-size: 0.875rem;
+    z-index: 6;
+    font-weight: 600;
+    margin-bottom: 0;
+    border-radius: 100px;
+}
+
+.sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(even) .timeline-year {
+    left: 0;
+    transform: translateX(-50%);
+    right: auto;
+    top: 4.8rem;
+}
+
+@media (max-width: 767.99px) {
+
+    .sr-cards-timeline-01 .timeline-card-row:after {
+        display: none;
+    }
+
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card {
+        justify-content: center;
+        width: 100%;
+        flex-direction: column-reverse;
+    }
+
+    .sr-cards-timeline-01 .timeline-card .timeline-year,
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(2n) .timeline-year {
+        inset: unset;
+        position: relative;
+        width: fit-content;
+        margin-bottom: 1rem;
+        margin-left: auto;
+        margin-right: auto;
+        transform: translateX(0%);
+    }
+
+    .sr-cards-timeline-01 .timeline-card .timeline-card-inner {
+        max-width: 100%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .sr-cards-timeline-01 .timeline-card-row:after {
+        left: 0;
+        right: auto;
+        width: 10px;
+    }
+    .sr-cards-timeline-01 .timeline-card .timeline-year,
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(2n) .timeline-year {
+        left: 0;
+        transform: translateX(-50%);
+        right: auto;
+    }
+    .sr-cards-timeline-01 .timeline-card-row.cards-row .timeline-card,
+    .sr-cards-timeline-01 .timeline-card-row.cards-row .timeline-card:nth-child(2n) {
+        justify-content: flex-end;
+    }
+    .sr-cards-timeline-01 .timeline-card .timeline-card-inner {
+        max-width: calc(100% - 6.25rem);
+    }
+}
+
+
+@media (max-width: 991px) {
+    .sr-cards-timeline-01 .timeline-card-row {
+        margin-top: 3.125rem;
+    }
+
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(odd),
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(2n),
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(odd):not(:first-child),
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(even):not(:nth-child(2)) {
+        margin-top: 0;
+        margin-bottom: 2rem;
+    }
+
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .sr-cards-timeline-01 .timeline-card-row .timeline-card:nth-child(even) {
+        justify-content: center;
+    }
+
+    .sr-cards-timeline-01 .timeline-card .timeline-image img {
+        height: 100% !important;
+        width: 100%;
+    }
+
+    .sr-cards-timeline-01 .timeline-details {
+        padding: 1rem;
+    }
+}

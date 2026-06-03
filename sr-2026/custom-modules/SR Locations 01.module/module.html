@@ -1,0 +1,128 @@
+{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-md-12'
+	%}
+	
+	<div id="gr-map-{{ name }}" class="sr-locations-01 {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }}" {{ "data-preview" if module_preview }}>
+		{{ macros.module_bg_video(module) }}
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+					{% endif %}
+					{% if module.heading || module.description %}
+					<div class="{{ macros.text_align(module.design_settings) }} text-{{ module.design_settings.text_color }} sr-spacer-bottom-50">
+						{{ macros.heading(module.heading)}}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+						{% endif %}
+					</div>
+					{% endif %}
+					<div class="map-bg">
+						<div class="dots-container">
+							{% if module.hubdbtable %}
+							{% for row in hubdb_table_rows(module.hubdbtable) %}
+							<button class="dot" data-lat="{{ row.location.lat }}" data-lon="{{ row.location.lon }}" data-index="{{ loop.index }}" type="button"></button>
+							{% endfor %}
+							{% endif %}
+						</div>
+						<img class="map" src="https://www.lean-labs.com/hubfs/srco-assets/gr-map-new.png">
+						{% if module.hubdbtable %}
+						{% for row in hubdb_table_rows(module.hubdbtable) %}
+						<div class="dot-card-wrapper bg-{{ module.design_settings.map_styles.background_color }} text-{{module.design_settings.map_styles.text_color }}" data-index="{{ loop.index }}">
+							<div class="dot-card">
+								<div class="dot-card-header">
+									{% if row.image.url %}
+									<div class="dot-card__image-wrapper">
+										<img class="dot-card__image" src="{{ row.image.url }}" alt="{{ row.name }}" width="{{ row.image.width }}" height="{{ row.image.height }}" />
+									</div>
+									{% endif %}
+									<div class="dot-card__info">
+										<div class="dot-card__name">{{ row.name }}</div>
+										<div class="dot-card__address small">{{ row.address }}</div>
+									</div>
+								</div>
+								{% if row.description %}
+								<div class="dot-card__description">
+									{{ row.description }}
+								</div>
+								{% endif %}
+								{% if row.button_text %}
+								<div class="btn-wrapper btn-{{ module.design_settings.map_styles.cta_style }}-wrapper">
+									<a href="{{ row.button_link }}" class="cta-button" disabled>{{ row.button_text }}</a>
+								</div>
+								{% endif %}
+							</div>
+						</div>
+						{% endfor %}
+						{% endif %}
+					</div>
+					{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		#gr-map-{{ name }} {
+			--dot-color: {{ module.design_settings.map_styles.dot_color.color|convert_rgb }};
+			--border-color: {{ module.design_settings.map_styles.border.top.color|convert_rgb  }};
+			--border-width: {{ module.design_settings.map_styles.border.top.width.value == 1 ? "0px" : module.design_settings.map_styles.border.top.width.value ~ module.design_settings.map_styles.border.top.width.units }};
+			{% if module.design_settings.map_styles.background_color == 'custom' %}
+			--bg-color: {{ module.design_settings.map_styles.background_custom.css }}
+			{% else %}
+			--bg-color: var(--{{ module.design_settings.map_styles.background_color }});
+			{% endif %}
+		}
+		{% if module.hubdbtable %}
+		{% for row in hubdb_table_rows(module.hubdbtable) %}
+		#gr-map-{{ name }} .dot:nth-child({{ loop.index }}) {
+			transition: top 500ms ease {{ (loop.index - 1) * 150 }}ms;
+		}
+		{% endfor %}
+		{% endif %}
+	
+		#gr-map-{{ name }} .dot-card-wrapper {
+			{% if module.design_settings.map_styles.border.css %}
+			{{ module.design_settings.map_styles.border.css }}
+			{% endif %}
+			{% if module.design_settings.map_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.map_styles.border_radius }}px;
+			{% endif %}
+			{% if module.design_settings.map_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.map_styles.inset }} {{ module.design_settings.map_styles.horizontal ~ "px" }} {{ module.design_settings.map_styles.vertical ~ "px" }} {{ module.design_settings.map_styles.blur ~ "px" }} {{ module.design_settings.map_styles.spread ~ "px" }} {{ module.design_settings.map_styles.color.css }};
+			{% endif %}
+			{% if module.design_settings.map_styles.background_color == 'custom' %}
+			background-color: {{ module.design_settings.map_styles.background_custom.css }};
+			{% endif %}
+			{% if module.design_settings.map_styles.text_color == 'custom' %}
+			color: {{ module.design_settings.map_styles.text_color_custom.color }};
+			{% endif %}
+		}
+		#gr-map-{{ name }} .dot-card .btn {
+			{% if module.design_settings.map_styles.button_background_color == 'custom' %}
+			background-color: {{ module.design_settings.map_styles.button_background_color_custom.color }};
+			{% endif %}
+		}
+	
+		@media screen and (min-width: 576px) {
+			#gr-map-{{ name }} .dot-card-wrapper::after {
+				{% if module.design_settings.map_styles.background_color == 'custom'%}
+				border-left-color: {{ module.design_settings.map_styles.background_color_custom.color }};
+				{% endif %}
+			}
+			#gr-map-{{ name }} .dot-card-wrapper--active-right::after {
+				{% if module.design_settings.map_styles.background_color == 'custom'%}
+				border-left-color: {{ module.design_settings.map_styles.background_color_custom.color }};
+				{% endif %}
+			}
+		}
+	</style>
+	{% end_require_css %}

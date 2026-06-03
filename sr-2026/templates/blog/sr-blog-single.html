@@ -1,0 +1,755 @@
+<!--
+templateType: blog_post
+isAvailableForNewContent: true
+label: SR Blog Post
+screenshotPath: ../../images/sr-blog-post.jpg
+-->
+{% include '../header.html' %}
+
+    {{ require_css(get_asset_url('./css/sr-blog.css')) }}
+    
+    <body class="blog blog-post {{ widget_data.body_class.value }}{% if module.class %} {{ md.module.class }}{% endif %}" {% if md.module.sr_module_id %}id="{{ md.module.sr_module_id }}"{% endif %}>
+    
+        {% block header %}
+        {% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+        {% if widget_data.enabled_site_header.value %}
+        {% global_partial path="../../templates/partials/site_header.html" %}
+        {% endif %}
+        {% global_partial path="./partials/blog_header.html" %}
+        {% endblock header %}
+        {% block body %}
+    
+        {% set md = namespace() %}
+        {% module "blog_post" path='./custom-modules/Blog Post', label="Blog Post Settings" %}
+        {% if md.module.enabled %}
+        {% import "../../templates/macros.html" as macros %}
+    
+    
+        {% set width_class =
+            md.module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+            md.module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+            md.module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+            'col-md-12'
+            %}
+    
+        {% if md.module.hero.enabled %}
+        <div class="featured-image-hero {{ ' bg_image' if content.featured_image && md.module.hero.featured_image_layout == 'bg_image'}}">
+            <div class="hero-container {{ md.module.design_settings.layout }}">
+                <div class="row hero-row">
+                    <div class="col-12 hero-content text-{{ md.module.hero.text_color }}">
+                        {% if md.module.hero.show_tags %}
+                        <div class="tags tags-list">
+                            {% for topic in content.topic_list %}
+                            <a href="{{ blog_tag_url(group.id, topic.slug) }}" class="h5 {% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ macros.color(heading.heading_color_custom) }}"{% endif %}>{{ topic.name }}</a>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% set heading = md.module.heading %}
+                        <{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading{% if class %} {{class}}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %} {% if heading.heading_align != 'auto' %} text-{{ heading.heading_align }}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ macros.color(heading.heading_color_custom) }}"{% endif %}>{{ content.name }}</{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>
+                            {% if (content.blog_post_author && md.module.hero.author) || md.module.hero.date %}
+                            <div class="author author-inline mb-4">
+                        <div class="d-flex align-items-center">
+                            {% if content.blog_post_author.avatar && md.module.hero.author %}
+                            <div class="avatar mr-2">
+                                <img src="{{ content.blog_post_author.avatar }}" alt="{{ content.blog_post_author.full_name }}" width="120" height="120" loading=lazy />
+                            </div>
+                            {% endif %}
+    
+                            <div>
+                                {% if content.blog_post_author && md.module.hero.author %}
+                                {{ md.module.hero.author_prefix }}<a class="author-link" href="{{ blog_author_url(group.id, content.blog_post_author.slug) }}">{{ content.blog_post_author.full_name }}</a>
+                                {% endif %}
+    
+                                {% if md.module.hero.date %}
+                                <div>{{md.module.hero.date_prefix}}{{ content.publish_date_localized }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if content.featured_image && md.module.hero.featured_image_layout == "sd_image" && md.module.hero.enable_featured_image %}
+                    <div class="featured-image-wrapper sr-spacer-top-50">
+                        <img class="featured-image " src="{{ content.featured_image }}" alt="{{ page_meta.name }}" width="1200" height="820" style="border-radius:{{md.module.hero.image_corner_radius}}px">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </div>
+    {% endif %}
+    
+    {% set template_class = name|lower|replace(" ","-")|replace("(","")|replace(")","")|regex_replace("[?,.!@#$%&*^<>;:'+=]", "")|regex_replace("[ˆ0-9]","") %}
+    
+    
+    {% set tc = namespace() %}
+    {% set tc.headings = [] %}
+    {% import "./snippet_macros.html" %}
+    
+    <div class="sr-blog-post {{ template_class }} {% if md.module.design_settings.background_option == 'color' %} bg-{{ md.module.design_settings.background_color }}{% endif %} {{ macros.padding(md.module.design_settings) }} text-{{ md.module.design_settings.text_color }} {{ macros.text_align(md.module.design_settings) }} prototype-no-background{% if md.module.class %} {{ md.module.class }}{% endif %}" {% if md.module.sr_module_id %}id="{{ md.module.sr_module_id }}"{% endif %}>
+    
+        {% if md.module.design_settings.background_option == 'video' %}
+        {{macros.bg_video(md.module.background_video, md.module.design_settings.background_image.src)}}
+        {% endif %}
+    
+        <div class="{{ md.module.design_settings.layout }} {{"container-large" if md.module.toc.enabled && md.module.enabled_sidebar }}">
+            {% if md.module.design_settings.container_width != 'max' %}
+            <div class="row">
+                <div class="{{ width_class }}">
+                    {% endif %}
+                    <div class="row">
+                        {% if md.module.toc.enabled %}
+                        <div class="{{"col-lg-2" if md.module.enabled_sidebar else "col-lg-3"}}">
+                            {{ get_toc(content.post_body) }}
+                            <div class="blog-toc__container {% if md.module.design_settings.toc_styles.background_color != 'auto' %}bg-{{ md.module.design_settings.toc_styles.background_color }} {% endif %}">
+                                {% if tc.headings|length != 0 %}
+                                <div class="blog-toc d-none d-lg-block">
+                                    {% if Query.toc == "true" %}
+                                    er
+                                    {{tc.headings}}
+                                    {% endif %}
+                                    {{ macros.heading(md.module.toc.heading) }}
+                                    <nav class="section-nav">
+                                        {% if tc.headings %}
+                                        <ul class="toc-root list-unstyled">
+                                            {% for heading in tc.headings %}
+                                            <li>
+                                                <a class="header-link depth-2" href="#{{ escape(heading.text) }}">
+                                                    {% if md.module.toc.icon.icon_type != 'none' %}
+                                                    <div class="icon">
+                                                        {% if md.module.toc.icon.icon_type == 'icon' %}
+                                                        <span class="icon">
+                                                            {{ macros.icon(md.module.toc.icon.icon_field, 11) }}
+                                                        </span>
+                                                        {% elif md.module.toc.icon.icon_type == 'svg' %}
+                                                        <span class="icon-custom" style="--icon-width: {{ md.module.toc.icon.icon_size|default(18) ~ 'px' }};">
+                                                            {{ md.module.toc.icon.svg }}
+                                                        </span>
+                                                        {% endif %}
+                                                    </div>
+                                                    {% endif %}
+                                                    {{ heading.text }}
+                                                </a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% else %}
+                                        <style>
+                                            .blog-toc {
+                                                display: none
+                                            }
+                                        </style>
+                                        {% endif %}
+                                    </nav>
+                                </div>
+                                <details class="d-lg-none blog-toc">
+                                    <summary class="nav-group-title">
+                                        <div class="mb-0 py-2 d-flex align-items-center justify-content-between">
+                                            {{ macros.heading(md.module.toc.heading) }}
+                                            <svg class="mt-n1" xmlns="http://www.w3.org/2000/svg" viewBox="0 1 16 16" width="16" height="16" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M6.22 3.22a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06L9.94 8 6.22 4.28a.75.75 0 010-1.06z"></path>
+                                            </svg>
+                                        </div>
+                                    </summary>
+                                    <div class="section-nav">
+                                        {% if tc.headings %}
+                                        <ul class="list-unstyled">
+                                            {% for heading in tc.headings %}
+                                            <li>
+                                                <a class="header-link depth-2" href="#{{ escape(heading.text) }}">
+                                                    {% if md.module.toc.icon.icon_type != 'none' %}
+                                                    <div class="icon">
+                                                        {% if md.module.toc.icon.icon_type == 'icon' %}
+                                                        <span class="icon">
+                                                            {{ macros.icon(md.module.toc.icon.icon_field, 11) }}
+                                                        </span>
+                                                        {% elif md.module.toc.icon.icon_type == 'svg' %}
+                                                        <span class="icon-custom" style="--icon-width: {{ md.module.toc.icon.icon_size|default(18) ~ 'px' }};">
+                                                            {{ md.module.toc.icon.svg }}
+                                                        </span>
+                                                        {% endif %}
+                                                    </div>
+                                                    {% endif %}
+                                                    {{ heading.text }}
+                                                </a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    </div>
+                                </details>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="{% if md.module.toc.enabled && md.module.enabled_sidebar %}col-lg-10 col-xl-7 {% elif !md.module.toc.enabled && md.module.enabled_sidebar %}col-md-7 {% elif md.module.toc.enabled && !md.module.enabled_sidebar %}col-lg-9 {% else %}col-md-12{% endif %} blog-col">
+                            <article> 
+                                <div class="blog-content">
+                                    {% module "blog_post_audio" path="@hubspot/blog_audio", overrideable=False %}
+                                    {{ render_body(content.post_body) }}
+                                </div>
+                                {% if md.module.show_post_tags %}
+                                <div class="d-flex flex-wrap align-items-center tags sr-spacer-top-50 {{ "sr-spacer-bottom-50" if md.module.show_post_author_info }}" style="gap: 1rem">
+                                    {% if md.module.tags_prefix %}
+                                    <p class="mb-0 small">{{ md.module.tags_prefix }}</p>
+                                    {% endif %}
+                                    <div class="tags-list">
+                                        {% for topic in content.topic_list %}
+                                        <a href="{{ blog_tag_url(group.id, topic.slug) }}" class="blog-tag">{{ topic.name }}</a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% if md.module.show_post_author_info %}
+                                <div class="author-section small {{ "bg" if "background" in md.module.author_options }}">
+                                    <div class="d-flex align-items-center">
+                                        {% if content.blog_post_author.avatar && "avatar" in md.module.author_options %}
+                                        <div class="avatar">
+                                            <img src="{{ content.blog_post_author.avatar }}" alt="{{ content.blog_post_author.full_name }}" width="120" height="120" loading=lazy />
+                                        </div>
+                                        {% endif %}
+                                        <div class="meta {% if content.blog_post_author.avatar && 'avatar' in md.module.author_options %}ml-3{% endif %}">
+                                            {% if content.blog_post_author %}
+                                            <span class="author">{{ md.module.author_prefix }}<b><a class="author-link" href="{{ group.absolute_url }}/author/{{ content.blog_post_author.slug }}">{{ content.blog_post_author.display_name }}</a></b></span><br>
+                                            {% endif %}
+                                            {% if "date" in md.module.author_options %}
+                                            {{ content.publish_date_localized }}
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% if content.blog_post_author.bio && "bio" in md.module.author_options %}
+                                    <div class="mt-3">
+                                        {{content.blog_post_author.bio}}
+                                    </div>
+                                    {% endif %}
+                                    {% if content.blog_post_author.has_social_profiles && "social" in md.module.author_options %}
+                                    <div class="author-social-links">
+                                        {% if content.blog_post_author.website %}
+                                        <a href="{{ content.blog_author.website }}" target="_blank" rel="noopener" class="social-icon">{% icon name='link', purpose='semantic', style='SOLID', title='Follow me on my website', width='14' no_wrapper=true %}</a>
+                                        {% endif %}
+                                        {% if content.blog_post_author.facebook %}
+                                        <a href="{{ content.blog_author.facebook }}" target="_blank" rel="noopener" class="social-icon"> {% icon name='facebook-f', purpose='semantic', style='SOLID', title='Follow me on Facebook', width='8', no_wrapper=true %} </a>
+                                        {% endif %}
+                                        {% if content.blog_post_author.twitter %}
+                                        <a href="{{ content.blog_author.twitter }}" target="_blank" rel="noopener" class="social-icon"> {% icon name='twitter', purpose='semantic', style='SOLID', title='Follow me on Twitter', width='14', no_wrapper=true %} </a>
+                                        {% endif %}
+                                        {% if content.blog_post_author.linkedin %}
+                                        <a href="{{ content.blog_author.linkedin }}" target="_blank" rel="noopener" class="social-icon"> {% icon name='linkedin-in', purpose='semantic', style='SOLID', title='Follow me on LinkedIn', width='14', no_wrapper=true %} </a>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% if group.allow_comments && md.module.comment.enabled %}
+                                <div class="blog-comments btn-wrapper btn-primary-wrapper sr-spacer-top-50">
+                                    {{macros.heading(md.module.comment.comment_heading)}}
+                                    <div class="blog-comments-wrapper">
+                                        {% blog_comments "blog_comments" overrideable=true, label='Blog Comments' %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </article>
+                        </div>
+    
+                        {% if md.module.enabled_sidebar %}
+                        <div class="{{"col-xl-3 offset-xl-0 offset-lg-2" if md.module.toc.enabled else "col-md-4 offset-md-1" }} sidebar mt-5 mt-md-0">
+                            <div class="sidebar-wrapper">
+                                {% module "sidebar" path='./custom-modules/Blog Post', label="Sidebar Settings" %}
+                                {% set ns = namespace() %}
+    
+                                {% for item in md.module.offer %}
+                                {% for topic in content.topic_list %}
+                                {% if topic.slug == item.tag_field && !ns.offer %}
+                                {% set ns.offer = item %}
+                                {% endif %}
+                                {% endfor %}
+                                {% endfor %}
+    
+                                {% if !ns.offer %}
+                                {% set ns.offer = md.module.offer[0] %}
+                                {% endif %}
+                                {% if ns.offer %}
+                                <div data-tag="{{ ns.offer.tag_field }}">
+                                    {% if ns.offer.image.src %}
+                                    <div class="text-center">
+                                        {% if ns.offer.image.src %}
+                                        <div class="responsive-image mb-4">
+                                            {{ macros.image(ns.offer.image, "style=\"--img-corner: {{ ns.offer.image_corner_radius }}px\"") }}
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                    {% if ns.offer.heading || ns.offer.description %}
+                                    <div class="mb-4">
+                                        {{ macros.heading(ns.offer.heading) }}
+                                        {% if ns.offer.description %}
+                                        <div class="description{% if ns.offer.lead_text %} lead{% endif %}">{{ ns.offer.description}}</div>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %}
+                                    {% if ns.offer.form.enabled %}
+                                    <div class="sr-form sr-blog-form {{class}} btn-wrapper text-{{ ns.offer.form.styles.text_color }} btn-{{ ns.offer.form.styles.button.style }}-wrapper{% if ns.offer.form.styles.button.block %} btn-block-wrapper{% endif %} btn-wrapper-{{ ns.offer.form.styles.button.size}} btn-{{ ns.offer.form.styles.button.align}}">
+                                        {% if ns.offer.form.form.form_id %}
+                                        {% form
+                                                        form_to_use='{{ ns.offer.form.form.form_id }}',
+                                                        no_title='True',
+                                                        follow_up_type_simple='{{ ns.offer.form.form.follow_up_type_simple }}',
+                                                        simple_email_for_live_id='{{ ns.offer.form.form.simple_email_for_live_id }}',
+                                                        follow_up_type_automation='{{ ns.offer.form.form.follow_up_type_automation }}',
+                                                        form_follow_ups_workflow_id='{{ ns.offer.form.form.form_follow_ups_workflow_id }}',
+                                                        response_response_type='{{ ns.offer.form.form.response_type }}',
+                                                        response_redirect_id='{{ ns.offer.form.form.redirect_id }}',
+                                                        response_redirect_url='{{ ns.offer.form.form.redirect_url }}',
+                                                        response_message='{{ ns.offer.form.form.message }}',
+                                                        notifications_are_overridden='{{ ns.offer.form.form.notifications_are_overridden }}',
+                                                        notifications_override_email_addresses='{{ ns.offer.form.form.notifications_override_email_addresses }}'
+                                                        gotowebinar_webinar_key='{{ ns.offer.form.form.gotowebinar_webinar_key }}'
+                                                        sfdc_campaign='{{ ns.offer.form.form.sfdc_campaign }}'
+                                                    %}
+                                        {% else %}
+                                        {% if !hide_placeholder %}
+                                        <form class="hs-form stacked hs-custom-form">
+                                            {% if !one_field %}
+                                            <fieldset class="form-columns-2">
+                                                <div class="hs_firstname field hs-form-field">
+                                                    <label>
+                                                        <span>First Name</span>
+                                                    </label>
+                                                    <div class="input">
+                                                        <input class="hs-input" name="firstname" placeholder="First Name" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="hs_lastname field hs-form-field">
+                                                    <label>
+                                                        <span>Last Name</span>
+                                                    </label>
+                                                    <div class="input">
+                                                        <input class="hs-input" name="lastname" placeholder="Last Name" type="text">
+                                                    </div>
+                                                </div>
+                                            </fieldset>
+                                            {% endif %}
+                                            {% if !one_field %}
+                                            <fieldset class="form-columns-1">
+                                                {% endif %}
+                                                <div class="hs_email hs-email hs-fieldtype-text field hs-form-field" >
+                                                    <label placeholder="Enter your Email" for="email">
+                                                        <span>Email</span>
+                                                        <span class="hs-form-required" >*</span>
+                                                    </label>
+                                                    <div class="input" >
+                                                        <input id="email" class="hs-input" type="email" name="email" required="" placeholder="team@sprocketrocket.co" value="" autocomplete="email" inputmode="email">
+                                                    </div>
+                                                </div>
+                                                {% if !one_field %}
+                                            </fieldset>
+                                            {% endif %}
+                                            <div class="hs_submit">
+                                                <div class="actions">
+                                                    <input class="hs-button primary large" type="submit" value="{{button_text || 'Get Started'}}">
+                                                </div>
+                                            </div>
+                                        </form>
+                                        {% else %}
+                                        {% form %}
+                                        {% endif %}
+                                        {% endif %}
+                                        {% require_css %}
+                                        <style>
+                                            .sr-blog-form {
+                                                {%- if ns.offer.form.styles.background_color.opacity != 0 -%}
+                                                background-color: {{ macros.color(ns.offer.form.styles.background_color) }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.text_color == 'custom' -%}
+                                                color: {{ macros.color(ns.offer.form.styles.text_color_custom) }};
+                                                {% endif %}
+                                                {%- if ns.offer.form.styles.padding.top -%}
+                                                padding-top: {{ ns.offer.form.styles.padding.top / 16 ~ 'rem' }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.padding.bottom -%}
+                                                padding-bottom: {{ ns.offer.form.styles.padding.bottom / 16 ~ 'rem' }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.padding.left -%}
+                                                padding-left: {{ ns.offer.form.styles.padding.left / 16 ~ 'rem' }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.padding.right -%}
+                                                padding-right: {{ ns.offer.form.styles.padding.right / 16 ~ 'rem' }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.border.radius -%}
+                                                border-radius: {{ ns.offer.form.styles.border.radius ~ 'px' }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.border.style != 'none' -%}
+                                                {%- if ns.offer.form.styles.border.top && ns.offer.form.styles.border.bottom && ns.offer.form.styles.border.left && ns.offer.form.styles.border.right -%}
+                                                border: {{ns.offer.form.styles.border.width ~ 'px'}} {{ns.offer.form.styles.border.style}} {{ macros.color(ns.offer.form.styles.border.color) }};
+                                                {%- else -%}
+                                                {%- if ns.offer.form.styles.border.top -%}
+                                                border-top: {{ns.offer.form.styles.border.width ~ 'px'}} {{ns.offer.form.styles.border.style}} {{ macros.color(ns.offer.form.styles.border.color) }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.border.bottom -%}
+                                                border-bottom: {{ns.offer.form.styles.border.width ~ 'px'}} {{ns.offer.form.styles.border.style}} {{ macros.color(ns.offer.form.styles.border.color) }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.border.left -%}
+                                                border-left: {{ns.offer.form.styles.border.width ~ 'px'}} {{ns.offer.form.styles.border.style}} {{ macros.color(ns.offer.form.styles.border.color) }};
+                                                {%- endif -%}
+                                                {%- if ns.offer.form.styles.border.right -%}
+                                                border-right: {{ns.offer.form.styles.border.width ~ 'px'}} {{ns.offer.form.styles.border.style}} {{ macros.color(ns.offer.form.styles.border.color) }};
+                                                {%- endif -%}
+                                                {%- endif -%}
+                                                {%- endif -%}
+                                            }
+                                            {% if ns.offer.form.styles.hide_label %}
+                                            .sr-blog-form label {
+                                                display: none;
+                                            }
+                                            {% endif %}
+                                        </style>
+                                        {% end_require_css %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+    
+                                {% if md.module.tags.enabled  %}
+                                <div class="sidebar-menu tags sr-spacer-top-25">
+                                    {% set tag_heading = md.module.tags.heading %}
+                                    {{macros.heading(tag_heading, "sidebar-heading")}}
+                                    {% set tags = blog_tags(md.module.tags.blog, md.module.tags.limit) %}
+                                    <ul class="tags-list">
+                                        {% for item in tags %}
+                                        <li><a href="{{ blog_tag_url(md.module.tags.blog, item.slug) }}" class="blog-tag">{{ item }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                {% endif %}
+    
+                                {% if md.module.recent.enabled %}
+                                <div class="sidebar-menu recent sr-spacer-top-25">
+                                    {% set recent_heading = md.module.recent.heading %}
+                                    {{macros.heading(recent_heading, "sidebar-heading")}}
+    
+                                    {% for topic in content.topic_list %}
+                                    {% if loop.first %}
+                                    {% set recent_posts = blog_recent_posts(md.module.recent.blog, md.module.recent.limit )%}
+                                    <ul>
+                                        {% for post in recent_posts %}
+                                        {% unless content.absolute_url == post.absolute_url %}
+                                        <li><a class="post-link" href="{{ post.absolute_url }}">{{post.name}}</a></li>
+                                        {% endunless %}
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+    
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% if md.module.design_settings.container_width != 'max' %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    {% if md.module.related.enabled %}
+    <div class="related-posts-section">
+        <div class="{{ md.module.design_settings.layout }}">
+            {% if md.module.design_settings.container_width != 'max' %}
+            <div class="row">
+                <div class="{{ width_class }}">
+                    {% endif %}
+                    {% if md.module.related.heading %}
+                    <div class="sr-spacer-bottom-50">
+                        {{ macros.heading(md.module.related.heading) }}
+                    </div>
+                    {% endif %}
+                    <div class="related-posts-container row">
+                        {%- set tag = content.topic_list[0] -%}
+                        {%- set posts_limit =  md.module.related.limit + 1 -%}
+                        {%- set related_posts = blog_recent_tag_posts(group.id, tag.slug, posts_limit) -%}
+                        {% for post in related_posts %}
+                        {% unless content.absolute_url == post.absolute_url %}
+                        <div class="related-post {{'col-md-6' if md.module.related.card_styles.cards_per_row != 'col-lg-12' else 'col-md-12'}} {{md.module.related.card_styles.cards_per_row}}">
+                            <div class="article-panel" style="background:{{md.module.related.card_styles.background_color.css}}; border-color:{{md.module.related.card_styles.border_color.css}}; border-radius: {{md.module.related.card_styles.border_radius}}px;">
+                                <a href="{{post.absolute_url}}" aria-label="Link to {{ post.name }}">
+                                    {% if post.featured_image %}
+                                    <div class="article-img">
+                                        <img src="{{ post.featured_image }}" alt="{{post.name}}" width="500" height="500" loading="lazy" />
+                                    </div>
+                                    {% endif %}
+    
+                                    <div class="article-content">
+                                        <div>
+                                            {% if post.topic_list[0] && md.module.related.card_styles.show_tags %}
+                                            <div class="tags-list mb-3">
+                                                {% for topic in post.topic_list %}
+                                                {% if loop.first %}
+                                                <span class="blog-tag">{{ topic.name }}</span>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                            {% endif %}
+                                            <p class="heading spaced h4">{{post.name}}</p>
+                                        </div>
+                                        <div>
+                                            <div class="article-meta small mb-0">
+                                                {% if md.module.related.card_styles.show_author || md.module.related.card_styles.show_date %}
+                                                <div class="data">
+                                                    {% if md.module.related.card_styles.show_author %}
+                                                    {{post.blog_post_author.full_name}}
+                                                    {% endif %}
+                                                    {% if md.module.related.card_styles.show_author && md.module.related.card_styles.show_date %}
+                                                    <span class="bull">•</span>
+                                                    {% endif %}
+                                                    {% if md.module.related.card_styles.show_date %}
+                                                    <span class="date">{{post.publish_date_localized}}</span>
+                                                    {% endif %}
+                                                </div>
+                                                {% endif %}
+                                                {% if md.module.related.card_styles.show_reading_time %}
+                                                <div class="reading-minutes">
+                                                    {% set str = post.post_body %}
+                                                    {% set img_count = str|split('<img')|length %}
+                                                    {% set img_minutes = ((img_count * 12) / 60)|round(0, 'common') %}
+                                                    {% set read_time = (str|striptags|wordcount / 275)|round(0, 'common') + img_minutes %}
+                                                    {{ md.module.related.read_time|replace('%N', read_time) }}
+                                                </div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        {% endunless %}
+                        {% endfor %}
+                    </div>
+    
+                    {% if md.module.design_settings.container_width != 'max' %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    
+    {% require_css %}
+    <style>
+        {{ macros.design_settings(template_class, md.module.design_settings) }}
+        .featured-image-hero {
+            position: relative;
+            {{ md.module.design_settings.bh_spacing.css }}
+            background-color: {{ md.module.hero.background_color.css }};
+    
+            {% if md.module.hero.featured_image_layout == "bg_image" && md.module.hero.enable_featured_image %}
+            --background: {{ md.module.hero.overlay.css }};
+            background-size: cover;
+            background-position: center;
+            background-image:url('{{ content.featured_image }}');
+                {% if md.module.hero.parallax %}
+                background-attachment: fixed;
+                {% endif %}
+                {% endif %}
+                }
+    
+        {% if md.module.hero.featured_image_layout == "bg_image" %}
+        .featured-image-hero:after {
+            content: "";
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(180deg, rgba({{md.module.hero.overlay.hex|convert_rgb}}, 0) 0%, {{md.module.hero.overlay.hex}} 70.19%);
+            height: 50%;
+            pointer-events: none;
+        }
+        {% endif %}
+    
+        {% if md.module.design_settings.responsive_settings.tablet.bh_spacing.css %}
+        @media{{"(min-width: 768px) and" if md.module.design_settings.responsive_settings.mobile.bh_spacing.css }} (max-width: 991.99px) {
+            .featured-image-hero {
+                {{ md.module.design_settings.responsive_settings.tablet.bh_spacing.css }}
+            }
+        }
+        {%- endif %}
+        {% if md.module.design_settings.responsive_settings.mobile.bh_spacing.css %}
+        @media(max-width: 767.99px) {
+            .featured-image-hero {
+                {{ md.module.design_settings.responsive_settings.mobile.bh_spacing.css }}
+            }
+        }
+        {%- endif %}
+    
+    
+        .related-post:nth-child(n+{{ posts_limit}}) {
+            display: none;
+        }
+    
+        {% if md.module.hero.text_color == "custom" %}
+        .hero-content {
+            color: {{ md.module.hero.text_color_custom.css }};
+        }
+        {% endif %}
+    
+    
+        /*======= Tags =======*/
+        .blog-tag {
+            background-color: {{ md.module.design_settings.tag_styles.background_color.css }};
+            color: {{ md.module.design_settings.tag_styles.text_color.css }};
+            border-radius: {{md.module.design_settings.tag_styles.border_radius}}px;
+            {% if md.module.design_settings.tag_styles.border.css %}
+            {{ md.module.design_settings.tag_styles.border.css }}
+            {%- endif -%}
+        }
+        .blog-tag:is(:hover, :focus) {
+            background-color: {{ md.module.design_settings.tag_styles.background_hover_color.css }};
+            color: {{ md.module.design_settings.tag_styles.text_hover_color.css }};
+        }
+    
+    
+        /*======= Related Posts =======*/
+        {% if md.module.related.enabled %}
+        .related-posts-section {
+            position: relative;
+            {% if md.module.design_settings.related_posts_section_styles.background_color == "image" %}
+            background-image: url({{ resize_image_url(md.module.design_settings.related_posts_section_styles.background_image.src, '1440') }});
+            background-size: {{ md.module.design_settings.related_posts_section_styles.background_image.background_size }};
+            background-position: {{ md.module.design_settings.related_posts_section_styles.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+            {% elif md.module.design_settings.related_posts_section_styles.background_color == "gradient" %}
+            background: {{ md.module.design_settings.related_posts_section_styles.background_gradient.css }};
+            {% elif md.module.design_settings.related_posts_section_styles.background_color == "custom" %}
+            background-color: {{ md.module.design_settings.related_posts_section_styles.background_custom.css }};
+            {% elif md.module.design_settings.related_posts_section_styles.background_color != "auto" %}
+            background: var(--{{ md.module.design_settings.related_posts_section_styles.background_color }});
+            {% endif %}
+            {% if md.module.design_settings.related_posts_section_styles.spacing.css -%}
+            {{ md.module.design_settings.related_posts_section_styles.spacing.css }}
+            {%- endif -%}
+        }
+        .related-posts-section .container {
+            z-index: 3;
+        }
+        {% if md.module.design_settings.related_posts_section_styles.background_color == "image" %}
+        .related-posts-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: {{ md.module.design_settings.related_posts_section_styles.background_overlay_color.css }};
+            pointer-events: none;
+        }
+        {% endif %}
+        {% endif %}
+    
+    
+        {% if md.module.enabled_sidebar %}
+        /*======= Sidebar =======*/
+        .sidebar-wrapper {
+            {% if md.module.design_settings.sidebar_styles.spacing.css -%}
+            {{ md.module.design_settings.sidebar_styles.spacing.css }}
+            {%- endif -%}
+            {%- if md.module.design_settings.sidebar_styles.background_color == "gradient" -%}
+            background: {{ md.module.design_settings.sidebar_styles.background_gradient.css }};
+            {%- elif md.module.design_settings.sidebar_styles.background_color == "custom" -%}
+            background-color: {{ md.module.design_settings.sidebar_styles.background_custom.css }};
+            {% elif md.module.design_settings.sidebar_styles.background_color != "auto" %}
+            background-color: var(--{{ md.module.design_settings.sidebar_styles.background_color }});
+            {%- endif -%}
+            {% if md.module.design_settings.sidebar_styles.text_color == "custom" %}
+            color: {{ md.module.design_settings.sidebar_styles.text_color_custom.css }};
+            {%- endif -%}
+            {% if md.module.design_settings.sidebar_styles.border.css %}
+            {{ md.module.design_settings.sidebar_styles.border.css }}
+            {%- endif -%}
+            {% if md.module.design_settings.sidebar_styles.border_radius >= 0 %}
+            border-radius: {{ md.module.design_settings.sidebar_styles.border_radius }}px;
+            {%- endif -%}
+            {% if md.module.design_settings.sidebar_styles.shadow %}
+            box-shadow: {{ "inset" if md.module.design_settings.sidebar_styles.inset }} {{ md.module.design_settings.sidebar_styles.horizontal ~ "px" }} {{ md.module.design_settings.sidebar_styles.vertical ~ "px" }} {{ md.module.design_settings.sidebar_styles.blur ~ "px" }} {{ md.module.design_settings.sidebar_styles.spread ~ "px" }} {{ md.module.design_settings.sidebar_styles.color.css }};
+            {%- endif %}
+        }
+        {% endif %}
+    
+    
+        {% if md.module.toc.enabled %}
+        /*======= Table Of Contents =======*/
+        .blog-toc__container {
+            {{ md.module.design_settings.toc_styles.spacing.css }};
+            {%- if md.module.design_settings.toc_styles.background_color == "gradient" -%}
+            background: {{ md.module.design_settings.toc_styles.background_gradient.css }};
+            {%- elif md.module.design_settings.toc_styles.background_color == "custom" -%}
+            background-color: {{ md.module.design_settings.toc_styles.background_custom.css }};
+            {%- elif md.module.design_settings.toc_styles.background_color != "auto" -%}
+            background-color: var(--{{ md.module.design_settings.toc_styles.background_color }});
+            {%- endif -%}
+            {% if md.module.design_settings.toc_styles.border.css %}
+            {{ md.module.design_settings.toc_styles.border.css }};
+            {% endif %}
+            {% if md.module.design_settings.toc_styles.border_radius >= 0 %}
+            border-radius: {{ md.module.design_settings.toc_styles.border_radius }}px;
+            {% endif %}
+            {% if md.module.design_settings.toc_styles.shadow %}
+            box-shadow: {{ "inset" if md.module.design_settings.toc_styles.inset }} {{ md.module.design_settings.toc_styles.horizontal ~ "px" }} {{ md.module.design_settings.toc_styles.vertical ~ "px" }} {{ md.module.design_settings.toc_styles.blur ~ "px" }} {{ md.module.design_settings.toc_styles.spread ~ "px" }} {{ md.module.design_settings.toc_styles.color.css }};
+            {% endif %}
+        }
+        {% if md.module.design_settings.toc_styles.custom_font == 'true' %}
+        .blog-toc__container .section-nav {
+            padding-left: 0;
+            font-family: inherit;
+            font-size: {{md.module.design_settings.toc_styles.font_size}}
+        }
+        .blog-toc__container .section-nav a,
+        .blog-toc__container .section-nav a:is(svg, path, svg path, g) {
+            {% if md.module.design_settings.toc_styles.text_color != "custom" %}
+            color: var(--{{ md.module.design_settings.toc_styles.text_color }});
+            fill: var(--{{ md.module.design_settings.toc_styles.text_color }});
+            {% else %}
+            color: {{ md.module.design_settings.toc_styles.text_color_custom.css }};
+            fill: {{ md.module.design_settings.toc_styles.text_color_custom.css }}
+                {% endif %}
+        }
+        {% else %}
+        .blog-toc__container .section-nav {
+            padding-left: 0;
+            {{ md.module.design_settings.toc_styles.font.css }}
+        }
+        {% endif %}
+    
+        .blog-toc__container .section-nav a:is(:hover,:focus),
+        .blog-toc__container .section-nav a:is(:hover,:focus) :is(svg, path, svg path, g),
+        .blog-toc__container .section-nav .active :is(a, svg, path, svg path, g) {
+            {% if md.module.design_settings.toc_styles.text_hover_color != "custom" %}
+            color: var(--{{ md.module.design_settings.toc_styles.text_hover_color }});
+            fill: var(--{{ md.module.design_settings.toc_styles.text_hover_color }});
+            {% else %}
+            color: {{ md.module.design_settings.toc_styles.text_hover_custom.css }};
+            fill: {{ md.module.design_settings.toc_styles.text_hover_custom.css }}
+                {% endif %}
+        }
+        .blog-toc__container .section-nav .active {
+            {% if md.module.design_settings.toc_styles.text_hover_color != "custom" %}
+            border-left-color: var(--{{ md.module.design_settings.toc_styles.text_hover_color }});
+            {% else %}
+            border-left-color: {{ md.module.design_settings.toc_styles.text_hover_custom.css }};
+            {% endif %}
+        }
+        {% endif %}
+    </style>
+    {% end_require_css %}
+    {% endif %}
+    {% endblock body %}
+    
+    {% block footer %}
+    {% global_partial path="./partials/blog_footer.html" %}
+    {% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+    {% if widget_data.enabled_site_footer.value %}
+    {% global_partial path="../../templates/partials/site_footer.html" %}
+    {% endif %}
+    {% endblock footer %}
+    
+    {% include '../footer-includes.html' %}
+    </body>
+    </html>

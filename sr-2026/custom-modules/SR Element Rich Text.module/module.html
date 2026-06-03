@@ -1,0 +1,16 @@
+{% import "../../templates/macros.html" as macros %}
+<div class="sr-richtext {{name}} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}" {{ "data-preview" if module_preview }}>
+	{% if module.description %}
+	<div{% if module.lead_text %} class="lead"{% endif %}>{{ module.description}}</div>
+	{% endif %}
+</div>
+{% require_css %}
+<style>
+	{% scope_css %}
+    .sr-richtext {
+        {{ module.design_settings.spacing.css }};
+    }
+    {% end_scope_css %}
+	{{ macros.design_settings(name, module.design_settings) }}
+</style>
+{% end_require_css %}

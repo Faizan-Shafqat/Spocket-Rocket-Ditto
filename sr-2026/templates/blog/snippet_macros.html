@@ -1,0 +1,72 @@
+<!--
+    templateType: page
+    isAvailableForNewContent: false
+-->
+
+{# Macro to render the body content with modified headings #}
+{%- macro render_body(body) -%}
+{# Create a new dictionary to store the modified content #}
+{% set new_body = {
+  "content": body
+} %}
+
+{# Iterate through each heading in the table of contents #}
+{% for heading in tc.headings %}
+  {# Create a regex pattern to match the entire heading element, including nested elements #}
+  {% set heading_pattern = "<h" ~ heading.type ~ "(.*?)>" ~ heading.full_content %}
+
+  {# Create the new heading with a span element for TOC linking, preserving any nested elements #}
+  {% set new_heading = "<h" ~ heading.type ~ "$1><span id='" ~ escape(heading.text) ~ "' data-type='" ~ heading.type ~ "' class='toc-heading'>" ~ heading.full_content ~ "</span>" %}
+
+  {# Update the content by replacing the old heading with the new one #}
+  {% do new_body.update({
+    "content": new_body.content|regex_replace(heading_pattern, new_heading)
+  }) %}
+{% endfor %}
+
+{# Output the modified content #}
+{{ new_body.content }}
+{% endmacro %}
+
+{# Macro to generate a table of contents from the body content #}
+{%- macro get_toc(body) -%}
+  {# Initialize an empty list to store processed headings #}
+  {% set temp_heading = [] %}
+  {# Split the body content at each heading start tag #}
+  {% set split_text = body|split("<h") %}
+  {# Iterate through each split part #}
+  {% for item in split_text %}
+      {# Check if this part contains a closing heading tag #}
+      {% if item is string_containing("</h") %}
+
+          {# Extract the heading level (2 or 3) #}
+          {% set type = item|truncate(1, true, '') %}
+          {# Process only h2 and h3 headings #}
+          {% if type == "2" or type == "3" %}
+              {# Extract the full content of the heading, including nested tags but stopping at the closing heading tag #}
+              {% set content_parts = item|split("</h" ~ type ~ ">") %}
+              {% set full_content = content_parts|first|regex_replace('^[^>]*>', '')|trim %}
+              {# Extract plain text version of the heading #}
+              {% set my_string = full_content|striptags|trim|unescape_html %}
+
+              {# Add the heading to the list if it's not already present #}
+              {% if my_string not in temp_heading %}
+                  {% do temp_heading.append(my_string) %}
+                  {# Add the heading text, type, and full content to the namespace variable tc.headings #}
+                  {% do tc.headings.append({"text": my_string, "type": type, "full_content": full_content|replace("?", "")}) %}
+              {% endif %}
+          {% endif %}
+      {% endif %}
+  {% endfor %}
+{% endmacro %}
+
+{# Macro to escape and sanitize strings for use in IDs or URLs #}
+{%- macro escape(string)  -%}
+{# Convert to lowercase, replace spaces with hyphens, #}
+{# and remove all characters except a-z, 0-9, and hyphens #}
+{# default('') ensures an empty string if input is null #}
+{{ string|default('')|lower
+|replace(" ", "-")
+|regex_replace("[^a-z0-9-]", "")
+}}
+{%- endmacro -%}

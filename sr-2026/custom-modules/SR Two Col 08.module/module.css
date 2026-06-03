@@ -1,0 +1,14 @@
+
+.sr-two-col-08 .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sr-two-col-08 :is(.heading, h1,h2,h3,h4,h5,h6) {
+  color: inherit;
+}
+
+.sr-two-col-08 .column-wrapper,
+.sr-two-col-08 .column-wrapper .row {
+  height: 100%;
+}

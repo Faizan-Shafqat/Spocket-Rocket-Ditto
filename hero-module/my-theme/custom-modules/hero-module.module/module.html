@@ -1,0 +1,35 @@
+{# Hero — copy is editable in the page editor; typography is hardcoded in module.css #}
+<div class="preview-section">
+  <section
+    class="hero-module"
+    style="
+    {% if module.hero_background_image.src %}
+      background-image: url('{{ module.hero_background_image.src }}');
+      background-size: cover;
+      background-position: center;
+    {% else %}
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    {% endif %}
+    ">
+
+    <div class="hero-overlay" style="opacity: {{ module.hero_overlay_opacity / 100 }};"></div>
+
+    <div class="hero-container hero-align-{{ module.hero_alignment }}">
+
+      <h1 class="hero-headline">
+        {{ module.hero_headline }}
+      </h1>
+
+      <p class="hero-subheadline">
+        {{ module.hero_subheadline }}
+      </p>
+
+      {% if module.hero_button_text and module.hero_button_url %}
+        <a href="{{ module.hero_button_url }}" class="hero-button">
+          {{ module.hero_button_text }}
+        </a>
+      {% endif %}
+
+    </div>
+  </section>
+</div>

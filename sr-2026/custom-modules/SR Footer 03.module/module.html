@@ -1,0 +1,245 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set footer_options = module.design_settings.footer_options %}
+	{% set col_layout =  footer_options.col_layout %}
+	{% if col_layout == 'multi_col'%}
+	{% set flex = footer_options.flex %}
+	{% set col_widths = flex|split(',') %}
+	{% set flex_logo = col_widths[0]%}
+	{% set flex_menu = col_widths[1]%}
+	{% endif %}
+	{% set logo_align = footer_options.logo_alignment %}
+	{% set social_align = footer_options.social_alignment %}
+	{% set nav_col = footer_options.navigation_column %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+<footer class="sr-footer-03 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+	{{ macros.module_bg_video(module) }}
+
+	<div class="{{ module.design_settings.layout }}">
+
+		{% if module.design_settings.container_width != 'max' %}
+		<div class="row">
+			<div class="{{ width_class }}">
+				{% endif %}
+
+				<div class="menu-container{% if module.design_settings.text_align != 'auto' %} text-{{ module.design_settings.text_align.text_align }}{% endif %}">
+
+					<div class="nav-logo d-flex {{logo_align}}">
+
+
+						{% if module.logo_link.url.href %}
+						<a {{ macros.link(module.logo_link) }} role="link" aria-label="{{module.logo.alt}}'s link {{ ' (Opens in new tab)' if module.logo_link.open_in_new_tab }}">
+						{% endif %}
+						{{ macros.image(module.logo) }}
+						{% if module.logo_link.url.href %}
+						</a>
+						{% endif %}
+						{% if module.heading %}
+						<div class="footer-slogan pt-3">
+							{{ macros.heading(module.heading, 'mb-0') }}
+						</div>
+						{% endif %}
+					</div>
+
+					<div class="nav-main">
+						{% if hub_id == 123 || !module.menu %}
+						<nav aria-label="Footer Navigation">
+							<ul role="menubar">
+								<li role="none"><a role="menuitem" href="/">First nav item</a></li>
+								<li role="none"><a role="menuitem" href="/">Second nav item</a></li>
+								<li role="none"><a role="menuitem" href="/">Third nav item</a></li>
+								<li role="none"><a role="menuitem" href="/">Fourth nav item</a></li>
+								<li role="none"><a role="menuitem" href="/">Fifth nav item</a></li>
+							</ul>
+						</nav>
+						{% else %}
+						{% menu id='{{ module.menu }}' overrideable=False, flyouts='false', max_levels='1', flow='horizontal'  %}
+						{% endif %}
+					</div>
+				</div>
+
+				<div class="nav-social {{social_align}}">
+						{% if module.social_icons|length %}
+						<ul class="social">
+							{% for item2 in module.social_icons %}
+							<li>
+							<a class="no-decoration" {{ macros.link(item2.link) }} role="link" aria-label="{{item2.aria_label}} {{ ' (Opens in new tab)' if item2.link.open_in_new_tab }}">
+								{% if item2.type == "icon" %}
+								<span class="icon-{{loop.index}} icon-wrapper" aria-hidden="true">
+									{% icon
+											name="{{ item2.icon.name }}"
+											style="{{ item2.icon.type }}"
+											unicode="{{ item2.icon.unicode }}"
+											icon_set="{{ item2.icon.icon_set }}"
+											height="16"
+											no_wrapper=true
+										%}
+								</span>
+								{% elif item2.type == "image" %}
+								{{ macros.image(item2.custom_icon) }}
+								{% endif %}
+							</a>
+							</li>
+							{% endfor %}
+						</ul>
+						{% endif %}
+
+						<div class="copyright">{{module.small_text}}</div>
+					</div>
+
+				{% if module.design_settings.container_width != 'max' %}
+			</div>
+		</div>
+		{% endif %}
+
+	</div>
+
+	{% if module.back_to_top %}
+	<a role="button" href="{{module.btt_button.page_target}}" class="button__container bg-{{module.btt_button.button_color}} text-{{module.btt_button.icon_color}}" aria-label="Back to top button">
+		{% icon name="{{ module.btt_button.icon.name }}" style="{{ module.btt_button.icon.type }}" unicode="{{ module.btt_button.icon.unicode }}" icon_set="{{ module.btt_button.icon.icon_set }}" width="15" no_wrapper=true %}
+	</a>
+	{% endif %}
+</footer>
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.{{name}}.sr-footer-03 :is(a, p, g, path, svg, span) {
+			{% if module.design_settings.text_color == 'custom' %}
+				color: {{ macros.color(module.design_settings.text_color_custom) }}
+			{% else %}
+				color: var(--{{ module.design_settings.text_color }});
+			{% endif %}
+			}
+
+			.{{name}}.sr-footer-03 a:hover {
+			{% if module.design_settings.text_color_hover == 'custom' %}
+				color: {{ macros.color(module.design_settings.text_color_hover_custom) }};
+			{% else %}
+				color: var(--{{ module.design_settings.text_color_hover }});
+			{% endif %}
+			}
+
+			.sr-footer-03 .button__container {
+				{% if module.btt_button.button_color == 'custom' %}
+				background-color: {{macros.color(module.btt_button.button_custom)}};
+				{% endif %}
+				{% if module.btt_button.icon_color == 'custom' %}
+				background-color: {{macros.color(module.btt_button.icon_custom)}}
+				{% endif %}
+			}
+			{% if module.design_settings.text_align.text_align == 'CENTER' %}
+			.sr-footer-03 ul {
+				-webkit-box-pack: center;
+				-ms-flex-pack: center;
+				justify-content: center;
+			}
+			{% endif %}
+			{% if module.design_settings.text_align.text_align == 'LEFT' %}
+			.sr-footer-03 .nav-main li:first-child, .sr-footer-03 ul.social li:first-child {
+				margin-left: 0;
+			}
+			{% endif %}
+			{% if module.design_settings.text_align.text_align == 'RIGHT' %}
+				.sr-footer-03 ul {
+					-webkit-box-pack: end;
+					-ms-flex-pack: end;
+					justify-content: flex-end;
+				}
+				.sr-footer-03 .nav-main li:last-child, .sr-footer-03 ul.social li:last-child {
+					margin-right: 0;
+				}
+			{% endif %}
+			{% if col_layout == 'one_col'%}
+			.sr-footer-03 .menu-container {
+				display: flex;
+				flex-direction: column;
+				width: 100%;
+			}
+			.sr-footer-03 .menu-container .nav-logo {
+				flex-direction: column;
+			}
+			{% elif col_layout == 'multi_col'%}
+			.sr-footer-03 .nav-main .hs-menu-wrapper > ul {
+				display: grid;
+				justify-content: flex-end;
+				grid-template-columns: repeat({{nav_col}},auto);
+			}
+			.sr-footer-03 .nav-main li {
+				padding: 0.5rem;
+				text-align: left;
+			}
+			.sr-footer-03 .menu-container {
+				display: flex;
+				flex-direction: row;
+				width: 100%;
+				padding-bottom: 2rem;
+				border-bottom: 1px solid var(--borders);
+			}
+			.nav-main {
+				padding: 0;
+			}
+			.sr-footer-03 .menu-container .nav-logo {
+				flex: {{ flex_logo }};
+				flex-direction: column;
+			}
+			.sr-footer-03 .menu-container .nav-main {
+				flex: {{ flex_menu }}
+			}
+			.sr-footer-03 .nav-social {
+				display: flex;
+				flex-direction: column;
+				padding-top: 2rem;
+			}
+			.sr-footer-03 ul.social {
+				padding-bottom: 2rem;
+			}
+
+			@media(max-width: 991px){
+				.nav-main {
+					padding: 3rem 0 3.5rem 0;
+				}
+				.sr-footer-03 .nav-main .hs-menu-wrapper > ul {
+					grid-template-columns: repeat(2,auto);
+					justify-content: center;
+				}
+				.sr-footer-03 .nav-main li {
+					width: auto;
+					text-align: center;
+				}
+				.sr-footer-03 .menu-container {
+					display: flex;
+					flex-direction: column;
+					width: 100%;
+				}
+			}
+			{% endif %}
+			{% for item2 in module.social_icons %}
+			.{{name}}.sr-footer-03 .social .icon-{{loop.index}},
+			.{{name}}.sr-footer-03 .social .icon-{{loop.index}} :is(svg, g, path) {
+				background-color: {{ item2.background_color.css }};
+				color: {{ item2.icon_color.css }};
+				fill: {{item2.icon_color.css}};
+				transition: all .25s ease;
+			}
+			.{{name}}.sr-footer-03 .social .icon-{{loop.index}}:hover,
+			.{{name}}.sr-footer-03 .social .icon-{{loop.index}}:hover :is(svg, g, path) {
+				background-color: {{ item2.background_color_hover.css }};
+				color: {{ item2.icon_color_hover.css }};
+				fill: {{item2.icon_color_hover.css}};
+			}
+			{% endfor %}
+		</style>
+	{% end_require_css %}
+
+{% endif %}

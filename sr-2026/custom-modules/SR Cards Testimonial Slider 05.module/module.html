@@ -1,0 +1,128 @@
+{% if module.enabled %}
+
+  {% import "../../templates/macros.html" as macros %}
+  
+  {% require_css %}
+  <style>
+    {{ macros.design_settings(name, module.design_settings) }}
+    .{{ name }} .sr-card {
+      {%- if module.design_settings.card_styles.background_color == "gradient" -%}
+      background: {{ module.design_settings.card_styles.background_gradient.css }};
+      {%- elif module.design_settings.card_styles.background_color == "custom" -%}
+      background-color: {{ module.design_settings.card_styles.background_custom.css }};
+      {% elif module.design_settings.card_styles.background_color != "auto" %}
+      background-color: var(--{{ module.design_settings.card_styles.background_color }});
+      {%- endif -%}
+      {% if module.design_settings.card_styles.text_color == "custom" %}
+      color: {{ module.design_settings.card_styles.text_color_custom.css }};
+      {%- endif -%}
+      {% if module.design_settings.card_styles.border.css %}
+      {{ module.design_settings.card_styles.border.css }}
+      {%- endif -%}
+      {% if module.design_settings.card_styles.border_radius >= 0 %}
+      border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+      {%- endif -%}
+      {% if module.design_settings.card_styles.shadow %}
+      box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+      {%- endif %}
+    }
+    .{{ name }} .content-wrapper {
+      {{ module.design_settings.card_styles.spacing.css }}
+    }
+  </style>
+  {% end_require_css %}
+  
+  {% if module.design_settings.container_width == 'min' %}
+    {% set width_class = 'col-md-6 offset-md-3' %}
+  {% elif module.design_settings.container_width == 'narrow' %}
+    {% set width_class = 'col-md-8 offset-md-2' %}
+  {% elif module.design_settings.container_width == 'wide' %}
+    {% set width_class = 'col-md-10 offset-md-1' %}
+  {% endif %}
+  
+  <div class="sr-cards-testimonial-slider-05 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} {% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+    {{ macros.module_bg_video(module) }}
+    <div class="{{ module.design_settings.layout }}">
+      {% if module.design_settings.container_width != 'max' %}
+      <div class="row">
+        <div class="{{ width_class }}">
+          {% endif %}
+  
+          {% if module.heading || module.description %}
+          <div class="{{ macros.text_align(module.design_settings) }} text-{{ module.design_settings.text_color }} sr-spacer-bottom-75">
+            {{ macros.heading(module.heading)}}
+            {% if module.description %}
+            <div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+            {% endif %}
+          </div>
+          {% endif %}
+  
+          <div class="{{name}} blaze-slider text-{{ module.design_settings.card_text_color }}" data-autoplay="{{ module.autoplay }}" data-autoplayspeed="{{ module.autoplay_speed }}" style="--dots-color:{{module.design_settings.slide_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slide_styles.dots_color_default.css}};--arrows-color:{{module.design_settings.slide_styles.arrows_color.css}}">
+            <div class="blaze-container">
+  
+              {% if module.arrows %}
+              <button aria-label="Previous Slide" type="button" class="blaze-arrow blaze-prev chevron-left">{{macros.icon(module.design_settings.slide_styles.arrow_left_icon, 10)}}</button>
+              {% endif %}
+  
+              <div class="blaze-track-container">
+                <div class="blaze-track">
+                  {% for item in module.testimonials %}
+                  <div class="sr-repeater-{{loop.index}}">
+                    <div class="sr-cards-testimonial-slider-05__inner sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}">
+                      <div class="content-wrapper">
+                        {% if item.icon.icon_type != 'none' %}
+                        <div class="icon-wrapper" style="--icon-color: {{ item.icon.color.css || "var(--primary)" }}" role="presentation">
+                          {% if item.icon.icon_type == 'icon' %}
+                          <div class="sr-icon">
+                            {% icon
+                              name="{{ item.icon.icon.name }}"
+                              style="{{ item.icon.icon.type }}"
+                              unicode="{{ item.icon.icon.unicode }}"
+                              icon_set="{{ item.icon.icon.icon_set }}"
+                              height="26"
+                            %}
+                          </div>
+                          {% elif item.icon.icon_type == 'svg' && item.icon.svg %}
+                          {{ item.icon.svg }}
+                          {% else %}
+                          <svg width="30px" height="26px" viewBox="0 0 30 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Modules" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Phase-9-11-Modules" transform="translate(-980.000000, -2768.000000)"><g id="SR-Cards-Testimonials-02" transform="translate(0.000000, 2630.000000)"><g id="article" transform="translate(930.000000, 60.000000)"><g id="Group" transform="translate(50.000000, 78.000000)"><g id="Group-4"><g id="left-quote"><path d="M9.535,11.5434375 C8.80125,11.3321875 8.0675,11.225 7.35375,11.225 C6.2515625,11.225 5.331875,11.476875 4.61875,11.7853125 C5.30625,9.2684375 6.9578125,4.925625 10.2478125,4.4365625 C10.5525,4.39125 10.8021875,4.1709375 10.8853125,3.874375 L11.604375,1.3025 C11.665,1.085 11.6290625,0.8521875 11.505,0.6634375 C11.3809375,0.4746875 11.1815625,0.34875 10.958125,0.318125 C10.7153125,0.285 10.4678125,0.268125 10.2225,0.268125 C6.2734375,0.268125 2.3625,4.39 0.7121875,10.291875 C-0.2565625,13.754375 -0.540625,18.96 1.845625,22.2365625 C3.1809375,24.07 5.1290625,25.0490625 7.6359375,25.146875 C7.64625,25.1471875 7.65625,25.1475 7.6665625,25.1475 C10.7596875,25.1475 13.5025,23.064375 14.336875,20.0821875 C14.8353125,18.299375 14.61,16.4296875 13.701875,14.81625 C12.8034375,13.2209375 11.32375,12.058125 9.535,11.5434375 Z" id="Path"></path><path d="M28.8971875,14.8165625 C27.99875,13.2209375 26.5190625,12.058125 24.7303125,11.5434375 C23.9965625,11.3321875 23.2628125,11.225 22.549375,11.225 C21.4471875,11.225 20.5271875,11.476875 19.8140625,11.7853125 C20.5015625,9.2684375 22.153125,4.925625 25.4434375,4.4365625 C25.748125,4.39125 25.9975,4.1709375 26.0809375,3.874375 L26.8,1.3025 C26.860625,1.085 26.8246875,0.8521875 26.700625,0.6634375 C26.576875,0.4746875 26.3775,0.34875 26.15375,0.318125 C25.91125,0.285 25.66375,0.268125 25.418125,0.268125 C21.4690625,0.268125 17.558125,4.39 15.9075,10.291875 C14.9390625,13.754375 14.655,18.96 17.0415625,22.2371875 C18.3765625,24.0703125 20.325,25.0496875 22.8315625,25.1471875 C22.841875,25.1475 22.851875,25.1478125 22.8625,25.1478125 C25.9553125,25.1478125 28.6984375,23.0646875 29.5328125,20.0825 C30.030625,18.2996875 29.805,16.4296875 28.8971875,14.8165625 Z" id="Path"></path></g></g></g></g></g></g></g></svg>
+                          {% endif %}
+                        </div>
+                        {% endif %}
+                        <div class="sr-cards-testimonials__info">
+                          {{ item.review }}
+                        </div>
+                        <div class="sr-cards-testimonials__info-bottom sr-spacer-top-50">
+                          <p class="sr-cards-testimonials__name mb-0 h6">{{ item.testimonial_name }}</p>
+                          <div class="sr-cards-testimonials__role small">{{ item.role }}</div>
+                        </div>
+                      </div>
+                      <div class="sr-cards-testimonials__image">
+                        {{ macros.image(item.image) }}
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+  
+              {% if module.arrows %}
+              <button aria-label="Next Slide" type="button" class="blaze-arrow blaze-next chevron-right">{{macros.icon(module.design_settings.slide_styles.arrow_right_icon, 10)}}</button>
+              {% endif %}
+  
+              {% if module.dots %}
+              <div class="blaze-pagination"></div>
+              {% endif %}
+  
+            </div>
+          </div>
+          {% if module.design_settings.container_width != 'max' %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  
+  {{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+  {{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+  {% endif %}

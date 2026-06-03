@@ -1,0 +1,21 @@
+
+.sr-blog-hero-01 .blog-hero-content .data {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+.sr-blog-hero-01 .blog-hero-content .data {
+    margin-top: 0.25rem;
+    font-size: .75rem;
+    line-height: 1.25;
+}
+.sr-blog-hero-01 .blog-hero-content .avatar img {
+    border-radius: 50%;
+    max-width: 50px;
+}
+.sr-blog-hero-01 .tag {
+    display: inline-block;
+}

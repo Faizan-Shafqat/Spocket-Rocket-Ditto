@@ -1,0 +1,84 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-cards-pricing-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+						{% if module.heading ||  module.description %}
+							<div class="sr-spacer-bottom-75 text-{{ module.design_settings.text_color }}  {{ macros.text_align(module.design_settings) }}">
+								{{ macros.heading(module.heading) }}
+								{% if module.description %}
+									<div class="description {% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+								{% endif %}
+							</div>
+						{% endif %}
+						<div class="cards row row-gap cards-{{module.column|length}}">
+							{% for item in module.column %}
+								<div class="card sr-card sr-border {{ macros.text_align(module.design_settings.card_styles) }} text-{{ module.design_settings.card_styles.text_color }} {% if item.featured_text %}active{% endif %} col-auto">
+									<div class="card-inner">
+										{% if item.featured_text %}
+										<div class="featured_text">{{item.featured_text}}</div>
+										{% endif %}
+										<div class="pricing-name text-primary h6 equal-height">{{ item.pricing_name }}</div>
+										{% if item.price %}
+											<h3>
+												{% if item.price_prefix %}<span class="h5">{{item.price_prefix}}</span>{% endif %}
+												<span class="h1" style="margin-left: -0.5rem">{{ item.price }}</span>
+												{% if item.price_suffix %}<span class="h1">{{item.price_suffix}}</span>{% endif %}
+											</h3>
+										{% endif %}
+										<div class="card-text">{{ item.text }}</div>
+										{{ macros.cta(item.ctas, 'sr-spacer-top-50') }}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.{{ name }} .card-inner {
+				{{ module.design_settings.card_styles.spacing.css }}
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+		</style>
+	{% end_require_css %}
+{% endif %}

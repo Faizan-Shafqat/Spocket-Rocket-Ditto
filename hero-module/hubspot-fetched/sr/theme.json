@@ -1,0 +1,8 @@
+{
+  "label": "Testing hardcoded things",
+  "preview_path": "/templates/dnd_page.html",
+  "screenshot_path": "../images/sr-page.jpg",
+  "enable_domain_stylesheets": true,
+  "default_style_path": "",
+  "version": "1.0.0"
+}

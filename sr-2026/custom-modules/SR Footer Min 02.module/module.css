@@ -1,0 +1,59 @@
+.sr-footer-min-02 {
+    border-top: 1px solid #e5e7ea;
+}
+
+.footer-min-02-nav ul {
+	align-items: center;
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	gap: 1rem;
+	flex-wrap: wrap;
+}
+.footer-min-02-nav .menu-logo {
+    padding-right: 1rem;
+}
+
+.footer-min-02-nav ul li a {
+    color: inherit;
+    font-size: 0.875rem;
+}
+
+.sr-footer-min-02 p.small,
+.sr-footer-min-02 p {
+    margin: 0;
+}
+
+.sr-footer-min-02 p a:hover {
+    text-decoration: none;
+}
+
+.sr-footer-min-02 .social {
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+
+.sr-footer-min-02 .social li .icon-wrapper {
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: inherit;
+}
+
+.sr-footer-min-02 .social li .icon-wrapper svg {
+    color: inherit;
+}
+
+@media (max-width: 1200px) {
+    .footer-min-02-nav .menu-logo {
+        width: 100%;
+    }
+}

@@ -1,0 +1,1747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>SR theme — clone to HubSpot</title>
+	<style>
+		:root { font-family: system-ui, sans-serif; line-height: 1.5; color: #1a1a1a; }
+		body { max-width: min(100vw - 2rem, 76rem); margin: 2rem auto; padding: 0 1rem; }
+		label { display: block; font-weight: 600; margin-top: 1rem; }
+		input[type="text"] { width: 100%; padding: 0.5rem; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+		button { margin-top: 1.25rem; padding: 0.6rem 1.4rem; cursor: pointer; border-radius: 4px; border: none; background: #0366d6; color: #fff; font-size: 1rem; font-weight: 600; }
+		button:disabled { opacity: 0.5; cursor: default; }
+		button.secondary { background: #555; font-size: 0.9rem; font-weight: 400; }
+		p.note { color: #555; font-size: 0.9rem; }
+		details { margin-top: 1.5rem; border: 1px solid #ddd; padding: 0.75rem 1rem; border-radius: 6px; }
+		pre#out { background: #f4f6f8; padding: 1rem; overflow: auto; font-size: 0.8rem; max-height: 14rem; border-radius: 6px; border: 1px solid #ddd; }
+		a { color: #0366d6; }
+		#installStatus { display: none; padding: 0.75rem 1rem; border-radius: 6px; margin-bottom: 1rem; font-weight: 600; }
+		#installStatus.ok { display: block; background: #e6ffed; border: 1px solid #2ea44f; color: #116329; }
+		#installStatus.err { display: block; background: #ffeef0; border: 1px solid #d73a49; color: #86181d; }
+		#backendStatus { font-size: 0.9rem; padding: 0.5rem 0.75rem; border-radius: 6px; margin-bottom: 1rem; }
+		#backendStatus.wait { background: #f0f0f0; }
+		#backendStatus.ok { background: #e6ffed; border: 1px solid #2ea44f; }
+		#backendStatus.bad { background: #fff5f5; border: 1px solid #d73a49; }
+		/* Result box shown after success */
+		#resultBox { display: none; margin: 1rem 0; padding: 1rem; border: 2px solid #2ea44f; border-radius: 8px; background: #f0fff4; }
+		#resultBox h3 { margin: 0 0 0.5rem; color: #116329; font-size: 1rem; }
+		#resultBox .folder-name { font-family: monospace; font-size: 1rem; font-weight: 700; background: #fff; border: 1px solid #2ea44f; padding: 0.4rem 0.75rem; border-radius: 4px; display: block; margin: 0.4rem 0; word-break: break-all; }
+		#resultBox .step { margin: 0.4rem 0; font-size: 0.9rem; }
+		#resultBox .step strong { color: #0d4a1e; }
+		#warnBox { display: none; margin: 0.5rem 0; padding: 0.6rem 0.9rem; border: 1px solid #f0ad4e; border-radius: 6px; background: #fff8e1; color: #7a5200; font-size: 0.85rem; }
+		.typography-panel { border: 1px solid #cfd8e3; padding: 1rem 1.1rem; border-radius: 8px; margin-bottom: 1.25rem; background: #fafcfe; overflow: hidden; }
+		.typography-panel h2 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+		.typography-panel button#btnExtractTypography { margin-top: 0.65rem; margin-right: 0.5rem; }
+		.typography-panel .extract-btn-row { margin-top: 0.65rem; display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+		.typography-panel .extract-btn-row button { margin-top: 0; }
+		.typography-json-scroll {
+			margin-top: 0.75rem;
+			max-height: min(52vh, 26rem);
+			overflow: auto;
+			border: 1px solid #cfd8e3;
+			border-radius: 6px;
+			background: #fff;
+			contain: content;
+			-webkit-overflow-scrolling: touch;
+		}
+		pre#typographyExtractOut,
+		pre#typographyExtractAiOut,
+		pre#themeInjectPlanAiOut,
+		pre#themeInjectPlanOut {
+			margin: 0;
+			padding: 0.85rem;
+			font-size: 0.72rem;
+			line-height: 1.35;
+			border: none;
+			overflow: visible;
+			white-space: pre-wrap;
+			word-break: break-word;
+		}
+		button.ai-pill {
+			background: #5b3df5;
+			color: #fff;
+			border: none;
+			padding: 0.5rem 1rem;
+			border-radius: 999px;
+			cursor: pointer;
+			font-weight: 600;
+			margin-left: 0.4rem;
+		}
+		button.ai-pill:disabled { opacity: 0.6; cursor: progress; }
+		button.ai-pill .api-route-label {
+			font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+			font-size: 0.78em;
+			color: #e0fffa;
+			pointer-events: none;
+		}
+		button.ai-inject-hubspot {
+			background: #c2410c;
+			color: #fff;
+			border: none;
+			padding: 0.5rem 1rem;
+			border-radius: 6px;
+			cursor: pointer;
+			font-weight: 600;
+			font-size: 0.88rem;
+		}
+		button.ai-inject-hubspot:disabled { opacity: 0.55; cursor: progress; }
+		.typography-sites-panel {
+			margin-top: 0.75rem;
+			padding: 0.75rem;
+			border: 1px solid #b8c5d6;
+			border-radius: 8px;
+			background: #fff;
+		}
+		.typography-sites-panel h3 { margin: 0 0 0.5rem; font-size: 0.92rem; color: #334155; }
+		.typography-sites-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: 0.55rem; }
+		.typography-site-card {
+			border: 1px solid #dbe3ec;
+			border-radius: 6px;
+			padding: 0.55rem 0.65rem;
+			font-size: 0.78rem;
+			background: #f8fafc;
+		}
+		.typography-site-card.primary { border-color: #0d9488; background: #f0fdfa; }
+		.typography-site-card .site-url { font-weight: 600; word-break: break-all; margin-bottom: 0.25rem; }
+		.typography-site-card .site-fonts { color: #475569; line-height: 1.35; }
+		.typography-site-card .site-badges { margin-top: 0.35rem; display: flex; flex-wrap: wrap; gap: 0.25rem; }
+		.site-badge { font-size: 0.68rem; padding: 0.1rem 0.35rem; border-radius: 4px; background: #e2e8f0; color: #334155; }
+		.site-badge.on { background: #dcfce7; color: #166534; }
+		.site-badge.off { opacity: 0.45; }
+	</style>
+</head>
+<body>
+	<h1>SR Hero 01 — Module Delivery</h1>
+
+	<section class="typography-panel" aria-label="Typography extraction">
+		<h2>Client live site URL — typography extraction (optional)</h2>
+		<label for="typographyWebsiteUrl">Live site URL(s)</label>
+		<input type="text" id="typographyWebsiteUrl" placeholder="https://www.smuves.com/ or https://www.hubspot.com/, https://hermitcrabs.io/" autocomplete="url" spellcheck="false" style="width:100%;max-width:42rem;font-family:inherit;font-size:0.95rem;padding:0.45rem 0.55rem;box-sizing:border-box" />
+		<p class="note" style="margin-top:0.25rem;font-size:0.82rem">
+			One URL, or several separated by commas or semicolons. Up to <strong>15</strong> URLs per extract (override with <code>DITTO_TYPO_BATCH_MAX_URLS</code>).
+			Each extract button runs <strong>all URLs collectively</strong> (2 at a time on the server). Data is stored per site below — <strong>one SR Hero 01 module</strong>, many site typography records.
+			First URL = <strong>primary</strong> site (<code>templates/preview.html</code>). Other sites get <code>templates/preview-{'{slug}'}.html</code> + <code>css/client-typography-{'{slug}'}.css</code> (see <code>typography-sites/sites.json</code>).
+			Hold <strong>Shift</strong> while clicking extract to force a fresh run.
+		</p>
+		<pre id="typographyWebsiteCacheStatus" style="font-size:0.78rem;margin-top:0.2rem;color:#0f766e;display:none"></pre>
+		<div id="typographySitesPanel" class="typography-sites-panel" style="display:none" aria-live="polite">
+			<h3>Site typography (SR Hero 01 — one module, data per URL)</h3>
+			<div id="typographySitesGrid" class="typography-sites-grid"></div>
+		</div>
+		<div class="extract-btn-row">
+			<button type="button" class="secondary" id="btnExtractTypography">Extract Typography</button>
+			<button type="button" class="ai-pill" id="btnThemeInjectPlan" style="background:#0d9488;margin-left:0">
+				Theme inject plan (all URLs) — <span class="api-route-label">POST /api/theme-inject-plan</span>
+			</button>
+			<button type="button" class="ai-pill" id="btnSrDecisionLightrag" style="background:#b45309">
+				SR decision (all URLs) — <span class="api-route-label">POST /api/sr-decision-lightrag</span>
+			</button>
+		</div>
+		<p class="note" style="margin-top:0.35rem;font-size:0.82rem">
+			<strong>Typography and fonts</strong> always come from the <strong>Playwright</strong> service (<code>POST /api/typography-extract</code>, default <code>:8787</code>). One click runs <strong>all URLs</strong> in the box. Each site is saved under <code>typography-extract-cache/</code> as <code>playwright-{slug}-….json</code>.
+			<strong>Teal</strong> and <strong>amber</strong> batch per URL and read Playwright from that cache (plus LightRAG / planner OpenAI).
+		</p>
+		<!-- <div style="margin-top:0.75rem;font-size:0.85rem;color:#444">
+			<strong>AI theme inject plan</strong> — <code>POST /api/theme-inject-plan</code> (teal). Requires <strong>Playwright extract</strong> for each URL, then local <code>cache/lightrag</code> + planner OpenAI.
+		</div> -->
+		<p class="note" style="margin-top:0.45rem">
+			<strong>How HubSpot typography is chosen when you inject AI:</strong> Ditto maps <code>typography_ai.primary_font_family</code> → headings,
+			<code>body_font_family</code> (or primary) → body, optional second <code>font_face_only_families</code> entry → eyebrow (h3).
+			Google <code>@import</code> is added <strong>only</strong> for names listed in <code>google_fonts_detected</code> (the model must claim they are Google-served).
+			Pixel sizes use <code>approximate_scale</code> when present. Then the same pipeline as Playwright runs: <code>css/_fonts.css</code>, <code>css/client-typography.css</code>, and SR Hero preview defaults from <code>hero_ai</code>.
+		</p>
+		<!-- <p class="note" style="margin-top:0.3rem">
+			Run <strong>Playwright extract</strong> for all URLs, then <strong>teal</strong>. Check Network for <code>theme-inject-plan</code>.
+		</p> -->
+		<div style="margin-top:0.4rem;font-size:0.8rem;font-weight:600;color:#0f766e">AI answer (<code>theme_inject_plan</code>)</div>
+		<div class="typography-json-scroll"><pre id="themeInjectPlanAiOut">(Typography extract first, then teal — theme inject plan)</pre></div>
+		<div style="margin-top:0.45rem;font-size:0.8rem;font-weight:600;color:#555">Full API JSON (typography, hero, cache metadata, timings)</div>
+		<div class="typography-json-scroll"><pre id="themeInjectPlanOut">(not run yet)</pre></div>
+		<div style="margin-top:0.85rem;font-size:0.85rem;color:#444"><strong>Typography extract</strong></div>
+		<div class="typography-json-scroll"><pre id="typographyExtractOut">(no extraction yet — click Extract typography)</pre></div>
+		<p class="note" style="margin-top:0.6rem">
+			If a URL is set, Ditto calls the <strong>typography-extract</strong> service: <code>POST /api/typography</code>.
+			Base URL is <code>TYPOGRAPHY_EXTRACT_BASE_URL</code> (default <code>http://127.0.0.1:8787</code>) — see Ditto <code>/api/health</code>.
+			Results are stored in this browser and sent with the next theme upload as <code>typography</code> + <code>typographyExtract</code>.
+			The extract includes a <strong>hero</strong> block (detection, background, scoped typography, title/subtitle) and <code>typography_full_page</code> for the whole-document snapshot.
+			The upload step also writes <code>css/client-typography.css</code> and links it from <code>footer-includes.html</code>.
+			Run the typography API in a separate terminal: <code>typography-extract-api/typography-extract</code>.
+			When you do not enter a hero heading, the scraped <code>page_title</code> is baked into the preview default.
+		</p>
+	</section>
+
+	<div id="backendStatus" class="wait">Checking connection to the local server…</div>
+	<div id="installStatus" role="status" aria-live="polite"></div>
+	<div id="warnBox"></div>
+	<div id="resultBox">
+		<h3>✅ Theme uploaded to HubSpot!</h3>
+		<div class="step"><strong>Folder name (paste this in Design Manager → Search assets):</strong></div>
+		<span class="folder-name" id="resultFolderName"></span>
+		<button type="button" class="secondary" style="margin-top:0.4rem;padding:0.3rem 0.8rem;font-size:0.85rem" onclick="copyFolder()">Copy folder name</button>
+		<div class="step" style="margin-top:0.75rem"><strong>Steps to find it:</strong></div>
+		<div class="step">1. Open <a id="resultDMLink" href="https://app.hubspot.com/l/design-manager" target="_blank">HubSpot Design Manager</a></div>
+		<div class="step">2. Click <strong>View → Deselect all</strong> (clears any stuck subfolder)</div>
+		<div class="step">3. Click <strong>Search assets</strong> and paste the folder name above exactly</div>
+		<div class="step">4. Open the folder → <code>templates/preview.html</code> → click <strong>Preview</strong></div>
+		<div id="draftPageBox" style="display:none;margin-top:0.75rem;padding-top:0.75rem;border-top:1px solid #2ea44f">
+			<div class="step"><strong>Draft page (per-page instance, optional API)</strong></div>
+			<div id="draftPageBody" class="step" style="font-size:0.88rem"></div>
+		</div>
+	</div>
+	<p class="note">
+		<strong>Never upload to HubSpot folder <code>/sr-2026</code></strong> if that is your locked reference — Ditto targets a <strong>new root folder</strong> each run (e.g. <code>sr-slim-…</code>, <code>sr-2026-work-…</code>, <code>sr-delivery-…</code>). Use the buttons below; for CLI-only use <code>npm run upload-sr-theme</code> (also creates a new <code>sr-2026-work-…</code> folder, no typography bake).
+	</p>
+	<p class="note">
+		<strong>Slim</strong> = SR Hero 01 + preview skeleton from read-only <code>sr-2026</code> (fast). <strong>Full reference copy</strong> = entire local <code>sr-2026</code> tree + same typography / preview bake as full clone, uploaded under a new name.
+		<strong>API runs on <code>npm run dev</code> (port 3000).</strong> Best: open <a href="http://localhost:3000/">http://localhost:3000/</a> directly.
+	</p>
+
+	<label for="newThemeName">Theme name prefix (optional)</label>
+	<input id="newThemeName" type="text" placeholder="e.g. sr-delivery — a unique id is added every run" />
+	<p class="note" style="margin-top:0.25rem">Each upload creates a <strong>new</strong> root folder: <code>prefix-t171…-abc</code> unless you check <em>Reuse path</em> below.</p>
+
+	<label for="suffix">Suffix if prefix is empty (default is time-based)</label>
+	<input id="suffix" type="text" placeholder="e.g. demo-001" />
+
+	<label>
+		<input type="checkbox" id="allowReuseDest" />
+		<strong>Reuse exact path</strong> — upload to the same Design Manager folder name as the prefix (overwrites that theme). Leave unchecked to always get a <strong>new</strong> theme folder.
+	</label>
+
+	<label for="account">HubSpot CLI account (optional)</label>
+	<input id="account" type="text" placeholder="default from hs config" />
+
+	<label for="heroHeading">Hero heading (baked into preview template, optional)</label>
+	<input id="heroHeading" type="text" placeholder="Headline" />
+
+	<label for="heroDescription">Hero body HTML (optional)</label>
+	<input id="heroDescription" type="text" placeholder="&lt;p&gt;…&lt;/p&gt;" />
+
+	<label>
+		<input type="checkbox" id="extendPreviewDnd" />
+		Include CTA + solid background in <code>preview.html</code> (first CTA + custom color; also set text/URL/hex below)
+	</label>
+	<label for="heroCtaText">CTA label (optional)</label>
+	<input id="heroCtaText" type="text" placeholder="Get started" />
+	<label for="heroCtaUrl">CTA link URL (optional)</label>
+	<input id="heroCtaUrl" type="text" placeholder="https://www.hubspot.com" />
+	<label for="heroBackgroundHex">Background hex (optional, e.g. #1a1a2e)</label>
+	<input id="heroBackgroundHex" type="text" placeholder="#1a1a2e" />
+
+	<label for="srPreviewClient">SR preview client slug (optional — ignored for now; Brad only renders on smuves-com / site-mpvb2qjx)</label>
+	<input id="srPreviewClient" type="text" placeholder="smuves-com (auto)" />
+	<label for="srPreviewProject">SR preview project slug (optional — ignored for now)</label>
+	<input id="srPreviewProject" type="text" placeholder="site-mpvb2qjx (auto)" />
+
+	<label>
+		<input type="checkbox" id="createDraftPage" />
+		After upload, <strong>create a draft website page</strong> via HubSpot CMS API (needs <code>HUBSPOT_CMS_PAT</code> in <code>.env</code> — private app with <code>cms.pages.sites.write</code>)
+	</label>
+
+	<button type="button" id="btnSlim">Upload SR Hero 01 (slim, new folder)</button>
+	<button type="button" id="btnSrPreview" style="margin-left:0.5rem;background:#0f766e;color:#fff;border-color:#0f766e;padding:0.6rem 1.2rem;cursor:pointer">Publish to SR Preview (Brad API)</button>
+	<button type="button" id="btnFullRef" class="secondary" style="margin-left:0.5rem">Upload full sr-2026 copy (new folder)</button>
+	<div class="extract-btn-row" style="margin-top:0.65rem">
+		<button type="button" class="ai-inject-hubspot" id="btnSlimAiInjectPurple">Upload slim — use last purple AI in HubSpot</button>
+		<button type="button" class="ai-inject-hubspot" id="btnSlimAiInjectTeal">Upload slim — use last AI (teal / amber / green)</button>
+	</div>
+	<p class="note" style="margin-top:0.35rem">
+		<strong>Teal “SR Preview” (Brad)</strong> — uploads extract to Brad's API only. <strong>Brad's live /m/ preview is currently broken</strong> (stuck on old test copy or stock hero) — API returns 200 but the page does not update. For a preview that actually shows your extract, use <strong>Upload SR Hero 01 (slim)</strong> → HubSpot.
+	</p>
+	<p class="note" style="margin-top:0.35rem">
+		<strong>Orange buttons</strong> send cached AI JSON as <code>ai_typography_snapshot</code> (same shape as Playwright for the upload pipeline).
+		<strong>Purple</strong> = last HTML+OpenAI extract. <strong>Right orange</strong> = best available cache for this URL: <strong>teal</strong> theme inject plan, else <strong>amber</strong> SR decision, else <strong>green</strong> URL typography — you do <strong>not</strong> need teal if you already ran amber or green for the same URL.
+		<strong>Slim is not the full theme:</strong> it uploads <strong>one</strong> SR custom module (default <code>SR Hero 01.module</code>) plus the minimal preview/CSS/JS shell HubSpot needs to compile — not every module in <code>sr-2026</code>. Use the full-reference blue button when you need the entire theme tree.
+	</p>
+	<p class="note">
+		<strong>Slim:</strong> <code>theme.json</code>, <code>init.json</code>, <strong>SR Hero 01</strong>, <code>templates/preview.html</code> + header/footer/macros, minimal CSS/JS — usually under a minute.
+		<strong>Full reference copy:</strong> whole local <code>sr-2026</code> → temp → typography / preview patches → HubSpot (longer, like a full theme upload).
+		After upload, open <strong>Content → Design Manager</strong>, then <strong>View → Deselect all</strong>, then <strong>Search assets</strong> with your folder name.
+		Use template <strong>SR Hero Preview (DND)</strong> for the hero.
+	</p>
+
+	<div id="previewResultBox" style="display:none;margin-top:1rem;padding:1rem;background:#ecfdf5;border:2px solid #0f766e;border-radius:8px">
+		<div style="font-weight:700;color:#0f766e;margin-bottom:0.5rem">SR Preview published</div>
+		<div id="previewResultBody" style="font-size:0.9rem;word-break:break-all"></div>
+	</div>
+
+	<pre id="out">(idle)</pre>
+
+	<details>
+		<summary>Legacy: HubSpot serverless installer (<code>POST /install-theme</code>)</summary>
+		<p class="note">Requires <code>HUBSPOT_INSTALLER_PAT</code> in <code>.env</code> and a deployed function. Merges SR Hero 01 from <code>my-theme</code> or <code>client-delivery-theme</code>.</p>
+		<label for="legacyName">Theme folder name</label>
+		<input id="legacyName" type="text" value="sr-client-delivery" />
+		<button type="button" id="btnLegacy">Run legacy install</button>
+	</details>
+
+	<p class="note"><a href="/theme-lab.html">Theme lab</a> mirrors this form.</p>
+
+<script>
+		/**
+		 * When the page is served from Live Server (5500) or file://, relative /api/* hits the wrong origin and fails.
+		 * The Node app always listens on 3000 — point API there unless we're already on 3000.
+		 */
+		const API_BASE = (function () {
+			if (location.protocol === "file:") {
+				return "http://localhost:3000";
+			}
+			var h = location.hostname;
+			var p = location.port;
+			if ((h === "localhost" || h === "127.0.0.1") && p && p !== "3000") {
+				return "http://" + h + ":3000";
+			}
+			return "";
+		})();
+		function api(path) {
+			var x = path.charAt(0) === "/" ? path : "/" + path;
+			return API_BASE + x;
+		}
+
+		const LS_TYPO_URL = "ditto.typographyWebsiteUrl";
+		const LS_TYPO_SITES = "ditto.typographySites";
+		const LS_TYPO_FULL = "ditto.typographyExtractFull";
+		const LS_TYPO_AI = "ditto.typographyExtractAi";
+		const LS_THEME_INJECT = "ditto.themeInjectPlanLast";
+		const LS_TYPO_URL_WEB = "ditto.typographyExtractUrlWeb";
+		const LS_SR_DECISION = "ditto.srDecisionLightrag";
+
+		function clearDittoPersistedState() {
+			var keys = [
+				LS_TYPO_URL,
+				LS_TYPO_SITES,
+				LS_TYPO_FULL,
+				LS_TYPO_AI,
+				LS_THEME_INJECT,
+				LS_TYPO_URL_WEB,
+				LS_SR_DECISION,
+			];
+			for (var i = 0; i < keys.length; i++) {
+				try {
+					localStorage.removeItem(keys[i]);
+				} catch (e) {}
+			}
+			try {
+				for (var j = localStorage.length - 1; j >= 0; j--) {
+					var key = localStorage.key(j);
+					if (key && key.indexOf("ditto.") === 0) {
+						localStorage.removeItem(key);
+					}
+				}
+			} catch (eSweep) {}
+		}
+
+		function resetPageUiToDefaults() {
+			var urlInp = document.getElementById("typographyWebsiteUrl");
+			if (urlInp) urlInp.value = "";
+			var panel = document.getElementById("typographySitesPanel");
+			if (panel) panel.style.display = "none";
+			var grid = document.getElementById("typographySitesGrid");
+			if (grid) grid.innerHTML = "";
+			updateCacheStatusLine("");
+			var cacheEl = document.getElementById("typographyWebsiteCacheStatus");
+			if (cacheEl) cacheEl.style.display = "none";
+			setTypographyExtractDisplay("(no extraction yet — click Extract typography)");
+			setTypographyAiDisplay("(no AI extract yet)");
+			var themeAi = document.getElementById("themeInjectPlanAiOut");
+			if (themeAi) {
+				themeAi.textContent =
+					"(Typography extract first, then teal — theme inject plan)";
+			}
+			var themeFull = document.getElementById("themeInjectPlanOut");
+			if (themeFull) themeFull.textContent = "(not run yet)";
+			var outEl = document.getElementById("out");
+			if (outEl) outEl.textContent = "(idle)";
+			setInstallState("");
+			var warnBox = document.getElementById("warnBox");
+			if (warnBox) {
+				warnBox.style.display = "none";
+				warnBox.innerHTML = "";
+			}
+			var resultBox = document.getElementById("resultBox");
+			if (resultBox) resultBox.style.display = "none";
+			var draftBox = document.getElementById("draftPageBox");
+			if (draftBox) draftBox.style.display = "none";
+			["newThemeName", "suffix", "account", "heroHeading", "heroDescription", "heroCtaText", "heroCtaUrl", "heroBackgroundHex"].forEach(
+				function (id) {
+					var el = document.getElementById(id);
+					if (el) el.value = "";
+				},
+			);
+			["allowReuseDest", "extendPreviewDnd", "createDraftPage"].forEach(function (id) {
+				var el = document.getElementById(id);
+				if (el) el.checked = false;
+			});
+		}
+
+		function normalizeTypographyUrl(raw) {
+			var s = String(raw || "").trim();
+			if (!s) return "";
+			if (!/^https?:\/\//i.test(s)) {
+				s = "https://" + s.replace(/^\/+/, "");
+			}
+			return s;
+		}
+
+		function parseTypographyUrlsFromField() {
+			var raw = String(
+				(document.getElementById("typographyWebsiteUrl") &&
+					document.getElementById("typographyWebsiteUrl").value) ||
+					"",
+			).trim();
+			if (!raw) return [];
+			return raw
+				.split(/[\n\r,;]+|\s+(?=https?:\/\/)/i)
+				.map(function (s) {
+					return normalizeTypographyUrl(s.trim());
+				})
+				.filter(Boolean);
+		}
+
+		function primaryTypographyUrlFromField() {
+			var list = parseTypographyUrlsFromField();
+			return list.length ? list[0] : "";
+		}
+
+		function typographyExtractRequestBody(extra) {
+			var urls = parseTypographyUrlsFromField();
+			var body = extractBodyWithCacheOpts(extra || {});
+			if (urls.length > 1) {
+				body.website_urls = urls;
+			} else if (urls.length === 1) {
+				body.website_url = urls[0];
+			}
+			return body;
+		}
+
+		function isMultiTypographyResponse(data) {
+			return !!(data && data.multi === true && Array.isArray(data.results));
+		}
+
+		function normSiteUrlKey(u) {
+			return String(u || "")
+				.trim()
+				.replace(/\/+$/, "")
+				.toLowerCase();
+		}
+
+		function siteSlugFromUrl(u) {
+			try {
+				var h = new URL(u).hostname.replace(/^www\./i, "");
+				return h.replace(/[^a-z0-9]+/gi, "-").replace(/^-+|-+$/g, "") || "site";
+			} catch (e) {
+				return "site";
+			}
+		}
+
+		function loadTypographySitesStore() {
+			try {
+				var raw = localStorage.getItem(LS_TYPO_SITES);
+				if (!raw) return { urls: [], sites: {} };
+				var o = JSON.parse(raw);
+				if (!o || typeof o !== "object") return { urls: [], sites: {} };
+				if (!o.sites || typeof o.sites !== "object") o.sites = {};
+				if (!Array.isArray(o.urls)) o.urls = [];
+				return o;
+			} catch (e0) {
+				return { urls: [], sites: {} };
+			}
+		}
+
+		function saveTypographySitesStore(store) {
+			localStorage.setItem(LS_TYPO_SITES, JSON.stringify(store));
+		}
+
+		function syncStoreUrlsFromField(store) {
+			var urls = parseTypographyUrlsFromField();
+			store.urls = urls;
+			for (var i = 0; i < urls.length; i++) {
+				var u = urls[i];
+				var k = normSiteUrlKey(u);
+				if (!store.sites[k]) {
+					store.sites[k] = { website_url: u, slug: siteSlugFromUrl(u) };
+				} else {
+					store.sites[k].website_url = u;
+					if (!store.sites[k].slug) store.sites[k].slug = siteSlugFromUrl(u);
+				}
+			}
+			return store;
+		}
+
+		function siteFontSummaryFromPayload(payload) {
+			if (!payload || typeof payload !== "object") return { heading: null, body: null };
+			var ty = payload.typography || payload.typography_full_page;
+			if (!ty && payload.typography_ai && payload.typography_ai.typography_site_estimate) {
+				ty = payload.typography_ai.typography_site_estimate;
+			}
+			if (!ty || typeof ty !== "object") return { heading: null, body: null };
+			var heads = ty.headings && ty.headings.h1 ? ty.headings.h1 : {};
+			var fonts = ty.fonts || {};
+			var body = ty.body || {};
+			return {
+				heading: String(heads.fontFamily || fonts.headings || "").trim() || null,
+				body: String(body.fontFamily || fonts.body || "").trim() || null,
+			};
+		}
+
+		function mergeExtractChannel(channel, websiteUrl, payload) {
+			var store = syncStoreUrlsFromField(loadTypographySitesStore());
+			var k = normSiteUrlKey(websiteUrl);
+			if (!store.sites[k]) {
+				store.sites[k] = { website_url: websiteUrl, slug: siteSlugFromUrl(websiteUrl) };
+			}
+			store.sites[k][channel] = payload;
+			saveTypographySitesStore(store);
+			renderTypographySitesPanel();
+			return store;
+		}
+
+		function extractResultSiteUrl(r) {
+			return (
+				(r && (r.requested_website_url || r.website_url || r.websiteUrl)) ||
+				""
+			).trim();
+		}
+
+		function mergeExtractResponse(channel, data, setDisplayFn) {
+			if (isMultiTypographyResponse(data)) {
+				(data.results || []).forEach(function (r) {
+					var u = extractResultSiteUrl(r);
+					if (u) mergeExtractChannel(channel, u, r);
+				});
+			} else if (data) {
+				var u1 = extractResultSiteUrl(data);
+				if (u1) mergeExtractChannel(channel, u1, data);
+			}
+			if (setDisplayFn) setDisplayFn(data);
+		}
+
+		function mergeBatchPlanResponse(channel, data) {
+			if (isMultiTypographyResponse(data)) {
+				(data.results || []).forEach(function (r) {
+					var u = extractResultSiteUrl(r);
+					if (u && r && r.ok !== false) mergeExtractChannel(channel, u, r);
+				});
+			} else if (data && data.ok !== false) {
+				var u2 = extractResultSiteUrl(data);
+				if (u2) mergeExtractChannel(channel, u2, data);
+			}
+		}
+
+		function renderTypographySitesPanel() {
+			var panel = document.getElementById("typographySitesPanel");
+			var grid = document.getElementById("typographySitesGrid");
+			if (!panel || !grid) return;
+			var store = syncStoreUrlsFromField(loadTypographySitesStore());
+			var urls = store.urls.length ? store.urls : parseTypographyUrlsFromField();
+			if (!urls.length) {
+				panel.style.display = "none";
+				return;
+			}
+			panel.style.display = "block";
+			var primaryK = normSiteUrlKey(primaryTypographyUrlFromField());
+			var html = "";
+			for (var i = 0; i < urls.length; i++) {
+				var u = urls[i];
+				var k = normSiteUrlKey(u);
+				var site = store.sites[k] || { website_url: u, slug: siteSlugFromUrl(u) };
+				var sum = siteFontSummaryFromPayload(site.playwright) || { heading: null, body: null };
+				var isPrimary = k === primaryK;
+				html +=
+					'<div class="typography-site-card' +
+					(isPrimary ? " primary" : "") +
+					'">' +
+					'<div class="site-url">' +
+					(isPrimary ? "★ " : "") +
+					u.replace(/</g, "&lt;") +
+					"</div>" +
+					'<div class="site-fonts">' +
+					(sum.heading ? "<div>H: " + sum.heading.replace(/</g, "&lt;") + "</div>" : "") +
+					(sum.body ? "<div>Body: " + sum.body.replace(/</g, "&lt;") + "</div>" : "<div><em>No fonts yet</em></div>") +
+					"</div>" +
+					'<div class="site-badges">' +
+					'<span class="site-badge ' +
+					(site.playwright ? "on" : "off") +
+					'">AI</span>' +
+					"</div>" +
+					'<div class="site-preview-hint" style="margin-top:0.35rem;font-size:0.72rem;color:#64748b">Preview: <code>templates/preview' +
+					(isPrimary ? "" : "-" + (site.slug || siteSlugFromUrl(u))) +
+					".html</code></div></div>";
+			}
+			grid.innerHTML = html;
+		}
+
+		function typographySitesArrayForUpload() {
+			var store = syncStoreUrlsFromField(loadTypographySitesStore());
+			var urls = store.urls.length ? store.urls : parseTypographyUrlsFromField();
+			var out = [];
+			for (var i = 0; i < urls.length; i++) {
+				var u = urls[i];
+				var k = normSiteUrlKey(u);
+				var site = store.sites[k];
+				if (!site) {
+					site = { website_url: u, slug: siteSlugFromUrl(u) };
+				}
+				var pw = site.playwright || null;
+				var ty =
+					pw && pw.typography
+						? pw.typography
+						: pw && pw.typography_full_page
+							? pw.typography_full_page
+							: null;
+				out.push({
+					website_url: u,
+					slug: site.slug || siteSlugFromUrl(u),
+					typography: ty,
+					typographyExtract: pw,
+					playwright: pw,
+				});
+			}
+			return out;
+		}
+
+		function slimPlaywrightEnvelopeForUpload(parsed) {
+			if (!parsed || typeof parsed !== "object") return null;
+			if (isMultiTypographyResponse(parsed)) {
+				var first = (parsed.results || []).find(function (r) {
+					return r && r.ok !== false && (r.typography || r.typography_full_page);
+				});
+				return first || null;
+			}
+			if (parsed.typography || parsed.typography_full_page) return parsed;
+			return null;
+		}
+
+		function typographyPayloadForUpload() {
+			const url = primaryTypographyUrlFromField();
+			const urls = parseTypographyUrlsFromField();
+			const sites = typographySitesArrayForUpload();
+			var full = null;
+			try {
+				var raw = localStorage.getItem(LS_TYPO_FULL);
+				if (raw) full = JSON.parse(raw);
+			} catch (e) {
+				full = null;
+			}
+			var primarySite =
+				sites.find(function (s) {
+					return normSiteUrlKey(s.website_url) === normSiteUrlKey(url);
+				}) || sites[0];
+			var envelope =
+				(primarySite && primarySite.typographyExtract) || slimPlaywrightEnvelopeForUpload(full);
+			const ty =
+				(primarySite && primarySite.typography) ||
+				(envelope && typeof envelope === "object" && envelope.typography && typeof envelope.typography === "object"
+					? envelope.typography
+					: null);
+			const o = {};
+			if (url) o.typographyWebsiteUrl = url;
+			if (urls.length > 1) {
+				o.typography_sites = sites;
+				o.website_urls = urls;
+			}
+			if (envelope && typeof envelope === "object") {
+				var snap = {};
+				for (var k in envelope) {
+					if (Object.prototype.hasOwnProperty.call(envelope, k) && k !== "hero_screenshot") {
+						snap[k] = envelope[k];
+					}
+				}
+				o.typographyExtract = snap;
+			}
+			if (ty) o.typography = ty;
+			return o;
+		}
+
+		async function ensureBackendReachable() {
+			try {
+				const r = await fetch(api("/api/health"), { method: "GET" });
+				const j = r.ok ? await r.json().catch(function () { return null; }) : null;
+				return !!(r.ok && j && j.ok);
+			} catch (e) {
+				return false;
+			}
+		}
+
+		function setTypographyExtractDisplay(obj) {
+			var el = document.getElementById("typographyExtractOut");
+			if (!el) return;
+			el.textContent = typeof obj === "string" ? obj : JSON.stringify(obj, null, 2);
+		}
+
+		function setTypographyAiDisplay(obj) {
+			var el = document.getElementById("typographyExtractAiOut");
+			if (!el) return;
+			el.textContent = typeof obj === "string" ? obj : JSON.stringify(obj, null, 2);
+		}
+
+		function safeJsonStringify(obj) {
+			try {
+				return JSON.stringify(obj, null, 2);
+			} catch (e) {
+				return "(JSON.stringify failed: " + String(e && e.message ? e.message : e) + ")";
+			}
+		}
+
+		function setThemeInjectPlanDisplay(obj) {
+			var aiEl = document.getElementById("themeInjectPlanAiOut");
+			var fullEl = document.getElementById("themeInjectPlanOut");
+			if (!fullEl) return;
+			var text = typeof obj === "string" ? obj : safeJsonStringify(obj);
+			var plan = typeof obj === "object" && obj ? obj.theme_inject_plan : undefined;
+			if (aiEl) {
+				if (typeof obj === "object" && obj && obj.status) {
+					aiEl.textContent = "(still running — plan will appear here when ready)";
+				} else if (plan !== undefined && plan !== null) {
+					aiEl.textContent = safeJsonStringify(plan);
+				} else {
+					aiEl.textContent = text;
+				}
+			}
+			fullEl.textContent = text;
+			try {
+				fullEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+			} catch (eScroll) {}
+		}
+
+		function applyWebsiteTypographyCacheHit(hit) {
+			if (!hit || !hit.cache_hit) return;
+			var u = hit.website_url || "";
+			if (hit.playwright_extract && u) {
+				mergeExtractChannel("playwright", u, hit.playwright_extract);
+				localStorage.setItem(LS_TYPO_FULL, JSON.stringify(hit.playwright_extract));
+			}
+		}
+
+		function updateCacheStatusLine(message) {
+			var statusEl = document.getElementById("typographyWebsiteCacheStatus");
+			if (!statusEl) return;
+			if (!message) {
+				statusEl.style.display = "none";
+				statusEl.textContent = "";
+				return;
+			}
+			statusEl.style.display = "block";
+			statusEl.textContent = message;
+		}
+
+		async function loadWebsiteTypographyCache(url, quiet) {
+			var urls = parseTypographyUrlsFromField();
+			var statusEl = document.getElementById("typographyWebsiteCacheStatus");
+			if (!urls.length) {
+				if (statusEl) statusEl.style.display = "none";
+				renderTypographySitesPanel();
+				return null;
+			}
+			if (urls.length > 1) {
+				try {
+					var q = urls.map(encodeURIComponent).join(",");
+					var res = await fetch(api("/api/typography-website-cache?website_urls=" + q));
+					var data = await res.json().catch(function () {
+						return {};
+					});
+					if (!res.ok || data.ok === false) {
+						if (!quiet) updateCacheStatusLine(data.error || "Cache lookup failed");
+						return null;
+					}
+					var loaded = 0;
+					(data.results || []).forEach(function (hit) {
+						if (hit && hit.cache_hit) {
+							loaded++;
+							applyWebsiteTypographyCacheHit(hit);
+						}
+					});
+					renderTypographySitesPanel();
+					if (!quiet) {
+						updateCacheStatusLine(
+							"Loaded cache for " +
+								loaded +
+								" / " +
+								urls.length +
+								" URLs. Index: typography-extract-cache/website-typography-index.json. Shift+click extract to refresh.",
+						);
+					}
+					return data;
+				} catch (e) {
+					if (!quiet) updateCacheStatusLine(String(e && e.message ? e.message : e));
+					return null;
+				}
+			}
+			var u = String(url || urls[0] || "").trim();
+			try {
+				var resOne = await fetch(
+					api("/api/typography-website-cache?website_url=" + encodeURIComponent(u)),
+				);
+				var hitOne = await resOne.json().catch(function () {
+					return {};
+				});
+				if (!resOne.ok || hitOne.ok === false) {
+					if (!quiet) updateCacheStatusLine(hitOne.error || "Cache lookup failed");
+					return null;
+				}
+				if (hitOne.cache_hit) {
+					applyWebsiteTypographyCacheHit(hitOne);
+					if (!quiet) {
+						updateCacheStatusLine(
+							"Loaded saved typography for " +
+								u +
+								" (saved " +
+								(hitOne.saved_at || "?") +
+								", source " +
+								(hitOne.source || "?") +
+								"). Shift+click extract to refresh.",
+						);
+					}
+				} else if (!quiet) {
+					updateCacheStatusLine("No saved typography for " + u + " yet — run an extract button.");
+				}
+				renderTypographySitesPanel();
+				return hitOne;
+			} catch (eOne) {
+				if (!quiet) updateCacheStatusLine(String(eOne && eOne.message ? eOne.message : eOne));
+				return null;
+			}
+		}
+
+		(function bindTypographyUrlCacheLookup() {
+			var inp = document.getElementById("typographyWebsiteUrl");
+			if (!inp) return;
+			var t = null;
+			inp.addEventListener("input", function () {
+				clearTimeout(t);
+				t = setTimeout(function () {
+					if (inp.value.trim()) localStorage.setItem(LS_TYPO_URL, inp.value.trim());
+					syncStoreUrlsFromField(loadTypographySitesStore());
+					renderTypographySitesPanel();
+					loadWebsiteTypographyCache(primaryTypographyUrlFromField(), true);
+				}, 450);
+			});
+			inp.addEventListener("change", function () {
+				if (inp.value.trim()) localStorage.setItem(LS_TYPO_URL, inp.value.trim());
+				syncStoreUrlsFromField(loadTypographySitesStore());
+				renderTypographySitesPanel();
+				loadWebsiteTypographyCache(primaryTypographyUrlFromField(), false);
+			});
+		})();
+
+		function extractBodyWithCacheOpts(base) {
+			var body = base && typeof base === "object" ? Object.assign({}, base) : {};
+			try {
+				if (window.event && window.event.shiftKey) {
+					body.force_refresh = true;
+				}
+			} catch (eShift) {}
+			return body;
+		}
+
+		document.getElementById("btnSrDecisionLightrag").addEventListener("click", async function () {
+			var urls = parseTypographyUrlsFromField();
+			var url = urls.length ? urls[0] : "";
+			var btn = document.getElementById("btnSrDecisionLightrag");
+			if (!urls.length) {
+				setThemeInjectPlanDisplay({ error: "Enter at least one live site URL." });
+				return;
+			}
+			function normU(u) {
+				return String(u || "").trim().replace(/\/+$/, "").toLowerCase();
+			}
+			var rawPw = localStorage.getItem(LS_TYPO_FULL);
+			/** @type {Record<string, unknown>} */
+			var body = typographyExtractRequestBody();
+			if (urls.length === 1 && rawPw) {
+				try {
+					var pw = JSON.parse(rawPw);
+					if (
+						pw &&
+						(pw.success === true || pw.ok === true) &&
+						(pw.typography || pw.typography_full_page) &&
+						normU(pw.website_url || pw.websiteUrl) === normU(url)
+					) {
+						body.playwright_extract = pw;
+					}
+				} catch (eParsePw) {
+					setThemeInjectPlanDisplay({ error: "Invalid Playwright cache JSON. Re-run Extract typography." });
+					return;
+				}
+			}
+			btn.disabled = true;
+			setThemeInjectPlanDisplay({
+				status:
+					(urls.length > 1
+						? "Running SR decision for " + urls.length + " sites (server index + LightRAG)…"
+						: "Running SR decision (browser cache + server index + LightRAG)…"),
+			});
+			try {
+				var res = await fetch(api("/api/sr-decision-lightrag"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(body),
+				});
+				var data = await res.json().catch(function () { return {}; });
+				if (!res.ok || data.ok === false) {
+					setThemeInjectPlanDisplay({ error: data.error || "sr-decision-lightrag failed", detail: data });
+					return;
+				}
+				if (!isMultiTypographyResponse(data)) {
+					localStorage.setItem(LS_SR_DECISION, JSON.stringify(data));
+				}
+				mergeBatchPlanResponse("amber", data);
+				setThemeInjectPlanDisplay(data);
+			} catch (e) {
+				setThemeInjectPlanDisplay({ error: String(e && e.message ? e.message : e) });
+			} finally {
+				btn.disabled = false;
+			}
+		});
+
+		(function bindThemeInjectPlanButton() {
+			var btnTheme = document.getElementById("btnThemeInjectPlan");
+			if (!btnTheme) return;
+			btnTheme.addEventListener("click", async function () {
+			var urls = parseTypographyUrlsFromField();
+			var url = urls.length ? urls[0] : "";
+			var btn = btnTheme;
+			if (!urls.length) {
+				setThemeInjectPlanDisplay({ error: "Enter at least one live site URL." });
+				return;
+			}
+			function normU(u) {
+				return String(u || "").trim().replace(/\/+$/, "").toLowerCase();
+			}
+			var rawPwPlan = localStorage.getItem(LS_TYPO_FULL);
+			/** @type {Record<string, unknown>} */
+			var planBody = typographyExtractRequestBody();
+			var planStatus = "";
+			if (urls.length === 1 && rawPwPlan) {
+				try {
+					var pwPlan = JSON.parse(rawPwPlan);
+					if (
+						pwPlan &&
+						(pwPlan.success === true || pwPlan.ok === true) &&
+						(pwPlan.typography || pwPlan.typography_full_page) &&
+						normU(pwPlan.website_url || pwPlan.websiteUrl) === normU(url)
+					) {
+						planBody.playwright_extract = pwPlan;
+						planStatus = "reusing Typography extract";
+					}
+				} catch (e0) {
+					setThemeInjectPlanDisplay({ error: "Stored Typography extract is invalid JSON. Run Extract typography again." });
+					return;
+				}
+				if (!planBody.playwright_extract) {
+					setThemeInjectPlanDisplay({
+						error:
+							"Run **Typography extract** for **" +
+							url +
+							"** first (Extract typography button).",
+					});
+					return;
+				}
+			}
+			btn.disabled = true;
+			setThemeInjectPlanDisplay({
+				status:
+					urls.length > 1
+						? "Running theme inject plan for " + urls.length + " sites (server index)…"
+						: "Running… (" +
+							(planStatus || "server index") +
+							" + local cache graph/vectors + OpenAI plan)",
+			});
+			try {
+				var res = await fetch(api("/api/theme-inject-plan"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(planBody),
+				});
+				var data = await res.json().catch(function () {
+					return {};
+				});
+				if (!res.ok || data.ok === false) {
+					setThemeInjectPlanDisplay({
+						error: data.error || "theme-inject-plan failed",
+						httpStatus: res.status,
+						detail: data,
+					});
+					return;
+				}
+				localStorage.setItem(LS_TYPO_URL, document.getElementById("typographyWebsiteUrl").value.trim());
+				if (!isMultiTypographyResponse(data)) {
+					localStorage.setItem(LS_THEME_INJECT, JSON.stringify(data));
+				}
+				mergeBatchPlanResponse("teal", data);
+				setThemeInjectPlanDisplay(data);
+			} catch (e) {
+				var msg = String(e && e.message ? e.message : e);
+				if (/failed to fetch/i.test(msg)) {
+					setThemeInjectPlanDisplay({
+						error: msg,
+						what_it_means:
+							"The browser dropped the connection before the server finished (this route runs multiple AI steps).",
+						try_this: [
+							"Use http://localhost:3000/ (not file://). Keep `npm run dev` running.",
+							"Set DITTO_HTTP_INBOUND_TIMEOUT_MS=0 so long OpenAI calls are not cut off.",
+						],
+					});
+				} else {
+					setThemeInjectPlanDisplay({ error: msg });
+				}
+			} finally {
+				btn.disabled = false;
+			}
+			});
+		})();
+
+		document.getElementById("btnExtractTypography").addEventListener("click", async function () {
+			var urls = parseTypographyUrlsFromField();
+			var btn = document.getElementById("btnExtractTypography");
+			if (!urls.length) {
+				setTypographyExtractDisplay({ error: "Enter at least one live site URL." });
+				return;
+			}
+			btn.disabled = true;
+			setTypographyExtractDisplay({
+				working: true,
+				website_urls: urls.length > 1 ? urls : undefined,
+				website_url: urls[0],
+			});
+			try {
+				var res = await fetch(api("/api/typography-extract"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(typographyExtractRequestBody()),
+				});
+				var data = await res.json().catch(function () {
+					return {};
+				});
+				if (!res.ok || data.ok === false) {
+					setTypographyExtractDisplay({
+						error: data.error || "Typography extract failed",
+						httpStatus: res.status,
+						upstreamStatus: data.upstreamStatus,
+						detail: data,
+					});
+					return;
+				}
+				localStorage.setItem(LS_TYPO_URL, document.getElementById("typographyWebsiteUrl").value.trim());
+				mergeExtractResponse("playwright", data, function (d) {
+					if (isMultiTypographyResponse(d)) {
+						setTypographyExtractDisplay(d);
+						return;
+					}
+					var snap = {};
+					for (var k in d) {
+						if (Object.prototype.hasOwnProperty.call(d, k) && k !== "ok" && k !== "hero_screenshot") {
+							snap[k] = d[k];
+						}
+					}
+					localStorage.setItem(LS_TYPO_FULL, JSON.stringify(snap));
+					setTypographyExtractDisplay({
+						ok: true,
+						website_url: snap.website_url,
+						page_title: snap.page_title,
+						success: snap.success,
+						typography: snap.typography,
+						typography_full_page: snap.typography_full_page,
+						hero: snap.hero,
+						file_generated: snap.file_generated,
+						elapsed_ms: snap.elapsed_ms,
+					});
+				});
+			} catch (e) {
+				setTypographyExtractDisplay({
+					error: String(e && e.message ? e.message : e),
+				});
+			} finally {
+				btn.disabled = false;
+			}
+		});
+
+		const out = document.getElementById("out");
+		const installStatus = document.getElementById("installStatus");
+		const backendStatus = document.getElementById("backendStatus");
+
+		function failedFetchHelp() {
+			const p = location.protocol;
+			const port = location.port;
+			const isFile = p === "file:";
+			const bits = [
+				"“Failed to fetch” usually means port 3000 is not running, is restarting, or is blocked.",
+				"1) In the project folder run: <code>npm run dev</code> and wait until you see “Install Theme UI” in the terminal. 2) Open <strong><a href=\"http://localhost:3000/\">http://localhost:3000/</a></strong> (or use Live Server on another port—this page will call 3000 for the API).",
+				"3) If the terminal shows nodemon “restarting…”, wait a second and refresh; <code>nodemon.json</code> only watches <code>server.js</code> and <code>lib/</code> so normal file saves should not kill the server mid-request.",
+			];
+			if (isFile) bits.unshift("You are viewing this page as a <code>file://</code> file — that will always fail.");
+			if (port && port !== "3000" && p.startsWith("http")) bits.push("You are on port " + port + " — the API is on 3000.");
+			return bits.join(" ");
+		}
+
+		(async function checkBackend() {
+			if (location.protocol === "file:") {
+				backendStatus.className = "bad";
+				backendStatus.innerHTML = failedFetchHelp();
+				return;
+			}
+			try {
+				const r = await fetch(api("/api/health"), { method: "GET" });
+				const j = r.ok ? await r.json() : null;
+				if (r.ok && j && j.ok) {
+					backendStatus.className = "ok";
+					const cmsHint = j.hasCmsPageApiToken
+						? " CMS draft-page token is set (`HUBSPOT_CMS_PAT` or similar)."
+						: " No CMS PAT — “create draft page” will skip until you set `HUBSPOT_CMS_PAT`.";
+					backendStatus.textContent =
+						"Connected to the API" +
+						(API_BASE ? " at " + API_BASE : " on this page (port 3000)") +
+						" — you can upload." +
+						cmsHint +
+						" " +
+						(API_BASE
+							? "Keep the terminal with `npm run dev` running; this tab is not on 3000."
+							: "");
+				} else {
+					backendStatus.className = "bad";
+					backendStatus.textContent = "Server responded but /api/health is not OK. Restart npm run dev.";
+				}
+			} catch (e) {
+				backendStatus.className = "bad";
+				backendStatus.innerHTML = failedFetchHelp();
+			}
+		})();
+
+		function setInstallState(kind, text) {
+			installStatus.className = kind;
+			installStatus.textContent = text;
+			installStatus.style.display = "block";
+			if (kind === "") {
+				installStatus.className = "";
+				installStatus.textContent = "";
+				installStatus.style.display = "none";
+			}
+		}
+		function formatElapsed(sec) {
+			const m = Math.floor(sec / 60);
+			const s = sec % 60;
+			return m + ":" + String(s).padStart(2, "0");
+		}
+		async function runThemeUpload(apiPath, waitHint, uploadOptions) {
+			uploadOptions = uploadOptions || {};
+			setInstallState("");
+			const btnSlim = document.getElementById("btnSlim");
+			const btnFullRef = document.getElementById("btnFullRef");
+			const btnAiPurple = document.getElementById("btnSlimAiInjectPurple");
+			const btnAiTeal = document.getElementById("btnSlimAiInjectTeal");
+			btnSlim.disabled = true;
+			if (btnFullRef) btnFullRef.disabled = true;
+			if (btnAiPurple) btnAiPurple.disabled = true;
+			if (btnAiTeal) btnAiTeal.disabled = true;
+			const start = Math.floor(Date.now() / 1000);
+			const timer = setInterval(() => {
+				const tick = Math.floor(Date.now() / 1000) - start;
+				out.textContent =
+					"Working… " +
+					formatElapsed(tick) +
+					" — " +
+					waitHint +
+					"\n";
+			}, 1000);
+			const newThemeName = document.getElementById("newThemeName").value.trim();
+			const suffix = document.getElementById("suffix").value.trim();
+			const allowReuseDest = document.getElementById("allowReuseDest").checked;
+			const account = document.getElementById("account").value.trim();
+			const heroHeading = document.getElementById("heroHeading").value.trim();
+			const heroDescription = document.getElementById("heroDescription").value.trim();
+			const extendPreviewDnd = document.getElementById("extendPreviewDnd").checked;
+			const heroCtaText = document.getElementById("heroCtaText").value.trim();
+			const heroCtaUrl = document.getElementById("heroCtaUrl").value.trim();
+			const heroBackgroundHex = document.getElementById("heroBackgroundHex").value.trim();
+				const createDraftPage = document.getElementById("createDraftPage").checked;
+			const typoFromStorage = uploadOptions.omitStoredTypography ? {} : typographyPayloadForUpload();
+			const aiInject = uploadOptions.aiTypographyInject || null;
+			try {
+				if (!(await ensureBackendReachable())) {
+					throw new Error("Failed to fetch");
+				}
+				out.textContent =
+					"Upload started — HubSpot CLI often takes 1–3 minutes. Keep this tab open; do not refresh while nodemon restarts.\n";
+				const res = await fetch(api(apiPath), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						newThemeName: newThemeName || undefined,
+						suffix: suffix || undefined,
+						allowReuseDest: allowReuseDest || undefined,
+						account: account || undefined,
+						heroHeading: heroHeading || undefined,
+						heroDescription: heroDescription || undefined,
+						extendPreviewDnd: extendPreviewDnd || undefined,
+						heroCtaText: heroCtaText || undefined,
+						heroCtaUrl: heroCtaUrl || undefined,
+						heroBackgroundHex: heroBackgroundHex || undefined,
+						createDraftPage: createDraftPage || undefined,
+						...typoFromStorage,
+						...(aiInject && typeof aiInject === "object" ? aiInject : {}),
+					}),
+				});
+				const rawText = await res.text();
+				var data;
+				try {
+					data = rawText ? JSON.parse(rawText) : {};
+				} catch (eJson) {
+					throw new Error(
+						"Server returned non-JSON (HTTP " +
+							res.status +
+							"). The API may have restarted mid-upload — wait for “Install Theme UI” in the terminal, refresh http://localhost:3000/, and retry.",
+					);
+				}
+				out.textContent = JSON.stringify(data, null, 2);
+				const success = res.ok && data && data.ok === true;
+				if (success) {
+					const took = data.durationMs != null ? " " + (data.durationMs / 1000).toFixed(1) + "s" : "";
+					const folderName = data.searchAssetsQuery || (data.dest || "").replace(/^\//, "");
+					// Show result box
+					document.getElementById("resultFolderName").textContent = folderName;
+					const dmLink = document.getElementById("resultDMLink");
+					if (data.designManagerUrl) dmLink.href = data.designManagerUrl;
+					document.getElementById("resultBox").style.display = "block";
+					const dpb = document.getElementById("draftPageBox");
+					const dbb = document.getElementById("draftPageBody");
+					if (data.draftPage && Array.isArray(data.pageEditorUrlCandidates)) {
+						dpb.style.display = "block";
+						const idLine = data.draftPage.id != null ? "<div>Page id: <code>" + data.draftPage.id + "</code></div>" : "";
+						const links = data.pageEditorUrlCandidates
+							.map(function (u) {
+								return '<div style="margin:0.25rem 0"><a href="' + u + '" target="_blank" rel="noopener">' + u + "</a></div>";
+							})
+							.join("");
+						const pq = data.previewQueryString
+							? "<div style=\"margin-top:0.35rem\">Optional URL query (append to preview; template uses <code>request.query_dict</code>): <code style=\"word-break:break-all\">" +
+								data.previewQueryString.replace(/</g, "&lt;") +
+								"</code></div>"
+							: "";
+						dbb.innerHTML = idLine + "<div>Open one of these in the same browser where you are logged into HubSpot:</div>" + links + pq;
+					} else if (data.draftPageApi && data.draftPageApi.skipped) {
+						dpb.style.display = "block";
+						dbb.textContent = data.draftPageApi.reason || "Draft page step skipped.";
+					} else if (data.draftPageApi && data.draftPageApi.attempted && data.draftPageApi.ok === false) {
+						dpb.style.display = "block";
+						dbb.textContent = "Draft page API failed: " + (data.draftPageApi.error || "unknown");
+					} else {
+						dpb.style.display = "none";
+						dbb.innerHTML = "";
+					}
+					// Soft warning if list-check was bypassed
+					const warnBox = document.getElementById("warnBox");
+					if (data.listCheckBypassed) {
+						warnBox.style.display = "block";
+						warnBox.textContent = "⚠ Note: Upload confirmed by CLI output. HubSpot's list API was slow to index — the theme IS there, search by the exact folder name above.";
+					} else {
+						warnBox.style.display = "none";
+					}
+					var bundle = data.typographySitesBundle;
+					var batchPrev = data.typographyBatchPreview;
+					var bundleNote =
+						bundle && bundle.siteCount > 1
+							? " — " +
+								bundle.siteCount +
+								" sites: preview.html (primary) + preview-{slug}.html per other site"
+							: "";
+					setInstallState("ok", "Upload done" + took + bundleNote + " — see result box below ↓");
+					if (bundle && bundle.siteCount > 1) {
+						warnBox.style.display = "block";
+						var prevList =
+							batchPrev && Array.isArray(batchPrev.previewSiteLinks)
+								? batchPrev.previewSiteLinks
+										.map(function (p) {
+											return p.design_manager_path || p.preview_template;
+										})
+										.filter(Boolean)
+										.join(", ")
+								: "templates/preview.html + templates/preview-{slug}.html";
+						warnBox.textContent =
+							"Batch theme uploaded. In Design Manager open each preview template: " +
+							prevList +
+							" → Preview (not only preview.html). sites.json lists slugs.";
+					}
+					if (data.designManagerUrl) {
+						window.open(data.designManagerUrl, "_blank", "noopener,noreferrer");
+					}
+				} else {
+					document.getElementById("resultBox").style.display = "none";
+					setInstallState("err", "Install did not complete: " + (data.error || "HTTP " + res.status) + (data.dest ? " (target: " + data.dest + ")" : ""));
+				}
+			} catch (e) {
+				const msg = String(e && e.message ? e.message : e);
+				out.textContent = msg + "\n\n" + (msg.indexOf("fetch") >= 0 || msg.indexOf("Load failed") >= 0 ? "→ " + failedFetchHelp().replace(/<[^>]+>/g, " ") : "");
+				if (msg.indexOf("fetch") >= 0 || msg.indexOf("Load failed") >= 0) {
+					setInstallState(
+						"err",
+						"No connection to the API on port 3000. Run `npm run dev`, wait for “Install Theme UI”, open http://localhost:3000/ (not file://), then retry upload.",
+					);
+				} else {
+					setInstallState("err", "Request failed: " + msg);
+				}
+			} finally {
+				clearInterval(timer);
+				btnSlim.disabled = false;
+				if (btnFullRef) btnFullRef.disabled = false;
+				if (btnAiPurple) btnAiPurple.disabled = false;
+				if (btnAiTeal) btnAiTeal.disabled = false;
+			}
+		}
+
+		function openPreviewInNewTab(url, previewTab) {
+			if (!url) {
+				return;
+			}
+			if (previewTab && !previewTab.closed) {
+				try {
+					previewTab.location.replace(url);
+					previewTab.focus();
+					try {
+						previewTab.opener = null;
+					} catch (_) {
+						/* ignore */
+					}
+					return;
+				} catch (_) {
+					/* fall through */
+				}
+			}
+			const opened = window.open(url, "_blank");
+			if (opened) {
+				try {
+					opened.opener = null;
+				} catch (_) {
+					/* ignore */
+				}
+				opened.focus();
+			}
+		}
+
+		async function runSrPreviewPublish() {
+			setInstallState("");
+			const btn = document.getElementById("btnSrPreview");
+			const btnSlim = document.getElementById("btnSlim");
+			const btnFullRef = document.getElementById("btnFullRef");
+			btn.disabled = true;
+			if (btnSlim) btnSlim.disabled = true;
+			if (btnFullRef) btnFullRef.disabled = true;
+			const start = Math.floor(Date.now() / 1000);
+			const timer = setInterval(function () {
+				const tick = Math.floor(Date.now() / 1000) - start;
+				out.textContent = "Publishing SR Preview… " + formatElapsed(tick) + "\n";
+			}, 1000);
+			const url = primaryTypographyUrlFromField();
+			if (!url) {
+				clearInterval(timer);
+				btn.disabled = false;
+				if (btnSlim) btnSlim.disabled = false;
+				if (btnFullRef) btnFullRef.disabled = false;
+				setInstallState("err", "Enter a website URL and run Extract Typography first.");
+				return;
+			}
+			const heroHeading = document.getElementById("heroHeading").value.trim();
+			const heroDescription = document.getElementById("heroDescription").value.trim();
+			const extendPreviewDnd = document.getElementById("extendPreviewDnd").checked;
+			const heroCtaText = document.getElementById("heroCtaText").value.trim();
+			const heroCtaUrl = document.getElementById("heroCtaUrl").value.trim();
+			const heroBackgroundHex = document.getElementById("heroBackgroundHex").value.trim();
+			const srPreviewClient = document.getElementById("srPreviewClient").value.trim();
+			const srPreviewProject = document.getElementById("srPreviewProject").value.trim();
+			/** SR preview loads extract from typography-extract-cache on the server — do not POST megabyte JSON blobs. */
+			/** Open synchronously on click (no noopener — we navigate this tab after await). */
+			let previewTab = null;
+			try {
+				previewTab = window.open("", "_blank");
+				if (previewTab && !previewTab.closed) {
+					previewTab.document.write(
+						"<!DOCTYPE html><html><head><title>SR Preview</title></head><body style='font-family:system-ui,sans-serif;padding:2rem'>Publishing to SR Preview…</body></html>",
+					);
+					previewTab.document.close();
+				}
+			} catch (_) {
+				previewTab = null;
+			}
+			try {
+				if (!(await ensureBackendReachable())) {
+					throw new Error("Failed to fetch");
+				}
+				const res = await fetch(api("/api/sr-preview-publish"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({
+						sr_preview_fresh_extract: false,
+						typographyWebsiteUrl: url,
+						/** Fast Brad path: module upload only (~5–15s). Typography is already in module.css. */
+						sr_preview_skip_verify: true,
+						sr_preview_skip_template: true,
+						sr_preview_skip_theme_settings: true,
+						heroHeading: heroHeading || undefined,
+						heroDescription: heroDescription || undefined,
+						extendPreviewDnd: extendPreviewDnd || undefined,
+						heroCtaText: heroCtaText || undefined,
+						heroCtaUrl: heroCtaUrl || undefined,
+						heroBackgroundHex: heroBackgroundHex || undefined,
+						sr_preview_client: srPreviewClient || undefined,
+						sr_preview_project: srPreviewProject || undefined,
+					}),
+				});
+				const data = await res.json().catch(function () {
+					return {};
+				});
+				out.textContent = JSON.stringify(data, null, 2);
+				const uploadSucceeded = res.ok && data.uploadOk !== false;
+				const browserBroken = data.bradBrowserBroken === true;
+				const stale = data.previewRenderable !== true;
+				/** Always open Brad /m/ after a successful upload — even if blank/stale — so you can inspect DevTools. */
+				const openUrl = uploadSucceeded
+					? data.moduleUrl || data.previewUrl || null
+					: data.previewRenderable && data.previewUrl && !browserBroken
+						? data.previewUrl
+						: null;
+				if (uploadSucceeded) {
+					const box = document.getElementById("previewResultBox");
+					const bodyEl = document.getElementById("previewResultBody");
+					box.style.display = "block";
+					box.style.background = stale || browserBroken ? "#fef2f2" : "#ecfdf5";
+					box.style.borderColor = stale || browserBroken ? "#dc2626" : "#0f766e";
+					var links = "";
+					if (browserBroken) {
+						links +=
+							'<div style="margin-bottom:0.5rem;font-size:0.95rem;color:#b91c1c"><strong>Brad preview looks blank in the browser</strong> — your extract uploaded, but /m/ is not visible (white-on-white text, broken CSS scope, or Brad gzip JS errors).</div>';
+						if (data.bradExpectedHeading) {
+							links +=
+								'<div style="font-size:0.85rem"><strong>Ditto uploaded:</strong> ' +
+								data.bradExpectedHeading +
+								"</div>";
+						}
+						links +=
+							'<div style="margin-top:0.5rem;font-size:0.85rem;color:#444">Use <strong>Upload SR Hero 01 (slim)</strong> — that preview actually renders Cal.com / light-background heroes.</div>';
+					} else if (stale) {
+						links +=
+							'<div style="margin-bottom:0.5rem;font-size:0.95rem;color:#b91c1c"><strong>Brad preview did NOT update</strong> — this is not your extract failing.</div>';
+						if (data.bradExpectedHeading) {
+							links +=
+								'<div style="font-size:0.85rem"><strong>Ditto uploaded:</strong> ' +
+								data.bradExpectedHeading +
+								"</div>";
+						}
+						if (data.bradLiveHeading || (data.modulePreviewCheck && data.modulePreviewCheck.liveHeading)) {
+							links +=
+								'<div style="font-size:0.85rem;margin-top:0.25rem"><strong>Brad still shows:</strong> ' +
+								(data.bradLiveHeading || data.modulePreviewCheck.liveHeading) +
+								"</div>";
+						}
+						links +=
+							'<div style="margin-top:0.5rem;font-size:0.85rem;color:#444">Use <strong>Upload SR Hero 01 (slim)</strong> for a preview that actually renders your extract.</div>';
+					} else if (data.uploadedExtract) {
+						const ex = data.uploadedExtract;
+						links +=
+							'<div style="margin-bottom:0.5rem;font-size:0.85rem;color:#0f766e"><strong>Uploaded to Brad:</strong> ' +
+							(ex.heading ? "heading, " : "") +
+							(ex.background && (ex.background.imageUrl || ex.background.color) ? "background, " : "") +
+							(ex.typography && ex.typography.fontUrlCount ? "fonts, " : "") +
+							(ex.ctas && ex.ctas.length ? "CTAs" : "") +
+							"</div>";
+					}
+					if (data.moduleUrl) {
+						links +=
+							'<div><strong>Hero module:</strong> <a href="' +
+							data.moduleUrl +
+							'" target="_blank" rel="noopener">' +
+							data.moduleUrl +
+							"</a></div>";
+					}
+					if (data.templateUrl) {
+						links +=
+							'<div style="margin-top:0.35rem"><strong>Full page (home template):</strong> <a href="' +
+							data.templateUrl +
+							'" target="_blank" rel="noopener">' +
+							data.templateUrl +
+							"</a></div>";
+					}
+					if (data.bradPreviewNote) {
+						links +=
+							'<div style="margin-top:0.5rem;font-size:0.85rem;color:#b45309">' +
+							data.bradPreviewNote +
+							"</div>";
+					}
+					if (data.previewWarning) {
+						links +=
+							'<div style="margin-top:0.5rem;font-size:0.85rem;color:#b45309">' +
+							data.previewWarning +
+							"</div>";
+					}
+					if (data.previewUrlHint) {
+						links +=
+							'<div style="margin-top:0.5rem;font-size:0.85rem;color:#444">' +
+							data.previewUrlHint +
+							"</div>";
+					}
+					bodyEl.innerHTML = links;
+					box.style.display = "block";
+					setInstallState(
+						stale || browserBroken ? "err" : "ok",
+						browserBroken
+							? "Extract uploaded — Brad tab opened (may look blank); use HubSpot slim for real preview"
+							: stale
+								? "Extract uploaded to Brad API — tab opened; preview may be stale"
+								: "SR Preview published — opened in a new tab",
+					);
+					if (openUrl) {
+						openPreviewInNewTab(openUrl, previewTab);
+					} else if (previewTab && !previewTab.closed) {
+						try {
+							previewTab.document.open();
+							previewTab.document.write(
+								"<!DOCTYPE html><html><head><title>SR Preview</title></head><body style='font-family:system-ui,sans-serif;padding:2rem'><p>Upload succeeded but no module URL was returned.</p><p>Check the JSON in Ditto for <code>moduleUrl</code>.</p></body></html>",
+							);
+							previewTab.document.close();
+						} catch (_) {
+							/* ignore */
+						}
+					}
+				} else {
+					if (previewTab && !previewTab.closed) {
+						try {
+							previewTab.close();
+						} catch (_) {
+							/* ignore */
+						}
+					}
+					document.getElementById("previewResultBox").style.display = "none";
+					setInstallState("err", data.error || data.previewWarning || data.previewUrlHint || "SR preview publish failed");
+				}
+			} catch (e) {
+				if (previewTab && !previewTab.closed) {
+					try {
+						previewTab.close();
+					} catch (_) {
+						/* ignore */
+					}
+				}
+				const msg = String(e && e.message ? e.message : e);
+				out.textContent = msg;
+				setInstallState("err", msg);
+			} finally {
+				clearInterval(timer);
+				btn.disabled = false;
+				if (btnSlim) btnSlim.disabled = false;
+				if (btnFullRef) btnFullRef.disabled = false;
+			}
+		}
+		function readAiSnapshotForHubSpotUpload(lsKey, label) {
+			var raw = localStorage.getItem(lsKey);
+			if (!raw) {
+				return { error: "No cached " + label + ". Run that AI button first, then try again." };
+			}
+			try {
+				return { ok: true, data: JSON.parse(raw) };
+			} catch (e) {
+				return { error: "Invalid JSON in browser storage (" + lsKey + ")." };
+			}
+		}
+
+		function normUrlForUpload(u) {
+			return String(u || "")
+				.trim()
+				.replace(/\/+$/, "")
+				.toLowerCase();
+		}
+
+		function snapshotUsableForUpload(parsed) {
+			if (!parsed || typeof parsed !== "object" || parsed.ok === false) {
+				return null;
+			}
+			var ta = parsed.typography_ai;
+			if (!ta || typeof ta !== "object" || ta.error) {
+				return null;
+			}
+			return {
+				website_url: parsed.website_url,
+				typography_ai: ta,
+				hero_ai: parsed.hero_ai || null,
+				theme_inject_plan: parsed.theme_inject_plan || null,
+			};
+		}
+
+		function snapshotFromPlaywright(parsed) {
+			if (!parsed || typeof parsed !== "object") {
+				return null;
+			}
+			if (parsed.success !== true && parsed.ok !== true) {
+				return null;
+			}
+			var ty = parsed.typography || parsed.typography_full_page;
+			if (!ty || typeof ty !== "object") {
+				return null;
+			}
+			return {
+				website_url: parsed.website_url || parsed.websiteUrl,
+				typography: ty,
+				hero: parsed.hero || null,
+				source: "typography_extract_playwright",
+			};
+		}
+
+		function snapshotFromSrDecision(parsed) {
+			if (!parsed || typeof parsed !== "object" || parsed.ok === false) {
+				return null;
+			}
+			var ta = parsed.typography_ai_web;
+			if (!ta || typeof ta !== "object" || ta.error) {
+				return null;
+			}
+			var hero = parsed.hero_playwright;
+			var heroAi =
+				hero && typeof hero === "object" && hero.found !== undefined ? hero : null;
+			return {
+				website_url: parsed.website_url,
+				typography_ai: ta,
+				hero_ai: heroAi,
+			};
+		}
+
+		/** Teal plan → amber decision → green URL → purple HTML+AI (same URL as the form field when set). */
+		function resolveAiSnapshotForHubSpotUpload() {
+			var url = primaryTypographyUrlFromField();
+			var chain = [
+				{
+					key: LS_TYPO_FULL,
+					label: "Playwright typography",
+					source: "typography_extract_playwright",
+					pick: snapshotFromPlaywright,
+				},
+				{
+					key: LS_THEME_INJECT,
+					label: "teal theme inject plan",
+					source: "theme_inject_plan",
+					pick: snapshotUsableForUpload,
+				},
+				{
+					key: LS_SR_DECISION,
+					label: "amber SR decision",
+					source: "typography_extract_ai",
+					pick: snapshotFromSrDecision,
+				},
+			];
+			for (var i = 0; i < chain.length; i++) {
+				var raw = localStorage.getItem(chain[i].key);
+				if (!raw) {
+					continue;
+				}
+				try {
+					var parsed = JSON.parse(raw);
+					if (
+						url &&
+						parsed.website_url &&
+						normUrlForUpload(parsed.website_url) !== normUrlForUpload(url)
+					) {
+						continue;
+					}
+					var snap = chain[i].pick(parsed);
+					if (snap) {
+						return {
+							ok: true,
+							data: snap,
+							used: chain[i].label,
+							source: chain[i].source,
+						};
+					}
+				} catch (ePick) {}
+			}
+			return {
+				error:
+					"No usable AI cache for **" +
+					(url || "this URL") +
+					"**. Run **Extract typography** (Playwright) for that URL, then upload.",
+			};
+		}
+		window.copyFolder = function() {
+			const txt = document.getElementById("resultFolderName").textContent;
+			navigator.clipboard.writeText(txt).then(() => alert("Copied: " + txt)).catch(() => prompt("Copy this:", txt));
+		};
+		document.getElementById("btnSlim").addEventListener("click", () => {
+			document.getElementById("resultBox").style.display = "none";
+			document.getElementById("previewResultBox").style.display = "none";
+			document.getElementById("warnBox").style.display = "none";
+			document.getElementById("draftPageBox").style.display = "none";
+			runThemeUpload("/api/theme-clone-slim", "slim pack + hs cms upload (watch terminal for [theme-clone-slim]).");
+		});
+		document.getElementById("btnSrPreview").addEventListener("click", function () {
+			document.getElementById("resultBox").style.display = "none";
+			document.getElementById("previewResultBox").style.display = "none";
+			document.getElementById("warnBox").style.display = "none";
+			document.getElementById("draftPageBox").style.display = "none";
+			runSrPreviewPublish();
+		});
+		document.getElementById("btnFullRef").addEventListener("click", () => {
+			document.getElementById("resultBox").style.display = "none";
+			document.getElementById("previewResultBox").style.display = "none";
+			document.getElementById("warnBox").style.display = "none";
+			document.getElementById("draftPageBox").style.display = "none";
+			runThemeUpload(
+				"/api/theme-upload-reference-copy",
+				"full sr-2026 copy + hs cms upload (watch terminal for [theme-upload-reference-copy]; can take many minutes).",
+			);
+		});
+		document.getElementById("btnSlimAiInjectPurple").addEventListener("click", function () {
+			document.getElementById("resultBox").style.display = "none";
+			document.getElementById("warnBox").style.display = "none";
+			document.getElementById("draftPageBox").style.display = "none";
+			var got = readAiSnapshotForHubSpotUpload(LS_TYPO_AI, "purple AI extract");
+			if (got.error) {
+				document.getElementById("out").textContent = JSON.stringify({ error: got.error }, null, 2);
+				setInstallState("err", got.error);
+				return;
+			}
+			runThemeUpload("/api/theme-clone-slim", "slim + purple AI snapshot → hs cms upload.", {
+				omitStoredTypography: true,
+				aiTypographyInject: {
+					ai_typography_source: "typography_extract_ai",
+					ai_typography_snapshot: got.data,
+				},
+			});
+		});
+		document.getElementById("btnSlimAiInjectTeal").addEventListener("click", function () {
+			document.getElementById("resultBox").style.display = "none";
+			document.getElementById("warnBox").style.display = "none";
+			document.getElementById("draftPageBox").style.display = "none";
+			var got = resolveAiSnapshotForHubSpotUpload();
+			if (got.error) {
+				document.getElementById("out").textContent = JSON.stringify({ error: got.error }, null, 2);
+				setInstallState("err", got.error);
+				return;
+			}
+			runThemeUpload(
+				"/api/theme-clone-slim",
+				"slim + AI snapshot (" + got.used + ") → hs cms upload.",
+				{
+					omitStoredTypography: true,
+					aiTypographyInject: {
+						ai_typography_source: got.source,
+						ai_typography_snapshot: got.data,
+					},
+				},
+			);
+		});
+			document.getElementById("btnLegacy").addEventListener("click", async () => {
+			const raw = (document.getElementById("legacyName").value || "").trim();
+			const newThemeName = raw.replace(/[^a-zA-Z0-9-_]/g, "") || "sr-client-delivery";
+			try {
+				const res = await fetch(api("/install-theme"), { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ newThemeName }) });
+				const data = await res.json();
+				alert(data.status === "SUCCESS" ? "OK — check designManagerUrl in response" : (data.error || JSON.stringify(data)));
+			} catch (e) {
+				alert(e.message);
+			}
+		});
+
+		// After all listeners: clear persisted state (must run after `installStatus` / `setInstallState` exist).
+		(function resetOnPageLoad() {
+			clearDittoPersistedState();
+			resetPageUiToDefaults();
+		})();
+</script>
+</body>
+</html>

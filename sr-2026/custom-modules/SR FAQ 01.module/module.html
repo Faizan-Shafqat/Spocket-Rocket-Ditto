@@ -1,0 +1,103 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-faq-01 overflow-hidden {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					<div class="row">
+						<div class="col-md-4">
+							{% if module.heading ||  module.description %}
+								<div class="sr-spacer-bottom-50 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+									{{ macros.heading(module.heading) }}
+
+									{% if module.description %}
+										<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+									{% endif %}
+									{{ macros.cta(module.ctas, 'sr-spacer-top-25') }}
+								</div>
+							{% endif %}
+						</div>
+						<div class="col-md-7 offset-md-1">
+							<div class="blaze-slider" style="--dots-color-default: {{ module.design_settings.card_styles.dots_color.css }}; --dots-color: {{ module.design_settings.card_styles.dots_color_active.css }};">
+								<div class="blaze-container">
+									<div class="blaze-track-container overflow-visible">
+										<div class="blaze-track d-md-block">
+											{% for item in module.faq %}
+											<div class="faq-item sr-card sr-border text-{{ module.design_settings.card_styles.text_color }} {{ "d-md-none" if loop.index > module.number_of_items_to_show }}">
+												<h3 class="faq-question h5">{{ item.faq_question }}</h3>
+												<div class="faq-answer">
+													{{ item.faq_answer }}
+												</div>
+											</div>
+											{% endfor %}
+										</div>
+									</div>
+									<div class="blaze-pagination mt-4 d-md-none"></div>
+								</div>
+							</div>
+							{% if module.faq|length > module.number_of_items_to_show %}
+							<div class="load-more-button text-right d-none d-md-block">
+								<button role="button" class="btn btn-{{ module.button.button_style }}">{{ module.button.button_text }}</button>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+		{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+		{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.{{ name }} .sr-card {
+				{{ module.design_settings.card_styles.spacing.css }}
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+			{%- if module.design_settings.card_styles.background_color != "auto" -%}
+			.sr-faq-01 .faq-item::before,
+			.sr-faq-01 .faq-item::after{
+				background-color: var(--{{ module.design_settings.card_styles.background_color }},{{ module.design_settings.card_styles.background_custom.css }});
+			}
+			{% endif %}
+		</style>
+	{% end_require_css %}
+
+	{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+	{{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+
+{% endif %}

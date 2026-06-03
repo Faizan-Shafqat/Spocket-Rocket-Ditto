@@ -1,0 +1,36 @@
+.sr-two-col-07 .column_feature {
+  display: flex;
+  align-content: start;
+  gap: 1rem;
+}
+
+.sr-two-col-07 .icon-icon {
+  color: var(--icon-color);
+  background: var(--icon-background);
+  font-size: var(--icon-width);
+  display: block;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  padding: .625em;
+  aspect-ratio: 1;
+}
+
+.sr-two-col-07 .icon-icon svg {
+  width: var(--icon-width);
+}
+
+.sr-two-col-07 .icon-image {
+  display: block;
+  min-width: var(--icon-width);
+}
+
+.sr-two-col-07 .column_features {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.column_feature .heading:last-child {
+  margin-bottom: 0;
+}

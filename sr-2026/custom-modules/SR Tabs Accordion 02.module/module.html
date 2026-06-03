@@ -1,0 +1,115 @@
+{% if module.enabled %}
+
+    {% import "../../templates/macros.html" as macros %}
+
+    {% set width_class =
+        module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+        module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+        module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+        'col-md-12'
+    %}
+
+
+
+    <div class="sr-tabs-accordion-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+        {{ macros.module_bg_video(module) }}
+
+        <div class="{{ module.design_settings.layout }}">
+            {% if module.design_settings.container_width != 'max' %}
+                <div class="row">
+                    <div class="{{ width_class }}">
+            {% endif %}
+                        {% if module.heading || module.description %}
+                        <div class="row sr-spacer-bottom-50">
+                            <div class="col-lg-12">
+                                <div class="text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+                                    {{ macros.heading(module.heading) }}
+                                    {% if module.description %}
+                                    <div class="description{% if module.lead_text %} lead{% endif %}">
+                                        {{ module.description }}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        <div class="row sr-row justify-content-between">
+                            {% for item in module.accordions %}
+                            <div class="{{ macros.col_size(item.columns) }}">
+                                <div class="accordion-wrapper">
+                                    {{ macros.heading(item.accordion_heading) }}
+
+                                    <section class="details-group" data-one="{{ module.show_one_at_a_time }}">
+                                        {% for item2 in item.tab_item %}
+                                        <details class="details sr-border-color" {% if item2.expanded %} open{% endif %} {% if loop.index > module.items_to_show %}hidden{% endif %}>
+                                            <summary class="details__summary" tabindex="0">
+                                                <h3 class="mb-0 h5">{{ item2.tab_label }}</h3>
+                                                <span class="details-icon" role="presentation"></span>
+                                            </summary>
+                                            <div class="details__content description">
+                                                {{ item2.tab_content }}
+                                            </div>
+                                        </details>
+                                        {% endfor %}
+                                    </section>
+
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+            {% if module.design_settings.container_width != 'max' %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% require_css %}
+        <style>
+            {{ macros.design_settings(name, module.design_settings) }}
+            .{{ name }} .details {
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+			
+			.{{ name }} .details__summary {
+                {{ module.design_settings.card_styles.summary_spacing.css }}
+			}
+            .{{ name }} .details__content {
+                {{ module.design_settings.card_styles.content_spacing.css }}
+            }
+
+			.{{ name }} .details-icon {
+				background-color: {{ module.design_settings.card_styles.icon_background.css }};
+			}
+
+			.{{ name }} .details-icon::before,
+			.{{ name }} .details-icon::after {
+				background-color: {{ module.design_settings.card_styles.icon_color.css }}
+			}
+
+            .{{ name }} .details-group {
+                gap: {{ module.design_settings.card_styles.gap }}px;
+            }
+        </style>
+    {% end_require_css %}
+
+{% endif %}

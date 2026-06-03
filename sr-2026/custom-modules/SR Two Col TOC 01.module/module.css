@@ -1,0 +1,165 @@
+.sr-two-col-toc-01 nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+@media (min-width: 768px) {
+    .sr-two-col-toc-01 nav ul {
+        position: sticky;
+        top: 6.25rem;
+        width: 100%;
+        max-width: calc(100% - 20px);
+    }
+}
+
+.sr-two-col-toc-01 nav ul li a {
+    display: block;
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    transition: all 0.2s ease;
+}
+
+.column-quote {
+    gap: 1rem;
+}
+
+.sr-two-col-toc-01 .details {
+    overflow: hidden;
+    transition: height 300ms ease-in-out, box-shadow 200ms ease-in-out;
+    box-shadow: 15px 25px 60px 0px rgba(0, 0, 0, 0%);
+    border-width: 1px;
+    border-style: solid;
+    margin-bottom: 20px;
+}
+
+.sr-two-col-toc-01 .details[open] {
+    box-shadow: 15px 25px 60px 0px rgba(0, 0, 0, 10%);
+}
+
+.sr-two-col-toc-01 .details__summary {
+    list-style: none;
+    outline: 0;
+    position: relative;
+    transition: color .3s ease-in-out;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    cursor: pointer;
+    font-size: 1.125rem;
+    padding: 2rem 62px 2rem 1.55rem;
+    position: relative;
+}
+
+.sr-two-col-toc-01 .details__content {
+    padding: 1.5rem 1.25rem;
+    position: relative;
+}
+
+.sr-two-col-toc-01 .details__summary::-webkit-details-marker {
+    display: none;
+}
+
+.sr-two-col-toc-01 .details__summary::-webkit-details-marker {
+    display: none;
+}
+
+.sr-two-col-toc-01 .details-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform .2s ease-in;
+    height: 32px;
+    width: 32px;
+    border-radius: 100%;
+}
+
+.sr-two-col-toc-01 .details-icon:before,
+.sr-two-col-toc-01 .details-icon:after {
+    content: "";
+    position: absolute;
+    right: 50%;
+    top: 50%;
+    transform: translate(50%, -50%);
+    height: 2px;
+    width: 12px;
+}
+
+.sr-two-col-toc-01 .details-icon:before {
+    height: 2.5px;
+    width: .7rem;
+}
+
+.sr-two-col-toc-01 .details-icon:after {
+    height: .7rem;
+    width: 2.5px;
+}
+
+.sr-two-col-toc-01 [open] .details-icon {
+    transform: translateY(-50%) rotate(135deg);
+}
+
+.mobile-toc-dropdown {
+    position: sticky;
+    top: 2.5rem;
+    width: 100%;
+    z-index: 10;
+    margin-bottom: 2rem;
+    transition: all 250ms ease-in-out;
+}
+
+body:has(.scroll-up) .mobile-toc-dropdown {
+    top: 5rem;
+}
+
+.mobile-toc-current {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 1rem;
+    margin-bottom: 0!important;
+}
+
+.mobile-toc-menu {
+    display: none;
+    max-height: 70vh;
+    overflow-y: auto;
+    border-top: 1px solid #eee;
+}
+
+.mobile-toc-menu.open {
+    display: block;
+}
+
+.mobile-toc-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.mobile-toc-menu ul li a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    margin-bottom: 0!important;
+    font-size: 0.875rem
+}
+
+.mobile-toc-current-icon {
+    transition: transform 0.3s ease;
+}
+
+.mobile-toc-current-icon :is(svg, path) {
+    fill: currentColor;
+}
+
+.mobile-toc-dropdown.open .mobile-toc-current-icon {
+    transform: rotate(180deg);
+}

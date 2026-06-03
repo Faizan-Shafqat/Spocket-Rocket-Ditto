@@ -1,0 +1,142 @@
+<!--
+templateType: page
+isAvailableForNewContent: false
+label: Blog Author
+-->
+
+{% set settings = blog_ns.listing.author %}
+
+<style>
+    .blog-content {
+        flex-direction: column-reverse;
+    }
+    @media (min-width: 992px) {
+        .blog-content {
+            flex-direction: row;
+        }
+        article,
+        .article {
+            padding-right: 6.5rem;
+            border-right: 1px solid var(--borders);
+        }
+
+        .blog-content  .pr-3\.5 {
+            padding-right: 2rem;
+        }
+    }
+    .author-social-links a {
+        background: var(--borders);
+        fill: #fff;
+		color: #fff;
+        width: 28px;
+        height: 28px;
+        border-radius: 100px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .blog-container {
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--borders);
+    }
+    .author-post:not(:first-of-type) {
+        border-top: 1px solid var(--borders);
+        padding-top: 3rem;
+        margin-top: 3rem;
+    }
+    .topic-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    .author-post:hover h4 {
+        color: var(--primary);
+    }
+</style>
+
+<div class="blog-container">
+	<div class="container ">
+		<div class="row pt-5 blog-content">
+			<div class="col-lg-8 pr-3.5 sr-spacer-bottom-100">
+				<div class="article">
+					<h1 class="mb-5">{{ settings.heading }}{{ blog_author.display_name }}</h1>
+					{% set topics = [] %}
+					{% for content in contents %}
+					<div class="author-post {% if loop.index >7 %} inactive{% endif %}">
+                        <a href="{{ content.absolute_url }}">
+						<div class="article-meta d-flex align-items-center">
+							<div class="tags small">
+                                {% for topic in content.topic_list %}
+								{# Check if tag is in the array #}
+								{% unless topic in topics %}
+
+								{# Append to array if it is not #}
+								{% do topics.append( topic ) %}
+
+								{% endunless %}
+								{% if loop.first %}
+								<div class="tag tag-{{ topic.name|lower|replace(" ", "-") }}">{{ topic.name }}</div>
+								{% endif %}
+								{% endfor %}
+							</div>
+							{% if content.topic_list %}<span class="bull px-2">&bull;</span>{% endif %}
+							<small class="date">{{ content.publish_date_localized }}</small>
+						</div>
+						<h4 class="mt-3 mb-2">{{ content.name }}</h4>
+                        </a>
+						<div class="btn-wrapper btn-none-wrapper">
+							<a href="{{ content.absolute_url }}" class="cta_button">
+								{{ settings.button_text }}
+							</a>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="col-lg-3 sidebar sr-spacer-bottom-50">
+				<div class="author mb-4">
+					{% if blog_author.avatar %}
+					<div class="avatar mb-3">
+						<img class="rounded" src="{{ blog_author.avatar }}" alt="{{ blog_author.full_name }}" width="72px" style="width: 72px;" />
+					</div>
+					{% endif %}
+					<div class="meta">
+						{% if blog_author %}
+						<span class="author mb-3 d-block">
+							<a class="author-link h6" href="{{ group.absolute_url }}/author/{{ blog_author.slug }}">
+								{{ blog_author.display_name }}
+							</a>
+						</span>
+						<p>{{ blog_author.bio }}</p>
+						{% if blog_author.has_social_profiles %}
+						<div class="author-social-links">
+							{% if blog_author.website %}
+							<a href="{{ blog_author.website }}" target="_blank" rel="noopener">{% icon name='link', purpose='semantic', style='SOLID', title='Follow me on my website', width='14' %}</a>
+							{% endif %}
+							{% if blog_author.facebook %}
+							<a href="{{ blog_author.facebook }}" target="_blank" rel="noopener"> {% icon name='facebook-f', purpose='semantic', style='SOLID', title='Follow me on Facebook', width='14' %} </a>
+							{% endif %}
+							{% if blog_author.linkedin %}
+							<a href="{{ blog_author.linkedin }}" target="_blank" rel="noopener"> {% icon name='linkedin-in', purpose='semantic', style='SOLID', title='Follow me on LinkedIn', width='14' %} </a>
+							{% endif %}
+							{% if blog_author.twitter %}
+							<a href="{{ blog_author.twitter }}" target="_blank" rel="noopener"> {% icon name='twitter', purpose='semantic', style='SOLID', title='Follow me on Twitter', width='14' %} </a>
+							{% endif %}
+						</div>
+						{% endif %}
+						{% endif %}
+					</div>
+				</div>
+				<h4>Topics</h4>
+				<ul class="topic-list">
+					{% for item in topics %}
+					<li><a class='tag tag-{{ item.name|lower|replace(" ", "-") }}' href="{{ blog_tag_url(group.id, item.slug) }}">{{ item.name }}</a></li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

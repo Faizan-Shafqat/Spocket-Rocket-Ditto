@@ -1,0 +1,119 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-tabs-slider-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+					{% if module.heading ||  module.description || module.ctas %}
+					<div class="text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} sr-spacer-bottom-50">
+						{{ macros.heading(module.heading) }}
+
+						{% if module.description %}
+							<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+						{% endif %}
+
+						{{ macros.cta(module.ctas) }}
+					</div>
+					{% endif %}
+
+					<div class="splide" data-autoplay="{{ module.autoplay }}" data-autoplayspeed="{{ module.autoplay_speed }}" data-arrows="{{ module.arrows }}" data-dots="{{ module.dots }}" data-fade="{{ module.fade }}" data-rewind="{{ module.rewind }}" {{ macros.slides_to_show(module.design_settings) }} style="--dots-color:{{module.design_settings.slide_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slide_styles.dots_color_default.css}};--arrows-color:{{module.design_settings.slide_styles.arrows_color.css}}">
+						<div class="splide__track">
+							<div class="splide__list">
+								{% for slide in module.slides %}
+								<div class="splide__slide">
+									<div class="slider-item sr-border text-{{ module.design_settings.card_styles.text_color }}">
+										<div class="d-lg-flex h-100">
+											<div class="sr-tabs-slider-02-image">
+												{{ macros.image(slide.image) }}
+											</div>
+											<div class="sr-tabs-slider-02-content">
+												<div class="sr-spacer-bottom-100">
+													<div class="description text-autowrap{% if slide.lead_text %} lead{% endif %}">
+														{{slide.content}}
+													</div>
+												</div>
+
+												<div class="d-flex flex-wrap justify-content-between w-100 align-items-center" style="gap: 1rem;">
+													<div class="author-meta">
+														<p class="slider-name h6 mb-0">{{slide.slider_name}}</p>
+														<p class="slider-title small mb-0">{{slide.slider_title}}</p>
+													</div>
+													{{ macros.cta(slide.slide_ctas) }}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+
+						{% if module.arrows %}
+						<div class="splide__arrows">
+							<button type="button" aria-label="Previous slide" class="splide__arrow splide__arrow--prev chevron-left">{{macros.icon(module.design_settings.slide_styles.arrow_left_icon, 10)}}</button>
+							<button type="button" aria-label="Next slide" class="splide__arrow splide__arrow--next chevron-right">{{macros.icon(module.design_settings.slide_styles.arrow_right_icon, 10)}}</button>
+						</div>
+						{% endif %}
+
+						{% if module.dots %}
+						<div class="splide__pagination"></div>
+						{% endif %}
+					</div>
+
+		{% if module.design_settings.container_width != 'max' %}
+			</div>
+		</div>
+		{% endif %}
+		</div>
+
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{ name }} .slider-item {
+			{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient.css }};
+			{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom.css }};
+			{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{%- endif -%}
+			{% if module.design_settings.card_styles.border.css %}
+			{{ module.design_settings.card_styles.border.css }}
+			{% endif %}
+			{% if module.design_settings.card_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+			{% endif %}
+			{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+			{% endif %}
+		}
+		.{{ name }} .sr-tabs-slider-02-content {
+			{{ module.design_settings.card_styles.spacing.css }}
+		}
+	
+	</style>
+	{% end_require_css %}
+
+	{{ require_css(get_asset_url('../../css/splide.css'), { async: true }) }}
+	{{ require_js(get_asset_url('../../js/splide.js'), { position: 'head', defer: true }) }}
+{% endif %}

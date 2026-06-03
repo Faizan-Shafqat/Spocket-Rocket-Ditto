@@ -1,0 +1,18 @@
+.sr-offer-bar-01 .sr-offer-bar-01-image,
+.sr-offer-bar-01 .sr-offer-bar-01-content {
+    margin: 0 0 1.25rem;
+}
+
+@media only screen and (min-width: 992px) {
+
+    .sr-offer-bar-01 .sr-offer-bar-01-image,
+    .sr-offer-bar-01 .sr-offer-bar-01-content {
+        margin: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .sr-offer-bar-01 .heading, .sr-offer-bar-01 .sr-offer-bar-01-image, .sr-offer-bar-01 .description {
+        text-align: center
+    }
+}

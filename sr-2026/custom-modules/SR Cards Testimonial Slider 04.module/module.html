@@ -1,0 +1,193 @@
+
+{% if module.enabled %}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% set width_class =
+module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+'col-lg-12'
+%}
+
+<div class="sr-cards-testimonial-slider-04 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %}" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %}>
+
+	{{ macros.module_bg_video(module) }}
+
+	<div class="{{ module.design_settings.layout }} sr-cards-testimonial-slider-04inner-wrapper ">
+		{% if module.design_settings.container_width != 'max' %}
+		<div class="row">
+			<div class="{{ width_class }}">
+				{% endif %}
+				<div class="sr-cards-testimonial-slider-04-content-wrapper">
+
+					{% if module.heading || module.description %}
+					<div class="sr-spacer-bottom-75 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} text-{{ module.design_settings.text_color }}">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">
+							{{ module.description }}
+						</div>
+						{% endif %}
+					</div>
+					{% endif %}
+
+
+					<div class="blaze-slider" data-autoplay="{{ module.autoplay }}" data-autoplayspeed="{{ module.autoplay_speed }}" {{ macros.slides_to_show(module.design_settings) }} style="--dots-color:{{module.design_settings.slide_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slide_styles.dots_color_default.css}};--arrows-color:{{module.design_settings.slide_styles.arrows_color.css}}">
+						<div class="blaze-container">
+							<div class="blaze-track-container">
+								<div class="blaze-track">
+									{% for slide in module.slides %}
+									<div class="sr-cards-testimonial-slider-04-content">
+
+									{% if slide.col_media_type == "image" and slide.col_image.src %}
+										<div class="responsive-image media-item sr-spacer-bottom-25{% if slide.full_width_image && !slide.banner_image %} full-width-image{% endif %} {% if slide.banner_image %} banner-image {{ 'banner-image-' ~ loop.index0 }}{% endif %}" {% if slide.banner_image && slide.banner_height is truthy %}style="--banner-height: {{ slide.banner_height }}px;"{% endif %}>
+											{% if slide.add_to_lightbox %}
+											{{ require_js(get_asset_url('../../js/fslightbox.js'), { defer: true }) }}
+											<a data-fslightbox="col-gallery" role="button" aria-label="View larger version of image" href="{{ slide.col_image.src }}">
+											{% endif %}
+											{% if slide.image_link.url.href && !slide.add_to_lightbox %}
+											<a {{ macros.link(slide.image_link) }} role="link" aria-label="{{slide.col_image.alt}}'s link {{ ' (Opens in new tab)' if slide.image_link.open_in_new_tab }}">
+											{% endif %}
+											{{ macros.image(slide.col_image, "{{ 'style=\"--img-corner: {{ slide.image_corner_radius }}px\"' if slide.image_corner_radius }}") }}
+											{% if slide.image_link.url.href && !slide.add_to_lightbox %}
+											</a>
+											{% endif %}
+											{% if slide.add_to_lightbox %}
+											</a>
+											{% endif %}
+										</div>
+										{% elif slide.col_media_type == "video" %}
+										<div class="media-item sr-spacer-bottom-25" {{ 'style="--img-corner: {{ slide.image_corner_radius }}px"' if slide.image_corner_radius }}>
+											{{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+											{{ macros.video(slide.video) }}
+										</div>
+										{% elif slide.col_media_type == "lottie" %}
+										{{ require_js("https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js", {defer:true, position: "head", type: "module"}) }}
+										<div class="lottie media-item sr-spacer-bottom-25">
+											{{slide.lottie_embed_code }}
+										</div>
+										{% endif %}
+
+										{% if slide.heading %}
+										<div class="headings">
+											{{ macros.heading(slide.heading)}}
+										</div>
+										{% endif %}
+
+										<div class="slide-content">
+											{{slide.slide_content}}
+										</div>
+
+										{% if slide.slide_author_name || slide.slide_author_title %}
+										<div class="sr-cards-testimonial-slider-04-author">
+											<div class="author-meta">
+												{% if slide.slide_author_name || slide.slide_author_title %}
+												<div class="author-details w-100">
+													{% if slide.slide_author_name %}
+														<p class="author-name mb-0 h6">{{slide.slide_author_name}}</p>
+													{% endif %}
+													{% if slide.slide_author_title %}
+														<small class="author-title text-heading">{{slide.slide_author_title}}</small>
+													{% endif %}
+												</div>
+												{% endif %}
+											</div>
+										</div>
+										{% endif %}
+									</div>
+									{% endfor %}
+								</div>
+							</div>
+
+
+							<div class="d-flex align-items-center justify-content-center">
+								{% if module.arrows %}
+								<button type="button" aria-label="Previous Slide" class="blaze-arrow blaze-prev chevron-left">{{macros.icon(module.design_settings.slide_styles.arrow_left_icon, 10)}}</button>
+								{% endif %}
+								{% if module.dots %}
+								<div class="blaze-pagination mt-4"></div>
+								{% endif %}
+								{% if module.arrows %}
+								<button type="button" aria-label="Next Slide" class="blaze-arrow blaze-next chevron-right">{{macros.icon(module.design_settings.slide_styles.arrow_right_icon, 10)}}</button>
+								{% endif %}
+							</div>
+
+						</div>
+					</div>
+				</div>
+				{% if module.design_settings.container_width != 'max' %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+{% require_css %}
+<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+
+	.{{ name }} .sr-cards-testimonial-slider-04-content {
+		{{ module.design_settings.card_styles.spacing.css }}
+		{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+		background: {{ module.design_settings.card_styles.background_gradient.css }};
+		{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+		background-color: {{ module.design_settings.card_styles.background_custom.css }};
+		{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+		background-color: var(--{{ module.design_settings.card_styles.background_color }});
+		{%- endif -%}
+		{%- if module.design_settings.card_styles.text_color == "custom" %}
+		color: {{ module.design_settings.card_styles.text_color_custom.css }};
+		{%- endif -%}
+		{% if module.design_settings.card_styles.border.css %}
+		{{ module.design_settings.card_styles.border.css }}
+		{% endif %}
+		{% if module.design_settings.card_styles.border_radius >= 0 %}
+		border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+		{% endif %}
+		{% if module.design_settings.card_styles.shadow %}
+		box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+		{% endif %}
+		{% if module.design_settings.card_styles.text_align %}
+		{{module.design_settings.card_styles.text_align.css|lower}}
+		{% endif %}
+	}
+
+	.{{ name }} .banner-image {
+		margin-left: -{{ module.design_settings.column_styles.spacing.padding.left.value ~ module.design_settings.column_styles.spacing.padding.left.units }};
+		margin-right: -{{ module.design_settings.column_styles.spacing.padding.right.value ~ module.design_settings.column_styles.spacing.padding.right.units }};
+	}
+	.{{ name }} .banner-image-first {
+		margin-top: -{{ module.design_settings.column_styles.spacing.padding.top.value ~ module.design_settings.column_styles.spacing.padding.top.units }};
+		margin-bottom: calc({{ module.design_settings.column_styles.spacing.padding.bottom.value ~ module.design_settings.column_styles.spacing.padding.bottom.units }} - {{ module.design_settings.column_styles.element_gap }}px);
+	}
+	.{{ name }} .banner-image-last {
+		margin-bottom: -{{ module.design_settings.column_styles.spacing.padding.bottom.value ~ module.design_settings.column_styles.spacing.padding.bottom.units }};
+		margin-top: calc({{ module.design_settings.column_styles.spacing.padding.top.value ~ module.design_settings.column_styles.spacing.padding.top.units }} - {{ module.design_settings.column_styles.element_gap }}px);
+	}
+
+	.{{name}} .blaze-slider {
+		--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.xl }};
+		--slide-gap: 30px;
+	}
+	@media only screen and (max-width: 1199px) {
+		.{{name}} .blaze-slider {
+			--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.lg }};
+		}
+	}
+	@media only screen and (max-width: 991px) {
+		.{{name}} .blaze-slider {
+			--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.md }};
+		}
+	}
+	@media only screen and (max-width: 768px) {
+		.{{name}} .blaze-slider {
+			--slides-to-show: {{ module.design_settings.slide_styles.slides_to_show.sm }};
+		}
+	}
+</style>
+{% end_require_css %}
+
+{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+{{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+{% endif %}

@@ -1,0 +1,92 @@
+<!--
+templateType: error_page
+isAvailableForNewContent: true
+label: SR Error 500
+-->
+{% include './header.html' %}
+
+	{% set SRContentType = "ERROR_500" %}
+
+	{% require_head %}
+	<title>Error 500</title>
+	{% end_require_head %}
+
+	<body id="Page404" class="system {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+	{% block header %}
+		{% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+		{% if widget_data.enabled_site_header.value %}
+			{% global_partial path="../templates/partials/site_header.html" %}
+		{% endif %}
+	{% endblock header %}
+
+	{% block body %}
+		{% require_css %}
+		<style>
+        .sr-cover-image {
+            background-image: url(https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/error-500-bg.jpg);
+            background-size: cover;
+            background-position: center center;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0%;
+        }
+        .sr-cover-image::before {
+            content: "";
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .sr-cover {
+            padding-top: 16.1875rem;
+            padding-right: 0rem;
+            padding-bottom: 18.125rem;
+            padding-left: 0rem;
+            margin-top: 0rem;
+            margin-bottom: 0rem;
+        }
+    </style>
+    {% end_require_css %}
+
+    <div data-error="404" data-background-option="image" class="sr-hero-01 sr-cover-parallax position-relative overflow-hidden sr_module text-white text-center">
+        <div class="sr-cover-image" role="img" aria-label="Hero Background Image"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1">
+                    <div class="sr-cover d-flex align-items-center  sr-padding-custom">
+                        <div class="sr-cover-inner w-100">
+                            <div class="sr-spacer-bottom-50">
+                                <h1 class="heading mb-0 display-4">
+                                    500
+                                </h1>
+                                <h2 class="heading">
+                                    System malfunction.
+                                </h2>
+                                <div class="description lead"><span>Something went wrong on our end. Mission control is already looking into it. You can try refreshing the page or head back home while we sort things out.</span></div>
+                            </div>
+                            <div class="cta-group ">
+                                <div class="btn-wrapper btn-gradient_one-wrapper btn-wrapper-md"><a class="cta-button" href="/?hsLang=sv-se" role="link">Back to Home Page</a></div></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+	{% endblock body %}
+
+	{% block footer %}
+		{% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+		{% if widget_data.enabled_site_footer.value %}
+			{% global_partial path="../templates/partials/site_footer.html" %}
+		{% endif %}
+	{% endblock footer %}
+
+	{% include './footer-includes.html' %}
+	</body>
+</html>

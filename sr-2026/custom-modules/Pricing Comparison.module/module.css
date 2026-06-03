@@ -1,0 +1,539 @@
+.srp {
+    container-type: inline-size;
+    container-name: srp;
+    color: var(--primary-font-color);
+    --header-bottom-height: 0px;
+}
+
+.srp h1,
+.srp h2,
+.srp h3,
+.srp h4,
+.srp h5,
+.srp h6 {
+    color: var(--secondary-font-color);
+    margin: 0
+}
+
+.srp p {
+    margin: 0
+}
+
+.srp .switch-wrapper {
+    border-radius: 30px;
+    display: inline-flex;
+    padding: 4px;
+    position: relative;
+    text-align: center
+}
+
+.srp .switch-wrapper [type=radio] {
+    left: -9999px;
+    position: absolute
+}
+
+.srp .switch-wrapper [type=radio]:checked.srpone~label[for*=srpone]:hover,
+.srp .switch-wrapper [type=radio]:checked.srptwo~label[for*=srptwo]:hover {
+    background: transparent
+}
+
+.srp .switch-wrapper [type=radio]:checked.srpone+label[for*=srptwo]~.highlighter {
+    transform: none
+}
+
+.srp .switch-wrapper [type=radio]:checked.srptwo+label[for*=srpone]~.highlighter {
+    transform: translateX(100%)
+}
+
+.srp .switch-wrapper label {
+    align-items: center;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    line-height: 1px;
+    margin: 0;
+    min-height: 37px;
+    min-width: 80px;
+    transition: all .25s ease-in-out;
+    z-index: 1
+}
+
+.srp .switch-wrapper .highlighter {
+    border-radius: 30px;
+    height: calc(100% - 8px);
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    transition: transform .25s ease-in-out;
+    width: calc(50% - 4px)
+}
+
+.srp .tooltip-text {
+    background-color: #192733;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+    left: 44%;
+    padding: 10px 15px;
+    position: absolute;
+    top: 110%;
+    transform: translateX(-50%);
+    visibility: hidden;
+    min-width: 200px;
+    z-index: 2;
+}
+
+.srp .tooltip-text:before {
+    background-color: #192733;
+    content: "";
+    left: 50%;
+    padding: 5px;
+    position: absolute;
+    top: 0%;
+    transform: rotate(45deg) translateX(-50%);
+    z-index: 1
+}
+
+.srp .tooltip:hover .tooltip-text {
+    visibility: visible
+}
+
+.srp .tooltip {
+    display: inline-flex;
+    height: 24px;
+    position: relative
+}
+
+.srp .tooltip path {
+    fill: #d0d0d0
+}
+
+.srp .p-card ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0
+}
+
+.srp .p-card ul li {
+    display: flex;
+    gap: 1rem;
+    position: relative
+}
+
+.srp .p-card > div.flex {
+    flex-wrap: wrap;
+    gap: 8px;
+    display: flex;
+}
+
+.p-rowHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.p-rowHeading:after {
+    border-style: solid;
+    border-width: .1em .1em 0 0;
+    color: inherit;
+    content: "";
+    display: inline-block;
+    height: .45em;
+    position: relative;
+    transform: rotate(-45deg);
+    transform: rotate(135deg);
+    transition: transform .3s ease;
+    vertical-align: top;
+    width: .45em;
+    opacity: 0.5;
+}
+
+[open] .p-rowHeading::after {
+    transform: rotate(-45deg);
+}
+
+.srp .plan_name {
+    line-height: 1
+}
+
+.srp .sm\:plan_row {
+    font-size: 16px
+}
+
+.srp .plan_cost {
+    line-height: 1.5
+}
+
+.plan_label {
+    background-color: var(--bg);
+    border-radius: 4px;
+    color: var(--color);
+    font-size: 12px;
+    font-size: bold;
+    padding: 6px 18px
+}
+
+.srp .p-btn a {
+    box-sizing: border-box;
+    display: inline-block;
+    max-width: 100%;
+    text-align: center;
+    text-decoration: none;
+    transition: all .3s ease;
+    width: 100%
+}
+
+.srp .priceone,
+.srp .pricetwo,
+.srp .suffixone,
+.srp .suffixtwo,
+.srp .p-btn__main,
+.srp .p-btn__alt {
+    display: none
+}
+
+.srp[data-toggle=srpone] .priceone,
+.srp[data-toggle=srptwo] .pricetwo,
+.srp[data-toggle=srpone] .p-btn__main,
+.srp[data-toggle=srptwo] .p-btn__alt,
+.srp[data-toggle=srpone] .suffixone,
+.srp[data-toggle=srptwo] .suffixtwo {
+    display: initial
+}
+
+.srp .p-row svg {
+    color: var(--icon);
+    fill: currentColor
+}
+
+.srp details:not(:last-of-type):not([open]) {
+    margin-bottom: .5rem
+}
+
+.srp summary {
+    cursor: pointer;
+    list-style-type: none
+}
+
+.srp summary::-webkit-details-marker {
+    display: none
+}
+
+.srp [hidden] {
+    display: none
+}
+
+.srp .col-w-1 {
+    grid-column: span 1/span 1
+}
+
+.srp .col-w-full {
+    grid-column: 1/-1
+}
+
+.srp .p-3 {
+    padding: .75rem
+}
+
+.srp .py-4 {
+    padding: 1rem 0
+}
+
+.srp .py-3 {
+    padding: .75rem 0
+}
+
+.srp .pr-0 {
+    padding-right: 0 !important
+}
+
+.srp .mx-auto {
+    margin-left: auto;
+    margin-right: auto
+}
+
+.srp .mx-4 {
+    margin: 0 1rem
+}
+
+.srp .mt-0 {
+    margin-top: 0
+}
+
+.srp .mt-10 {
+    margin-top: 2.5rem
+}
+
+.srp .mt-20 {
+    margin-top: 4rem
+}
+
+.srp .mt-1 {
+    margin-top: .5rem
+}
+
+.srp .mt-2 {
+    margin-top: .5rem
+}
+
+.srp .mt-4 {
+    margin-top: 1rem
+}
+
+.srp .mt-5 {
+    margin-top: 1.25rem
+}
+
+.srp .mt-6 {
+    margin-top: 1.5rem
+}
+
+.srp .mb-4 {
+    margin-bottom: 1rem
+}
+
+.srp .inline-block {
+    display: inline-block
+}
+
+.srp .flex {
+    display: flex
+}
+
+.srp .grid {
+    display: grid
+}
+
+.srp .hidden {
+    display: none
+}
+
+.srp .relative {
+    position: relative
+}
+
+.srp .w-full {
+    width: 100%
+}
+
+.srp .h-full {
+    height: 100%
+}
+
+.srp .max-w-screen-xl {
+    max-width: 1280px
+}
+
+.srp .grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr))
+}
+
+.srp .grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr))
+}
+
+.srp .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+
+.srp .flex-col {
+    flex-direction: column
+}
+
+.srp .items-center {
+    align-items: center
+}
+
+.srp .items-end {
+    align-items: end
+}
+
+.srp .justify-center {
+    justify-content: center
+}
+
+.srp .justify-between {
+    justify-content: space-between
+}
+
+.srp .justify-end {
+    justify-content: end
+}
+
+.srp .gap-2 {
+    gap: .25rem
+}
+
+.srp .gap-3 {
+    gap: .75rem
+}
+
+.srp .gap-5 {
+    gap: 1.25rem
+}
+
+.srp .gap-6 {
+    gap: 1.5rem
+}
+
+.srp .gap-10 {
+    gap: 2.5rem
+}
+
+.srp .gap-30 {
+    gap: 1.875rem
+}
+
+.srp .rounded-lg {
+    border-radius: .5rem
+}
+
+.srp .border {
+    border-width: 1px
+}
+
+.srp .border-b {
+    border-bottom-width: 1px
+}
+
+.srp .border-l {
+    border-left-width: 1px
+}
+
+.srp .border-r {
+    border-right-width: 1px
+}
+
+.srp .border-t-4 {
+    border-top-width: 4px
+}
+
+.srp .px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem
+}
+
+.srp .py-12 {
+    padding-bottom: 3rem;
+    padding-top: 3rem
+}
+
+.srp .txt-center {
+    text-align: center
+}
+
+.srp .txt-left {
+    text-align: left
+}
+
+.srp .txt-right {
+    text-align: right
+}
+
+.srp .font-semibold {
+    font-weight: 600
+}
+
+.srp .txt-body {
+    color: var(--primary-font-color)
+}
+
+.txt-dash {
+    font-size: 25px;
+    line-height: 1;
+    color: var(--icon);
+}
+
+.srp .txt-heading {
+    color: var(--secondary-font-color)
+}
+
+.srp .txt {
+    color: var(--txt)
+}
+
+@container srp (min-width: 993px) {
+    .plan_row {
+        position: sticky;
+        top: var(--header-bottom-height, 16px);
+        z-index: 1;
+        transition: top 0.3s ease-in-out;
+    }
+
+    body:has(.header__container.scroll-down) .plan_row {
+        top: 0;
+        transition: top 0.3s ease-in-out;
+    }
+
+    .srp .md\:col-w-1 {
+        grid-column: span 1/span 1
+    }
+
+	.srp .md\:col-w-2 {
+        grid-column: span 2
+    }
+
+    .srp .md\:col-start-2 {
+        grid-column-start: 2
+    }
+
+	.srp .md\:col-start-3 {
+        grid-column-start: 3
+    }
+
+    .srp .md\:block {
+        display: block
+    }
+
+    .srp .md\:grid {
+        display: grid
+    }
+
+    .srp .md\:hidden {
+        display: none
+    }
+
+    .srp .md\:grid-cols-5 {
+        grid-template-columns: repeat(5, minmax(0, 1fr))
+    }
+
+    .srp .md\:border-l-0 {
+        border-left-width: 0
+    }
+
+    .srp .md\:border-r-0 {
+        border-right-width: 0
+    }
+
+    .srp .md\:m-0 {
+        margin: 0
+    }
+
+    .srp .md\:mt-0 {
+        margin-top: 0
+    }
+
+    .srp .md\:mt-5 {
+        margin-top: 1.25rem
+    }
+
+    .srp .md\:gap-3 {
+        gap: .75rem
+    }
+
+    .srp .md\:txt-center {
+        text-align: center
+    }
+
+    .srp .md\:txt-left {
+        text-align: left
+    }
+
+    .srp .md\:txt-right {
+        text-align: right
+    }
+}

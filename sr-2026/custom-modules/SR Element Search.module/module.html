@@ -1,0 +1,41 @@
+<div class="sr-search-field btn-wrapper btn-{{ module.button.cta_style }}-wrapper hs-form" {{ "data-preview" if module_preview }}>
+    <div class="sr-search-field__bar">
+		<form class="p-0 d-flex align-items-end" action="/{{ site_settings.content_search_results_page_path }}" role="search">
+			<fieldset class="p-0 flex-1 d-block">
+			{% if module.field_label %}
+			<label for="term">{{ module.field_label }}</label>
+			{% endif %}
+			<input id="term" type="text" class="sr-search-field__input" name="term" autocomplete="off" aria-label="{{ module.field_label || "Search" }}" placeholder="{{ module.placeholder }}">
+			{% if module.content_types.website_pages %}
+			<input id="type" type="hidden" name="type" value="SITE_PAGE">
+			{% endif %}
+			{% if module.content_types.landing_pages %}
+			<input id="type" type="hidden" name="type" value="LANDING_PAGE">
+			{% endif %}
+			{% if module.content_types.blog_posts %}
+			<input id="type" type="hidden" name="type" value="BLOG_POST">
+			<input id="type" type="hidden" name="type" value="LISTING_PAGE">
+			{% endif %}
+			{% if module.content_types.knowledge_articles %}
+			<input id="type" type="hidden" name="type" value="KNOWLEDGE_ARTICLE">
+			{% endif %}
+			</fieldset>
+			<fieldset class="p-0">
+			{% if module.include_search_button %}
+			<button type="submit" class="cta-button" aria-label="Search">{{ module.button.button_text }}</button>
+			{% endif %}
+			</fieldset>
+		</form>
+    </div>
+    <ul class="sr-search-field__suggestions"></ul>
+</div>
+
+{% require_css %}
+<style>
+	{% scope_css %}
+    .sr-search-field {
+        {{ module.design_settings.spacing.css }};
+    }
+    {% end_scope_css %}
+</style>
+{% end_require_css %}

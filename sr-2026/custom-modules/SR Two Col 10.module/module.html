@@ -1,0 +1,87 @@
+{% if module.enabled %}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% require_css %}
+<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+</style>
+{% end_require_css %}
+
+{% set width_class =
+	module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+	module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+	module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+	'col-md-12'
+%}
+
+<div class="sr-two-col-10 position-relative {{ name }} {{ macros.module_background(module.design_settings) }} text-{{ module.design_settings.text_color }} {% if module.use_image_as_background %} sr-bg-image{% endif %} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+	{{ macros.module_bg_video(module) }}
+
+	<div class="container-fluid">
+
+		<div class="row align-items-stretch media-media_left">
+
+			{% if module.colum_order == 'media_left' %}
+			<div class="column-media">
+				{% set item = module.media|first %}
+				{% if item.media_type == "image" %}
+				{{ macros.image(item.image) }}
+				{% elif item.media_type == "video" %}
+				{{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+				{{ macros.video(item.video) }}
+				{% endif %}
+			</div>
+			{% endif %}
+
+			<div class="column-content {{ macros.padding(module.design_settings) }}">
+				<div>
+					{% set item = module.content|first %}
+					{% if item.content_media_type == "image" %}
+					{% if item.content_image.src %}
+					<div class="responsive-image{% if item.heading || item.description || item.ctas %} mb-4{% endif %}">
+						{% if item.image_link.url.href %}
+						<a {{macros.link(item.image_link)}} role="link" aria-label="{{item.col_image.alt}}'s link {{ ' (Opens in new tab)' if item.image_link.open_in_new_tab }}">
+						{% endif %}
+						{{ macros.image(item.content_image) }}
+						{% if item.image_link.url.href %}
+						</a>
+						{% endif %}
+					</div>
+					{% endif %}
+					{% elif item.content_media_type == "video" %}
+					{{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+					{{ macros.video(item.video, '{% if item.heading || item.description || item.ctas %} mb-4{% endif %}') }}
+					{% elif item.content_media_type == "lottie" %}
+					{{ require_js("https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js", {defer:true, position: "head", type: "module"}) }}
+					<div class="lottie {% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}">
+						{{item.lottie_embed_code}}
+					</div>
+					{% endif %}
+					{{ macros.heading(item.heading)}}
+					{% if item.description %}
+					<div class="description {% if item.lead_text %} lead{% endif %}">
+						{{ item.description }}
+					</div>
+					{% endif %}
+					{{ macros.cta(item.ctas, '{{ "sr-spacer-top-50" if item.description || item.heading }}') }}
+				</div>
+			</div>
+
+			{% if module.colum_order == 'media_right' %}
+			<div class="column-media">
+				{% set item = module.media|first %}
+				{% if item.media_type == "image" %}
+				{{ macros.image(item.image) }}
+				{% elif item.media_type == "video" %}
+				{{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+				{{ macros.video(item.video) }}
+				{% endif %}
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+</div>
+{% endif %}

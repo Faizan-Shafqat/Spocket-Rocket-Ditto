@@ -1,0 +1,35 @@
+.sr-offer-slide-in-01 .hs-form .hs_submit {
+    margin-top: 0;
+}
+
+
+@media only screen and (max-width:768px) {
+    .sr-offer-slide-in-01 .sr-offer-slide-in-01-content {
+        padding-top: 3.125rem;
+    }
+}
+
+
+.sr-offer-slide-in-01 .offer {
+    width: 100%;
+    height: 0px;
+    overflow: hidden;
+}
+
+.sr-offer-slide-in-01 .hide-button svg {
+    transform: rotate(180deg);
+    transition: all 0.15s ease-in-out;
+}
+
+.sr-offer-slide-in-01 .hide-button.show svg {
+    transform: rotate(0);
+}
+
+.sr-offer-slide-in-01 .show-label,
+.sr-offer-slide-in-01 .hide-button.show .hide-label {
+    display: none;
+}
+
+.sr-offer-slide-in-01 .hide-button.show .show-label {
+    display: inline-block;
+}

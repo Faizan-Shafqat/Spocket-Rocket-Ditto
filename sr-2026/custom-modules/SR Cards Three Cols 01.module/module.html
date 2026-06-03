@@ -1,0 +1,162 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-cards-three-cols-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+						{% if module.heading || module.description %}
+							<div class="text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} sr-spacer-bottom-25">
+								{{ macros.heading(module.heading) }}
+
+								{% if module.description %}
+									<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						<div class="row main-wrapper">
+							{% for item in module.columns %}
+								<div class="col-md-6 col-lg-3 columns-card">
+									<div class="col-card sr-border text-{{ module.design_settings.card_styles.text_color }}">
+										{% if item.card_image.src %}
+										<div class="card-image">
+											{{ macros.image(item.card_image, 'class="sr-border-top"') }}
+										</div>
+										{% endif %}
+										<div class="card-inner-details">
+											{{ macros.heading(item.card_heading) }}
+											{% if item.card_description %}
+											<div class="description{% if item.lead_text %} lead{% endif %}">{{ item.card_description}}</div>
+											{% endif %}
+											{{ macros.cta(item.ctas, 'sr-spacer-top-25') }}
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+							<div class="col-lg-6{% if !module.columns %} offset-lg-3{% endif %} middle-col {% if module.middle_column.text_color != 'auto' %}text-{{ module.middle_column.text_color }}{% endif %}">
+								<div class="middle-image-card">
+									{{ macros.image(module.middle_column.middle_card_image) }}
+									<div class="middle-content">
+										{% if module.middle_column.middle_card_heading || module.middle_column.middle_card_description %}
+											<div class="sr-spacer-bottom-25">
+												{{ macros.heading(module.middle_column.middle_card_heading) }}
+												{% if module.middle_column.middle_card_description %}
+												<div class="description{% if module.middle_column.lead_text %} lead{% endif %}">{{ module.middle_column.middle_card_description }}</div>
+												{% endif %}
+											</div>
+										{% endif %}
+
+										{{ macros.cta(module.middle_column.ctas) }}
+									</div>
+								</div>
+							</div>
+						</div>
+		{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+		{% endif %}
+
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{ name }} .col-card {
+			{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient.css }};
+			{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom.css }};
+			{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{%- endif -%}
+			{% if module.design_settings.card_styles.border.css %}
+			{{ module.design_settings.card_styles.border.css }}
+			{% endif %}
+			{% if module.design_settings.card_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+			{% endif %}
+			{% if module.design_settings.card_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+			{% endif %}
+		}
+		.{{ name }} .card-inner-details {
+			{{ module.design_settings.card_styles.spacing.css }}
+		}
+
+		.{{ name }} .middle-col .middle-image-card {
+			overflow: hidden;
+			position: relative;
+			{% if module.middle_column.column_styles.background == 'custom' %}
+			background-color: {{ module.middle_column.column_styles.background_custom.css }};
+			{% elif module.middle_column.column_styles.background == 'gradient' %}
+			background: linear-gradient({{module.middle_column.column_styles.background_gradient.direction}}, {% for col in module.middle_column.column_styles.background_gradient.color %}{{ col.rgba }}{% if not loop.last %}, {% endif %}{% endfor %});
+			{% elif module.middle_column.column_styles.background is string_containing 'gradient' %}
+			background: var(--{{ module.middle_column.column_styles.background }});
+			{% elif module.middle_column.column_styles.background != 'auto' %}
+			background-color: var(--{{ module.middle_column.column_styles.background }});
+			{% endif %}
+			backdrop-filter: blur({{ module.middle_column.column_styles.backdrop_blur }}px);
+			{% if module.middle_column.column_styles.text_align != 'auto' %}
+			text-align: {{ module.middle_column.column_styles.text_align }};
+			{% endif %}
+			{% if module.middle_column.column_styles.border.style != 'none' %}
+				{% if module.middle_column.column_styles.border.top %}
+				border-top: {{ module.middle_column.column_styles.border.width }}px {{ module.middle_column.column_styles.border.style }} {{ module.middle_column.column_styles.border.color.css }};
+				{% endif %}
+				{% if module.middle_column.column_styles.border.bottom %}
+				border-bottom: {{ module.middle_column.column_styles.border.width }}px {{ module.middle_column.column_styles.border.style }} {{ module.middle_column.column_styles.border.color.css }};
+				{% endif %}
+				{% if module.middle_column.column_styles.border.left %}
+				border-left: {{ module.middle_column.column_styles.border.width }}px {{ module.middle_column.column_styles.border.style }} {{ module.middle_column.column_styles.border.color.css }};
+				{% endif %}
+				{% if module.middle_column.column_styles.border.right %}
+				border-right: {{ module.middle_column.column_styles.border.width }}px {{ module.middle_column.column_styles.border.style }} {{ module.middle_column.column_styles.border.color.css }};
+				{% endif %}
+			{% endif %}
+			{% if module.middle_column.column_styles.border.radius %}
+			border-radius: {{ module.middle_column.column_styles.border.radius }}px;
+			{% endif %}
+			{% if module.middle_column.column_styles.shadow %}
+			box-shadow: {{ module.middle_column.column_styles.horizontal }}px {{ module.middle_column.column_styles.vertical }}px {{ module.middle_column.column_styles.blur }}px {{ module.middle_column.column_styles.spread }}px {{ module.middle_column.column_styles.color.css }};
+			{% endif %}
+		}
+
+		.{{ name }} .middle-col .middle-image-card:after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: {{ module.middle_column.column_styles.background_overlay_color.css }};
+			pointer-events: none;
+		}
+
+		.{{ name }} .middle-col .middle-content {
+			{% if module.middle_column.column_styles.padding %}
+			padding: {{ module.middle_column.column_styles.padding.top }}px {{ module.middle_column.column_styles.padding.right }}px {{ module.middle_column.column_styles.padding.bottom }}px {{ module.middle_column.column_styles.padding.left }}px;
+			{% endif %}
+			justify-content: {{ module.middle_column.content_align }};
+		}
+	</style>
+	{% end_require_css %}
+{% endif %}

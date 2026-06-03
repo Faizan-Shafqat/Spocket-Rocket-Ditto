@@ -1,0 +1,40 @@
+
+.sr-tabs-horizontal-02 .tab-nav button {
+	cursor: pointer;
+	font-weight: 700;
+	padding: .3rem .5rem;
+	text-decoration: none;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: var(--bg, none);
+	border: none;
+	width: 100%;
+}
+
+.nav-link svg {
+    opacity: 0;
+	transition: all .15s ease-in-out;
+}
+
+.nav-link.active svg,
+.nav-link:hover svg {
+    opacity: 1;
+}
+
+.sr-tabs-horizontal-02 .tab-nav .active {
+	background: var(--bg-active, #dedede);
+}
+
+.sr-tabs-horizontal-02 .nav {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	transition: all .15s ease-in-out;
+	position: sticky;
+	top: 6.25rem;
+}
+
+.sr-tabs-horizontal-02>.row {
+    margin-top: 0;
+}

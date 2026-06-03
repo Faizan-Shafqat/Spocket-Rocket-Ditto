@@ -1,0 +1,9 @@
+# Copy to hubspot.config.yml and add your real portal + Personal Access Key
+# (HubSpot: Settings -> Integrations -> Private apps / Legacy API, or the CLI `hs auth` flow)
+
+defaultPortal: my-portal
+portals:
+  - name: my-portal
+    portalId: 0000000
+    authType: personalaccesskey
+    personalAccessKey: YOUR_PERSONAL_ACCESS_KEY

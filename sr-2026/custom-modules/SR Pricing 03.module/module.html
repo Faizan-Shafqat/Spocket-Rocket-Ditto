@@ -1,0 +1,127 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-pricing-03 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					{% if module.heading || module.description %}
+					<div class="text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} sr-spacer-bottom-50">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">
+							{{ module.description}}
+						</div>
+						{% endif %}
+					</div>
+					{% endif %}
+          {% if module.show_price_toggle %}
+          <div class="pricing-toggle text-{{ module.design_settings.text_color }}">
+            <span>{{ module.label_1 }}</span>
+            <div class="pricing-toggle__checkbox">
+              <input type="checkbox" />
+              <div class="pricing-toggle__button"></div>
+            </div>
+            <span>{{ module.label_2 }}</span>
+          </div>
+          {% endif %}
+					<div class="row align-items-center flex-column-reverse flex-lg-row">
+						<div class="col-md-12">
+							<div class="cards card-row cards-{{module.column|length}}">
+								{% for item in module.column %}
+                <div class="card-container sr-repeater-{{ loop.index }}">
+                  {% if item.recommended %}
+                  <div class="card__header small">Recommended</div>
+                  {% endif %}
+                  <div class="card col-auto {% if item.background_option == 'color' %}bg-{{ item.background_color }}{% endif %} text-{{ item.text_color }}">
+                    <div class="pricing-name h6">{{ item.pricing_name }}</div>
+                    {% if item.price %}<h3 class="h1 {{'mb-3' if item.description else 'mb-0' }}"><span class="pricing-text--active pricing-text">{{ item.price }}</span><span class="pricing-text">{{ item.annual_price }}</span></h3>{% endif %}
+                    {% if item.description %}<div class="description">{{ item.description }}</div>{% endif %}
+                    <ul class="feature-list">
+                      {% for item2 in item.features %}
+                      <li>
+                        {% if item2.icon.icon_type != 'none' %}
+                        <div role="presentation">
+                          {% if item2.icon.icon_type == 'icon' %}
+                          <span class="icon-icon{{ ' p-0' if item2.icon.icon_background.opacity == 0 }}" style="--icon-width: {{ item2.icon.icon_size|default(18) ~ 'px' }}; --icon-color: {{ item2.icon.icon_color.css || 'var(--primary)' }}; {% if item2.icon.icon_background.opacity != 0 %} --icon-background: {{ item2.icon.icon_background.css }};{% endif %}">
+                            {% icon
+                              name="{{ item2.icon.icon.name }}"
+                              style="{{ item2.icon.icon.type }}"
+                              unicode="{{ item2.icon.icon.unicode }}"
+                              icon_set="{{ item2.icon.icon.icon_set }}"
+                              no_wrapper=true
+                            %}
+                          </span>
+                          {% elif item2.icon.icon_type == 'custom' %}
+                          <span class="icon-custom" style="--icon-width: {{ item2.icon.icon_size|default(18) ~ 'px' }};">
+                            {{ item2.icon.html }}
+                          </span>
+                          {% else %}
+                          <span class="icon-image" style="--icon-width: {{ item2.icon.image.width }}px">
+                            {{ macros.image(item2.icon.image) }}
+                          </span>
+                          {% endif %}
+                        </div>
+                        {% endif %}
+                        {{ item2.feature }}
+                      </li>
+                      {% endfor %}
+                    </ul>
+                    {% if item.enable_secondary_button == true %}
+                    {{ macros.cta(item.ctas, 'btn-block pricing-cta-1 pricing-cta-1--active') }}
+                    {{ macros.cta(item.cta_2, 'btn-block pricing-cta-2 pricing-cta-2--inactive') }}
+                    {% else %}
+                    {{ macros.cta(item.ctas, 'btn-block') }}
+                    {% endif %}
+                  </div>
+                </div>
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+
+					{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+    {% for item in module.column %}
+    .{{ name }} .sr-repeater-{{ loop.index }} .card__header {
+      background-color: {{ item.recommended_background_color.css }};
+      color: {{ item.recommended_text_color.css }};
+    }
+    .{{ name }}  .sr-repeater-{{ loop.index }} .card {
+      {% if item.background_option == 'gradient' %}
+      background: linear-gradient(90deg, {{ item.background_gradient_from.css }} 0%, {{ item.background_gradient_to.css }});
+      {% elif item.background_option == 'custom' %}
+      background-color: {{ item.background_custom.css }};
+      {% endif %}
+    }
+    {% endfor %}
+    .{{ name }}  .pricing-toggle__checkbox {
+      background-color: {{ module.toggle_bar_color.css }};
+    }
+    .{{ name }} .pricing-toggle__button {
+      background-color: {{ module.toggle_color.css }};
+    }
+	</style>
+	{% end_require_css %}
+{% endif %}

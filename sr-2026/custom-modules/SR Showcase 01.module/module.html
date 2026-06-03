@@ -1,0 +1,140 @@
+{% if module.enabled %}
+
+{% import "../../templates/macros.html" as macros %}
+
+  {% set width_class =
+    module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+    module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+    module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+    'col-md-12'
+  %}
+
+
+<div class="sr-showcase {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %}" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %}>
+  <div class="{{ module.design_settings.layout }}">
+    <div class="row">
+      <div class="{{ width_class }}">
+
+        {% if module.heading || module.description %}
+        <div class="sr-spacer-bottom-50 {{ macros.text_align(module.design_settings) }} {% if module.design_settings.text_color != 'auto' %}text-{{ module.design_settings.text_color }}{% endif %}">
+          {{ macros.heading(module.heading) }}
+
+          {% if module.description %}
+          <div class="section-description {% if module.lead_text %}lead{% endif %}">{{ module.description }}</div>
+          {% endif %}
+        </div>
+        {% endif %}
+
+        <div class="row justify-content-center">
+          {% for item in module.item %}
+          <div class="col-lg-4 col-md-6 showcase-col {% for item2 in item.card.filter %} {{ item2|lower|replace(" ","")|replace("/","") }} {% endfor %}">
+            <div class="showcase-card {% if item.card.scroll %}scroll{% endif %}">
+              <a data-toggle="modal" data-target="#{{ item.card.title|lower|replace(" ","")|regex_replace("[ˆ0-9]","a")|regex_replace("[?,.!@$%&*^<>;:]", "") }}">
+                <div class="showcase-image">
+                  {{ macros.image(item.card.background) }}
+                  <span class="button-text text-white">{{ item.card.button_text }}</span>
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+        {% if module.ctas %}
+        <div class="row justify-content-center">
+          <div class="col">
+            <div class="text-center sr-spacer-top-50">
+              {{ macros.cta(module.ctas) }}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+
+  {% for item in module.item %}
+  <div class="modal fade sr-modal" id="{{ item.card.title|lower|replace(" ","")| regex_replace("[ˆ0-9]","a")|regex_replace("[?,.!@$%&*^<>;:]", "") }}" tabindex="-1" role="dialog" aria-labelledby="{{ item.card.title|lower|replace(" ","") }}Title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style=" max-width: 900px;">
+      <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
+                <rect width="5.66501" height="28.2758" transform="matrix(0.707109 -0.707105 0.707109 0.707105 0.355225 4.00562)" fill="black"></rect>
+                <rect width="5.66501" height="28.2758" transform="matrix(0.707109 0.707105 -0.707109 0.707105 20.3491 0)" fill="black"></rect>
+            </svg>
+          </span>
+        </button>
+        <div class="modal-body ">
+
+          <div class="blaze-slider showcase-slider">
+            <div class="blaze-container">
+              <button aria-label="Previous Slide" type="button" class="blaze-arrow blaze-prev chevron-left">{% icon name="chevron-left" style="SOLID" unicode="f053" icon_set="fontawesome-5.14.0" width="12" height="12" no_wrapper=true %}</button>
+              <div class="blaze-track-container">
+                <div class="blaze-track">
+                  {% for item2 in item.modal.image %}
+                    <div>
+                      {{ macros.image(item2) }}
+                    </div>
+                    {% endfor %}
+                </div>
+              </div>
+              <button aria-label="Next Slide" type="button" class="blaze-arrow blaze-next chevron-right">{% icon name="chevron-right" style="SOLID" unicode="f054" icon_set="fontawesome-5.14.0" width="12" height="12" no_wrapper=true %}</button>
+            </div>
+          </div>
+
+          <div class="showcase-modal-content text-dark">
+            <div class="showcasecontent">
+              <div class="row">
+                <div class="col-lg-7">
+                  <h3 class="mb-0">
+                    {{ item.modal.title }}
+                  </h3>
+                  <div>
+                    {{ item.modal.rich_text }}
+                  </div>
+
+                  {% if item.modal.tag|length != 0 %}
+                  <h6 class="mb-0">{{item.modal.text}}</h6>
+                  <div class="industry-container">
+                  {% for item2 in item.modal.tag %}
+                  <span class="industry">{{ item2 }}</span>
+                  {% endfor %}
+                  </div>
+                  {% endif %}
+
+                </div>
+                <div class="col-lg-4 offset-lg-1 text-left text-lg-right align-items-start align-items-lg-end pt-3 pt-lg-0 flex-column-reverse flex-lg-column">
+                  {{ macros.cta(item.modal.ctas2) }}
+                  {% if item.modal.features|length != 0 %}
+                  <div class="features-container d-flex flex-column" style="gap: 1rem;">
+                    <h6 class="mb-0">{{item.modal.text2}}</h6>
+                    <div class="industry-container">
+                    {% for item2 in item.modal.features %}
+                    <span class="industry">{{ item2 }}</span>
+                    {% endfor %}
+                    </div>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% require_css %}
+<style type="text/css">
+  {{ macros.design_settings(name, module.design_settings) }}
+</style>
+{% end_require_css %}
+
+{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+{{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+
+{% endif %}

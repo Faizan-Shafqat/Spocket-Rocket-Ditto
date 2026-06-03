@@ -1,0 +1,112 @@
+
+{% if module.enabled %}
+
+    {% import "../../templates/macros.html" as macros %}
+    
+    <div class="sr-video-slider-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+    
+        {{ macros.module_bg_video(module) }}
+    
+        <div class="container silder-container slides-{{ module.slides|length }}">
+            <div class="row">
+                <div class="col-md-12">
+    
+                    {% if module.heading ||  module.description %}
+                    <div class="sr-spacer-bottom-75">
+                        {{ macros.heading(module.heading) }}
+    
+                        {% if module.description %}
+                            <div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+    
+                    <div class="splide slider" data-autoplay="{{ module.autoplay }}" data-autoplayspeed="{{ module.autoplay_speed }}" data-dots="{{ module.dots }}" data-arrows="{{ module.arrows }}" style="--arrows-color:{{module.design_settings.slide_styles.arrows_color.css}};--dots-color:{{module.design_settings.slide_styles.dots_color.css}};--dots-color-default:{{module.design_settings.slide_styles.dots_color_default.css}};--min-height:50px">
+                        {% if module.arrows %}
+                        <div class="splide__arrows">
+                            <button aria-label="Previous Slide" type="button" class="splide__arrow splide__arrow--prev chevron-left">{{macros.icon(module.design_settings.slide_styles.arrow_left_icon, 10)}}</button>
+                            <button aria-label="Next Slide" type="button" class="splide__arrow splide__arrow--next chevron-right">{{macros.icon(module.design_settings.slide_styles.arrow_right_icon, 10)}}</button>
+                        </div>
+                        {% endif %}
+
+       	                <div class="splide__track">
+                            <div class="splide__list">
+                                {% for item2 in module.slides %}
+                                <div class="splide__slide all {{ item2.filters }} video-slide">
+
+                                    <div class="slide-image position-relative overflow-hidden">
+                                        <div class="scaler">
+                                            <button type="button" class="playBtn" data-toggle="modal" data-target="#videoModal-{{ name }}" data-theVideo="{{ item2.video }}" aria-label="Play Video" title="Play Video">
+                                                <span class="icon-wrapper bg-primary" aria-hidden="true">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="21" viewBox="0 0 16 21" fill="none">
+                                                        <path d="M15.284 10.088L0.784 0.0879905C0.6305 -0.0175095 0.4315 -0.0285095 0.2675 0.0569905C0.103 0.143491 0 0.313491 0 0.499491V20.4995C0 20.6855 0.103 20.856 0.2675 20.9425C0.3405 20.9805 0.4205 20.9995 0.5 20.9995C0.5995 20.9995 0.6985 20.9695 0.784 20.911L15.284 10.911C15.4195 10.8175 15.5 10.664 15.5 10.4995C15.5 10.335 15.419 10.1815 15.284 10.088Z" fill="white"/>
+                                                    </svg>
+                                                </span>
+                                            </button>
+
+                                            <video class="slider-video" muted data-src="{{ item2.video }}">
+                                            </video>
+
+                                            {{ macros.image(item2.image) }}
+                                        </div>
+
+                                        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+                                    </div>
+
+                                    <div class="text-center caption">
+                                        {% if item2.description %}
+                                            <div class="description{% if item2.lead_text %} lead{% endif %}">{{ item2.description}}</div>
+                                        {% endif %}
+                                        {{ macros.cta(item2.ctas, 'sr-spacer-top-50') }}
+                                    </div>
+
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        {% if module.dots %}
+                        <div class="splide__pagination"></div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+    
+        <div class="modal fade" id="videoModal-{{ name }}" tabindex="-1" role="dialog" aria-labelledby="videoModal-{{ name }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" style="max-width: 1080px;">
+                <div class="modal-content" style="background-color: transparent">
+                    <div class="modal-body">
+                        <button type="button" class="close bg-primary" data-dismiss="modal" role="button" aria-label="Close Video" tabindex="0" title="Close video modal">
+                            <span role="presentation">&times;</span>
+                        </button>
+                        <div class="d-flex overflow-hidden" style="border-radius: var(--border_radius)">
+                            <video class="modal-video" controls>
+                                <source type="video/mp4">
+                                Your browser does not support HTML video.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    
+    </div>
+    
+    {{ require_css(get_asset_url('../../css/splide.css')) }}
+    {{ require_js(get_asset_url('../../js/splide.js'), { position: 'head', defer: true }) }}
+    {% require_css %}
+    <style>
+        {{ macros.design_settings(name, module.design_settings) }}
+
+        .{{name}} .slider .splide__slide.is-active :is(.scaler, video, img) {
+            border-radius: {{ module.design_settings.slide_border_radius }}px;
+        }
+    </style>
+    {% end_require_css %}
+    
+    {% endif %}

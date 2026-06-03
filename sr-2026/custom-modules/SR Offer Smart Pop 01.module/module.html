@@ -1,0 +1,64 @@
+{% if module.enabled %}
+
+	{% if is_in_editor %}
+	<div class="hs-placeholder mb-0">
+		<div class="hs-placeholder__inner">
+			<h4 class="hs-placeholder__title py-4">SR Offer Smart Pop 01</h4>
+		</div>
+	</div>
+	{% endif %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		{% if module.tease_image %}
+		.{{ name }} .smart-pop-img {
+			transform: translateY(-50%);
+			-webkit-transition: transform 0.5s ease;
+			-o-transition: transform 0.5s ease;
+			transition: transform 0.5s ease;
+		}
+		.{{ name }}.up .smart-pop-img {
+			transform: translateY(-0%);
+		}
+		{% endif %}
+		</style>
+	{% end_require_css %}
+
+	<div data-once="{{ module.open_once }}" data-timer="{{ module.auto_show_timer }}" class="sr-offer-smart-pop-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		<div class="row">
+			<div class="col-md-12 text-center smart-pop-open-wrapper">
+				<div class="smart-pop-open font-weight-bold">{{module.popup_teaser}}</div>
+				<div class="smart-pop-close">x</div>
+			</div>
+		</div>
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					<div class="smart-pop-content d-md-flex text-md-left align-items-center">
+						{% if module.popup_image.src %}
+							<div class="smart-pop-img">
+								{{ macros.image(module.popup_image) }}
+							</div>
+						{% endif %}
+						{{ macros.form(module.form, false, true, 'Download Now') }}
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

@@ -1,0 +1,113 @@
+{% if module.enabled %}
+
+    {% import "../../templates/macros.html" as macros %}
+    
+    {% require_css %}
+    <style>
+        {{ macros.design_settings(name, module.design_settings) }}
+        .tooltip-{{ name }} .tippy-box[data-theme~='custom'] {
+            {{ module.design_settings.tooltip_styles.spacing.css }};
+            {%- if module.design_settings.tooltip_styles.background_color == "gradient" -%}
+            background: {{ module.design_settings.tooltip_styles.background_gradient.css }};
+            {%- elif module.design_settings.tooltip_styles.background_color == "custom" -%}
+            background-color: {{ module.design_settings.tooltip_styles.background_custom.css }};
+            {%- elif module.design_settings.tooltip_styles.background_color != "auto" -%}
+            background-color: var(--{{ module.design_settings.tooltip_styles.background_color }});
+            {%- endif -%}
+            {%- if module.design_settings.tooltip_styles.text_color == "custom" %}
+            color: {{ module.design_settings.tooltip_styles.text_color_custom.css }};
+            {%- endif -%}
+            {% if module.design_settings.tooltip_styles.border.css %}
+            {{ module.design_settings.tooltip_styles.border.css }};
+            {% endif %}
+            {% if module.design_settings.tooltip_styles.border_radius >= 0 %}
+            border-radius: {{ module.design_settings.tooltip_styles.border_radius }}px;
+            {% endif %}
+            {% if module.design_settings.tooltip_styles.shadow %}
+            box-shadow: {{ "inset" if module.design_settings.tooltip_styles.inset }} {{ module.design_settings.tooltip_styles.horizontal ~ "px" }} {{ module.design_settings.tooltip_styles.vertical ~ "px" }} {{ module.design_settings.tooltip_styles.blur ~ "px" }} {{ module.design_settings.tooltip_styles.spread ~ "px" }} {{ module.design_settings.tooltip_styles.color.css }};
+            {% endif %}
+        }
+        {% if module.tooltip_settings.arrow %}
+        .tooltip-{{ name }} .tippy-arrow {
+            {%- if module.design_settings.tooltip_styles.background_color == "custom" -%}
+            color: {{ module.design_settings.tooltip_styles.background_custom.css }};
+            {%- elif module.design_settings.tooltip_styles.background_color != "auto" -%}
+            color: var(--{{ module.design_settings.tooltip_styles.background_color }});
+            {%- endif -%}
+        }
+        {% endif %}
+    </style>
+    {% end_require_css %}
+    
+    {% set width_class =
+        module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+        module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+        module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+        'col-md-12'
+    %}
+    
+    <div class="sr-image-hotspot-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background {% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }} data-module-id="{{ name }}"
+        data-arrow="{{ module.tooltip_settings.arrow }}"
+        data-animation="{{ module.tooltip_settings.animation }}"
+        data-duration="{{ module.tooltip_settings.duration }}"
+        data-width="{{ module.design_settings.tooltip_styles.width }}"
+        {% if module.edit_mode %}data-edit-mode="true"{% endif %}
+        >
+        <div class="{{ module.design_settings.layout }} position-relative">
+            {% if module.design_settings.container_width != 'max' %}
+            <div class="row">
+                <div class="{{ width_class }}">
+                    {% endif %}
+                    <div class="main-image" style="--image_overlay_color:{{module.image_overlay_color.css}}">
+                        {{ macros.image(module.image) }}
+                    </div>
+                    {% for point in module.points %}
+                    <button type="button" class="point" 
+                        data-index="{{ loop.index }}" 
+                        style="{% if point.icon.icon_type == "image" || point.icon.icon_type == "svg" %}--icon-width: {{point.icon.icon_size|default(18) ~ 'px'}}{% else %}--icon-width: {{ point.icon.icon_size|default(18) ~ 'px' }}{% endif %}; --x: {{ point.x_coordinates }}%; --y: {{ point.y_coordinates }}%; bottom:calc({{ point.y_coordinates }}% - var(--icon-width)/2);left: calc({{ point.x_coordinates }}% - var(--icon-width)/2);" 
+                        data-placement="{{ point.placement }}">
+                        <div class="point__icon point__icon-{{ loop.index }}" style="--icon-color: {{ point.icon.icon_color.css || 'var(--primary)' }}; {% if point.icon.icon_background.opacity != 0 %} --icon-background: {{ point.icon.icon_background.css }};{% endif %}{% if point.icon.icon_background_hover.opacity != 0 %} --icon-background-hover: {{ point.icon.icon_background_hover.css }};{% endif %}">
+                            {% if point.icon.icon_type == "icon" %}
+                            <span class="icon{{ ' p-0' if point.icon.icon_background.opacity == 0 }}">
+                                {{ macros.icon(point.icon.icon) }}
+                            </span>
+                            {% elif point.icon.icon_type == "image" %}
+                            <span class="icon-image" style="--image-width: {{ point.icon.image.width }}px">
+                                {{ macros.image(point.icon.image) }}
+                            </span>
+                            {% else %}
+                            <span class="icon-custom">
+                                {{ point.icon.svg_code }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        
+                        {% if module.edit_mode %}
+                        <div class="coordinate-display">
+                            <p>X:<span class="x-coordinate">0</span>%</p>
+                            <p>Y:<span class="y-coordinate">0</span>%</p>
+                        </div>
+                        {% endif %}
+                        
+                        <div class="point__tooltip">
+                            <div class="text-{{ module.design_settings.tooltip_styles.text_color }} {{ macros.text_align(module.design_settings.tooltip_styles) }}">
+                                {% if point.heading || point.content %}
+                                {{ macros.heading(point.heading) }}
+                                {% if point.content %}
+                                <div class="col-content{% if point.lead_text %} lead{% endif %}">{{ point.content }}</div>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </button>
+                    {% endfor %}
+                    {% if module.design_settings.container_width != 'max' %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    {{ require_css(get_asset_url('../../css/tippy.css')) }}
+    {{ require_js(get_asset_url('../../js/tippy.js'), { position: 'head', defer: true }) }}
+{% endif %}

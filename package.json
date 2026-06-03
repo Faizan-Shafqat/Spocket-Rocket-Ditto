@@ -1,0 +1,30 @@
+{
+  "name": "spocket-rocket-ditto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "convert-theme.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "dev:stable": "node server.js",
+    "upload-sr-theme": "node scripts/hubspot-upload-sr2026-new-folder.cjs",
+    "upload-my-theme": "npx --yes -p @hubspot/cli@8.4.0 hs cms upload my-theme /my-theme",
+    "sync-client-hero": "node scripts/sync-client-hero-into-theme.js",
+    "prepare-client-theme": "node scripts/clone-sr-2026-to-client-delivery.js",
+    "graph:d3": "node scripts/graphml-to-d3-graph.cjs",
+    "ingest:lightrag": "node scripts/lightrag-ingest.js",
+    "distill:sr-modules": "node scripts/distill-sr-modules.js",
+    "lightrag:server": "lightrag-server"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "node-fetch": "^3.3.2"
+  }
+}

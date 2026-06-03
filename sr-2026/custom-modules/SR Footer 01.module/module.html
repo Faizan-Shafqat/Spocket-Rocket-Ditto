@@ -1,0 +1,234 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set footer_options = module.design_settings.footer_options %}
+	{% set col_layout = footer_options.col_layout %}
+	{% set logo_align = footer_options.logo_alignment %}
+	{% set menu_align = footer_options.menu_alignment %}
+	{% set menu_text = footer_options.menu_text_alignment %}
+	{% set menu_layout = footer_options.menu_layout %}
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.sr-footer-01 .button__container {
+				{% if module.btt_button.button_color == 'custom' %}
+				background-color: {{macros.color(module.btt_button.button_custom)}};
+				{% endif %}
+				{% if module.btt_button.icon_color == 'custom' %}
+				background-color: {{macros.color(module.btt_button.icon_custom)}}
+				{% endif %}
+			}
+			{% if module.copyright %}
+			.{{ name }} .row.sr-spacer-bottom-50  {
+				margin-bottom: 1.5rem;
+				border-bottom: 1px solid {{ module.design_settings.border_color.css }};
+			}
+			{% endif %}
+			.{{ name }} .sr-footer-nav li a {
+				{% if module.design_settings.text_color != 'auto' %}
+				color: inherit;
+				{% endif %}
+			}
+			.{{ name }} .sr-footer-nav .hs-menu-depth-1 > a,
+			.{{ name }} .sr-footer-nav li a,
+			.{{ name }} .footer-copyright p a {
+				{% if module.design_settings.text_color == 'light' %}
+				color: #fff;
+				{% elif module.design_settings.text_color == 'custom' %}
+				color: {{ macros.color(module.design_settings.text_color_custom)}};
+				{% endif %}
+			}
+			.{{ name }} .sr-footer-nav li a:hover,
+			.{{ name }} .footer-copyright p a:hover {
+				{% if module.design_settings.text_color == 'custom' %}
+				color: {{ macros.color(module.design_settings.link_hover_color)}};
+				{% endif %}
+			}
+			.{{ name }} .sr-footer-nav .hs-menu-depth-1 > a {
+				{% if module.design_settings.text_color == 'auto' || module.design_settings.text_color == 'black' %}
+				color: #000;
+				{% elif module.design_settings.text_color == 'custom' %}
+				color: {{ macros.color(module.design_settings.top_link_color) }} !important;
+				{% endif %}
+			}
+			{% if menu_layout == 'multi_column' %}
+			@media (max-width: 991px){
+				.sr-footer-01 .sr-footer-nav .hs-menu-wrapper > ul {
+					display: flex;
+					flex-wrap: wrap;
+				}
+				.sr-footer-01 .sr-footer-nav .hs-menu-depth-1 {
+					padding: 0 1rem;
+				}
+				.sr-footer-01 .sr-footer-nav .hs-menu-wrapper>ul {
+					column-gap: 0;
+				}
+			}
+			{% elif menu_layout == 'single_column'%}
+			@media (max-width: 991px){
+				.sr-footer-01 .sr-footer-nav .hs-menu-wrapper > ul {
+					display: flex;
+					flex-direction: column;
+				}
+			}
+			{% endif %}
+			@media only screen and (min-width: 992px) {
+				.sr-footer-01 .sr-footer-nav .hs-menu-wrapper > ul {
+					justify-content: {{ menu_align }};
+				}
+			}
+			{% for item2 in module.social_icons %}
+			.sr-footer-01 .social .icon-{{loop.index}},
+			.sr-footer-01 .social .icon-{{loop.index}} svg,
+			.sr-footer-01 .social .icon-{{loop.index}} svg g,
+			.sr-footer-01 .social .icon-{{loop.index}} svg g path {
+				background-color: {{ item2.background_color.color }};
+				color: {{ item2.icon_color.css }};
+				fill: {{item2.icon_color.css}}
+			}
+			{% endfor %}
+		</style>
+	{% end_require_css %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+
+<footer class="sr-footer sr-footer-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+	{{ macros.module_bg_video(module) }}
+
+	<div class="sr-footer-nav">
+		<div class="{{ module.design_settings.layout }}">
+
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+					{% endif %}
+
+					<div class="row sr-spacer-bottom-50">
+						<div class="d-flex flex-column {{logo_align}} {% if col_layout == 'one_col'%}col-md-12 order-md-1 {% elif col_layout == 'logo_menu'%}col-md-3 order-md-1{% elif col_layout == 'menu_logo' %}col-md-3 order-md-2{% endif %} mb-md-0 mb-5">
+							{% set href = module.logo_link.url.href %}
+							{% if module.logo_link.url.type is equalto "EMAIL_ADDRESS" %}
+							{% set href = "mailto:" + href %}
+							{% endif %}
+							{% set rel = [] %}
+							{% if module.logo_link.no_follow %}
+							{% do rel.append("nofollow") %}
+							{% endif %}
+							{% if module.logo_link.open_in_new_tab %}
+							{% do rel.append("noopener") %}
+							{% endif %}
+
+							{% if module.logo_link.url.href %}
+							<a {{ macros.link(module.logo_link) }} role="link" aria-label="{{module.logo.alt}}'s link {{ ' (Opens in new tab)' if module.logo_link.open_in_new_tab }}">
+							{% endif %}
+								{{ macros.image( module.logo) }}
+							{% if module.logo_link.url.href %}
+							</a>
+							{% endif %}
+
+							{% if module.heading %}
+							<div class="footer-slogan pt-2">
+								{{ macros.heading(module.heading) }}
+							</div>
+							{% endif %}
+
+							{% if module.social_icons[0] %}
+							<ul class="social {% if !module.heading %}sr-spacer-top-25{% endif %}">
+								{% for item2 in module.social_icons %}
+								<li>
+									<a class="no-decoration" {{ macros.link(item2.link) }} role="link" aria-label="{{ item2.link.aria_label }}{{ ' (Opens in new tab)' if item2.link.open_in_new_tab }}">
+										{% if item2.type == "icon" %}
+										<span class="icon-{{loop.index}}" aria-hidden="true">
+											{% icon
+													name="{{ item2.icon.name }}"
+													style="{{ item2.icon.type }}"
+													unicode="{{ item2.icon.unicode }}"
+													icon_set="{{ item2.icon.icon_set }}"
+													height="16"
+													no_wrapper=true
+												%}
+										</span>
+										{% elif item2.type == "image" %}
+										{{ macros.image(item2.custom_icon) }}
+										{% endif %}
+									</a>
+								</li>
+								{% endfor %}
+							</ul>
+							{% endif %}
+						</div>
+
+						<div class="{% if col_layout == 'one_col'%}col-md-12 order-md-2 {% elif col_layout == 'logo_menu'%}col-md-9 order-md-2{% elif col_layout == 'menu_logo' %} col-md-9 order-1 {% endif %}">
+							{% if hub_id == 123 || !module.menu %}
+							<nav id="hs_cos_wrapper_module_1494607248582_footer" class="hs_cos_wrapper hs_cos_wrapper_module hs_cos_wrapper_type_menu" style="" data-hs-cos-general-type="module" data-hs-cos-type="menu" aria-label="Footer Navigation">
+								<div id="hs_menu_wrapper_module_1494607248582_footer" class="hs-menu-wrapper active-branch flyouts hs-menu-flow-horizontal" role="navigation" data-sitemap-name="sprocket-rocket footer">
+									<ul class="justify-content-{{menu_align}}" role="menu">
+										<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none">
+											<a href="javascript:;" role="menuitem">Home</a>
+											<ul class="hs-menu-children-wrapper" role="menu">
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Company</a></li>
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Team</a></li>
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Careers</a></li>
+											</ul>
+										</li>
+										<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none">
+											<a href="javascript:;" role="menuitem">Work</a>
+											<ul class="hs-menu-children-wrapper" role="menu">
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Design Portfolio</a></li>
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Case Studies</a></li>
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Pricing</a></li>
+											</ul>
+										</li>
+										<li class="hs-menu-item hs-menu-depth-1 hs-item-has-children" role="none">
+											<a href="javascript:;" role="menuitem">Resources</a>
+											<ul class="hs-menu-children-wrapper" role="menu">
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Content Marketing</a></li>
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Contact</a></li>
+												<li class="hs-menu-item hs-menu-depth-2" role="none"><a href="javascript:;" role="menuitem">Blog</a></li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</nav>
+							{% else %}
+							{% menu id="{{ module.menu }}" %}
+							{% endif %}
+						</div>
+					</div>
+
+					{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+
+	{% if module.copyright %}
+	<div class="footer-copyright {{ module.design_settings.layout }}">
+		<div class="row no-gutters">
+			<div class="col-md-12 text-md-center">
+				<div class="{% if module.design_settings.text_color != 'auto' %}text-{{ module.design_settings.text_color }} {% endif %}">
+					<div class="small">{{module.copyright}}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endif %}
+
+	{% if module.back_to_top %}
+	<a role="button" href="{{module.btt_button.page_target}}" class="button__container bg-{{module.btt_button.button_color}} text-{{module.btt_button.icon_color}}" aria-label="Back to top button">
+		{% icon name="{{ module.btt_button.icon.name }}" style="{{ module.btt_button.icon.type }}" unicode="{{ module.btt_button.icon.unicode }}" icon_set="{{ module.btt_button.icon.icon_set }}" width="15" no_wrapper=true %}
+	</a>
+	{% endif %}
+
+</footer>
+{% endif %}

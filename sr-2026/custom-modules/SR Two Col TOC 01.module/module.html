@@ -1,0 +1,264 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{%- macro escapeString(string)  -%}
+	{{ string|lower
+	|replace(" ", "-")
+	|regex_replace("[\\\\|?,.!@#$%&*^<>;:/]", "")
+	}}
+	{%- endmacro -%}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-two-col-toc-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+					{% endif %}
+
+					<div class="toc row">
+
+						<div class="mobile-toc-dropdown d-lg-none">
+							<div class="mobile-toc-current">
+								<span class="current-section-title text-{{ module.design_settings.card_styles.text_color }}">{{ module.section[0].title }}</span>
+								<div class="mobile-toc-current-icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M8.82082 0L5 3.82082L1.17918 0L0 1.17914L5 6.17914L10 1.17914L8.82082 0Z" fill="#333333"/>
+									</svg>
+								</div>
+							</div>
+							<div class="mobile-toc-menu">
+								<ul>
+									{% for item in module.section %}
+									<li>
+										<a class="text-{{ module.design_settings.card_styles.text_color }} nav-item{% if loop.first %} active{% endif %}" href="#{{ escapeString(item.title) }}">{{ item.title }}</a>
+									</li>
+									{% endfor %}
+								</ul>
+							</div>
+						</div>
+
+						<nav class="section-nav d-none d-lg-block {{ macros.col_size(module.columns.left_column) }}">
+							<ul>
+								{% for item in module.section %}
+								<li>
+									<a class="text-{{ module.design_settings.card_styles.text_color }} sr-card{% if loop.first %} active{% endif %}" href="#{{ escapeString(item.title) }}">{{ item.title }}</a>
+								</li>
+								{% endfor %}
+							</ul>
+						</nav>
+						<main class="text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} {{ macros.col_size(module.columns.right_column) }}">
+							{% for item in module.section %}
+							<section {% if !loop.first %}class="sr-spacer-top-50"{% endif %} id="{{ escapeString(item.title) }}">
+								{% for item2 in item.item %}
+								{% if item2.item_type == "image" %}
+								<div class="toc-item toc-image text-{{item2.image_align}}{% if !loop.last %} py-5{% else %} pt-5{% endif %}">
+									{% if item2.image_link.url.href %}
+									<a {{ macros.link(item2.image_link) }} role="link" aria-label="{{item2.col_image.alt}}'s link {{ ' (Opens in new tab)' if item2.image_link.open_in_new_tab }}">
+									{% endif %}
+									{{ macros.image(item2.image) }}
+									{% if item2.image_link.url.href %}
+									</a>
+									{% endif %}
+								</div>
+								{% elif item2.item_type == "video" %}
+								<div class="toc-item toc-video text-center{% if !loop.last %} py-5{% else %} pt-5{% endif %}">
+									{{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+									{{ macros.video(item2.video) }}
+								</div>
+								{% elif item2.item_type == "quote" %}
+								<div class="toc-item toc-quote{% if !loop.last %} py-5{% else %} pt-5{% endif %}">
+									<div class="pt-5">
+										<div class="column-quote d-md-flex">
+
+											<div class="quote-img" style="min-width: {{ item2.quote_image.width ~ "px" }};">
+												{{ macros.image(item2.quote_image) }}
+											</div>
+
+											<div {% if !item2.quote_image.src %}class="no-image"{% endif %}>
+												<div class="quote-name h6 mb-0">
+													{{ item2.quote_name }}
+												</div>
+												<div class="quote-title small">
+													{{ item2.quote_title }}
+												</div>
+
+												<div class="quote-quote mt-2">
+													{{ item2.quote_quote }}
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								{% elif item2.item_type == "rich_text" %}
+								<div class="toc-item toc-text description">
+									{{ item2.rich_text }}
+								</div>
+								{% elif item2.item_type == "html" %}
+								<div class="toc-item toc-html">
+									{{ item2.html }}
+								</div>
+								{% elif item2.item_type == "cta" %}
+								<div class="toc-item toc-cta  text-{{ item2.cta_align }}{% if !loop.last %} py-5{% else %} pt-5{% endif %}">
+								{{ macros.cta(item2.ctas) }}
+								</div>
+								{% endif %}
+								{% endfor %}
+							</section>
+							{% endfor %}
+						</main>
+					</div>
+
+					{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		#hs_cos_wrapper_{{name}} {
+			overflow: unset;
+		}
+		{{ macros.design_settings(name, module.design_settings) }}
+
+		.{{ name }} .section-nav ul {
+			{% if module.design_settings.row_styles.spacing.css -%}
+			{{ module.design_settings.row_styles.spacing.css }}
+			{%- endif -%}
+			{%- if module.design_settings.row_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.row_styles.background_gradient.css }};
+			{%- elif module.design_settings.row_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.row_styles.background_custom.css }};
+			{% elif module.design_settings.row_styles.background_color != "auto" %}
+			background-color: var(--{{ module.design_settings.row_styles.background_color }});
+			{%- endif -%}
+			{% if module.design_settings.row_styles.border.css %}
+			{{ module.design_settings.row_styles.border.css }}
+			{%- endif -%}
+			{% if module.design_settings.row_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.row_styles.border_radius }}px;
+			{%- endif -%}
+			{% if module.design_settings.row_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.row_styles.inset }} {{ module.design_settings.row_styles.horizontal ~ "px" }} {{ module.design_settings.row_styles.vertical ~ "px" }} {{ module.design_settings.row_styles.blur ~ "px" }} {{ module.design_settings.row_styles.spread ~ "px" }} {{ module.design_settings.row_styles.color.css }};
+			{%- endif %}
+			overflow: hidden;
+			{% if module.design_settings.row_styles.enable_gap %}
+			gap: 20px;
+			{% endif %}
+		}
+
+		.{{name}} .mobile-toc-dropdown {
+			{%- if module.design_settings.row_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.row_styles.background_gradient.css }};
+			{%- elif module.design_settings.row_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.row_styles.background_custom.css }};
+			{% elif module.design_settings.row_styles.background_color != "auto" %}
+			background-color: var(--{{ module.design_settings.row_styles.background_color }});
+			{%- endif -%}
+			{% if module.design_settings.row_styles.border.css %}
+			{{ module.design_settings.row_styles.border.css }}
+			{%- endif -%}
+			{% if module.design_settings.row_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.row_styles.border_radius }}px;
+			{%- endif -%}
+			{% if module.design_settings.row_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.row_styles.inset }} {{ module.design_settings.row_styles.horizontal ~ "px" }} {{ module.design_settings.row_styles.vertical ~ "px" }} {{ module.design_settings.row_styles.blur ~ "px" }} {{ module.design_settings.row_styles.spread ~ "px" }} {{ module.design_settings.row_styles.color.css }};
+			{%- endif %}
+			overflow: hidden;
+		}
+
+		.{{name}} .mobile-toc-dropdown .mobile-toc-current {
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			fill: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{% elif module.design_settings.card_styles.text_color != "auto" %}
+			color: var(--{{ module.design_settings.card_styles.text_color }});
+			fill: var(--{{ module.design_settings.card_styles.text_color }});
+			{%- endif -%}
+		}
+
+		.{{ name }} .sr-card {
+			{{ module.design_settings.card_styles.spacing.css }}
+			{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient.css }};
+			{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom.css }};
+			{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{% elif module.design_settings.card_styles.text_color != "auto" %}
+			color: var(--{{ module.design_settings.card_styles.text_color }});
+			{%- endif -%}
+			{% if module.design_settings.card_styles.border.css %}
+			{{ module.design_settings.card_styles.border.css }}
+			{% endif %}
+			{% if module.design_settings.card_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+			{% endif %}
+		}
+
+		.{{ name }} .nav-item {
+			{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient.css }};
+			{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom.css }};
+			{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{% elif module.design_settings.card_styles.text_color != "auto" %}
+			color: var(--{{ module.design_settings.card_styles.text_color }});
+			{%- endif -%}
+		}
+
+		.{{ name }} .sr-card:is(:hover,:focus-within,.active) {
+			{%- if module.design_settings.card_styles.background_color_hover == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient_hover.css }};
+			{%- elif module.design_settings.card_styles.background_color_hover == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom_hover.css }};
+			{%- elif module.design_settings.card_styles.background_color_hover != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color_hover }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color_hover != "auto" %}
+			color: var(--{{ module.design_settings.card_styles.text_color_hover }});
+			{%- elif module.design_settings.card_styles.text_color_hover == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom_hover.css }};
+			{%- endif -%}
+			border-color: rgba({{ module.design_settings.card_styles.border.bottom.color|convert_rgb }}, 0.1);
+		}
+
+		.{{ name }} .nav-item:is(:hover,:focus-within,.active) {
+			{%- if module.design_settings.card_styles.background_color_hover == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient_hover.css }};
+			{%- elif module.design_settings.card_styles.background_color_hover == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom_hover.css }};
+			{%- elif module.design_settings.card_styles.background_color_hover != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color_hover }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color_hover != "auto" %}
+			color: var(--{{ module.design_settings.card_styles.text_color_hover }});
+			{%- elif module.design_settings.card_styles.text_color_hover == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom_hover.css }};
+			{%- endif -%}
+			border-color: rgba({{ module.design_settings.card_styles.border.bottom.color|convert_rgb }}, 0.1);
+		}
+	</style>
+	{% end_require_css %}
+{% endif %}

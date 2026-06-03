@@ -1,0 +1,36 @@
+{
+  "content_tags" : [ {
+    "name" : "ACCORDION",
+    "source" : "USER"
+  }, {
+    "name" : "BUTTONS",
+    "source" : "USER"
+  }, {
+    "name" : "CTA",
+    "source" : "USER"
+  }, {
+    "name" : "LISTS",
+    "source" : "USER"
+  }, {
+    "name" : "CONVERSION",
+    "source" : "USER"
+  }, {
+    "name" : "INTERACTION",
+    "source" : "USER"
+  }, {
+    "name" : "LAYOUT",
+    "source" : "USER"
+  } ],
+  "global" : false,
+  "content_types" : [ "MEMBERSHIP", "LANDING_PAGE", "SITE_PAGE", "CUSTOMER_PORTAL", "BLOG_LISTING", "WEB_INTERACTIVE", "BLOG_POST" ],
+  "inline_help_text" : "<a href='https://docs.sprocketrocket.co/modules/marketplace/pricing-comparison'>Documentation</a><br><br>Created by <a href='https://www.sprocketrocket.co/'>Sprocket Rocket</a>",
+  "js_render_options" : {
+    "defer" : true
+  },
+  "categories" : [ "DESIGN", "FUNCTIONALITY", "COMMERCE" ],
+  "host_template_types" : [ "ANY" ],
+  "module_id" : 210345399087,
+  "label" : "Pricing Comparison",
+  "icon" : "https://www.sprocketrocket.co/hubfs/sr-assets/icons/sr-icon-pricing.svg",
+  "is_available_for_new_content" : true
+}

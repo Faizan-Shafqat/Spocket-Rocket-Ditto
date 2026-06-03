@@ -1,0 +1,15 @@
+@media screen and (min-width: 768px) {
+    .sr-offer-two-col-01 .sr-offer-two-col-01-content {
+        padding-left: 5.625rem;
+        padding-right: 5.625rem;
+    }
+
+    .sr-offer-two-col-01 .sr-offer-two-col-01-content .column-form {
+        max-width: 33.7rem;
+        margin: 0 auto;
+    }
+}
+
+.sr-offer-two-col-01 .sr-offer-two-col-01-content .lead {
+    margin-bottom: 0;
+}

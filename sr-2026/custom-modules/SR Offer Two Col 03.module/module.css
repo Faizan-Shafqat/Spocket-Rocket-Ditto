@@ -1,0 +1,12 @@
+.sr-offer-two-col-03 .sr-form {
+	margin-bottom: -30%;
+	box-shadow: 15px 25px 60px 0px rgb(0 0 0 / 10%);
+	position: relative;
+	z-index: 3;
+}
+
+@media (min-width:992px) {
+	.sr-offer-two-col-03 .sr-form {
+		margin-bottom: -60%;
+	}
+}

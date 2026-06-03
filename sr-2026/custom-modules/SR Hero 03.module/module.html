@@ -1,0 +1,291 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div {{ "data-slider='true'" if module.slides.slides|length > 1 }} class="sr-hero-03 sr-hero-features sr-cover-parallax position-relative overflow-hidden {{ name }} {{ macros.module_background(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{% if module.design_settings.background_option == 'image' %}
+		<div class="sr-cover-image" role="img" aria-label="Hero Background Image"></div>
+		{% endif %}
+		{% if module.design_settings.background_option == 'video' %}
+		<div class="sr-cover-image">
+			{{ macros.module_bg_video(module) }}
+		</div>
+		{% endif %}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+						<div class="sr-cover d-flex align-items-center {% if module.height != 'auto' %}height-{{ module.height if not module_preview else "medium" }}{% else %}{{ macros.padding(module.design_settings) }}{% endif %}">
+							<div class="sr-cover-inner">
+								<div class="row hero-row">
+									<div class="content_col {% if module.slides.slides|length > 0 %}{{ macros.col_size(module.columns.left_column) }}{% else %}col-md-12{% endif %}">
+										{% if module.heading || module.description %}
+										<div {% if module.ctas %}class="sr-spacer-bottom-50"{% endif %}>
+											{{ macros.heading(module.heading) }}
+											{% if module.description %}
+											<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+											{% endif %}
+										</div>
+										{% endif %}
+										{{ macros.cta(module.ctas) }}
+									</div>
+									{% if module.slides.slides|length > 0 %}
+									<div class="slider_col {{ macros.col_size(module.columns.right_column) }} text-{{ module.columns.right_column[0].column_breakpoint }}-right text-center mt-{{ module.columns.right_column[0].column_breakpoint }}-0 mt-5">
+										<div class="blaze-slider sr-hero-features-slick" data-autoplay="{{ module.slides.options.autoplay }}" data-autoplayspeed="{{ module.slides.options.autoplay_speed }}">
+											<div class="blaze-container">
+												<div class="blaze-track-container">
+												<div class="blaze-track">
+													{% for item in module.slides.slides %}
+													<div class="responsive-image hero-img">
+														{{ macros.image(item.slide_image, "style=\"--img-corner: {{ item.image_corner_radius }}px\"") }}
+													</div>
+													{% endfor %}
+												</div>
+												</div>
+												{% if module.slides.options.dot_navigation %}
+												<div class="blaze-pagination"style="--dots-color: {{ module.slides.options.dot_color.css }}; --dots-color-default: {{ module.slides.options.dot_color_default.css }};"></div>
+												{% endif %}
+											</div>
+										</div>
+									</div>
+									{% endif %}
+								</div>
+								{% if module.design_settings.card_styles.position == 'in' %}
+								{% if module.features.features|length > 0 %}
+								<div class="row feature-row features_{{ name }} sr-spacer-top-50">
+									{% for item in module.features.features %}
+									<div class="{{ macros.col_size(module.features.columns) }}">
+										<div class="hero-feature sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}">
+											{{ macros.image(item.image) }}
+											<div class="hero-feature-content description sr-spacer-top-25">
+												{{ item.content }}
+											</div>
+										</div>
+									</div>
+									{% endfor %}
+								</div>
+								{% endif %}
+								{% endif %}
+							</div>
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% if module.design_settings.card_styles.position == 'out' || module.design_settings.card_styles.position == 'overlap' %}
+	{% if module.features.features|length > 0 %}
+	<div class="sr-cover-parallax sr-hero-features {% if module.design_settings.card_styles.position == 'overlap' %}hero-overlap sr-spacer-bottom-50{% else %}sr-spacer-50{% endif %}">
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					<div class="row feature-row features_{{ name }}">
+						{% for item in module.features.features %}
+						<div class="{{ macros.col_size(module.features.columns) }}">
+							<div class="hero-feature sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}">
+								{{ macros.image(item.image) }}
+								<div class="hero-feature-content description sr-spacer-top-25">
+									{{ item.content }}
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	{% endif %}
+	{% endif %}
+
+	{% require_css %}
+	<style>
+		.features_{{ name }} .sr-card {
+			{{ module.design_settings.card_styles.spacing.css }}
+			{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient.css }};
+			{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom.css }};
+			{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{%- endif -%}
+			{% if module.design_settings.card_styles.border.css %}
+			{{ module.design_settings.card_styles.border.css }}
+			{% endif %}
+			{% if module.design_settings.card_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+			{% endif %}
+			{% if module.design_settings.card_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+			{% endif %}
+		}
+		.{{name}} {
+			{%- if module.design_settings.background_option == 'custom' || module.design_settings.background_option == 'image' -%}
+			background-color: {{ macros.color(module.design_settings.background_custom) }};
+			{%- elif module.design_settings.background_option == 'gradient' -%}
+			background: {{ module.design_settings.background_gradient.css }};
+			{%- endif -%}
+			{% if module.design_settings.text_color == 'custom' %}
+			color: {{ macros.color(module.design_settings.text_color_custom) }};
+			{% endif %}
+			{{module.design_settings.border.css}};
+		}
+		.{{name}} .sr-cover-image {
+			position: absolute;
+			width: 100%;
+			{% if module.parallax %}
+			height: 150%;
+			top: -50%;
+			{% else %}
+			height: 100%;
+			top: 0%;
+			{% endif %}
+			{%- if module.design_settings.background_option == 'image' -%}
+			background-image: url({{ resize_image_url(module.design_settings.background_image.src, '1440') }});
+			background-size: {{ module.design_settings.background_image.background_size }};
+			background-position: {{ module.design_settings.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+			{%- endif -%}
+		}
+
+		{% if module.design_settings.background_option == 'image' %}
+			.{{name}}  .sr-cover-image::before {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		{% elif module.design_settings.background_option == 'video' || module.design_settings.responsive_settings.tablet.tablet_background_option == 'video' || module.design_settings.responsive_settings.mobile.mobile_background_option == 'video' %}
+			.{{name}} {
+				position: relative;
+			}
+			.{{name}} .container,
+			.{{name}} .container-fliud {
+				position: relative;
+			}
+			.{{name}} .sr-bg-video-wrapper:after {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+
+			}
+		{% endif %}
+
+		{%- if module.design_settings.background_option == 'image' -%}
+		@media (min-width: 768px) {
+			.{{name}} .sr-cover-image {
+				background-image: url({{ resize_image_url(module.design_settings.background_image.src, '2880') }});
+				{% if module.design_settings.fixed_background %}
+				background-attachment: fixed;
+				{% endif %}
+			}
+		}
+		.{{name}}  .sr-cover-image::before {
+			background-color: {{ macros.color(module.design_settings.background_overlay_color) }};
+		}
+		{%- elif module.design_settings.background_option == 'video' -%}
+		.{{name}} {
+			background-color: {{ macros.color(module.design_settings.background_custom) }}
+		}
+		.{{name}} .sr-bg-video-wrapper:after {
+			background-color: {{ macros.color(module.design_settings.background_overlay_color) }}
+		}
+		{%- endif -%}
+
+
+		{%- if module.design_settings.responsive_settings.tablet.tablet_background_option != "auto" -%}
+		@media(min-width: 768px) and (max-width: 991.99px) {
+			.{{name}} {
+				{%- if module.design_settings.responsive_settings.tablet.tablet_background_option == 'custom' || module.design_settings.responsive_settings.tablet.tablet_background_option == 'image' -%}
+				background-color: {{ macros.color(module.design_settings.responsive_settings.tablet.tablet_background_custom) }};
+				{%- elif module.design_settings.responsive_settings.tablet.tablet_background_option == 'gradient' -%}
+				background: {{ module.design_settings.responsive_settings.tablet.tablet_background_gradient.css }};
+				{%- endif -%}
+			}
+			.{{name}} .sr-cover-image {
+				{%- if module.design_settings.responsive_settings.tablet.tablet_background_option == 'image' -%}
+				background-image: url({{ resize_image_url(module.design_settings.responsive_settings.tablet.tablet_background_image.src, '1440') }});
+				background-size: {{ module.design_settings.responsive_settings.tablet.tablet_background_image.background_size }};
+				background-position: {{ module.design_settings.responsive_settings.tablet.tablet_background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+				{%- endif -%}
+			}
+
+			{%- if module.design_settings.responsive_settings.tablet.tablet_background_option == 'image' -%}
+			.{{name}}  .sr-cover-image::before {
+				background-color: {{ macros.color(module.design_settings.responsive_settings.tablet.tablet_background_overlay_color) }};
+			}
+			{%- elif module.design_settings.responsive_settings.tablet.tablet_background_option == 'video' -%}
+			.{{name}} {
+				background-color: {{ macros.color(module.design_settings.responsive_settings.tablet.tablet_background_custom) }}
+			}
+			.{{name}} .sr-bg-video-wrapper:after {
+				background-color: {{ macros.color(module.design_settings.responsive_settings.tablet.tablet_background_overlay_color) }}
+			}
+			{%- endif -%}
+		}
+		{%- endif -%}
+
+		{%- if module.design_settings.responsive_settings.mobile.mobile_background_option != "auto" -%}
+		@media(max-width: 767.99px) {
+			.{{name}} {
+				{%- if module.design_settings.responsive_settings.mobile.mobile_background_option == 'custom' || module.design_settings.responsive_settings.mobile.mobile_background_option == 'image' -%}
+				background-color: {{ macros.color(module.design_settings.responsive_settings.mobile.mobile_background_custom) }};
+				{%- elif module.design_settings.responsive_settings.mobile.mobile_background_option == 'gradient' -%}
+				background: {{ module.design_settings.responsive_settings.mobile.mobile_background_gradient.css }};
+				{%- endif -%}
+			}
+			.{{name}} .sr-cover-image {
+				{%- if module.design_settings.responsive_settings.mobile.mobile_background_option == 'image' -%}
+					background-image: url({{ resize_image_url(module.design_settings.responsive_settings.mobile.mobile_background_image.src, '720') }});
+				background-size: {{ module.design_settings.responsive_settings.mobile.mobile_background_image.background_size }};
+				background-position: {{ module.design_settings.responsive_settings.mobile.mobile_background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+				{%- endif -%}
+			}
+
+			{%- if module.design_settings.responsive_settings.mobile.mobile_background_option == 'image' -%}
+			.{{name}}  .sr-cover-image::before {
+				background-color: {{ macros.color(module.design_settings.responsive_settings.mobile.mobile_background_overlay_color) }};
+			}
+			{%- elif module.design_settings.responsive_settings.mobile.mobile_background_option == 'video' -%}
+			.{{name}} {
+				background-color: {{ macros.color(module.design_settings.responsive_settings.mobile.mobile_background_custom) }}
+			}
+			.{{name}} .sr-bg-video-wrapper:after {
+				background-color: {{ macros.color(module.design_settings.responsive_settings.mobile.mobile_background_overlay_color) }}
+			}
+			{%- endif -%}
+		}
+		{%- endif -%}
+
+		{{ macros.design_settings(name, module.design_settings, true) }}
+	</style>
+	{% end_require_css %}
+
+	{% if module.slides.slides|length > 1 %}
+	{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+	{{ require_js(get_asset_url('../../js/blaze-slider.js'), { position: 'head', defer: true }) }}
+	{% endif %}
+{% endif %}

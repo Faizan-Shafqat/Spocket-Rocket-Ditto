@@ -1,0 +1,130 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+	
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-md-12'
+	%}
+	
+	<div class="sr-multicol-media sr-event-listing-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+	
+		{{ macros.module_bg_video(module) }}
+	
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+	
+					{% if module.heading || module.description %}
+					<div class="{{ macros.text_align(module.design_settings) }} sr-spacer-bottom-50">
+						{{ macros.heading(module.heading)}}
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+						{% endif %}
+					</div>
+					{% endif %}
+	
+					<div class="row sr-row sr-valign-{{ module.column_vertical_align }}">
+						{% for item in module.column %}
+						{% set colsize = 12 / loop.length %}
+						<div class="{% if item.class %}{{ item.class }} {% endif %}{% if !item.custom_column_size %}col-lg-{{ colsize|int }}{% else %}{{ macros.col_size(item.column_size) }}{% endif %} sr-col{% if item.col_text_align != 'auto' %} text-{{item.col_text_align}}{% else %} {{ macros.text_align(module.design_settings) }}{% endif %}{% if item.text_color != 'auto' %} text-{{item.text_color}}{% elif module.design_settings.column_styles.text_color != 'auto' %} text-{{ module.design_settings.column_styles.text_color }} {% endif %} sr-repeater-{{ loop.index }}{% if module.column_vertical_align == 'stretch' %} d-flex flex-wrap{% endif %}">
+							<div class="content-wrapper">
+								<div class="responsive-image{% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}">
+									{% if item.image_link.url.href %}
+									<a {{ macros.link(item.image_link) }} role="link" aria-label="{{item.image.alt}}'s link {{ ' (Opens in new tab)' if item.image_link.open_in_new_tab }}">
+									{% endif %}
+									{{ macros.image(item.col_image, "{{ 'style=\"--img-corner: {{ item.image_corner_radius }}px\"' if item.image_corner_radius }}") }}
+									{% if item.image_link.url.href %}
+									</a>
+									{% endif %}
+								</div>
+								<div class="d-flex flex-column">
+									{% if item.length %}
+									<div class="listing-legnth text-heading small d-flex align-items-center mb-3">
+										<svg class="mr-2" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+											<path d="M15.0891 3.12506C14.8631 2.89887 14.5951 2.78575 14.2856 2.78575H13.1428V1.92858C13.1428 1.5358 13.0028 1.19947 12.7231 0.919705C12.4432 0.639944 12.1071 0.5 11.7141 0.5H11.1428C10.7499 0.5 10.4136 0.639944 10.1338 0.919737C9.85399 1.19947 9.7141 1.53583 9.7141 1.92861V2.78579H6.28572V1.92861C6.28572 1.53583 6.14577 1.1995 5.86598 0.919737C5.58625 0.639944 5.24995 0.5 4.85701 0.5H4.28563C3.89279 0.5 3.55645 0.639944 3.27666 0.919737C2.99693 1.19947 2.85695 1.53583 2.85695 1.92861V2.78579H1.7142C1.4046 2.78579 1.13679 2.8989 0.910594 3.12509C0.684401 3.35125 0.571289 3.61919 0.571289 3.92869V15.3572C0.571289 15.6665 0.684401 15.9344 0.910594 16.1607C1.13676 16.3869 1.40457 16.5 1.7142 16.5H14.2853C14.5948 16.5 14.8629 16.3869 15.0889 16.1607C15.3151 15.9345 15.4282 15.6665 15.4282 15.3572V3.92866C15.4282 3.61907 15.3152 3.35125 15.0891 3.12506ZM10.8571 1.92871C10.8571 1.8453 10.8837 1.77679 10.9372 1.72334C10.9907 1.66983 11.0592 1.64303 11.1426 1.64303H11.7139C11.7974 1.64303 11.8657 1.66974 11.9194 1.72334C11.9729 1.77688 11.9996 1.8454 11.9996 1.92871V4.50004C11.9996 4.58341 11.9729 4.6518 11.9194 4.7054C11.8656 4.75885 11.7974 4.78571 11.7139 4.78571H11.1426C11.0592 4.78571 10.9907 4.75897 10.9372 4.7054C10.8837 4.65177 10.8571 4.58341 10.8571 4.50004V1.92871ZM3.99996 1.92871C3.99996 1.8453 4.0267 1.77679 4.08027 1.72334C4.13387 1.66983 4.20226 1.64303 4.28563 1.64303H4.85701C4.94041 1.64303 5.00893 1.66974 5.06237 1.72334C5.11588 1.77688 5.14274 1.8454 5.14274 1.92871V4.50004C5.14274 4.58341 5.11601 4.6519 5.06237 4.7054C5.0088 4.75885 4.94041 4.78571 4.85701 4.78571H4.28563C4.20226 4.78571 4.13377 4.75897 4.08027 4.7054C4.02682 4.65177 3.99996 4.58341 3.99996 4.50004V1.92871ZM14.2853 15.3571H1.7142V6.21432H14.2853V15.3571Z" fill="black"/>
+										</svg>
+										{{ item.length }}
+									</div>
+									{% endif %}
+									<div class="d-flex flex-wrap justify-content-lg-between align-items-center event-heading">
+										{{ macros.heading(item.heading, 'mb-0')}}
+										{% if item.stars.stars %}
+										<div class="stars ml-lg-0 ml-auto">
+											{% for i in range(0, item.stars.stars) %}
+											<svg style="color: {{ item.stars.color.css }};" xmlns="http://www.w3.org/2000/svg" width="15" height="14" viewBox="0 0 15 14" fill="none">
+												<path d="M7.02447 0.463525C7.17415 0.00286961 7.82585 0.00287008 7.97553 0.463525L9.29611 4.52786C9.36305 4.73388 9.55503 4.87336 9.77164 4.87336L14.0451 4.87336C14.5295 4.87336 14.7309 5.49316 14.339 5.77786L10.8817 8.28976C10.7065 8.41709 10.6331 8.64277 10.7001 8.84878L12.0206 12.9131C12.1703 13.3738 11.6431 13.7568 11.2512 13.4721L7.79389 10.9602C7.61865 10.8329 7.38135 10.8329 7.20611 10.9602L3.74877 13.4721C3.35692 13.7568 2.82968 13.3738 2.97935 12.9131L4.29994 8.84878C4.36687 8.64277 4.29355 8.41709 4.1183 8.28976L0.660968 5.77786C0.269111 5.49316 0.470499 4.87336 0.954861 4.87336L5.22836 4.87336C5.44497 4.87336 5.63695 4.73388 5.70389 4.52786L7.02447 0.463525Z" fill="currentColor"/>
+											</svg>
+											{% endfor %}
+										</div>
+										{% endif %}
+									</div>
+									{% if item.location %}
+									<div class="listing-location text-heading small d-flex align-items-center">
+										{{ item.location }}
+									</div>
+									{% endif %}
+								</div>
+								{% if item.price || item.promo_price %}
+								<div class="d-flex align-items-center mt-3">
+									{% if item.promo_price %}
+									<div class="promo-price h4 mb-4">{{ item.promo_price }}</div>
+									{% endif %}
+									{% if item.price %}
+									<div class="price h4 ml-4 mb-4 {{ 'strikeout' if item.promo_price }} text-body_color">{{ item.price }}</div>
+									{% endif %}
+								</div>
+								{% endif %}
+	
+								{% if item.col_content %}
+								<div class="col-content{% if item.lead_text %} lead{% endif %}">
+									{{ item.col_content }}
+								</div>
+								{% endif %}
+								{{ macros.cta(item.ctas, '{{ "sr-spacer-top-50" if item.col_content || item.heading }}') }}
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{ name }} .content-wrapper {
+			{% if module.design_settings.column_styles.spacing.css -%}
+			{{ module.design_settings.column_styles.spacing.css }}
+			{%- endif -%}
+			{%- if module.design_settings.column_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.column_styles.background_gradient.css }};
+			{%- elif module.design_settings.column_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.column_styles.background_custom.css }};
+			{% elif module.design_settings.column_styles.background_color != "auto" %}
+			background-color: var(--{{ module.design_settings.column_styles.background_color }});
+			{%- endif -%}
+			{% if module.design_settings.column_styles.text_color == "custom" %}
+			color: {{ module.design_settings.column_styles.text_color_custom.css }};
+			{%- endif -%}
+			{% if module.design_settings.column_styles.border.css %}
+			{{ module.design_settings.column_styles.border.css }}
+			{%- endif -%}
+			{% if module.design_settings.column_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.column_styles.border_radius }}px;
+			{%- endif -%}
+			{% if module.design_settings.column_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.column_styles.inset }} {{ module.design_settings.column_styles.horizontal ~ "px" }} {{ module.design_settings.column_styles.vertical ~ "px" }} {{ module.design_settings.column_styles.blur ~ "px" }} {{ module.design_settings.column_styles.spread ~ "px" }} {{ module.design_settings.column_styles.color.css }};
+			{%- endif %}
+		}
+	</style>
+	{% end_require_css %}
+	
+	{% endif %}

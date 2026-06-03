@@ -1,0 +1,41 @@
+.sr-tabs-01 .nav-tabs.cta-group {
+    gap: 0.5rem;
+    margin-bottom: 3.125rem;
+}
+
+.sr-tabs-01 .nav-item {
+    margin-bottom: 0;
+}
+
+.sr-tabs-01 .nav-item .nav-link {
+    transition: none;
+    box-shadow: none;
+}
+
+.sr-tabs-01 .tab-pane .lead {
+    text-wrap: auto;
+}
+
+@media screen and (max-width: 991px) {
+    .sr-tabs-01 .nav-tabs.cta-group {
+        margin-left: -15px;
+        margin-right: -15px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .sr-tabs-01 .nav-item {
+        height: inherit;
+        text-wrap: nowrap;
+    }
+
+    .sr-tabs-01 .nav-item .nav-link {
+        padding: 0px 15px;
+    }
+
+    .sr-tabs-01 .nav-tabs {
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
+        justify-content: flex-start !important;
+    }
+}

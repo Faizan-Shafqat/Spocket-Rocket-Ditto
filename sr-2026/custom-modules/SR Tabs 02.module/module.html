@@ -1,0 +1,146 @@
+{% if module.enabled %}
+
+  {% import "../../templates/macros.html" as macros %}
+  
+  {% require_css %}
+  <style>
+    {{ macros.design_settings(name, module.design_settings) }}
+    .{{ name }} .sr-card {
+      {%- if module.design_settings.card_styles.background_color == "gradient" -%}
+      background: {{ module.design_settings.card_styles.background_gradient.css }};
+      {%- elif module.design_settings.card_styles.background_color == "custom" -%}
+      background-color: {{ module.design_settings.card_styles.background_custom.css }};
+      {%- elif module.design_settings.card_styles.background_color != "auto" -%}
+      background-color: var(--{{ module.design_settings.card_styles.background_color }});
+      {%- endif -%}
+      {%- if module.design_settings.card_styles.text_color == "custom" %}
+      color: {{ module.design_settings.card_styles.text_color_custom.css }};
+      {%- endif -%}
+      {% if module.design_settings.card_styles.border.css %}
+      {{ module.design_settings.card_styles.border.css }}
+      {% endif %}
+      {% if module.design_settings.card_styles.border_radius >= 0 %}
+      border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+      {% endif %}
+      {% if module.design_settings.card_styles.shadow %}
+      box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+      {% endif %}
+    }
+    @media (min-width: 768px) {
+      .{{ name }} .tab-content {
+        {{ module.design_settings.card_styles.spacing.css }}
+      }
+    }
+    </style>
+  {% end_require_css %}
+  
+  {% set width_class =
+      module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+      module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+      module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+      'col-md-12'
+  %}
+  
+  <div class="sr-tabs-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{{ ' ' ~ module.class if module.class }} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+  
+    {{ macros.module_bg_video(module) }}
+    
+    <div class="{{ module.design_settings.layout }}">
+      {% if module.design_settings.container_width != 'max' %}
+      <div class="d-flex flex-wrap {{ width_class }}">
+      {% endif %}
+  
+        {% if module.heading || module.description %}
+        <div class="heading-wrapper text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} sr-spacer-bottom-50">
+          {{ macros.heading(module.heading) }}
+          {% if module.description %}
+          <div class="description mt-3{{ " lead" if module.lead_text }}">{{ module.description}}</div>
+          {% endif %}
+        </div>
+        {% endif %}
+  
+        <div class="sr-tabs-02__container sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}">
+          {% if module.tabs %}
+            <div class="tabs-container d-flex justify-content-{{ module.tabs_horizontal_alignment }} sr-border text-{{ module.design_settings.card_styles.text_color }} bg-{{ 'white' if module.design_settings.card_styles.background_color == 'auto' else module.design_settings.card_styles.background_color }}" role="tablist">
+              {% for tab in module.tabs %}
+              <button 
+                class="tab-item{% if loop.first %} tab-item--active {% endif %}" 
+                role="tab"
+                id="{{name}}_tab-{{ loop.index }}"
+                aria-selected="{% if loop.first %}true{% else %}false{% endif %}"
+                aria-controls="{{name}}_panel-{{ loop.index }}"
+                style="--hover_color: var(--{{ tab.tab_label_hover_color }}, {{ tab.tab_label_hover_color_custom.css }}); {% if tab.label_default_color != "auto" %}--default_color: var(--{{ tab.label_default_color }}, {{ tab.label_default_custom.css }}){% endif %}">
+                {% if tab.tab_label_image %}
+                {% set hoverExists = tab.tab_label_image_hover %}
+                {% set hoverClass = hoverExists ? '' : 'tab-item-image--no-hover' %}
+                {{ macros.image(tab.tab_label_image, 'class="mb-3 {{ hoverClass }}"') }}
+                {% endif %}
+                {% if tab.tab_label_image_hover %}
+                {{ macros.image(tab.tab_label_image_hover, 'class="tab-item-image--hover mb-3"') }}
+                {% endif %}
+                {% if tab.tab_label %}
+                <span class="small mb-0 tab_label">{{ tab.tab_label }}</span>
+                {% endif %}
+              </button>
+              {% endfor %}
+            </div>
+          {% endif %}
+          {% if module.tabs %}
+          <div class="tab-content-container">
+            {% for tab in module.tabs %}
+            <div 
+              class="tab-content row sr-row align-items-{{ tab.column_alignment }} {% if !loop.first %}d-none{% endif %}"
+              role="tabpanel"
+              id="{{name}}_panel-{{ loop.index }}"
+              aria-labelledby="{{name}}_tab-{{ loop.index }}"
+              {% if !loop.first %}aria-hidden="true"{% endif %}>
+              {% for item in tab.column %}
+              {% set colsize = 12 / loop.length %}
+              <div class="{% if item.class %}{{ item.class }} {% endif %}{% if !item.custom_column_size %}col-md-{{ colsize|int }}{% else %}{{ macros.col_size(item.column_size) }}{% endif %} sr-col{% if item.col_text_align != 'auto' %} text-{{item.col_text_align}}{% else %} {{ macros.text_align(module.design_settings) }}{% endif %}{% if item.text_color != 'auto' %} text-{{item.text_color}}{% elif module.design_settings.column_styles.text_color != 'auto' %} text-{{ module.design_settings.column_styles.text_color }} {% endif %} sr-repeater-{{loop.index}}{% if module.column_vertical_align == 'stretch' %} d-flex flex-wrap{% endif %}">
+                <div class="content-wrapper">
+                  {% if item.col_media_type == "image" %}
+                  {% if item.col_image.src %}
+                  <div class="responsive-image{% if item.heading || item.tab_content || item.ctas %} mb-4{% endif %}">
+                    {% if item.image_link.url.href %}
+                    <a {{ macros.link(item.image_link) }} role="link" aria-label="{{item.col_image.alt}}'s link {{ ' (Opens in new tab)' if item.image_link.open_in_new_tab }}">
+                    {% endif %}
+                    {{ macros.image(item.col_image, "{{ 'style=\"--img-corner: {{ item.image_corner_radius }}px\"' if item.image_corner_radius }}") }}
+                    {% if item.image_link.url.href %}
+                    </a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                  {% elif item.col_media_type == "form" %}
+                  <div{% if item.heading || item.tab_content || item.ctas %} class="mb-4"{% endif %}>
+                    {{ macros.form(item.form) }}
+                  </div>
+                  {% elif item.col_media_type == "video" %}
+                  {{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+                  {{ macros.video(item.video, '{% if item.heading || item.tab_content || item.ctas %} mb-4{% endif %}') }}
+                  {% elif item.col_media_type == "lottie" %}
+                  {{ require_js("https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js", {defer:true, position: "head", type: "module"}) }}
+                  <div class="lottie {% if item.heading || item.tab_content || item.ctas %} mb-4{% endif %}">
+                    {{ item.lottie_embed_code }}
+                  </div>
+                  {% endif %}
+                  {{ macros.heading(item.heading)}}
+                  {% if item.tab_content %}
+                  <div class="col-content{% if item.lead_text %} lead{% endif %}">
+                    {{ item.tab_content }}
+                  </div>
+                  {% endif %}
+                  {{ macros.cta(item.ctas, '{{ "sr-spacer-top-50" if item.tab_content || item.heading }}') }}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </div>
+      {% if module.design_settings.container_width != 'max' %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}

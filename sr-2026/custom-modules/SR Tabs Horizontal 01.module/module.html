@@ -1,0 +1,77 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	<div class="sr-tabs-horizontal sr-tabs-horizontal-01 {{ name }} {{ macros.module_background(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %}" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+		<div class="{{ module.design_settings.layout }}">
+			<div class="row">
+				<div class="col-lg-4 tab-nav{{' p-0' if module.design_settings.layout == 'container-fluid'}}">
+					<ul class="tabs-nav" role="list">
+						{% for item in module.tab_item %}
+						<li class="sr-repeater-{{loop.index}}">
+							<button class="tabs-nav__button" type="button" {{ 'aria-selected="true" data-state="active"' if loop.first }} id="{{ name }}_trigger_{{loop.index}}" aria-controls="{{ name }}_tab_{{loop.index}}" tabindex="0"
+								style="--bg-1: {{ item.styles.background.default.css }}; --bg-2: {{ item.styles.background.active.css }}; --h-1: {{ item.styles.heading.default.css }}; --h-2: {{ item.styles.heading.active.css }}; --c-1: {{ item.styles.content.default.css }}; --c-2: {{ item.styles.content.active.css }};">
+								<div class="tab-nav-image">
+									{% if item.tab_image.src %}
+									{% if item.tab_hover_image.src %}
+									{{ macros.image(item.tab_image, 'class="default"') }}
+									{{ macros.image(item.tab_hover_image, 'class="active"') }}
+									{% else %}
+									{{ macros.image(item.tab_image) }}
+									{% endif %}
+									{% endif %}
+								</div>
+								<div class="tab-nav-title description">
+									{% if item.tab_title %}
+									<p class="tab-heading mb-0 h6">{{ item.tab_title }}</p>
+									{% endif %}
+									{% if item.tab_subtitle %}
+									<p class="d-none d-md-block">{{ item.tab_subtitle }}</p>
+									{% endif %}
+								</div>
+								<div class="tab-nav-icon d-none d-md-flex">
+									<span role="presentation" aria-hidden="true">
+										{% icon
+											name="{{ item.tab_icon.name }}"
+											style="{{ item.tab_icon.type }}"
+											unicode="{{ item.tab_icon.unicode }}"
+											icon_set="{{ item.tab_icon.icon_set }}"
+											width="9"
+											no_wrapper=true
+										%}
+									</span>
+								</div>
+							</button>
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="col-lg-8">
+					{% for item in module.tab_item %}
+					<div {{ 'data-state="active"' if loop.first }} role="tabpanel" aria-labelledby="{{ name }}_trigger_{{loop.index}}" id="{{ name }}_tab_{{loop.index}}" tabindex="0"  {{ "hidden" if !loop.first }}>
+						<div class="row sr-valign-stretch">
+							<div class="col-md-6">
+								<div class="tab-pane-content d-flex flex-column h-100">
+									<div class="description{{ " lead" if item.lead_text}}">
+										{{ macros.heading(item.heading) }}
+										{{ item.tab_content }}
+									</div>
+								</div>
+							</div>
+							<div class="tab-pane-image col-md-6 text-center{{' p-0' if module.design_settings.layout == 'container-fluid'}}">
+								{{ macros.image(item.tab_side_image, 'style="border-radius: ' ~ item.image_corner_radius ~ 'px;"') }}
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+	</style>
+	{% end_require_css %}
+
+{% endif %}

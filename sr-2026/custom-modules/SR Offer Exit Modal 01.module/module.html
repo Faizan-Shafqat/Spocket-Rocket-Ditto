@@ -1,0 +1,78 @@
+{% if module.enabled %}
+
+	{% if is_in_editor %}
+	<div class="hs-placeholder mb-0">
+		<div class="hs-placeholder__inner">
+			<h4 class="hs-placeholder__title py-4">SR Offer Exit Modal 01</h4>
+		</div>
+	</div>
+	{% endif %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% if !is_in_editor %}
+	<div class="{{ name }} modal fade {{module.class}} sr-exit-popup" id="exit-popup" tabindex="-1" role="dialog" aria-modal="true" aria-labelledby="{{ name }}" aria-hidden="true" style="display: none;" {% if module.open_once %}data-once='true'{% endif %} {% if module.timer %}data-timer='{{ module.timer_ }}'{% endif %} {{ "data-preview" if module_preview }}>
+		<div class="modal-dialog modal-dialog-centered" role="document" style=" max-width: {{ module.design_settings.modal_width }}px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" data-dismiss="modal" aria-label="Close modal">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="popup">
+									<div class="modal_content text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+										{{ macros.image(module.modal_image) }}
+										<div class="sr-spacer-25">
+											{{module.modal_content}}
+										</div>
+										{{ macros.cta(module.ctas) }}
+
+										{{ macros.form(module.form) }}
+									</div>
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% require_css %}
+		<style>
+			#exit-popup button.close {
+				border-color: {{ module.design_settings.close_icon_color.css }};
+				color: {{ module.design_settings.close_icon_color.css }};
+			}
+
+			#exit-popup button.close:hover {
+				background:  {{ module.design_settings.close_icon_color.css }};
+				color: #fff;
+			}
+
+			.{{ name }} {
+				{%- if module.design_settings.background_option == 'image' -%}
+				background-image: url({{ resize_image_url(module.design_settings.background_image.src, '1440') }});
+				background-size: {{ module.design_settings.background_image.background_size }};
+				background-position: {{ module.design_settings.background_image.background_position|lower|replace("_", " ")|replace("middle", "center") }};
+				{%- elif module.design_settings.background_option == 'gradient' -%}
+				background: {{ module.design_settings.background_gradient.css }};
+				{%- endif -%}
+				{%- if module.design_settings.background_option == 'custom' || module.design_settings.background_option == 'image' -%}
+				background-color: {{ color(module.design_settings) }};
+				{%- endif -%}
+				{%- if module.design_settings.background_option == 'color' -%}
+				background-color: var(--{{module.design_settings.background_color}})
+				{%- endif -%}
+			}
+		</style>
+	{% end_require_css %}
+
+	{% endif %}
+{% endif %}

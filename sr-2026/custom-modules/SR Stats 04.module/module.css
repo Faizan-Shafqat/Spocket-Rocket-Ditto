@@ -1,0 +1,39 @@
+.sr-stats-04 .counter-item {
+  padding: 4rem 1rem;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 20%;
+  flex: 1 0 20%;
+}
+
+.sr-stats-04 .counter-item.bg-custom {
+  background-color: var(--stat-bg);
+}
+
+.sr-stats-04 .counter-item.text-custom {
+  color: var(--stat-color);
+}
+
+.sr-stats-04 .counter-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.sr-stats-04 h3.counter {
+  margin: 0;
+  padding-bottom: 1rem;
+  padding-top: 2rem;
+  font-size: 2rem;
+  word-break: break-all;
+}
+
+@media only screen and (max-width : 768px) {
+  .sr-stats-04 .counter-wrapper {
+    display: block;
+  }
+}

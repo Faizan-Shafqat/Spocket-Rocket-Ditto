@@ -1,0 +1,12 @@
+{% import "../../templates/macros.html" as macros %}
+{{ macros.heading([module], 'mb-0') }}
+
+{% require_css %}
+<style>
+    {% scope_css %}
+    .heading {
+        {{ module.design_settings.spacing.css }};
+    }
+    {% end_scope_css %}
+</style>
+{% end_require_css %}

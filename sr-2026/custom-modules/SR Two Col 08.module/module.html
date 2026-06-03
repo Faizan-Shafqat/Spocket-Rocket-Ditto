@@ -1,0 +1,100 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+
+
+	<div class="sr-two-col-08 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+
+
+					{% if module.heading || module.description %}
+					<div class="row text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+						<div class="col-md-12 sr-spacer-bottom-25">
+							{{ macros.heading(module.heading) }}
+							{% if module.description %}
+								<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+							{% endif %}
+						</div>
+					</div>
+					{% endif %}
+
+
+					<div class="row no-gutters">
+						{% for item in module.column %}
+						<div class="sr-repeater-{{loop.index}} {% if loop.length == 1 %} col-lg-12 {% else %} col-lg-6 {% endif %}">
+							<div class="column-wrapper {% if item.column_styles.background_option == 'color' %}bg-{{ item.column_styles.background_color }}{% endif %}" style="{% if item.column_styles.background_option == 'gradient' %}background: linear-gradient(135deg, {{item.column_styles.background_gradient_from.color}} 0%, {{item.column_styles.background_gradient_to.color}} 100%);{% endif %} {% if item.column_styles.background_option == 'custom' %} background-color: rgba({{ item.column_styles.background_custom.color|convert_rgb }}, {% if item.column_styles.background_custom.opacity != '100' %}0.{% endif %}{{ item.column_styles.background_custom.opacity }}) {% endif %}">
+								<div class="row row-gap sr-valign-{{ item.column_styles.col_alignment }}">
+									<div class="{{macros.col_size(item.column_styles.columns.left_column)}}">
+										<div class="responsive-image">
+											{{ macros.image(item.column_image, "{{ 'style=\"--img-corner: {{ item.image_corner_radius }}px\"' if item.image_corner_radius }}") }}
+										</div>
+									</div>
+									<div class="{{macros.col_size(item.column_styles.columns.right_column)}}">
+										<div class="content-col">
+											<div class="card-content">
+												{{ macros.heading(item.column_heading) }}
+												{% if item.description %}
+												<div class="description">{{ item.description}}</div>
+												{% endif %}
+											</div>
+											{{ macros.cta(item.ctas) }}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{name}} .sr-repeater-1 {
+			border-bottom: 1px solid {{ module.design_settings.border_color.css }};
+		}
+
+		@media(min-width: 992px) {
+			.{{name}} .sr-repeater-1 {
+				border-right: 1px solid {{ module.design_settings.border_color.css }};
+				border-bottom: none;
+			}
+		}
+
+		{% for item in module.column %}
+		.sr-two-col-08 .sr-repeater-{{loop.index}} .column-wrapper {
+			padding-top: {{ item.column_styles.padding.top }}{{item.column_styles.padding.units}};
+			padding-bottom: {{ item.column_styles.padding.bottom }}{{item.column_styles.padding.units}};
+			padding-left: {{ item.column_styles.padding.left }}{{item.column_styles.padding.units}};
+			padding-right: {{ item.column_styles.padding.right }}{{item.column_styles.padding.units}};
+			{% if item.column_styles.text_color != "auto" %}
+				color: var(--{{ item.column_styles.text_color }});
+			{% elif item.column_styles.text_color == "custom" %}
+				color: {{ item.column_styles.text_color_custom.color }};
+			{% endif %}
+		}
+		{% endfor %}
+	</style>
+	{% end_require_css %}
+
+{% endif %}

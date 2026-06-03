@@ -1,0 +1,1 @@
+LightRAG writes working data here after ingestion (e.g. `graph_chunk_entity_relation.graphml`, `kv_store_*.json`, `vdb_*.json`). Add this directory to `.gitignore` if files grow large or contain environment-specific state.

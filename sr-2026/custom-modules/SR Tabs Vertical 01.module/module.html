@@ -1,0 +1,159 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-tabs-vertical-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+					<div class="{{'sr-spacer-bottom-75' if module.description or module.heading|length > 0 }} {{ macros.text_align(module.design_settings) }} text-{{ module.design_settings.text_color }}">
+						{{ macros.heading(module.heading) }}
+						{% if module.description%}
+							<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+						{% endif %}
+					</div>
+
+					<div class="row">
+
+						<div class="{{ macros.col_size(module.columns.left_column) }} d-none d-lg-block">
+							<ul class="nav nav-tabs unstyle-list {% if module.sticky %}sticky{% endif %}" role="tablist" aria-label="Vertical tabs">
+								{% for item in module.tab_item %}
+									<li class="nav-item mb-0">
+										<button class="nav-link{% if loop.first %} active{% endif %} sr-tabs-vertical-01_tab text-{{ module.design_settings.card_styles.text_color }}" data-tab="{{ name }}_tab_{{ loop.index }}" data-toggle="tab" role="tab" aria-controls="{{ name }}_tab_{{ loop.index }}" aria-selected="true">
+											<p class="mb-0 h6">
+												{{ item.tab_label }}
+											</p>
+										</button>
+									</li>
+								{% endfor %}
+							</ul>
+						</div>
+
+						<div class="{{ macros.col_size(module.columns.right_column) }} sr-spacer-top-50-lg tab-content d-none d-lg-block">
+							<div class="tab-content text-{{ module.design_settings.text_color }}">
+								{% for item in module.tab_item %}
+								<div class="tab-pane{% if loop.first %} active{% endif %} description" data-tab="{{ name }}_tab_{{ loop.index }}" role="tabpanel" aria-labelledby="{{ name }}_tab_{{ loop.index }}">
+									{{ macros.heading(item.tab_heading) }}
+									{{ item.tab_content }}
+								</div>
+								{% endfor %}
+							</div>
+						</div>
+
+						<section class="d-lg-none col-12" data-one="{{ module.show_one_at_a_time }}">
+							<div class="details-group">
+								{% for item in module.tab_item %}
+								<details class="details sr-tabs-vertical-01_tab sr-border text-{{ module.design_settings.card_styles.text_color }}" {% if item.expanded %} open{% endif %} {% if loop.index > module.items_to_show %}hidden{% endif %}>
+									<summary class="details__summary" tabindex="0">
+										<p class="text-{{ module.accordion_text_color }} mb-0 h6">{{ item.tab_label }}</p>
+										<span class="details-icon" role="presentation"></span>
+									</summary>
+									<div class="details__content description {% if module.accordion_text_color != 'auto' %}text-{{ module.accordion_text_color }}{% endif %}">
+										{{ macros.heading(item.tab_heading) }}
+										{{ item.tab_content }}
+									</div>
+								</details>
+								{% endfor %}
+							</div>
+						</section>
+
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+
+		.{{ name }} .nav-tabs,
+		.{{ name }} .details-group {
+			{% if module.design_settings.row_styles.spacing.css -%}
+			{{ module.design_settings.row_styles.spacing.css }}
+			{%- endif -%}
+			{%- if module.design_settings.row_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.row_styles.background_gradient.css }};
+			{%- elif module.design_settings.row_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.row_styles.background_custom.css }};
+			{% elif module.design_settings.row_styles.background_color != "auto" %}
+			background-color: var(--{{ module.design_settings.row_styles.background_color }});
+			{%- endif -%}
+			{% if module.design_settings.row_styles.border.css %}
+			{{ module.design_settings.row_styles.border.css }}
+			{%- endif -%}
+			{% if module.design_settings.row_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.row_styles.border_radius }}px;
+			{%- endif -%}
+			{% if module.design_settings.row_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.row_styles.inset }} {{ module.design_settings.row_styles.horizontal ~ "px" }} {{ module.design_settings.row_styles.vertical ~ "px" }} {{ module.design_settings.row_styles.blur ~ "px" }} {{ module.design_settings.row_styles.spread ~ "px" }} {{ module.design_settings.row_styles.color.css }};
+			{%- endif %}
+			overflow: hidden;
+			{% if module.design_settings.row_styles.enable_gap %}
+			gap: 20px;
+			{% endif %}
+		}
+
+		.{{ name }} .nav-link,
+		.{{ name }} .details-group .details__summary {
+			{{ module.design_settings.card_styles.spacing.css }}
+			{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient.css }};
+			{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom.css }};
+			{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{%- endif -%}
+			{% if module.design_settings.card_styles.border.css %}
+			{{ module.design_settings.card_styles.border.css }}
+			{% endif %}
+			{% if module.design_settings.card_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+			{% endif %}
+		}
+
+		.{{ name }} .details[open] {
+			border-bottom: {{ module.design_settings.card_styles.border.bottom.width.value }}{{ module.design_settings.card_styles.border.bottom.width.units }} {{ module.design_settings.card_styles.border.bottom.style }} {{ module.design_settings.card_styles.border.bottom.color }};
+		}
+
+		.{{ name }} .nav-link:not(.details):is(:hover,:focus-within,.active) {
+			{%- if module.design_settings.card_styles.background_color_hover == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient_hover.css }};
+			{%- elif module.design_settings.card_styles.background_color_hover == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom_hover.css }};
+			{%- elif module.design_settings.card_styles.background_color_hover != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color_hover }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color_hover != "custom" %}
+			color: var(--{{ module.design_settings.card_styles.text_color_hover }});
+			{%- elif module.design_settings.card_styles.text_color_hover == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom_hover.css }};
+			{%- endif -%}
+			border-color: rgba({{ module.design_settings.card_styles.border.bottom.color|convert_rgb }}, 0.1);
+		}
+
+		.{{name}} .details__content {
+			{{ module.design_settings.card_styles.spacing.css }}
+		}
+	</style>
+	{% end_require_css %}
+
+{% endif %}

@@ -1,0 +1,425 @@
+/** ---- Navbar Main --- **/
+body {
+	width: 100%;
+	position: unset;
+}
+
+body.lock-scroll {
+	position: fixed;
+}
+
+.navbar {
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1rem 1rem
+}
+
+.navbar>.container,
+.navbar>.container-fluid {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	z-index: 99;
+}
+
+.navbar-brand {
+	display: inline-block;
+	padding-top: .04937rem;
+	padding-bottom: .04937rem;
+	font-size: 1.3375rem;
+	line-height: inherit;
+	white-space: nowrap
+}
+
+.navbar-main {
+	top: 0;
+	width: 100%;
+	z-index: 100;
+	background-color: transparent;
+}
+
+/** ---- Navbar Menu Toggle --- **/
+.navbar-main .menu-toggle {
+	width: 26px;
+	height: 20px;
+	background: transparent;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-apperance: none;
+	-o-appearance: none;
+	border: none;
+	padding: 0;
+}
+
+.navbar-main .menu-toggle .bar {
+	position: relative;
+	transition: all 0ms 100ms;
+	width: 26px;
+}
+
+.navbar-main .menu-toggle .bar:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 2px;
+	margin-bottom: 5px;
+	margin-top: 2px;
+	width: 17px;
+	height: 2px;
+	transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1), width 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.navbar-main .menu-toggle .bar:after {
+	content: "";
+	position: absolute;
+	right: 0;
+	top: 8px;
+	margin-top: -1px;
+	margin-bottom: 2px;
+	width: 17px;
+	height: 2px;
+	transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1), width 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.navbar-main .menu-toggle:is(:hover, :focus) .bar:before,
+.navbar-main .menu-toggle:is(:hover, :focus) .bar:after {
+	width: 26px;
+}
+
+.navbar-main .menu-toggle .bar {
+	height: 2px;
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+.navbar-main .menu-toggle .bar.active {
+	background-color: rgba(255, 255, 255, 0);
+	width: 26px;
+}
+
+.navbar-main .menu-toggle .bar.active:before {
+	bottom: -5px;
+	width: 26px;
+	-moz-transform: rotate(-45deg);
+	-webkit-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), width 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.navbar-main .menu-toggle .bar.active:after {
+	top: 1px;
+	width: 26px;
+	-moz-transform: rotate(45deg);
+	-webkit-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	transition: top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), width 300ms cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+/** ---- Navbar Overlay --- **/
+.navbar-main .nav-overlay {
+	position: fixed;
+	inset: 0;
+	height: 100%;
+	width: 100%;
+	z-index: 98;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	pointer-events: none;
+	visibility: hidden;
+	transition: opacity 250ms ease, visibility 250ms ease;
+}
+
+.navbar-main .nav-overlay.show {
+	opacity: 1;
+	visibility: visible;
+	pointer-events: auto;
+	transition: opacity 250ms ease, visibility 250ms ease;
+	overflow: auto;
+}
+
+
+/** ---- Navbar Container --- **/
+.nav-overlay .navigation-container {
+	height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+}
+
+@supports (display: grid) {
+	.nav-overlay .navigation-container:not(:root:root) {
+		overflow: auto;
+	}
+}
+
+.navigation-container::-webkit-scrollbar {
+	display: none !important;
+}
+
+@-moz-document url-prefix() {
+	.nav-overlay .navigation-container {
+		overflow: unset;
+	}
+}
+
+.navigation-container::-moz-scrollbar {
+	width: 0px;
+	background: transparent;
+
+}
+
+/** ---- Main Navigation --- **/
+.navigation-container .main-navigation {
+	width: 100%;
+	padding: 0;
+	list-style: none;
+	margin: auto 0 50px 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font-smooth: always;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.main-navigation .nav__item {
+	position: relative;
+}
+
+.main-navigation .nav__item .nav__link {
+	width: 100%;
+	color: inherit;
+	display: flex;
+	position: relative;
+}
+
+.main-navigation .nav__item .nav__link .link_name {
+	width: 100%;
+	padding: 1rem 0;
+	position: relative;
+	box-shadow: inset 0 -1px 0 0 rgb(255 255 255 / 0%);
+	overflow: hidden;
+}
+
+.main-navigation .nav__item .nav__link .link_name span {
+	opacity: 0.5;
+	transform: translateY(100px);
+	display: block;
+
+}
+
+.nav-overlay.show .main-navigation .nav__item .nav__link .link_name span {
+	transform: translateY(0px);
+}
+
+.main-navigation .nav__item .nav__link .link_name:after {
+	position: absolute;
+	content: '';
+	bottom: 0;
+	left: 0;
+	border-bottom: 2px solid;
+	width: 0;
+	height: 0;
+	transition: width 250ms cubic-bezier(.32, 0, 0, 1.1);
+}
+
+.main-navigation .nav__item .nav__link:is(:hover, :focus) .link_name:after {
+	width: 100%;
+	transition: width 250ms cubic-bezier(.32, 0, 0, 1.1);
+}
+
+.main-navigation .nav__item .nav__link .marker {
+	font-size: 14px;
+	position: absolute;
+	opacity: 0;
+	top: 90%;
+	left: 0px;
+}
+
+.nav-overlay.show .main-navigation .nav__item .nav__link .marker {
+	opacity: 0.5;
+	top: 28%;
+}
+
+.main-navigation .nav__item .nav__link:is(:hover, :focus) .link_name span {
+	opacity: 1;
+	transition: opacity 250ms cubic-bezier(.32, 0, 0, 1.1) 0ms;
+}
+
+
+/** ---- Navigation Bottom --- **/
+.navigation-container .navigation-bottom {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	justify-content: space-between;
+	padding-top: 16px;
+	margin-top: auto;
+	align-items: flex-start;
+	gap: 1rem;
+}
+
+.navigation-bottom .hs-search-field {
+	position: relative;
+	width: 100%;
+}
+
+.navigation-bottom .hs-search-field form {
+	position: relative;
+	gap: 10px;
+	align-items: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	flex-wrap: nowrap;
+}
+
+.navigation-bottom .hs-search-field form:after {
+	border-bottom: 1px solid;
+	bottom: -4px;
+	content: "";
+	height: 0;
+	left: 0;
+	position: absolute;
+	transition: width .25s ease;
+	width: 0;
+}
+
+.navigation-bottom .hs-search-field form button {
+	appearance: none;
+	-webkit-appearance: none;
+	-oz-appearance: none;
+	-moz-apperance: none;
+	outline: none;
+	border: none;
+	background: transparent;
+	padding: 0;
+}
+
+.navigation-bottom .hs-search-field form button svg {
+	height: 21px;
+	transition: height 0.20s ease-out;
+}
+
+.navigation-bottom .hs-search-field form.focused button svg {
+	height: 16px;
+	transition: height 0.20s ease-out;
+}
+
+.navigation-bottom .hs-search-field form button svg path {
+	opacity: 0.5;
+	transition: opacity .25s ease;
+}
+
+.navigation-bottom input[type="text"]:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]).hs-search-field__input {
+	box-sizing: border-box;
+	width: 100%;
+	background-color: transparent;
+	border: none;
+	position: relative;
+	width: 100%;
+	padding: 0;
+	min-height: 2rem;
+}
+
+.navigation-bottom input[type="text"]:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]).hs-search-field__input::placeholder {
+	opacity: 0.5;
+	transition: opacity .25s ease;
+}
+
+.navigation-bottom .hs-search-field form.focused::after {
+	transition: width .5s ease;
+	width: 100%;
+}
+
+.navigation-bottom .hs-search-field form.focused input[type="text"]:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]).hs-search-field__input::placeholder,
+.navigation-bottom .hs-search-field form.focused button svg path,
+.navigation-bottom .hs-search-field form:is(:hover, :focus) input[type="text"]:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="submit"]).hs-search-field__input::placeholder,
+.navigation-bottom .hs-search-field form:is(:hover, :focus) button svg path {
+	opacity: 1;
+	transition: opacity .25s ease;
+}
+
+.navigation-bottom .lang_switcher-container {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.navigation-bottom .lang_switcher-container ul {
+	display: flex;
+	align-items: center;
+	padding: 0;
+	margin: 0;
+	gap: 10px;
+}
+
+.navigation-bottom .lang_switcher-container ul .lang-btn {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px solid;
+	opacity: 0.5;
+	transition: background .25s ease, opacity .25s ease, color .25s ease;
+}
+
+.navigation-bottom .lang_switcher-container ul .lang-btn:is(:hover, :focus) {
+	opacity: 1;
+}
+
+.navigation-bottom .lang_switcher-container ul .lang-link {
+	padding: 6px 14px;
+	color: inherit;
+}
+
+.navigation-bottom .lang_switcher-container ul .lang-btn:is(:hover, :focus) {
+	transition: background .25s ease, opacity .25s ease, color .25s ease;
+	opacity: 1;
+}
+
+.navigation-bottom .lang_switcher-container ul .lang-active {
+	opacity: 1;
+}
+
+/* Skip to content button */
+.skip-main {
+    left: -999px;
+    position: absolute;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -999;
+}
+
+.skip-main:focus,
+.skip-main:active {
+    left: 0;
+    top: 10px;
+    height: auto;
+    overflow: auto;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 1.2em;
+    z-index: 999;
+    width: 300px;
+    right: 0;
+}

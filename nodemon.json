@@ -1,0 +1,6 @@
+{
+	"watch": ["server.js", "lib", ".env"],
+	"ext": "js,json",
+	"delay": 2000,
+	"ignore": [".slim-staging", "node_modules", "client-delivery-theme", "my-theme", "sr-2026", ".git"]
+}

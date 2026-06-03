@@ -1,0 +1,84 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+
+
+	<div class="sr-tabs-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}
+		 data-tab-style="{{ module.tab_style }}"
+		 data-active-tab-style="{{ module.active_tab_style }}">
+
+	{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+						{% if module.heading ||  module.description %}
+						<div class="sr-spacer-bottom-50 {% if module.text_align != 'auto' %} text-{{ module.text_align }}{% endif %} {% if module.text_color != 'auto' %}text-{{ module.text_color }}{% endif %}">
+							{{ macros.heading(module.heading) }}
+
+							{% if module.description %}
+								<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+							{% endif %}
+						</div>
+						{% endif %}
+
+						<ul class="nav nav-tabs cta-group unstyle-list justify-content-{{module.tabs_align}}" id="{{ name }}_tablist" role="tablist">
+							{% for item in module.tabs %}
+								<li class="nav-item btn-wrapper btn-{{module.tab_style}}-wrapper{% if module.tab_style == 'custom' and loop.first %} btn-{{module.active_tab_style}}-wrapper{% endif %}">
+									<button class="nav-link cta-button{% if loop.first %} active{% endif %}" 
+										id="{{ name }}_tab_{{ loop.index }}"
+										data-tab="{{ name }}_tab_{{ loop.index }}" 
+										data-toggle="tab" 
+										role="tab"
+										aria-controls="{{ name }}_tabpanel_{{ loop.index }}" 
+										aria-selected="{% if loop.first %}true{% else %}false{% endif %}">{{ item.tab_label }}</button>
+								</li>
+							{% endfor %}
+						</ul>
+
+						<div class="tab-content">
+							{% for item in module.tabs %}
+							<div class="tab-pane{% if loop.first %} active{% endif %}" 
+								id="{{ name }}_tabpanel_{{ loop.index }}"
+								data-tab="{{ name }}_tab_{{ loop.index }}" 
+								role="tabpanel" 
+								aria-labelledby="{{ name }}_tab_{{ loop.index }}"
+								tabindex="0">
+								{{ item.tab_content }}
+							</div>
+							{% endfor %}
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+
+		</div>
+	</div>
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+            {% if module.tab_style == "custom" %}
+            .{{ name }} .nav-item:not(.btn-{{ module.active_tab_style }}-wrapper) .cta-button {
+                background: {{ module.tab_style_custom.bg_color.css }};
+                color: {{ module.tab_style_custom.t_color.css }};
+                border-color: {{ module.tab_style_custom.border_color.css }};
+            }
+            {% endif %}
+			
+		</style>
+	{% end_require_css %}
+{% endif %}

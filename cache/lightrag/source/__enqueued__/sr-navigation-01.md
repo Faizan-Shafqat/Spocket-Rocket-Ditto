@@ -1,0 +1,247 @@
+# SR Navigation 01
+
+**Slug:** `sr-navigation-01`
+**HubSpot module ID:** 210345737875
+**Inferred category:** Navigation
+**Documentation:** https://docs.sprocketrocket.co/
+**Host templates:** PAGE, BLOG_POST, BLOG_LISTING
+**Content types:** LANDING_PAGE, SITE_PAGE, BLOG_LISTING, BLOG_POST
+**Available for new content:** yes
+
+**Module path:** `sr-2026/custom-modules/SR Navigation 01.module`
+
+## Top-level groups
+- **styles** (group) — Styles
+  - **styles.top_bar** (group) — Top bar
+    - **styles.top_bar.background** (group) — Background
+    - **styles.top_bar.text** (group) — Text
+  - **styles.menu** (group) — Menu
+    - **styles.menu.background** (group) — Background
+    - **275c661b-40c7-e311-f135-234e583fc780** (group) — Shadow
+    - **styles.menu.text** (group) — Text
+    - **styles.menu.hover** (group) — Hover
+    - **styles.menu.active** (group) — Active
+    - **styles.menu.drop_downs** (group) — Drop downs
+      - **styles.menu.drop_downs.text** (group) — Text
+      - **styles.menu.drop_downs.background** (group) — Background
+      - **styles.menu.drop_downs.hover** (group) — Hover
+      - **styles.menu.drop_downs.active** (group) — Active
+      - **styles.menu.drop_downs.size** (group) — Size
+    - **styles.menu.spacing** (group) — Spacing
+  - **styles.search** (group) — Search
+    - **styles.search.background** (group) — Background
+    - **styles.search.text** (group) — Text
+  - **40f0c292-4b0f-6c09-b80d-5b9764e7fc94** (group) — Blog
+    - **12573839-c8d4-aab2-0ad2-76f8a53ad295** (group) — Menu
+    - **63779f41-10ac-199d-cf6d-45781abf7172** (group) — Text
+    - **68192cd2-b0e5-3eb2-4130-981f360c24ad** (group) — Hover
+    - **e4f8b3ef-c84d-b82f-e393-5a521874f674** (group) — Search
+  - **style.mobile_menu** (group) — Mobile Menu
+    - **style.mobile_menu.text** (group — when styles.mobile_menu.custom_colors EQUAL true) — Text
+- **settings** (group) — Settings
+- **top_bar** (group) — Top bar
+  - **top_bar.social** (group — when top_bar.type EQUAL menu) — Social
+    - **2d69b990-48be-cfc0-d48a-cb65549cafa6** (group) — Icon
+- **logo** (group) — Logo
+- **menu** (group) — Menu
+- **language_switcher** (group) — Language switcher
+- **button** (group) — Button
+  - **ctas** (group) — CTA
+    - **ctas.default** (group — when ctas.cta_style EQUAL custom) — Default
+    - **ctas.hover** (group — when ctas.cta_style EQUAL custom) — Hover
+    - **ctas.icon** (group — when ctas.cta_type NOT_EQUAL cta AND ctas.add_icon EQUAL true) — Icon
+- **search** (group) — Search
+  - **search.content_types** (group) — Search results include
+- **b8cfe28c-1edd-0e4b-8823-314e443f7ba5** (group) — Blog
+  - **heading** (group) — Blog Title
+  - **9f7567c4-bb10-4b98-2a0c-42c75a4082d9** (group — when blog.enable EQUAL true) — Search
+    - **774999dc-5471-d245-8c9d-bd36f7e312f6** (group) — Search results include
+- **override** (group) — Page Specific Settings
+  - **override.top_bar** (group) — Top bar
+  - **override.logo** (group) — Logo
+  - **override.menu** (group) — Menu
+  - **9a6bff62-464b-0af2-2de8-4deae0986210** (group) — Button
+    - **2ce8caa1-6cd7-a7ee-ebbd-99210e785e12** (group — when 9a6bff62-464b-0af2-2de8-4deae0986211 EQUAL false) — CTA
+      - **b0d14c97-ea7f-94fe-48f7-31ff7ee7b891** (group — when 2b4752f6-39cc-eb99-e8f3-01ac38b697f7 EQUAL custom) — Default
+      - **c6720c56-73c6-1472-34dc-2100a5e5e318** (group — when 2b4752f6-39cc-eb99-e8f3-01ac38b697f7 EQUAL custom) — Hover
+      - **fcad4893-75fe-46a9-d9e3-e9e8d0d06d18** (group — when ctas.cta_type NOT_EQUAL cta AND ctas.add_icon EQUAL true) — Icon
+  - **override.search** (group) — Search
+
+## Fields
+- `styles.top_bar.align` (textalignment) — Align
+- `styles.top_bar.spacing` (spacing) — Spacing
+- `styles.top_bar.background.color` (color) — Color
+- `4361aed8-98ca-4837-2ed1-01adc402e4b2` (color) — Hover
+- `text.font` (font) — Font [when styles.custom_fonts EQUAL false]
+- `styles.top_bar.text.size` (number) — Size [when styles.custom_fonts EQUAL true]
+- `styles.top_bar.text.color` (color) — Color [when styles.custom_fonts EQUAL true]
+- `text.align` (textalignment) — Algin [when top_bar.type EQUAL announcement]
+- `styles.menu.alignment` (alignment) — Menu Alignment
+- `styles.menu.background.background` (color) — Background
+- `styles.menu.background.background_on_scroll` (color) — Background on Scroll [when settings.fixed EQUAL true]
+- `styles.menu.background.border_radius` (number) — Border Radius [when floating_navigation EQUAL true]
+- `fa8b1089-370e-0570-d4e6-2c8de2a6e7e7` (color) — Shadow
+- `b297b779-1b39-c12c-f75c-788c814d609e` (color) — Shadow on Scroll
+- `styles.menu.text.font` (font) — Font [when styles.custom_fonts EQUAL false]
+- `styles.menu.text.size` (number) — Size [when styles.custom_fonts EQUAL true]
+- `styles.menu.text.color` (color) — Color [when styles.custom_fonts EQUAL true]
+- `styles.menu.text.color_on_scroll` (color) — Color on Scroll [when settings.fixed EQUAL true]
+- `styles.menu.hover.color` (color) — Color
+- `styles.menu.active.color` (color) — Color
+- `styles.menu.drop_downs.text.font_color` (color) — Color
+- `styles.menu.drop_downs.text.font_size` (number) — Font size
+- `styles.menu.drop_downs.background.color` (color) — Color
+- `styles.menu.drop_downs.background.border` (border) — Border
+- `styles.menu.drop_downs.hover.font_color` (color) — Font color
+- `styles.menu.drop_downs.hover.background_color` (color) — Background color
+- `styles.menu.drop_downs.active.font_color` (color) — Font color
+- `styles.menu.drop_downs.active.background_color` (color) — Background color
+- `styles.menu.drop_downs.size.width` (number) — Width
+- `styles.menu.drop_downs.size.link_spacing` (number) — Link Spacing
+- `styles.menu.drop_downs.size.dropdown_spacing` (number) — Dropdown Spacing
+- `5f6a0b08-ed7b-9f19-4008-2d339648331a` (number) — Border Radius
+- `styles.menu.spacing.desktopNavYSpacing` (number) — Desktop Nav Y Spacing
+- `styles.menu.spacing.desktopNavXSpacing` (number) — Desktop Nav X Spacing
+- `styles.search.background.color` (color) — Color
+- `styles.search.text.color` (color) — Color
+- `9bd81d2c-d258-1be8-8854-aa3bd743a3c6` (color) — Background Color
+- `background_color_on_scroll` (color) — Background Color on Scroll
+- `355310c9-10a0-6614-5828-09123982dd64` (number) — Background Blur
+- `547c9be4-31f8-ae89-7349-edb8f7d4d178` (number) — Border radius
+- `028566a5-ddf1-4d67-668d-bc1b7001cd88` (font) — Font
+- `626dd1f5-890c-1165-2605-0e304b7e5260` (color) — Background Color
+- `cecbe081-1a22-6f5f-a5b9-6c6f471c539b` (number) — Background Blur
+- `58aa288e-e033-4e67-9cac-676b79807721` (number) — Border radius
+- `d7ece937-bc58-4df4-c8c3-408cafebd4e5` (color) — Text Color
+- `0b68017a-ba5e-fd21-3b28-4a817e00d37f` (color) — Background Color
+- `bddf8c2e-90be-b118-5d84-e39abb0b3bac` (number) — Background Blur
+- `19b5e353-9862-4b55-7cf0-cb46e222922d` (color) — Background Color
+- `6f5f7f2c-d67d-0791-3004-5ef6992df9a7` (color) — Text Color
+- `style.mobile_menu.hamburger` (color) — Hambuger
+- `style.mobile_menu.previous_menu_link_color` (color) — Previous Menu Link Color [when styles.custom_fonts EQUAL true]
+- `style.mobile_menu.previous_menu_link_size` (number) — Previous Menu Link Size [when styles.custom_fonts EQUAL true]
+- `style.mobile_menu.previous_menu_link` (font) — Previous Menu Link [when styles.custom_fonts EQUAL false]
+- `style.mobile_menu.custom_colors` (boolean) — Custom Mobile Link Colors
+- `style.mobile_menu.text.link_color` (color) — Link Color
+- `style.mobile_menu.text.link_active` (color) — Link Active Color
+- `style.mobile_menu.text.dropdown_color` (color) — Dropdown Link Color
+- `style.mobile_menu.text.dropdown_active` (color) — Dropdown Link Active Color
+- `style.mobile_menu.mobile_background` (color) — Mobile Background
+- `styles.custom_fonts` (boolean) — Custom Fonts — _When enabling custom fonts, all font fields will be disabled. You will need to apply the desired font styles to specific elements using CSS._
+- `settings.width` (choice) — Width [required]
+- `settings.fixed` (boolean) — Fixed — _By checking this option additional fields for a logo (Content -> Logo), background color (Style -> Menu -> Background), and font color (S…_
+- `settings.scroll` (boolean) — Hide on Scroll Down [when settings.fixed EQUAL true] — _Make the navigation disappear as the user scrolls down the page, and reappear when they scroll up._
+- `floating_navigation` (boolean) — Floating Navigation — _Make the navigation float in the container_
+- `a7c5fde3-4d78-6552-1f67-58b0369ff87f` (boolean) — Mega Menu
+- `settings.mobile_breakpoint` (number) — Mobile Breakpoint — _Breakpoint at which the navigation layout changes to include a toggle button. A wider menu will require a larger breakpoint to prevent wr…_
+- `top_bar.fixed_topbar` (boolean) — Show Topbar On Scroll [when settings.fixed EQUAL true]
+- `top_bar.type` (choice) — Type [required]
+- `top_bar.menu` (menu) — Menu [when top_bar.type EQUAL menu] [repeater(default=1, max=2)]
+- `bde00217-8904-3367-263e-06d582bdbbdf` (choice) — Type [required]
+- `a7f776b8-b857-a6ca-3bbb-8a8c9e93c31f` (icon) — Icon [when bde00217-8904-3367-263e-06d582bdbbdf EQUAL icon]
+- `7a018851-6a6f-b756-a735-03780f232063` (image) — Image [when bde00217-8904-3367-263e-06d582bdbbdf EQUAL image]
+- `e94d2d59-ad2a-b61f-3a54-fd902212c533` (text) — SVG [when bde00217-8904-3367-263e-06d582bdbbdf EQUAL svg]
+- `b51bdfec-c41f-58e4-ff6a-3364b51183da` (number) — Size [when bde00217-8904-3367-263e-06d582bdbbdf EQUAL icon]
+- `9ffbdf21-cd1d-4871-1f95-700f6e1b2845` (color) — Color [when bde00217-8904-3367-263e-06d582bdbbdf EQUAL icon]
+- `d5885ab8-618b-2c14-212d-b8b93356a02f` (color) — Background [when bde00217-8904-3367-263e-06d582bdbbdf EQUAL icon]
+- `be6e663b-2a35-b54f-eae5-b4ecad7d76f2` (link) — Link
+- `social.aria_label` (text) — Aria Label — _The aria-label attribute is used on links that have no accessible name to give it meaning to screen readers._
+- `2d69b990-48be-cfc0-d48a-cb65549cafa6.purpose` (choice) — Purpose [required] — _The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden="true" will be added to the…_
+- `7b81fcff-6e3f-0f58-f794-c6a5a997a6de` (choice) — Position [required]
+- `top_bar.rich_text` (richtext) — Rich Text [when top_bar.type EQUAL announcement]
+- `logo.link` (link) — Link
+- `logo.logo` (logo) — Logo
+- `logo.logo_on_scroll` (logo) — Logo on Scroll [when settings.fixed EQUAL true]
+- `logo.logo_on_mobile` (boolean) — Use separate Logo on Mobile
+- `logo.mobile_logo` (logo) — Mobile Logo [when logo.logo_on_mobile EQUAL true]
+- `logo.mobile_logo_on_scroll` (logo) — Mobile Logo on Scroll [when settings.fixed EQUAL true AND logo.logo_on_mobile EQUAL true]
+- `menu.menu` (menu) — Menu
+- `menu.max_levels` (number) — Max levels [required] — _Determines the number of menu tree children that can be expanded in the menu. Note: Items with child items will not be clickable._
+- `language_switcher.add_language_switcher` (boolean) — Enabled — _The language switcher will only appear if there is a multi-language variation for a page._
+- `language_switcher.display_mode` (choice) — Display mode [when language_switcher.add_language_switcher EQUAL true] [required] — _The language of the text in the language switcher. PageLang means the names of languages will display in the language of the page the swi…_
+- `language_switcher.position` (choice) — Position [when language_switcher.add_language_switcher EQUAL true AND top_bar.type EQUAL menu]
+- `ctas.cta_type` (choice) — CTA Type [required]
+- `ctas.cta_style` (choice) — CTA Style [when ctas.cta_type NOT_EQUAL none] [required]
+- `button.ctas.default.background` (color) — Background
+- `button.ctas.default.text` (color) — Text
+- `button.ctas.default.border` (color) — Border
+- `button.ctas.hover.background` (color) — Background
+- `button.ctas.hover.text` (color) — Text
+- `button.ctas.hover.border` (color) — Border Color
+- `ctas.cta` (cta) — CTA [when ctas.cta_type EQUAL cta]
+- `ctas.button_text` (text) — Button Text [when ctas.cta_type MATCHES_REGEX btn|modal]
+- `ctas.modal_target` (text) — Modal Target [when ctas.cta_type EQUAL modal]
+- `ctas.link` (link) — Link [when ctas.cta_type EQUAL btn]
+- `cta.payment` (payment) — Payment link [when ctas.cta_type EQUAL hs_payment]
+- `cta.checkout_location` (choice) — Checkout behavior [when cta.payment MATCHES_REGEX id":\d+ AND ctas.cta_type EQUAL hs_payment]
+- `ctas.cta_size` (choice) — CTA Size [when ctas.cta_type NOT_EQUAL none] [required]
+- `ctas.add_icon` (boolean) — Add icon [when ctas.cta_type NOT_EQUAL cta]
+- `ctas.icon.icon` (icon) — Icon [required]
+- `ctas.icon.position` (choice) — Position [required]
+- `ctas.icon.purpose` (choice) — Purpose [required] — _The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden="true" will be added to the…_
+- `search.enabled` (boolean) — Enabled
+- `search.placeholder` (text) — Placeholder text
+- `search.user_custom_search_results_template` (boolean) — Use custom search results page — _Turn this setting on to use a custom search results page instead of the default global search results page._
+- `search.path_id` (page) — Search results page [when search.user_custom_search_results_template EQUAL true] — _This is where people will go when they click to search their search term. Make sure to choose a page that contains the search results mod…_
+- `search.content_types.website_pages` (boolean) — Website pages
+- `search.content_types.landing_pages` (boolean) — Landing pages
+- `search.content_types.blog_posts` (boolean) — Blog posts
+- `search.content_types.knowledge_articles` (boolean) — Knowledge articles
+- `42744fa2-b5ef-e435-2a6a-7bd9fccb0bf8` (boolean) — Enable
+- `heading.heading` (text) — Heading
+- `heading.heading_size` (choice) — Size [required] — _HTML heading size_
+- `heading.heading_display_size` (choice) — Display Size [required] — _Size that heading is displayed at_
+- `heading.heading_color` (choice) — Color [required]
+- `heading.heading_color_custom` (color) — Color [when heading.heading_color EQUAL custom]
+- `heading.heading_align` (choice) — Align [required]
+- `heading.class` (text) — CSS Class
+- `b2047f29-40fa-2f81-b35d-b3523bd4228c` (number) — Tags Limit [when blog.enable EQUAL true]
+- `b610e1b8-abae-b0b5-bb64-e877f9ca1ce9` (boolean) — Enabled
+- `31efae78-e325-0a21-5b27-62e09dc9926a` (text) — Placeholder text
+- `e1222da5-91d1-4476-5ab5-0923f0e90b97` (boolean) — Website pages
+- `62860153-a7e3-80a7-ddf5-39524f5ac84b` (boolean) — Landing pages
+- `a60d8141-e662-f706-85a2-ed0cbceab9d2` (boolean) — Blog posts
+- `2747e78e-f392-14ab-4b21-f16cb74f0182` (boolean) — Knowledge articles
+- `override.description` (text) — Description — _This is an options field.Use it to describe what the purpose of this override doesi.e. Homepage settings, Remove menu on landing pages, etc._
+- `override.page` (page) — Page — _Select the page you want to override the settings for_
+- `bf8883f0-1f13-e9d4-4b64-24662ea5cbb7` (choice) — Page Type
+- `180e0792-2423-4061-97b1-27a02a9d2c72` (text) — Language — _A two-letter code. Codes can be found here._
+- `override.fixed_topbar` (boolean) — Show Topbar On Scroll [when settings.fixed EQUAL true]
+- `override.top_bar.type` (choice) — Type
+- `override.top_bar.menu` (menu) — Menu [when override.top_bar.type EQUAL menu] [repeater(default=1, max=2)]
+- `override.top_bar.rich_text` (richtext) — Rich Text [when override.top_bar.type EQUAL announcement]
+- `367b90ce-6e58-0430-ab93-e7ea8c1e4a68` (boolean) — Disable Icons [when override.top_bar.type EQUAL menu]
+- `9020377f-1cd2-5047-1969-e9cfbf4020dc` (link) — Link
+- `override.logo.logo` (logo) — Logo
+- `fd5bf12f-6ff5-1022-715f-f4f3c736bce6` (logo) — Logo on Scroll
+- `override.mobile_logo` (logo) — Mobile Logo [when logo.logo_on_mobile EQUAL true]
+- `override.mobile_logo_on_scroll` (logo) — Mobile Logo on Scroll [when settings.fixed EQUAL true AND logo.logo_on_mobile EQUAL true]
+- `override.menu.disable` (boolean) — Disable Menu
+- `override.menu.menu` (menu) — Menu [when override.menu.disable EQUAL false]
+- `61c1cf3c-9a8b-28b5-7be8-79b463dd116c` (boolean) — Mega Menu
+- `override.menu.background` (color) — Background
+- `override.menu.color` (color) — Color
+- `406b902b-ea1f-b7c2-c916-7d9ab59c1932` (color) — Shadow
+- `9a6bff62-464b-0af2-2de8-4deae0986211` (boolean) — Disable Button
+- `87f6cd4b-664d-817e-f627-da7876b6864d` (choice) — CTA Type [required]
+- `2b4752f6-39cc-eb99-e8f3-01ac38b697f7` (choice) — CTA Style [when 87f6cd4b-664d-817e-f627-da7876b6864d NOT_EQUAL none] [required]
+- `6286aa1a-86e6-2010-c623-1668524b485b` (color) — Background
+- `3822c2cd-15b7-90f0-2e10-494cd0bdff1b` (color) — Text
+- `79e4e2ef-8af8-1b52-1f09-e7598315ca8b` (color) — Border
+- `57e64c41-629a-1aad-46c6-4b796003b936` (color) — Background
+- `ddc8a56d-e97b-89b5-aefb-e8a4d91963a8` (color) — Text
+- `187fd5f1-a253-ea1e-7fd6-c976f424c454` (color) — Border Color
+- `242a69b3-cbeb-aea5-6c39-6497888d3de9` (cta) — CTA [when 87f6cd4b-664d-817e-f627-da7876b6864d EQUAL cta]
+- `a9a077df-b852-2810-628a-c552a26f704c` (text) — Button Text [when 87f6cd4b-664d-817e-f627-da7876b6864d MATCHES_REGEX btn|modal]
+- `6c2040b6-4134-ba89-fae4-76bb61738fc0` (text) — Modal Target [when 87f6cd4b-664d-817e-f627-da7876b6864d EQUAL modal]
+- `2d23230a-b8ac-63bc-86ee-20c7be69052c` (link) — Link [when 87f6cd4b-664d-817e-f627-da7876b6864d EQUAL btn]
+- `c64dfe56-372b-0a79-6411-0325c2d7702a` (payment) — Payment link [when 87f6cd4b-664d-817e-f627-da7876b6864d EQUAL hs_payment]
+- `7af74f70-d8f0-d825-202d-2102610de20e` (choice) — Checkout behavior [when cta.payment MATCHES_REGEX id":\d+ AND ctas.cta_type EQUAL hs_payment]
+- `0bdd9ef2-ad10-792f-606f-ae3e2f531cd0` (choice) — CTA Size [when 87f6cd4b-664d-817e-f627-da7876b6864d NOT_EQUAL none] [required]
+- `14e9434a-d391-6fa3-e871-9eeaa7df51b9` (boolean) — Add icon [when 87f6cd4b-664d-817e-f627-da7876b6864d NOT_EQUAL cta]
+- `54b21ffb-eca8-c9e2-1572-f4f9401faf09` (icon) — Icon [required]
+- `9c95a52c-55a7-2dd7-c517-4c11a3c21a28` (choice) — Position [required]
+- `fcad4893-75fe-46a9-d9e3-e9e8d0d06d18.purpose` (choice) — Purpose [required] — _The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden="true" will be added to the…_
+- `override.search.disable` (boolean) — Disable Search
+- `override.search.background` (color) — Background [when override.search.disable EQUAL false]
+- `override.search.color` (color) — Color [when override.search.disable EQUAL false]

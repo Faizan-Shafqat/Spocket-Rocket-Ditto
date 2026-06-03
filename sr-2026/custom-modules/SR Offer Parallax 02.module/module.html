@@ -1,0 +1,83 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+	
+		{% set width_class =
+			module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+			module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+			module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+			'col-lg-12'
+		%}
+	
+		{% require_css %}
+			<style>
+				{{ macros.design_settings(name, module.design_settings) }}
+				.{{ name }} .sr-offer-parallax-02-content {
+					padding: 1.875rem;
+					margin-top: 1.875rem;
+					{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+					background: {{ module.design_settings.card_styles.background_gradient.css }};
+					{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+					background-color: {{ module.design_settings.card_styles.background_custom.css }};
+					{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+					background-color: var(--{{ module.design_settings.card_styles.background_color }});
+					{%- endif -%}
+					{% if module.design_settings.card_styles.border.css %}
+					{{ module.design_settings.card_styles.border.css }}
+					{% endif %}
+					{% if module.design_settings.card_styles.border_radius >= 0 %}
+					border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+					{% endif %}
+					{% if module.design_settings.card_styles.shadow %}
+					box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+					{% endif %}
+				}
+				@media (min-width: 992px) {
+					.{{ name }} .sr-offer-parallax-02-content {
+						{{ module.design_settings.card_styles.spacing.css }};
+						border-top-left-radius: 0;
+						border-bottom-left-radius: 0;
+					}
+				}
+			</style>
+		{% end_require_css %}
+	
+		<div class="sr-offer-parallax-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+	
+	
+			<div class="{{ module.design_settings.layout }} sr-offer-parallax-page-wrapper">
+				{% if module.design_settings.container_width != 'max' %}
+					<div class="row">
+						<div class="{{ width_class }}">
+				{% endif %}
+	
+							<div class="row no-gutters position-relative sr-valign-stretch">
+	
+								<div class="col-lg-6 sr-offer-parallax-02-image sr-border-left">
+									<div class="parallax-image h-100 d-flex align-items-end">
+										{{ macros.image(module.parallax_image)}}
+									</div>
+								</div>
+								<div class="col-lg-6 sr-offer-parallax-02-content sr-card sr-border-right">
+									{{ macros.heading(module.heading) }}
+									{% if module.description %}
+										<div class="description{% if module.lead_text %} lead{% endif %}">
+											{{module.description}}
+										</div>
+									{% endif %}
+	
+									{{ macros.cta(module.ctas, '{{ "sr-spacer-top-50" if module.heading || module.description}}') }}
+	
+								</div>
+							</div>
+	
+				{% if module.design_settings.container_width != 'max' %}
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	
+		{{ require_js(get_asset_url('../../js/gsap.js'), { defer: true }) }}
+		{{ require_js(get_asset_url('../../js/ScrollTrigger.js'), { defer: true }) }}
+	{% endif %}

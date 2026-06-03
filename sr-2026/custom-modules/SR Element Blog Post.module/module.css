@@ -1,0 +1,77 @@
+.blog-card {
+  -webkit-box-shadow: 0px 0px 50px #D9DBDF;
+  box-shadow: 0px 0px 50px #D9DBDF;
+  background: #fff;
+  margin: 1rem 0;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  display: block;
+  color: inherit;
+}
+
+.blog-card:hover,
+.blog-card:not(.btn):hover {
+  -webkit-transform: scale(1.025);
+  -ms-transform: scale(1.025);
+  transform: scale(1.025);
+  cursor: pointer;
+  color: inherit;
+}
+
+.blog-card .blog-image {
+  min-height: 160px;
+  background-size: 100%;
+  background-position: center;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.blog-card:hover .blog-image {
+  background-size: 125%;
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.blog-card .meta {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.blog-card .avatar img {
+  max-width: 50px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.blog-card .tag {
+  padding: 0 .75rem;
+  border-radius: 50px;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.blog-card p {
+  margin: 0;
+  padding-bottom: 2rem;
+}
+
+.blog-card .author, .blog-card .date {
+  display: block;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .blog-card {
+    margin: 0;
+  }
+}

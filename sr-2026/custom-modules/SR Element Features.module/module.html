@@ -1,0 +1,30 @@
+{% import "../../templates/macros.html" as macros %}
+<div class="sr-features {{name}} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}" {{ "data-preview" if module_preview }}>
+	<ul>
+		{% for item in module.feature %}
+		<li class="{% if !item.icon.icon_on_top %}d-flex align-items-{{item.algin_content || 'center' }}{% endif %}">
+			<span class="icon-wrapper" {% if item.icon.icon_on_top %}class="mb-3 "{% endif %}style="--feat-bg: {{ item.icon.background.color || "var(--primary)" }}; --feat-color: {{ item.icon.color.color }}; --feat-size: {{ item.icon.icon_size }}px;">{% icon name="{{ item.icon.icon.name }}" style="{{ item.icon.icon.type }}" unicode="{{ item.icon.icon.unicode }}" icon_set="{{ item.icon.icon.icon_set }}" no_wrapper=true %}</span>
+			{% if item.description || item.heading %}
+			<div class="media-body {{ 'd-inline-flex' if not item.icon.icon_on_top }} flex-column">
+				{{ macros.heading(item.heading) }}
+				{% if item.description %}
+				<div class="description{% if item.lead_text %} lead{% endif %}{% if item.heading %} mt-2{% endif %}">{{ item.description}}</div>
+				{% endif %}
+			</div>
+			{% endif %}
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+
+{% require_css %}
+<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+	.{{ name }} {
+		{{ module.design_settings.spacing.css }};
+	}
+	.{{ name }} ul > li:not(:last-child) {
+		margin-bottom: {{ module.design_settings.list_spacing / 16 ~ 'rem' }};
+	}
+</style>
+{% end_require_css %}

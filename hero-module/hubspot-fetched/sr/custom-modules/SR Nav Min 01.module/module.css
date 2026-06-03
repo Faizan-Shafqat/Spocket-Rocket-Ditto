@@ -1,0 +1,128 @@
+/* Layout */
+body.nav-open {
+    overflow: hidden;
+}
+
+.header__container--min {
+    --topNavXSpacing: 0.825rem;
+    --topNavYSpacing: 0.75rem;
+    --desktopNavXSpacing: 0.825rem;
+    --desktopNavYSpacing: 2rem;
+    --mobileNavXSpacing: 0;
+    --mobileNavYSpacing: 0.75rem;
+    --mobileMenuXSpacing: 1rem;
+    --mobileMenuYSpacing: 0.5rem;
+    --dropdownWidth: 230px;
+    --dropdownYSpacing: 1.5rem;
+    --dropdownXSpacing: 2rem;
+    --dropdownLinkSpacing: 0.5rem;
+    position: relative;
+    width: 100%;
+    z-index: 12;
+    box-shadow: 15px 25px 60px rgba(0, 0, 0, 0);
+    transition: background 200ms ease-in-out, box-shadow 200ms ease-in-out;
+}
+
+.header__container--min[data-fixed='true'].header-scroll,
+.header__container--min.scroll-up.header-scroll {
+    position: fixed;
+}
+
+.header__container--min[data-fixed='true'][data-scroll='true'].header-scroll {
+    top: -100%;
+}
+
+.header__container--min[data-fixed='true'][data-scroll='true'].scroll-up,
+.header__container--min[data-fixed='true'][data-scroll='true'].scroll-down {
+    top: -100%;
+    transition: top 500ms ease-in-out, background 200ms ease;
+}
+
+.header__container--min[data-fixed='true'][data-scroll='true'].scroll-up,
+.header__container--min[data-fixed='true'][data-scroll='false'] {
+    top: 0;
+}
+
+.header__container--min[data-transparent='true'] {
+    position: absolute;
+    top: 0;
+}
+
+.header__container--min .header__wrapper {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header__container--min .header__menu--top {
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 101;
+    align-items: center;
+}
+
+.header__container--min .header__button-col {
+    margin-left: var(--desktopNavXSpacing);
+}
+
+
+/* Logo */
+
+.header__container--min .header__logo img {
+    height: auto;
+    max-width: 100%;
+}
+
+.header__container--min[data-fixed='true'].header-scroll .header__logo-default.logo-hide,
+.header__logo-image.header__logo-scroll {
+    display: none;
+}
+
+.header__container--min[data-fixed='true'].header-scroll .header__logo-image.header__logo-scroll {
+    display: block;
+}
+
+/*  Top bar - announcement */
+.header__container--min .header__menu-announcement a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.header__container--min .header__menu-announcement a:hover {
+    color: inherit;
+    text-decoration: underline;
+    opacity: 0.65;
+}
+
+.header__container--min .header__menu-announcement :last-child {
+    margin-bottom: 0;
+}
+
+/* Skip to content button */
+.skip-main {
+    left: -999px;
+    position: absolute;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -999;
+}
+
+.skip-main:focus,
+.skip-main:active {
+    left: 0;
+    top: 10px;
+    height: auto;
+    overflow: auto;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 1.2em;
+    z-index: 999;
+    width: 300px;
+    right: 0;
+}

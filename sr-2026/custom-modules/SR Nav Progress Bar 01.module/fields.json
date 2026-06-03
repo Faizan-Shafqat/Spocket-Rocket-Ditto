@@ -1,0 +1,70 @@
+[ {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "display_width" : null,
+  "type" : "boolean",
+  "default" : true
+}, {
+  "id" : "sr_module_id",
+  "name" : "sr_module_id",
+  "label" : "ID",
+  "help_text" : "Assign a ID to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : "half_width",
+  "type" : "text"
+}, {
+  "id" : "class",
+  "name" : "class",
+  "label" : "Class",
+  "help_text" : "Assign a CLASS to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : "half_width",
+  "type" : "text"
+}, {
+  "id" : "position",
+  "name" : "position",
+  "label" : "Position",
+  "help_text" : "Requires: Pillar Nav TOC 01",
+  "required" : true,
+  "locked" : false,
+  "display" : "select",
+  "choices" : [ [ "above-nav", "Above Nav" ], [ "below-nav", "Below Nav" ] ],
+  "multiple" : false,
+  "reordering_enabled" : true,
+  "preset" : null,
+  "display_width" : null,
+  "type" : "choice",
+  "default" : "above-nav"
+}, {
+  "id" : "bar_color",
+  "name" : "bar_color",
+  "label" : "Bar Color",
+  "required" : false,
+  "locked" : false,
+  "display_width" : null,
+  "type" : "color",
+  "default" : {
+    "color" : "#0c63ff",
+    "opacity" : 100
+  }
+}, {
+  "id" : "bar_height",
+  "name" : "bar_height",
+  "label" : "Bar Height",
+  "help_text" : "In PX",
+  "required" : false,
+  "locked" : false,
+  "display" : "text",
+  "step" : 1,
+  "display_width" : null,
+  "type" : "number",
+  "default" : 4
+} ]

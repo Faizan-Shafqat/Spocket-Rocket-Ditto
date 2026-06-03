@@ -1,0 +1,4 @@
+{% import "../../templates/macros.html" as macros %}
+<div class="text-{{module.design_settings.alignment.horizontal_align|lower}}"{% if module.design_settings.spacing.css %} style="{{ module.design_settings.spacing.css }}"{% endif%} {{ "data-preview" if module_preview }}>
+	{{ macros.cta(module.ctas) }}
+</div>

@@ -1,0 +1,85 @@
+.sr-three-col-features-01 .icon-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.sr-three-col-features-01 .icon-container .hover-icon {
+    display: none;
+}
+.sr-three-col-features-01 .feature-list ul li:hover .icon-container .main-icon {
+    display: none;
+}
+.sr-three-col-features-01 .feature-list ul li:hover .icon-container .hover-icon {
+    display: block;
+}
+.sr-three-col-features-01 .col-md-4 {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.sr-three-col-features-01 .feature-list ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.sr-three-col-features-01 .feature-list ul li {
+    margin: 1rem 0;
+    display: inline-block;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    -webkit-box-shadow: 15px 25px 60px 0 rgba(0, 0, 0, 0);
+    box-shadow: 15px 25px 60px 0 rgba(0, 0, 0, 0);
+    width: 100%;
+}
+.sr-three-col-features-01 .feature-list ul li.link:is(:hover, :focus) {
+    -webkit-box-shadow: 15px 25px 60px 0 rgba(0, 0, 0, 0.10);
+    box-shadow: 15px 25px 60px 0 rgba(0, 0, 0, 0.10);
+}
+.sr-three-col-features-01 .feature-list .link a {
+    color: inherit;
+    text-decoration: none;
+}
+.sr-three-col-features-01 .feature-list ul li:first-child {
+    margin-bottom: 1.5rem;
+}
+.sr-three-col-features-01 .feature-list ul li:last-child {
+    margin-top: 1.5rem;
+}
+.sr-three-col-features-01 .feature-device img {
+    max-width: 100%;
+    position: relative;
+    z-index: 2;
+}
+.sr-three-col-features-01 .btn-wrapper {
+    margin-top: 4rem;
+}
+.sr-three-col-features-01 .feature-list ul li p:last-child {
+    margin: 0;
+}
+.sr-three-col-features-01 .feature-device {
+    position: relative;
+}
+.sr-three-col-features-01 .float-image img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+@media only screen and (max-width : 768px) {
+    .sr-three-col-features-01 .feature-device {
+        display: none;
+    }
+    .sr-three-col-features-01 .feature-list ul li {
+        border: none;
+    }
+}

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>SR Theme Lab — clone & preview</title>
+	<style>
+		:root { font-family: system-ui, sans-serif; line-height: 1.5; color: #1a1a1a; }
+		body { max-width: min(100vw - 2rem, 76rem); margin: 2rem auto; padding: 0 1rem; }
+		label { display: block; font-weight: 600; margin-top: 1rem; }
+		input[type="text"] { width: 100%; padding: 0.5rem; box-sizing: border-box; }
+		button { margin-top: 1rem; padding: 0.6rem 1.2rem; cursor: pointer; }
+		pre { background: #f4f6f8; padding: 1rem; overflow: auto; font-size: 0.85rem; }
+		.note { color: #555; font-size: 0.9rem; margin-top: 1.5rem; }
+		a { color: #0366d6; }
+		.typography-panel { border: 1px solid #cfd8e3; padding: 1rem 1.1rem; border-radius: 8px; margin: 1rem 0; background: #fafcfe; }
+		.typography-panel h2 { margin: 0 0 0.5rem; font-size: 1.05rem; }
+		button.secondary { background: #555; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer; }
+		.typography-json-scroll {
+			margin-top: 0.75rem;
+			max-height: min(52vh, 26rem);
+			overflow: auto;
+			border: 1px solid #cfd8e3;
+			border-radius: 6px;
+			background: #fff;
+			contain: content;
+		}
+		pre#typographyExtractOut,
+		pre#typographyExtractAiOut,
+		pre#themeInjectPlanAiOut,
+		pre#themeInjectPlanOut,
+		pre#heroMatchOut {
+			margin: 0;
+			padding: 0.85rem;
+			font-size: 0.72rem;
+			line-height: 1.35;
+			border: none;
+			white-space: pre-wrap;
+			word-break: break-word;
+		}
+		button.ai-pill {
+			background: #5b3df5;
+			color: #fff;
+			border: none;
+			padding: 0.5rem 1rem;
+			border-radius: 999px;
+			cursor: pointer;
+			font-weight: 600;
+		}
+		button.ai-pill:disabled { opacity: 0.6; cursor: progress; }
+		button.ai-pill .api-route-label {
+			font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+			font-size: 0.78em;
+			color: #e0fffa;
+			pointer-events: none;
+		}
+		button.ai-inject-hubspot {
+			background: #c2410c;
+			color: #fff;
+			border: none;
+			padding: 0.55rem 1rem;
+			border-radius: 6px;
+			cursor: pointer;
+			font-weight: 600;
+			font-size: 0.88rem;
+			margin-top: 0.5rem;
+		}
+		button.ai-inject-hubspot:disabled { opacity: 0.55; cursor: progress; }
+		.panel-row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-top: 0.6rem; }
+	</style>
+</head>
+<body>
+	<h1>SR Theme Lab — Single Module (SR Hero 01)</h1>
+
+	<section class="typography-panel">
+		<h2>Client live site URL — typography extraction (optional)</h2>
+		<label for="typographyWebsiteUrl">Live site URL</label>
+		<input id="typographyWebsiteUrl" type="text" placeholder="https://www.hubspot.com/" autocomplete="url" />
+		<div class="panel-row">
+			<button type="button" class="secondary" id="btnExtractTypography">Extract typography (Playwright — ground truth)</button>
+			<button type="button" class="ai-pill" id="btnExtractTypographyAi">Extract typography with AI (HTML + OpenAI)</button>
+			<button type="button" class="ai-pill" id="btnThemeInjectPlan" style="background:#0d9488">
+				Theme inject plan — <span class="api-route-label">POST /api/theme-inject-plan</span>
+			</button>
+		</div>
+		<div style="margin-top:0.75rem;font-size:0.85rem;color:#444">
+			<strong>AI theme inject plan</strong> — <code>POST /api/theme-inject-plan</code> (teal). <strong>Requires purple first:</strong> teal sends your last purple JSON as <code>typography_extract_ai</code>, reuses typography/hero/CSS signals, then local <code>cache/lightrag</code> (graph + vectors + markdown) + planner OpenAI.
+		</div>
+		<p class="note" style="margin-top:0.35rem;font-size:0.82rem">
+			Run <strong>purple</strong> for this URL, then <strong>teal</strong>. Teal does not re-run purple’s OpenAI calls when the snapshot matches the URL. Check Network for <code>theme-inject-plan</code>.
+			<strong>AI → HubSpot typography:</strong> server maps <code>typography_ai</code> (primary/body fonts, <code>google_fonts_detected</code> for @import only, <code>approximate_scale</code>, optional mono eyebrow from a second <code>font_face_only_families</code> entry) plus <code>hero_ai</code> into the same bake path as Playwright.
+		</p>
+		<div style="margin-top:0.4rem;font-size:0.8rem;font-weight:600;color:#0f766e">AI answer (<code>theme_inject_plan</code>)</div>
+		<div class="typography-json-scroll"><pre id="themeInjectPlanAiOut">(click teal — not purple)</pre></div>
+		<div style="margin-top:0.45rem;font-size:0.8rem;font-weight:600;color:#555">Full API JSON</div>
+		<div class="typography-json-scroll"><pre id="themeInjectPlanOut">(not run yet)</pre></div>
+		<div style="margin-top:0.85rem;font-size:0.85rem;color:#444"><strong>Playwright</strong></div>
+		<div class="typography-json-scroll"><pre id="typographyExtractOut">(Playwright result — shares localStorage with main UI at /)</pre></div>
+		<div style="margin-top:0.5rem;font-size:0.85rem;color:#444"><strong>AI extract</strong> (purple — <code>POST /api/typography-extract-ai</code>) — OpenAI returns <code>typography_site_estimate</code> (Playwright-shaped) when evidence allows. Optional: <code>playwright_extract</code> from Playwright, or <code>use_server_playwright</code> / <code>DITTO_SERVER_PLAYWRIGHT_ON_PURPLE=1</code>.</div>
+		<div class="typography-json-scroll"><pre id="typographyExtractAiOut">(not run yet)</pre></div>
+	</section>
+
+	<section class="typography-panel">
+		<h2>SR Hero 01 fit — dual extract + OpenAI decision</h2>
+		<p class="note" style="margin-top:0">
+			Uses the same URL as above: Playwright extract (typography service) + fetched HTML + OpenAI, with SR knowledge from
+			<code>cache/lightrag/source</code>. Requires <code>OPENAI_API_KEY</code> on the server.
+		</p>
+		<button type="button" class="secondary" id="btnHeroMatch" style="margin-top:0.6rem">Run hero match</button>
+		<div class="typography-json-scroll"><pre id="heroMatchOut">(not run yet)</pre></div>
+	</section>
+
+	<p><a href="/">Main clone UI</a></p>
+	<p>
+		<strong>Do not target HubSpot <code>/sr-2026</code></strong> if that folder is locked — these actions create a <strong>new</strong> root folder each time (e.g. <code>sr-slim-…</code>, <code>sr-2026-work-…</code>).
+		<strong>Slim</strong> = SR Hero 01 + preview skeleton. <strong>Full reference</strong> = entire local <code>sr-2026</code> + typography bake (slow). Uses HubSpot CLI (<code>hs account auth</code>).
+	</p>
+
+	<label for="newThemeName">Theme name prefix (optional; unique id is appended every run)</label>
+	<input id="newThemeName" type="text" placeholder="e.g. sr-delivery" />
+	<p class="note" style="margin-top:0.25rem">Each run creates a <strong>new</strong> folder unless you tick <em>Reuse path</em>.</p>
+
+	<label for="suffix">Default suffix if prefix is empty</label>
+	<input id="suffix" type="text" placeholder="e.g. preview-001" />
+
+	<label>
+		<input type="checkbox" id="allowReuseDest" />
+		Reuse exact path (overwrite same theme folder) — default is <strong>always a new theme</strong>
+	</label>
+
+	<label for="account">CLI account name or ID (optional, overrides default config)</label>
+	<input id="account" type="text" placeholder="fake-demo-account" />
+
+	<label for="heroHeading">Default hero heading (baked into preview.html on the working copy, optional)</label>
+	<input id="heroHeading" type="text" placeholder="e.g. Your product headline" />
+
+	<label for="heroDescription">Default hero body HTML (optional, simple tags OK)</label>
+	<input id="heroDescription" type="text" placeholder="e.g. &lt;p&gt;We ship faster with SR.&lt;/p&gt;" />
+
+	<label>
+		<input type="checkbox" id="extendPreviewDnd" />
+		Include CTA + custom background in preview (optional; see <a href="/">main UI</a> for fields)
+	</label>
+	<label for="heroCtaText">CTA label (optional)</label>
+	<input id="heroCtaText" type="text" />
+	<label for="heroCtaUrl">CTA URL (optional)</label>
+	<input id="heroCtaUrl" type="text" />
+	<label for="heroBackgroundHex">Background hex (optional)</label>
+	<input id="heroBackgroundHex" type="text" placeholder="#1a1a2e" />
+
+	<label>
+		<input type="checkbox" id="createDraftPage" />
+		After upload, create a <strong>draft website page</strong> (CMS API — needs <code>HUBSPOT_CMS_PAT</code> with <code>cms.pages.sites.write</code>)
+	</label>
+	<button type="button" id="btn-slim" style="background:#0366d6;color:#fff;border:none;padding:0.8rem 1.5rem;font-size:1rem;font-weight:600;">Upload SR Hero 01 (slim)</button>
+	<button type="button" id="btn-full-ref" class="secondary" style="margin-left:0.5rem">Upload full sr-2026 copy</button>
+	<div class="panel-row" style="margin-top:0.35rem">
+		<button type="button" class="ai-inject-hubspot" id="btn-slim-ai-purple">Upload slim — last purple AI → HubSpot</button>
+		<button type="button" class="ai-inject-hubspot" id="btn-slim-ai-teal">Upload slim — last teal AI → HubSpot</button>
+	</div>
+
+	<h2>Result</h2>
+	<pre id="out">(not run yet)</pre>
+
+	<p class="note">
+		After upload, open <strong>Design Manager</strong> for your portal, find the new theme path shown above, then create or open a page using template
+		<strong>SR Hero Preview (DND)</strong>. URL params <code>?hero_heading=</code> and <code>?hero_description=</code> (HTML) override defaults via <code>request.query_dict</code> in HubL.
+	</p>
+	<p class="note">
+		Legacy installer proxy: POST <code>/install-theme</code> (requires <code>HUBSPOT_INSTALLER_PAT</code> in <code>.env</code>).
+	</p>
+
+	<script>
+		const API_BASE = (function () {
+			if (location.protocol === "file:") return "http://localhost:3000";
+			var h = location.hostname;
+			var p = location.port;
+			if ((h === "localhost" || h === "127.0.0.1") && p && p !== "3000") {
+				return "http://" + h + ":3000";
+			}
+			return "";
+		})();
+		function api(path) {
+			var x = path.charAt(0) === "/" ? path : "/" + path;
+			return API_BASE + x;
+		}
+
+		const LS_TYPO_URL = "ditto.typographyWebsiteUrl";
+		const LS_TYPO_FULL = "ditto.typographyExtractFull";
+		const LS_TYPO_AI = "ditto.typographyExtractAi";
+		const LS_HERO_MATCH = "ditto.heroMatchLast";
+		const LS_THEME_INJECT = "ditto.themeInjectPlanLast";
+
+		function typographyPayloadForUpload() {
+			const url = String(document.getElementById("typographyWebsiteUrl").value || "").trim();
+			var full = null;
+			try {
+				const raw = localStorage.getItem(LS_TYPO_FULL);
+				if (raw) full = JSON.parse(raw);
+			} catch (e) {
+				full = null;
+			}
+			const ty =
+				full && typeof full === "object" && full.typography && typeof full.typography === "object"
+					? full.typography
+					: null;
+			const o = {};
+			if (url) o.typographyWebsiteUrl = url;
+			if (full && typeof full === "object") o.typographyExtract = full;
+			if (ty) o.typography = ty;
+			return o;
+		}
+
+		function setTypographyExtractDisplay(obj) {
+			document.getElementById("typographyExtractOut").textContent =
+				typeof obj === "string" ? obj : JSON.stringify(obj, null, 2);
+		}
+
+		function setTypographyAiDisplay(obj) {
+			document.getElementById("typographyExtractAiOut").textContent =
+				typeof obj === "string" ? obj : JSON.stringify(obj, null, 2);
+		}
+
+		function setHeroMatchDisplay(obj) {
+			document.getElementById("heroMatchOut").textContent =
+				typeof obj === "string" ? obj : JSON.stringify(obj, null, 2);
+		}
+
+		function safeJsonStringify(obj) {
+			try {
+				return JSON.stringify(obj, null, 2);
+			} catch (e) {
+				return "(JSON.stringify failed: " + String(e && e.message ? e.message : e) + ")";
+			}
+		}
+
+		function setThemeInjectPlanDisplay(obj) {
+			const aiEl = document.getElementById("themeInjectPlanAiOut");
+			const fullEl = document.getElementById("themeInjectPlanOut");
+			if (!fullEl) return;
+			const text = typeof obj === "string" ? obj : safeJsonStringify(obj);
+			const plan = typeof obj === "object" && obj ? obj.theme_inject_plan : undefined;
+			if (aiEl) {
+				if (typeof obj === "object" && obj && obj.status) {
+					aiEl.textContent = "(still running — plan will appear here when ready)";
+				} else if (plan !== undefined && plan !== null) {
+					aiEl.textContent = safeJsonStringify(plan);
+				} else {
+					aiEl.textContent = text;
+				}
+			}
+			fullEl.textContent = text;
+			try {
+				fullEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
+			} catch (eScroll) {}
+		}
+
+		(function hydrateTypographyFromStorage() {
+			try {
+				const u = localStorage.getItem(LS_TYPO_URL);
+				const inp = document.getElementById("typographyWebsiteUrl");
+				if (u && inp) inp.value = u;
+				const raw = localStorage.getItem(LS_TYPO_FULL);
+				if (raw) {
+					const parsed = JSON.parse(raw);
+					setTypographyExtractDisplay({
+						cached: true,
+						website_url: parsed.website_url,
+						page_title: parsed.page_title,
+						typography: parsed.typography,
+						typography_full_page: parsed.typography_full_page,
+						hero: parsed.hero,
+					});
+				}
+				const hm = localStorage.getItem(LS_HERO_MATCH);
+				if (hm) {
+					try {
+						setHeroMatchDisplay({ cached: true, ...JSON.parse(hm) });
+					} catch (e2) {}
+				}
+				const ai = localStorage.getItem(LS_TYPO_AI);
+				if (ai) {
+					try {
+						setTypographyAiDisplay({ cached: true, ...JSON.parse(ai) });
+					} catch (e3) {}
+				}
+				const tip = localStorage.getItem(LS_THEME_INJECT);
+				if (tip) {
+					try {
+						setThemeInjectPlanDisplay({ cached: true, ...JSON.parse(tip) });
+					} catch (e4) {}
+				}
+			} catch (e) {}
+		})();
+
+		document.getElementById("btnExtractTypography").addEventListener("click", async function () {
+			const url = String(document.getElementById("typographyWebsiteUrl").value || "").trim();
+			const btn = document.getElementById("btnExtractTypography");
+			if (!url) {
+				setTypographyExtractDisplay({ error: "Enter a live site URL first." });
+				return;
+			}
+			btn.disabled = true;
+			try {
+				const res = await fetch(api("/api/typography-extract"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ website_url: url }),
+				});
+				const data = await res.json().catch(function () {
+					return {};
+				});
+				if (!res.ok || data.ok === false) {
+					setTypographyExtractDisplay({
+						error: data.error || "extract failed",
+						httpStatus: res.status,
+						detail: data,
+					});
+					return;
+				}
+				const snap = {};
+				for (var k in data) {
+					if (Object.prototype.hasOwnProperty.call(data, k) && k !== "ok") snap[k] = data[k];
+				}
+				if (snap.hero_screenshot) {
+					delete snap.hero_screenshot;
+				}
+				localStorage.setItem(LS_TYPO_URL, url);
+				localStorage.setItem(LS_TYPO_FULL, JSON.stringify(snap));
+				setTypographyExtractDisplay({
+					ok: true,
+					website_url: snap.website_url,
+					page_title: snap.page_title,
+					typography: snap.typography,
+					typography_full_page: snap.typography_full_page,
+					hero: snap.hero,
+				});
+			} catch (e) {
+				setTypographyExtractDisplay({ error: String(e && e.message ? e.message : e) });
+			} finally {
+				btn.disabled = false;
+			}
+		});
+
+		document.getElementById("btnExtractTypographyAi").addEventListener("click", async function () {
+			const url = String(document.getElementById("typographyWebsiteUrl").value || "").trim();
+			const btn = document.getElementById("btnExtractTypographyAi");
+			if (!url) {
+				setTypographyAiDisplay({ error: "Enter a live site URL first." });
+				return;
+			}
+			function normU(u) {
+				return String(u || "").trim().replace(/\/+$/, "").toLowerCase();
+			}
+			const body = { website_url: url };
+			try {
+				const rawPw = localStorage.getItem(LS_TYPO_FULL);
+				if (rawPw) {
+					const pw = JSON.parse(rawPw);
+					if (
+						pw &&
+						(pw.success === true || pw.ok === true) &&
+						pw.typography_full_page &&
+						normU(pw.website_url || pw.websiteUrl) === normU(url)
+					) {
+						body.playwright_extract = pw;
+					}
+				}
+			} catch (ePw) {}
+			btn.disabled = true;
+			setTypographyAiDisplay({
+				status: body.playwright_extract
+					? "running… (merging last Playwright extract for exact h1/body fonts + OpenAI for anything missing)"
+					: "running… (fetching HTML + asking OpenAI — run Playwright extract first for pixel-accurate fonts)",
+			});
+			try {
+				const res = await fetch(api("/api/typography-extract-ai"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(body),
+				});
+				const data = await res.json().catch(function () {
+					return {};
+				});
+				if (!res.ok || data.ok === false) {
+					setTypographyAiDisplay({
+						error: data.error || "AI typography extract failed",
+						httpStatus: res.status,
+						detail: data,
+					});
+					return;
+				}
+				localStorage.setItem(LS_TYPO_URL, url);
+				localStorage.setItem(LS_TYPO_AI, JSON.stringify(data));
+				setTypographyAiDisplay(data);
+			} catch (e) {
+				const msg = String(e && e.message ? e.message : e);
+				if (/failed to fetch/i.test(msg)) {
+					setTypographyAiDisplay({
+						error: msg,
+						what_it_means:
+							"The browser dropped the HTTP connection to this app (localhost:3000) before any response finished. This is not an OpenAI JSON error body.",
+						try_this: [
+							"Keep `npm run dev` running; wait out nodemon restarts.",
+							"Use http://localhost:3000/theme-lab.html (not file://).",
+							"GPT-5 models can take several minutes — Ditto defaults DITTO_HTTP_INBOUND_TIMEOUT_MS=0 so Node does not kill long waits.",
+						],
+						model_doc: "https://platform.openai.com/docs/models",
+					});
+				} else {
+					setTypographyAiDisplay({ error: msg });
+				}
+			} finally {
+				btn.disabled = false;
+			}
+		});
+
+		(function bindThemeInjectPlanButton() {
+			const btnTheme = document.getElementById("btnThemeInjectPlan");
+			if (!btnTheme) return;
+			btnTheme.addEventListener("click", async function () {
+			const url = String(document.getElementById("typographyWebsiteUrl").value || "").trim();
+			const btn = btnTheme;
+			if (!url) {
+				setThemeInjectPlanDisplay({ error: "Enter a live site URL first." });
+				return;
+			}
+			function normU(u) {
+				return String(u || "")
+					.trim()
+					.replace(/\/+$/, "")
+					.toLowerCase();
+			}
+			const rawSnap = localStorage.getItem(LS_TYPO_AI);
+			if (!rawSnap) {
+				setThemeInjectPlanDisplay({
+					error:
+						"Run **Extract typography with AI** (purple) for this URL first. Teal reuses that JSON + local cache.",
+				});
+				return;
+			}
+			let purple;
+			try {
+				purple = JSON.parse(rawSnap);
+			} catch (e0) {
+				setThemeInjectPlanDisplay({ error: "Stored purple extract is invalid JSON. Run purple again." });
+				return;
+			}
+			if (!purple || purple.ok === false || !purple.typography_ai || purple.typography_ai.error || !purple.css_signals) {
+				setThemeInjectPlanDisplay({
+					error: "Purple extract missing typography_ai or css_signals. Run purple again.",
+				});
+				return;
+			}
+			if (!purple.website_url || !String(purple.website_url).trim()) {
+				setThemeInjectPlanDisplay({ error: "Purple response missing website_url. Run purple again." });
+				return;
+			}
+			if (normU(purple.website_url) !== normU(url)) {
+				setThemeInjectPlanDisplay({
+					error: `Purple was for **${purple.website_url}** but the field is **${url}**. Match them or re-run purple.`,
+				});
+				return;
+			}
+			btn.disabled = true;
+			setThemeInjectPlanDisplay({
+				status:
+					"Running… (reusing purple + local cache + planner OpenAI — no duplicate typography/hero extract)",
+			});
+			try {
+				const res = await fetch(api("/api/theme-inject-plan"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ website_url: url, typography_extract_ai: purple }),
+				});
+				const data = await res.json().catch(function () {
+					return {};
+				});
+				if (!res.ok || data.ok === false) {
+					setThemeInjectPlanDisplay({
+						error: data.error || "theme-inject-plan failed",
+						httpStatus: res.status,
+						detail: data,
+					});
+					return;
+				}
+				localStorage.setItem(LS_TYPO_URL, url);
+				localStorage.setItem(LS_THEME_INJECT, JSON.stringify(data));
+				setThemeInjectPlanDisplay(data);
+			} catch (e) {
+				const msg = String(e && e.message ? e.message : e);
+				if (/failed to fetch/i.test(msg)) {
+					setThemeInjectPlanDisplay({
+						error: msg,
+						what_it_means:
+							"The browser dropped the connection before the server finished (this route runs multiple AI steps).",
+						try_this: [
+							"Use http://localhost:3000/theme-lab.html and keep `npm run dev` running.",
+							"Set DITTO_HTTP_INBOUND_TIMEOUT_MS=0 in .env so Node does not close long requests.",
+						],
+					});
+				} else {
+					setThemeInjectPlanDisplay({ error: msg });
+				}
+			} finally {
+				btn.disabled = false;
+			}
+			});
+		})();
+
+		document.getElementById("btnHeroMatch").addEventListener("click", async function () {
+			const url = String(document.getElementById("typographyWebsiteUrl").value || "").trim();
+			const btn = document.getElementById("btnHeroMatch");
+			if (!url) {
+				setHeroMatchDisplay({ error: "Enter a live site URL in the field above first." });
+				return;
+			}
+			btn.disabled = true;
+			setHeroMatchDisplay({ status: "running…" });
+			try {
+				const res = await fetch(api("/api/hero-match"), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ website_url: url }),
+				});
+				const data = await res.json().catch(function () {
+					return {};
+				});
+				if (!res.ok || data.ok === false) {
+					setHeroMatchDisplay({
+						error: data.error || "hero-match failed",
+						httpStatus: res.status,
+						detail: data,
+					});
+					return;
+				}
+				const toStore = {
+					decision: data.decision,
+					playwright_ok: data.playwright && data.playwright.ok,
+					ai_typography_extract: data.ai_typography_extract,
+					elapsed_ms: data.elapsed_ms,
+					website_url: data.website_url,
+				};
+				localStorage.setItem(LS_HERO_MATCH, JSON.stringify(toStore));
+				setHeroMatchDisplay(data);
+			} catch (e) {
+				const msg = String(e && e.message ? e.message : e);
+				if (/failed to fetch/i.test(msg)) {
+					setHeroMatchDisplay({
+						error: msg,
+						what_it_means:
+							"Browser lost the connection to localhost:3000 mid-request (Playwright + HTML fetch + OpenAI + RAG can take a long time).",
+						try_this: [
+							"Keep `npm run dev` running; set DITTO_HTTP_INBOUND_TIMEOUT_MS=0 (default) for long GPT-5 runs.",
+							"See https://platform.openai.com/docs/models (GPT-5 family uses Responses API; can still be slow).",
+						],
+					});
+				} else {
+					setHeroMatchDisplay({ error: msg });
+				}
+			} finally {
+				btn.disabled = false;
+			}
+		});
+
+		const out = document.getElementById("out");
+		function payload(payloadOpts) {
+			payloadOpts = payloadOpts || {};
+			const newThemeName = document.getElementById("newThemeName").value.trim();
+			const base = {
+				...(newThemeName ? { newThemeName } : {}),
+				suffix: document.getElementById("suffix").value.trim() || undefined,
+				allowReuseDest: document.getElementById("allowReuseDest").checked || undefined,
+				account: document.getElementById("account").value.trim() || undefined,
+				heroHeading: document.getElementById("heroHeading").value.trim() || undefined,
+				heroDescription: document.getElementById("heroDescription").value.trim() || undefined,
+				extendPreviewDnd: document.getElementById("extendPreviewDnd").checked || undefined,
+				heroCtaText: document.getElementById("heroCtaText").value.trim() || undefined,
+				heroCtaUrl: document.getElementById("heroCtaUrl").value.trim() || undefined,
+				heroBackgroundHex: document.getElementById("heroBackgroundHex").value.trim() || undefined,
+				createDraftPage: document.getElementById("createDraftPage").checked || undefined,
+			};
+			if (!payloadOpts.omitStoredTypography) {
+				Object.assign(base, typographyPayloadForUpload());
+			}
+			if (payloadOpts.aiTypographyInject && typeof payloadOpts.aiTypographyInject === "object") {
+				Object.assign(base, payloadOpts.aiTypographyInject);
+			}
+			return base;
+		}
+		function readAiSnapshotForHubSpotUpload(lsKey, label) {
+			var raw = localStorage.getItem(lsKey);
+			if (!raw) {
+				return { error: "No cached " + label + ". Run purple/teal in this tab or on the main UI first." };
+			}
+			try {
+				return { ok: true, data: JSON.parse(raw) };
+			} catch (e) {
+				return { error: "Invalid JSON in " + lsKey };
+			}
+		}
+		async function postClone(url, payloadOpts) {
+			const btnS = document.getElementById("btn-slim");
+			const btnF = document.getElementById("btn-full-ref");
+			const btnAiP = document.getElementById("btn-slim-ai-purple");
+			const btnAiT = document.getElementById("btn-slim-ai-teal");
+			btnS.disabled = true;
+			if (btnF) btnF.disabled = true;
+			if (btnAiP) btnAiP.disabled = true;
+			if (btnAiT) btnAiT.disabled = true;
+			out.textContent = "Running…";
+			try {
+				const res = await fetch(api(url), {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(payload(payloadOpts)),
+				});
+				const data = await res.json();
+				out.textContent = JSON.stringify(data, null, 2);
+				if (data.ok && data.designManagerUrl) {
+					window.open(data.designManagerUrl, "_blank", "noopener,noreferrer");
+				}
+				if (data.ok && data.pageEditorUrlCandidates && data.pageEditorUrlCandidates[0]) {
+					window.open(data.pageEditorUrlCandidates[0], "_blank", "noopener,noreferrer");
+				}
+			} catch (e) {
+				out.textContent = String(e);
+			} finally {
+				btnS.disabled = false;
+				if (btnF) btnF.disabled = false;
+				if (btnAiP) btnAiP.disabled = false;
+				if (btnAiT) btnAiT.disabled = false;
+			}
+		}
+		document.getElementById("btn-slim").addEventListener("click", () => postClone("/api/theme-clone-slim"));
+		document.getElementById("btn-full-ref").addEventListener("click", () => postClone("/api/theme-upload-reference-copy"));
+		document.getElementById("btn-slim-ai-purple").addEventListener("click", function () {
+			var got = readAiSnapshotForHubSpotUpload(LS_TYPO_AI, "purple AI extract");
+			if (got.error) {
+				out.textContent = JSON.stringify({ error: got.error }, null, 2);
+				return;
+			}
+			postClone("/api/theme-clone-slim", {
+				omitStoredTypography: true,
+				aiTypographyInject: {
+					ai_typography_source: "typography_extract_ai",
+					ai_typography_snapshot: got.data,
+				},
+			});
+		});
+		document.getElementById("btn-slim-ai-teal").addEventListener("click", function () {
+			var got = readAiSnapshotForHubSpotUpload(LS_THEME_INJECT, "teal theme inject plan");
+			if (got.error) {
+				out.textContent = JSON.stringify({ error: got.error }, null, 2);
+				return;
+			}
+			postClone("/api/theme-clone-slim", {
+				omitStoredTypography: true,
+				aiTypographyInject: {
+					ai_typography_source: "theme_inject_plan",
+					ai_typography_snapshot: got.data,
+				},
+			});
+		});
+	</script>
+</body>
+</html>

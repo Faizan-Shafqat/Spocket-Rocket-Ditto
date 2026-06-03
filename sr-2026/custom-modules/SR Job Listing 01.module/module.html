@@ -1,0 +1,162 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.{{ name }} li .sr-card {
+				{{ module.design_settings.card_styles.spacing.css }}
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+			.{{ name }} .modal-content.sr-card {
+				{{ module.design_settings.modal_styles.spacing.css }};
+				{%- if module.design_settings.modal_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.modal_styles.background_gradient.css }};
+				{%- elif module.design_settings.modal_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.modal_styles.background_custom.css }};
+				{%- elif module.design_settings.modal_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.modal_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.modal_styles.text_color == "custom" %}
+				color: {{ module.design_settings.modal_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.modal_styles.border.css %}
+				{{ module.design_settings.modal_styles.border.css }};
+				{% endif %}
+				{% if module.design_settings.modal_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.modal_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.modal_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.modal_styles.inset }} {{ module.design_settings.modal_styles.horizontal ~ "px" }} {{ module.design_settings.modal_styles.vertical ~ "px" }} {{ module.design_settings.modal_styles.blur ~ "px" }} {{ module.design_settings.modal_styles.spread ~ "px" }} {{ module.design_settings.modal_styles.color.css }};
+				{% endif %}
+			}
+		</style>
+	{% end_require_css %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-job-listing-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }} content-wrapper">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					{% if module.heading || module.description %}
+					<div class="intro-section sr-spacer-bottom-50 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+							<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+						{% endif %}
+					</div>
+					{% endif %}
+						<div class="listing-wrapper">
+							<ul>
+								{% for item in module.listing %}
+								<li>
+									{% if item.direct_link %}
+									<button type="button" class="job-btn sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}" data-toggle="modal" data-target="#{{name}}-modal-{{loop.index}}">
+									{% endif %}
+									{% if !item.direct_link %}
+									<a class="job-btn sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}" {{ macros.link(item.job_link) }}>
+									{% endif %}
+									<div class="listing-content">
+										<div class="listing-title">
+											<h3 class="h5 heading {{'mb-0' if !item.category && !item.location else 'mb-2' }}">{{ item.title }}</h3>
+										</div>
+										{% if item.category || item.location %}
+										<div class="post-meta">
+											<span class="post-category">{{ item.category }}</span>
+											<span class="post-location">{{ item.location }}</span>
+										</div>
+										{% endif %}
+
+										<span class="hs-accordion__item-icon" role="presentation"
+											style="--icon-color: {{ module.design_settings.card_styles.icon_styles.icon_color.css }}; --icon-bg: {{ module.design_settings.card_styles.icon_styles.icon_bg.css }};">
+											<span class="p"></span>
+											<span class="b"></span>
+										</span>
+									</div>
+									{% if !item.direct_link %}</a>{% endif %}
+									{% if item.direct_link %}</button>{% endif %}
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+
+		{% for item in module.listing %}
+			{% if item.direct_link %}
+			<div class="modal fade" id="{{name}}-modal-{{loop.index}}" tabindex="-1" role="dialog" aria-labelledby="{{name}}-modal-{{loop.index}}" aria-hidden="true">
+				<div class="modal-dialog " role="document">
+					<div class="modal-content sr-card sr-border text-{{ module.design_settings.modal_styles.text_color }}">
+
+						<div class="modal-header mb-3">
+							<p class="modal-title h2 mb-0" id="{{name}}-modal-{{loop.index}}">{{item.title}}</p>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="modal-body">
+							{{ macros.heading(item.heading) }}
+							{{ item.job_text }}
+						</div>
+
+						{% if item.cta_one.cta_type != 'none' || item.cta_two.cta_type != 'none' %}
+						<div class="modal-footer">
+							{% if item.cta_one.cta_type != 'none' %}
+							<div class="btn-wrapper btn-{{ item.cta_one.cta_style }}-wrapper btn-wrapper-sm">
+								<button class="cta-button mx-1" data-dismiss="modal" role="button">{{ item.cta_one.button_text }}</button>
+							</div>
+							{% endif %}
+							{% if item.cta_two.cta_type != 'none' %}
+							<div class="btn-wrapper btn-{{ item.cta_two.cta_style }}-wrapper btn-wrapper-sm">
+								{% if item.cta_two.cta_type == 'btn' %}
+								<a class="cta-button mx-1" {{ macros.link(item.cta_two.link) }}>
+									{{ item.cta_two.button_text }}
+								</a>
+								{% elif item.cta_two.cta_type == 'cta' %}
+								{% cta guid="{{ item.cta.cta }}" %}
+								{% endif %}
+							</div>
+							{% endif %}
+						</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endif %}

@@ -1,0 +1,120 @@
+.sr-footer-01 {
+  position: relative;
+}
+
+
+.sr-footer-01 .sr-footer-nav .hs-menu-wrapper>ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  column-gap: 6.25rem;
+}
+
+.sr-footer-01 .sr-footer-nav li.hs-menu-depth-1>a {
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+  display: block;
+}
+
+.sr-footer-01 .sr-footer-nav li.hs-menu-depth-2 {
+  display: flex;
+  padding-bottom: 0.5rem
+}
+
+.sr-footer-01 .sr-footer-nav li.hs-menu-depth-2 a {
+  font-size: 1rem;
+  color: inherit;
+}
+
+.sr-footer-01 .social {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.sr-footer-01 p a:hover {
+    text-decoration: none;
+}
+
+
+.sr-footer-01 ul.social li span {
+  border-radius: 50%;
+  width: 2.3rem;
+  height: 2.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+}
+
+.sr-footer-01 ul.social li span svg,
+.sr-footer-01 ul.social li span svg g {
+  fill: inherit;
+}
+
+.sr-footer-01 .footer-logo-social {
+  padding: 3em 0;
+}
+
+.sr-footer-01 ul.hs-menu-children-wrapper {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sr-footer-01 .footer-copyright p a:not(:hover) {
+  color: inherit;
+}
+
+.sr-footer-01 .footer-logo-social {
+  text-align: center;
+}
+
+.sr-footer-01 .footer-logo-social img {
+  max-width: 100%;
+  height: auto;
+}
+
+.sr-footer-01 .sr-footer-nav .hs-menu-depth-1 {
+  width: 50%;
+  margin-bottom: 2rem;
+}
+
+.sr-footer-01 .footer-copyright p.small {
+  margin: 0;
+}
+
+.sr-footer-01 .button__container {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+}
+
+.sr-footer-01 .button__container:hover {
+  filter: brightness(1.2);
+}
+
+@media only screen and (min-width: 992px) {
+  .sr-footer-01 .sr-footer-nav .hs-menu-depth-1 {
+    margin-bottom: 0;
+  }
+
+  .sr-footer-01 .sr-footer-nav .hs-menu-depth-1 {
+    width: auto;
+  }
+
+  .sr-footer-01 .sr-footer-nav .hs-menu-wrapper>ul {
+    display: flex;
+    row-gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}

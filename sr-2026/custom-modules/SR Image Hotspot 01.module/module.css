@@ -1,0 +1,159 @@
+.sr-image-hotspot-01 .container-fluid {
+    padding: 0;
+}
+
+.sr-image-hotspot-01 .main-image {
+    position: relative
+}
+
+.sr-image-hotspot-01 .main-image:after {
+    position: absolute;
+    content: "";
+    inset: 0;
+    background-color: var(--image_overlay_color);
+}
+
+.sr-image-hotspot-01 .main-image img {
+    width: 100%;
+}
+
+.sr-image-hotspot-01 .point {
+    position: absolute;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    outline-color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.sr-image-hotspot-01 .point__icon {
+    padding: 10px;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--icon-background);
+    width: var(--icon-width);
+    height: var(--icon-width);
+    aspect-ratio: 1/1;
+    transition: background-color 0.25s ease;
+}
+
+.sr-image-hotspot-01 .point:is(:hover, :focus-within) .point__icon {
+    background-color: var(--icon-background-hover);
+}
+
+.sr-image-hotspot-01 .point__icon :is(.icon,.icon-custom) {
+    aspect-ratio: 1;
+    display: flex;
+    font-size: var(--icon-width);
+    width: var(--icon-width);
+    justify-content: center;
+    align-items: center;
+    color: var(--icon-color);
+    fill: var(--icon-color);
+}
+
+.sr-image-hotspot-01 .point__icon :is(svg,g,path,rect) {
+    color: inherit;
+    fill: inherit;
+    min-width: 12px
+}
+
+.sr-image-hotspot-01 .point__icon .icon-custom > *,
+.sr-image-hotspot-01 .point__icon .icon-image img {
+    width: calc(var(--icon-width) / 2);
+}
+
+.sr-image-hotspot-01 .point__icon .icon-image {
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.sr-image-hotspot-01 .point__tooltip {
+    display: none;
+}
+
+/* Edit mode specific styles */
+.sr-image-hotspot-01[data-edit-mode="true"] .main-image {
+    cursor: crosshair;
+}
+
+.sr-image-hotspot-01[data-edit-mode="true"] .point {
+    cursor: move;
+    user-select: none;
+}
+
+.sr-image-hotspot-01[data-edit-mode="true"] .point:hover {
+    transform: scale(1.1);
+    cursor: move;
+}
+
+/* Coordinate display */
+.sr-image-hotspot-01 .coordinate-display {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: monospace;
+    font-size: 10px;
+    pointer-events: none;
+    transform: translate(-50%, -110%);
+    opacity: 0;
+    transition: opacity 0.2s;
+    white-space: nowrap;
+    line-height: 1;
+    z-index: 10;
+}
+
+.sr-image-hotspot-01 .coordinate-display p {
+    margin: 0;
+    line-height: 1.1;
+    white-space: nowrap;
+    display: inline;
+}
+
+.sr-image-hotspot-01 .coordinate-display p:first-child::after {
+    content: " • ";
+}
+
+.sr-image-hotspot-01[data-edit-mode="true"] .coordinate-display,
+.sr-image-hotspot-01 .point.dragging .coordinate-display {
+    opacity: 1;
+}
+
+/* Edit mode instructions */
+.sr-image-hotspot-01[data-edit-mode="true"] .main-image::before {
+    content: "Click to add new point • Right-click point to delete";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+@media(min-width: 768px) {
+    .sr-image-hotspot-01 .point__icon {
+        width: calc(var(--icon-width) * 2.667);
+        height: calc(var(--icon-width) * 2.667);
+    }
+    .sr-image-hotspot-01 .point__icon .icon-custom > * {
+        width: var(--icon-width);
+        height: var(--icon-width);
+    }
+    .sr-image-hotspot-01 .point__icon .icon-image img {
+        width: var(--image-width);
+    }
+}

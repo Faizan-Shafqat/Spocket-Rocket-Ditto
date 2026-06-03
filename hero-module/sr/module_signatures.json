@@ -1,0 +1,4616 @@
+[
+  {
+    "module_dir": "SR Footer 04.module",
+    "module_label": "SR Footer 04",
+    "module_id": 209349530642,
+    "fields": [
+      {
+        "name": "background_video",
+        "label": "Background Video",
+        "type": "file",
+        "default": [
+          "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-bg-video.mp4"
+        ]
+      },
+      {
+        "name": "background_video_md",
+        "label": "Background Video Tablet",
+        "type": "file"
+      },
+      {
+        "name": "background_video_sm",
+        "label": "Background Video Mobile",
+        "type": "file"
+      },
+      {
+        "name": "enabled",
+        "label": "Enabled",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "sr_module_id",
+        "label": "ID",
+        "type": "text"
+      },
+      {
+        "name": "class",
+        "label": "Class",
+        "type": "text"
+      },
+      {
+        "name": "design_settings",
+        "label": "Design Settings",
+        "type": "group",
+        "default": {
+          "border": {
+            "top": {
+              "color": "#e5e7ea",
+              "style": "none",
+              "width": {
+                "units": "px",
+                "value": 0
+              },
+              "opacity": 100
+            },
+            "bottom": {
+              "color": "#e5e7ea",
+              "style": "none",
+              "width": {
+                "units": "px",
+                "value": 0
+              },
+              "opacity": 100
+            }
+          },
+          "layout": "container",
+          "spacing": {
+            "margin": {
+              "top": {
+                "units": "rem",
+                "value": 0
+              },
+              "bottom": {
+                "units": "rem",
+                "value": 0
+              }
+            },
+            "padding": {
+              "top": {
+                "units": "rem",
+                "value": 6.25
+              },
+              "left": {
+                "units": "rem",
+                "value": 0
+              },
+              "right": {
+                "units": "rem",
+                "value": 0
+              },
+              "bottom": {
+                "units": "rem",
+                "value": 6.25
+              }
+            }
+          },
+          "text_color": "auto",
+          "container_width": "max",
+          "background_color": "dark",
+          "background_image": {
+            "src": "",
+            "background_size": "cover",
+            "background_position": "MIDDLE_CENTER"
+          },
+          "background_custom": {
+            "color": "#fff",
+            "opacity": 100
+          },
+          "background_option": "color",
+          "text_color_custom": {
+            "color": "#202a3e",
+            "opacity": 100
+          },
+          "top_bottom_padding": "half",
+          "background_gradient": {
+            "colors": [
+              {
+                "color": {
+                  "a": 1,
+                  "b": 255,
+                  "g": 99,
+                  "r": 12
+                }
+              },
+              {
+                "color": {
+                  "a": 1,
+                  "b": 255,
+                  "g": 151,
+                  "r": 24
+                }
+              }
+            ],
+            "side_or_corner": {
+              "verticalSide": "TOP",
+              "horizontalSide": "LEFT"
+            }
+          },
+          "responsive_settings": {
+            "mobile": {
+              "mobile_spacing": {
+                "margin": {
+                  "top": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "bottom": {
+                    "units": "rem",
+                    "value": 0
+                  }
+                },
+                "padding": {
+                  "top": {
+                    "units": "rem",
+                    "value": 3.25
+                  },
+                  "left": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "right": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "bottom": {
+                    "units": "rem",
+                    "value": 3.25
+                  }
+                }
+              },
+              "mobile_top_bottom_padding": "auto"
+            },
+            "tablet": {
+              "tablet_spacing": {
+                "margin": {
+                  "top": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "bottom": {
+                    "units": "rem",
+                    "value": 0
+                  }
+                },
+                "padding": {
+                  "top": {
+                    "units": "rem",
+                    "value": 3.25
+                  },
+                  "left": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "right": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "bottom": {
+                    "units": "rem",
+                    "value": 3.25
+                  }
+                }
+              },
+              "tablet_top_bottom_padding": "auto"
+            }
+          },
+          "background_overlay_color": {
+            "color": "#343a40",
+            "opacity": 30
+          }
+        },
+        "children": [
+          {
+            "name": "layout",
+            "label": "Layout",
+            "type": "choice",
+            "choices": [
+              "container",
+              "container container-small",
+              "container container-large",
+              "container-fluid"
+            ],
+            "default": "container"
+          },
+          {
+            "name": "container_width",
+            "label": "Container Width",
+            "type": "choice",
+            "choices": [
+              "min",
+              "narrow",
+              "wide",
+              "max"
+            ],
+            "default": "max"
+          },
+          {
+            "name": "top_bottom_padding",
+            "label": "Top Bottom Padding",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "zero",
+              "half",
+              "full",
+              "custom"
+            ],
+            "default": "half"
+          },
+          {
+            "name": "spacing",
+            "label": "Spacing",
+            "type": "spacing",
+            "default": {
+              "margin": {
+                "top": {
+                  "units": "rem",
+                  "value": 0
+                },
+                "bottom": {
+                  "units": "rem",
+                  "value": 0
+                }
+              },
+              "padding": {
+                "top": {
+                  "units": "rem",
+                  "value": 6.25
+                },
+                "left": {
+                  "units": "rem",
+                  "value": 0
+                },
+                "right": {
+                  "units": "rem",
+                  "value": 0
+                },
+                "bottom": {
+                  "units": "rem",
+                  "value": 6.25
+                }
+              }
+            }
+          },
+          {
+            "name": "background_option",
+            "label": "Background Option",
+            "type": "choice",
+            "choices": [
+              "image",
+              "video",
+              "color",
+              "custom",
+              "gradient"
+            ],
+            "default": "color"
+          },
+          {
+            "name": "background_image",
+            "label": "Background Image",
+            "type": "backgroundimage",
+            "default": {
+              "src": "",
+              "background_size": "cover",
+              "background_position": "MIDDLE_CENTER"
+            }
+          },
+          {
+            "name": "background_overlay_color",
+            "label": "Background Overlay Color",
+            "type": "color",
+            "default": {
+              "color": "#343a40",
+              "opacity": 30
+            }
+          },
+          {
+            "name": "background_color",
+            "label": "Background Color",
+            "type": "choice",
+            "choices": [
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "none"
+            ],
+            "default": "dark"
+          },
+          {
+            "name": "background_custom",
+            "label": "Background Color",
+            "type": "color",
+            "default": {
+              "color": "#fff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "background_gradient",
+            "label": "Background Gradient",
+            "type": "gradient",
+            "default": {
+              "colors": [
+                {
+                  "color": {
+                    "a": 1,
+                    "b": 255,
+                    "g": 99,
+                    "r": 12
+                  }
+                },
+                {
+                  "color": {
+                    "a": 1,
+                    "b": 255,
+                    "g": 151,
+                    "r": 24
+                  }
+                }
+              ],
+              "side_or_corner": {
+                "verticalSide": "TOP",
+                "horizontalSide": "LEFT"
+              }
+            }
+          },
+          {
+            "name": "text_color",
+            "label": "Text Color",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "custom"
+            ],
+            "default": "custom"
+          },
+          {
+            "name": "top_link_color",
+            "label": "Top Link Color",
+            "type": "color",
+            "default": {
+              "color": "#fff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "text_color_custom",
+            "label": "Text Color",
+            "type": "color",
+            "default": {
+              "color": "#fff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "link_hover_color",
+            "label": "Link Hover Color",
+            "type": "color",
+            "default": {
+              "color": "#0c63ff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "border",
+            "label": "Border",
+            "type": "border",
+            "default": {
+              "top": {
+                "color": "#e5e7ea",
+                "style": "none",
+                "width": {
+                  "units": "px",
+                  "value": 0
+                },
+                "opacity": 100
+              },
+              "bottom": {
+                "color": "#e5e7ea",
+                "style": "none",
+                "width": {
+                  "units": "px",
+                  "value": 0
+                },
+                "opacity": 100
+              }
+            }
+          },
+          {
+            "name": "responsive_settings",
+            "label": "Responsive Settings",
+            "type": "group",
+            "default": {
+              "mobile": {
+                "mobile_spacing": {
+                  "margin": {
+                    "top": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "bottom": {
+                      "units": "rem",
+                      "value": 0
+                    }
+                  },
+                  "padding": {
+                    "top": {
+                      "units": "rem",
+                      "value": 3.25
+                    },
+                    "left": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "right": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "bottom": {
+                      "units": "rem",
+                      "value": 3.25
+                    }
+                  }
+                },
+                "mobile_top_bottom_padding": "auto"
+              },
+              "tablet": {
+                "tablet_spacing": {
+                  "margin": {
+                    "top": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "bottom": {
+                      "units": "rem",
+                      "value": 0
+                    }
+                  },
+                  "padding": {
+                    "top": {
+                      "units": "rem",
+                      "value": 3.25
+                    },
+                    "left": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "right": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "bottom": {
+                      "units": "rem",
+                      "value": 3.25
+                    }
+                  }
+                },
+                "tablet_top_bottom_padding": "auto"
+              }
+            },
+            "children": [
+              {
+                "name": "tablet",
+                "label": "Tablet",
+                "type": "group",
+                "default": {
+                  "tablet_background_color": "primary",
+                  "tablet_background_image": {
+                    "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+                    "background_size": "cover",
+                    "background_position": "MIDDLE_CENTER"
+                  },
+                  "tablet_fixed_background": false,
+                  "tablet_background_custom": {
+                    "color": "#fff",
+                    "opacity": 100
+                  },
+                  "tablet_background_option": "auto",
+                  "tablet_background_gradient": {
+                    "colors": [
+                      {
+                        "color": {
+                          "a": 1,
+                          "b": 255,
+                          "g": 99,
+                          "r": 12
+                        }
+                      },
+                      {
+                        "color": {
+                          "a": 1,
+                          "b": 255,
+                          "g": 151,
+                          "r": 24
+                        }
+                      }
+                    ],
+                    "side_or_corner": {
+                      "verticalSide": "TOP",
+                      "horizontalSide": "LEFT"
+                    }
+                  },
+                  "tablet_background_overlay_color": {
+                    "color": "#343a40",
+                    "opacity": 30
+                  }
+                },
+                "children": [
+                  {
+                    "name": "tablet_top_bottom_padding",
+                    "label": "Top Bottom Padding",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "zero",
+                      "half",
+                      "full",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "tablet_spacing",
+                    "label": "Tablet Spacing",
+                    "type": "spacing",
+                    "default": {
+                      "margin": {
+                        "top": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "bottom": {
+                          "units": "rem",
+                          "value": 0
+                        }
+                      },
+                      "padding": {
+                        "top": {
+                          "units": "rem",
+                          "value": 3.25
+                        },
+                        "left": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "right": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "bottom": {
+                          "units": "rem",
+                          "value": 3.25
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "name": "tablet_background_option",
+                    "label": "Background Option",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "tablet_background_image",
+                    "label": "Background Image",
+                    "type": "backgroundimage",
+                    "default": {
+                      "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+                      "background_size": "cover",
+                      "background_position": "MIDDLE_CENTER"
+                    }
+                  },
+                  {
+                    "name": "tablet_background_overlay_color",
+                    "label": "Background Overlay Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#343a40",
+                      "opacity": 30
+                    }
+                  },
+                  {
+                    "name": "tablet_background_color",
+                    "label": "Background Color",
+                    "type": "choice",
+                    "choices": [
+                      "primary",
+                      "secondary",
+                      "tertiary",
+                      "white",
+                      "black",
+                      "dark",
+                      "light",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "none"
+                    ],
+                    "default": "primary"
+                  },
+                  {
+                    "name": "tablet_background_custom",
+                    "label": "Background Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#fff",
+                      "opacity": 100
+                    }
+                  },
+                  {
+                    "name": "tablet_background_gradient",
+                    "label": "Background Gradient",
+                    "type": "gradient",
+                    "default": {
+                      "colors": [
+                        {
+                          "color": {
+                            "r": 12,
+                            "g": 99,
+                            "b": 255,
+                            "a": 1
+                          }
+                        },
+                        {
+                          "color": {
+                            "r": 24,
+                            "g": 151,
+                            "b": 255,
+                            "a": 1
+                          }
+                        }
+                      ],
+                      "side_or_corner": {
+                        "verticalSide": "TOP",
+                        "horizontalSide": "LEFT"
+                      }
+                    }
+                  },
+                  {
+                    "name": "tablet_fixed_background",
+                    "label": "Fixed Background",
+                    "type": "boolean",
+                    "default": false
+                  }
+                ]
+              },
+              {
+                "name": "mobile",
+                "label": "Mobile",
+                "type": "group",
+                "default": {
+                  "mobile_background_color": "primary",
+                  "mobile_background_image": {
+                    "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+                    "background_size": "cover",
+                    "background_position": "MIDDLE_CENTER"
+                  },
+                  "mobile_background_custom": {
+                    "color": "#fff",
+                    "opacity": 100
+                  },
+                  "mobile_background_option": "auto",
+                  "mobile_background_overlay_color": {
+                    "color": "#343a40",
+                    "opacity": 30
+                  },
+                  "mobile_background_gradient": {
+                    "colors": [
+                      {
+                        "color": {
+                          "a": 1,
+                          "b": 255,
+                          "g": 99,
+                          "r": 12
+                        }
+                      },
+                      {
+                        "color": {
+                          "a": 1,
+                          "b": 255,
+                          "g": 151,
+                          "r": 24
+                        }
+                      }
+                    ],
+                    "side_or_corner": {
+                      "verticalSide": "TOP",
+                      "horizontalSide": "LEFT"
+                    }
+                  }
+                },
+                "children": [
+                  {
+                    "name": "mobile_top_bottom_padding",
+                    "label": "Top Bottom Padding",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "zero",
+                      "half",
+                      "full",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "mobile_spacing",
+                    "label": "Mobile Spacing",
+                    "type": "spacing",
+                    "default": {
+                      "margin": {
+                        "top": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "bottom": {
+                          "units": "rem",
+                          "value": 0
+                        }
+                      },
+                      "padding": {
+                        "top": {
+                          "units": "rem",
+                          "value": 3.25
+                        },
+                        "left": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "right": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "bottom": {
+                          "units": "rem",
+                          "value": 3.25
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "name": "mobile_background_option",
+                    "label": "Background Option",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "mobile_background_image",
+                    "label": "Background Image",
+                    "type": "backgroundimage",
+                    "default": {
+                      "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+                      "background_size": "cover",
+                      "background_position": "MIDDLE_CENTER"
+                    }
+                  },
+                  {
+                    "name": "mobile_background_overlay_color",
+                    "label": "Background Overlay Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#343a40",
+                      "opacity": 30
+                    }
+                  },
+                  {
+                    "name": "mobile_background_color",
+                    "label": "Background Color",
+                    "type": "choice",
+                    "choices": [
+                      "primary",
+                      "secondary",
+                      "tertiary",
+                      "white",
+                      "black",
+                      "dark",
+                      "light",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "none"
+                    ],
+                    "default": "primary"
+                  },
+                  {
+                    "name": "mobile_background_custom",
+                    "label": "Background Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#fff",
+                      "opacity": 100
+                    }
+                  },
+                  {
+                    "name": "mobile_background_gradient",
+                    "label": "Background Gradient",
+                    "type": "gradient",
+                    "default": {
+                      "colors": [
+                        {
+                          "color": {
+                            "r": 12,
+                            "g": 99,
+                            "b": 255,
+                            "a": 1
+                          }
+                        },
+                        {
+                          "color": {
+                            "r": 24,
+                            "g": 151,
+                            "b": 255,
+                            "a": 1
+                          }
+                        }
+                      ],
+                      "side_or_corner": {
+                        "verticalSide": "TOP",
+                        "horizontalSide": "LEFT"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "logo",
+        "label": "Logo",
+        "type": "image",
+        "default": {
+          "alt": "Logo",
+          "src": "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/SR%20Logo%20White.svg",
+          "width": "220",
+          "height": "50",
+          "loading": "lazy"
+        }
+      },
+      {
+        "name": "logo_link",
+        "label": "Logo Link",
+        "type": "link",
+        "default": {
+          "url": {
+            "href": null,
+            "type": "CONTENT",
+            "content_id": null
+          },
+          "no_follow": false,
+          "open_in_new_tab": false
+        }
+      },
+      {
+        "name": "heading",
+        "label": "Slogan",
+        "type": "group",
+        "default": {
+          "heading": "The easiest and fastest way to build on HubSpot",
+          "heading_size": "p",
+          "heading_align": "auto",
+          "heading_color": "auto",
+          "heading_color_custom": {
+            "color": "#30343b",
+            "opacity": 100
+          },
+          "heading_display_size": "auto"
+        },
+        "children": [
+          {
+            "name": "heading",
+            "label": "Heading",
+            "type": "text",
+            "default": "The easiest and fastest way to build on HubSpot"
+          },
+          {
+            "name": "heading_size",
+            "label": "Size",
+            "type": "choice",
+            "choices": [
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "h6",
+              "p"
+            ],
+            "default": "p"
+          },
+          {
+            "name": "heading_display_size",
+            "label": "Display Size",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "h6",
+              "p",
+              "display-4",
+              "display-3",
+              "display-2",
+              "display-1"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "heading_color",
+            "label": "Color",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "custom"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "heading_color_custom",
+            "label": "Color",
+            "type": "color",
+            "default": {
+              "color": "#30343b",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "heading_align",
+            "label": "Align",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "left",
+              "center",
+              "right"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "class",
+            "label": "CSS Class",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "name": "logo_align",
+        "label": "Logo Align",
+        "type": "choice",
+        "choices": [
+          "auto",
+          "left",
+          "center",
+          "right"
+        ],
+        "default": "auto"
+      },
+      {
+        "name": "show_menu",
+        "label": "Show Menu",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "menu",
+        "label": "Menu",
+        "type": "menu"
+      },
+      {
+        "name": "menu_align",
+        "label": "Menu Align",
+        "type": "choice",
+        "choices": [
+          "auto",
+          "left",
+          "center",
+          "right"
+        ],
+        "default": "auto"
+      },
+      {
+        "name": "menu_depth",
+        "label": "Menu Depth",
+        "type": "number",
+        "default": 1
+      },
+      {
+        "name": "copyright",
+        "label": "Copyright",
+        "type": "richtext",
+        "default": "<p class='small'>{{ year }} Copyright. All rights reserved. Site built with Sprocket Rocket & HubSpot. <a href='/privacy-policy' class='ml-md-3'>Privacy policy</a> <a href='/tos' class='ml-md-3'>Terms</a></p>"
+      },
+      {
+        "name": "social_icons",
+        "label": "Social Icons",
+        "type": "group",
+        "default": [
+          {
+            "type": "icon",
+            "icon": {
+              "name": "Facebook F",
+              "type": "REGULAR",
+              "unicode": "f39e"
+            },
+            "custom_icon": {
+              "size_type": "exact",
+              "src": "https://www.lean-labs.com/hubfs/sr-assets/images/Twitter%20X.svg",
+              "alt": "Twitter X",
+              "loading": "lazy",
+              "width": 32,
+              "height": 23,
+              "max_width": 205,
+              "max_height": 150
+            },
+            "link": {
+              "url": {
+                "href": "#",
+                "type": "EXTERNAL",
+                "content_id": null
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            },
+            "aria_label": "Facebook Social link",
+            "icon_color": {
+              "color": "#fff",
+              "opacity": 100
+            },
+            "background_color": {
+              "color": "#202a3e",
+              "opacity": 100
+            },
+            "background_color_hover": {
+              "color": "#0c63ff",
+              "opacity": 100
+            }
+          },
+          {
+            "type": "icon",
+            "icon": {
+              "name": "Twitter",
+              "type": "REGULAR",
+              "unicode": "f099"
+            },
+            "custom_icon": {
+              "size_type": "exact",
+              "src": "https://www.lean-labs.com/hubfs/sr-assets/images/Twitter%20X.svg",
+              "alt": "Twitter X",
+              "loading": "lazy",
+              "width": 32,
+              "height": 23,
+              "max_width": 205,
+              "max_height": 150
+            },
+            "link": {
+              "url": {
+                "href": "#",
+                "type": "EXTERNAL",
+                "content_id": null
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            },
+            "aria_label": "Twitter Social link",
+            "icon_color": {
+              "color": "#fff",
+              "opacity": 100
+            },
+            "background_color": {
+              "color": "#202a3e",
+              "opacity": 100
+            },
+            "background_color_hover": {
+              "color": "#0c63ff",
+              "opacity": 100
+            }
+          },
+          {
+            "type": "icon",
+            "icon": {
+              "name": "LinkedIn In",
+              "type": "REGULAR",
+              "unicode": "f0e1"
+            },
+            "custom_icon": {
+              "size_type": "exact",
+              "src": "https://www.lean-labs.com/hubfs/sr-assets/images/Twitter%20X.svg",
+              "alt": "Twitter X",
+              "loading": "lazy",
+              "width": 32,
+              "height": 23,
+              "max_width": 205,
+              "max_height": 150
+            },
+            "link": {
+              "url": {
+                "href": "#",
+                "type": "EXTERNAL",
+                "content_id": null
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            },
+            "aria_label": "LinkedIn Social link",
+            "icon_color": {
+              "color": "#fff",
+              "opacity": 100
+            },
+            "background_color": {
+              "color": "#202a3e",
+              "opacity": 100
+            },
+            "background_color_hover": {
+              "color": "#0c63ff",
+              "opacity": 100
+            }
+          },
+          {
+            "type": "icon",
+            "icon": {
+              "name": "YouTube",
+              "type": "REGULAR",
+              "unicode": "f167"
+            },
+            "custom_icon": {
+              "size_type": "exact",
+              "src": "https://www.lean-labs.com/hubfs/sr-assets/images/Twitter%20X.svg",
+              "alt": "Twitter X",
+              "loading": "lazy",
+              "width": 32,
+              "height": 23,
+              "max_width": 205,
+              "max_height": 150
+            },
+            "link": {
+              "url": {
+                "href": "#",
+                "type": "EXTERNAL",
+                "content_id": null
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            },
+            "aria_label": "YouTube Social link",
+            "icon_color": {
+              "color": "#fff",
+              "opacity": 100
+            },
+            "background_color": {
+              "color": "#202a3e",
+              "opacity": 100
+            },
+            "background_color_hover": {
+              "color": "#0c63ff",
+              "opacity": 100
+            }
+          }
+        ],
+        "children": [
+          {
+            "name": "type",
+            "label": "Type",
+            "type": "choice",
+            "choices": [
+              "icon",
+              "image"
+            ],
+            "default": "icon"
+          },
+          {
+            "name": "icon",
+            "label": "Icon",
+            "type": "icon",
+            "default": {
+              "name": "LinkedIn In",
+              "type": "REGULAR",
+              "unicode": "f0e1"
+            }
+          },
+          {
+            "name": "custom_icon",
+            "label": "Custom Icon",
+            "type": "image",
+            "default": {
+              "size_type": "exact",
+              "src": "https://www.lean-labs.com/hubfs/sr-assets/images/Twitter%20X.svg",
+              "alt": "Twitter X",
+              "loading": "lazy",
+              "width": 32,
+              "height": 23,
+              "max_width": 205,
+              "max_height": 150
+            }
+          },
+          {
+            "name": "link",
+            "label": "Link",
+            "type": "link",
+            "default": {
+              "url": {
+                "href": "#",
+                "type": "EXTERNAL",
+                "content_id": null
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            }
+          },
+          {
+            "name": "aria_label",
+            "label": "Aria Label",
+            "type": "text",
+            "default": "Social link"
+          },
+          {
+            "name": "background_color",
+            "label": "Background Color",
+            "type": "color",
+            "default": {
+              "color": "#202a3e",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "icon_color",
+            "label": "Icon Color",
+            "type": "color",
+            "default": {
+              "color": "#fff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "background_color_hover",
+            "label": "Background Color Hover",
+            "type": "color",
+            "default": {
+              "color": "#0c63ff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "icon_color_hover",
+            "label": "Icon Color Hover",
+            "type": "color",
+            "default": {
+              "color": "#fff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "purpose",
+            "label": "Purpose",
+            "type": "choice",
+            "choices": [
+              "decorative",
+              "semantic"
+            ],
+            "default": "decorative"
+          }
+        ]
+      },
+      {
+        "name": "back_to_top",
+        "label": "Enable Back To Top Button",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "btt_button",
+        "label": "Back To Top Button",
+        "type": "group",
+        "default": {
+          "icon": {
+            "name": "chevron-up",
+            "type": "SOLID",
+            "unicode": "f077"
+          },
+          "icon_color": "white",
+          "icon_custom": {
+            "color": "#000",
+            "opacity": 100
+          },
+          "page_target": "#",
+          "button_color": "primary",
+          "button_custom": {
+            "color": "#0c63ff",
+            "opacity": 100
+          }
+        },
+        "children": [
+          {
+            "name": "button_color",
+            "label": "Button Color",
+            "type": "choice",
+            "choices": [
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "custom"
+            ],
+            "default": "primary"
+          },
+          {
+            "name": "button_custom",
+            "label": "Button Color",
+            "type": "color",
+            "default": {
+              "color": "#0c63ff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "icon",
+            "label": "Icon",
+            "type": "icon",
+            "default": {
+              "name": "chevron-up",
+              "type": "SOLID",
+              "unicode": "f077"
+            }
+          },
+          {
+            "name": "icon_color",
+            "label": "Icon Color",
+            "type": "choice",
+            "choices": [
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "custom"
+            ],
+            "default": "white"
+          },
+          {
+            "name": "icon_custom",
+            "label": "Icon Color",
+            "type": "color",
+            "default": {
+              "color": "#000",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "page_target",
+            "label": "Page Target",
+            "type": "text",
+            "default": "#"
+          },
+          {
+            "name": "purpose",
+            "label": "Purpose",
+            "type": "choice",
+            "choices": [
+              "decorative",
+              "semantic"
+            ],
+            "default": "decorative"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "module_dir": "SR Hero 01.module",
+    "module_label": "SR Hero 01",
+    "module_id": 209349530635,
+    "fields": [
+      {
+        "name": "background_video",
+        "label": "Background Video",
+        "type": "file",
+        "default": [
+          "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-bg-video.mp4"
+        ]
+      },
+      {
+        "name": "background_video_md",
+        "label": "Background Video Tablet",
+        "type": "file"
+      },
+      {
+        "name": "background_video_sm",
+        "label": "Background Video Mobile",
+        "type": "file"
+      },
+      {
+        "name": "enabled",
+        "label": "Enabled",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "sr_module_id",
+        "label": "ID",
+        "type": "text"
+      },
+      {
+        "name": "class",
+        "label": "Class",
+        "type": "text"
+      },
+      {
+        "name": "design_settings",
+        "label": "Design Settings",
+        "type": "group",
+        "default": {
+          "layout": "container",
+          "container_width": "wide",
+          "top_bottom_padding": "custom",
+          "spacing": {
+            "padding": {
+              "top": {
+                "value": 17.25,
+                "units": "rem"
+              },
+              "bottom": {
+                "value": 26.875,
+                "units": "rem"
+              },
+              "left": {
+                "value": 0,
+                "units": "rem"
+              },
+              "right": {
+                "value": 0,
+                "units": "rem"
+              }
+            },
+            "margin": {
+              "top": {
+                "value": 0,
+                "units": "rem"
+              },
+              "bottom": {
+                "value": 0,
+                "units": "rem"
+              }
+            }
+          },
+          "background_option": "image",
+          "background_image": {
+            "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+            "background_position": "MIDDLE_CENTER",
+            "background_size": "cover"
+          },
+          "background_overlay_color": {
+            "color": "#33323D",
+            "opacity": 0
+          },
+          "background_color": "none",
+          "background_custom": {
+            "color": "#000000",
+            "opacity": 100
+          },
+          "background_gradient": {
+            "colors": [
+              {
+                "color": {
+                  "r": 12,
+                  "g": 99,
+                  "b": 255,
+                  "a": 1
+                }
+              },
+              {
+                "color": {
+                  "r": 24,
+                  "g": 151,
+                  "b": 255,
+                  "a": 1
+                }
+              }
+            ],
+            "side_or_corner": {
+              "verticalSide": "TOP",
+              "horizontalSide": "LEFT"
+            }
+          },
+          "fixed_background": false,
+          "text_align": {
+            "text_align": "CENTER"
+          },
+          "text_color": "white",
+          "text_color_custom": {
+            "color": "#87909e",
+            "opacity": 100
+          },
+          "border": {
+            "top": {
+              "width": {
+                "value": 0,
+                "units": "px"
+              },
+              "style": "none",
+              "color": "#e5e7ea",
+              "opacity": 100
+            },
+            "bottom": {
+              "width": {
+                "value": 0,
+                "units": "px"
+              },
+              "style": "none",
+              "color": "#e5e7ea",
+              "opacity": 100
+            }
+          },
+          "responsive_settings": {
+            "tablet": {
+              "tablet_text_align": null,
+              "tablet_top_bottom_padding": "custom",
+              "tablet_spacing": {
+                "padding": {
+                  "top": {
+                    "value": 17.25,
+                    "units": "rem"
+                  },
+                  "bottom": {
+                    "value": 17.25,
+                    "units": "rem"
+                  },
+                  "left": {
+                    "value": 0,
+                    "units": "rem"
+                  },
+                  "right": {
+                    "value": 0,
+                    "units": "rem"
+                  }
+                },
+                "margin": {
+                  "top": {
+                    "value": 0,
+                    "units": "rem"
+                  },
+                  "bottom": {
+                    "value": 0,
+                    "units": "rem"
+                  }
+                }
+              },
+              "tablet_background_option": "auto",
+              "tablet_background_image": {
+                "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+                "background_size": "cover",
+                "background_position": "MIDDLE_CENTER"
+              },
+              "tablet_background_overlay_color": {
+                "color": "#343a40",
+                "opacity": 0
+              },
+              "tablet_background_color": "primary",
+              "tablet_background_custom": {
+                "color": "#fff",
+                "opacity": 100
+              },
+              "tablet_background_gradient": {
+                "colors": [
+                  {
+                    "color": {
+                      "r": 12,
+                      "g": 99,
+                      "b": 255,
+                      "a": 1
+                    }
+                  },
+                  {
+                    "color": {
+                      "r": 24,
+                      "g": 151,
+                      "b": 255,
+                      "a": 1
+                    }
+                  }
+                ],
+                "side_or_corner": {
+                  "verticalSide": "TOP",
+                  "horizontalSide": "LEFT"
+                }
+              },
+              "tablet_fixed_background": false
+            },
+            "mobile": {
+              "mobile_text_align": null,
+              "mobile_top_bottom_padding": "custom",
+              "mobile_spacing": {
+                "padding": {
+                  "top": {
+                    "value": 17.25,
+                    "units": "rem"
+                  },
+                  "bottom": {
+                    "value": 17.25,
+                    "units": "rem"
+                  },
+                  "left": {
+                    "value": 0,
+                    "units": "rem"
+                  },
+                  "right": {
+                    "value": 0,
+                    "units": "rem"
+                  }
+                },
+                "margin": {
+                  "top": {
+                    "value": 0,
+                    "units": "rem"
+                  },
+                  "bottom": {
+                    "value": 0,
+                    "units": "rem"
+                  }
+                }
+              },
+              "mobile_background_option": "auto",
+              "mobile_background_image": {
+                "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+                "background_size": "cover",
+                "background_position": "MIDDLE_CENTER"
+              },
+              "mobile_background_overlay_color": {
+                "color": "#343a40",
+                "opacity": 0
+              },
+              "mobile_background_color": "primary",
+              "mobile_background_custom": {
+                "color": "#fff",
+                "opacity": 100
+              },
+              "mobile_background_gradient": {
+                "colors": [
+                  {
+                    "color": {
+                      "r": 12,
+                      "g": 99,
+                      "b": 255,
+                      "a": 1
+                    }
+                  },
+                  {
+                    "color": {
+                      "r": 24,
+                      "g": 151,
+                      "b": 255,
+                      "a": 1
+                    }
+                  }
+                ],
+                "side_or_corner": {
+                  "verticalSide": "TOP",
+                  "horizontalSide": "LEFT"
+                }
+              }
+            }
+          }
+        },
+        "children": [
+          {
+            "name": "layout",
+            "label": "Layout",
+            "type": "choice",
+            "choices": [
+              "container",
+              "container container-small",
+              "container container-large",
+              "container-fluid"
+            ],
+            "default": "container"
+          },
+          {
+            "name": "container_width",
+            "label": "Container Width",
+            "type": "choice",
+            "choices": [
+              "min",
+              "narrow",
+              "wide",
+              "max"
+            ],
+            "default": "wide"
+          },
+          {
+            "name": "top_bottom_padding",
+            "label": "Top Bottom Padding",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "zero",
+              "half",
+              "full",
+              "custom"
+            ],
+            "default": "custom"
+          },
+          {
+            "name": "spacing",
+            "label": "Spacing",
+            "type": "spacing",
+            "default": {
+              "padding": {
+                "top": {
+                  "value": 17.25,
+                  "units": "rem"
+                },
+                "bottom": {
+                  "value": 26.875,
+                  "units": "rem"
+                },
+                "left": {
+                  "value": 0,
+                  "units": "rem"
+                },
+                "right": {
+                  "value": 0,
+                  "units": "rem"
+                }
+              },
+              "margin": {
+                "top": {
+                  "value": 0,
+                  "units": "rem"
+                },
+                "bottom": {
+                  "value": 0,
+                  "units": "rem"
+                }
+              }
+            }
+          },
+          {
+            "name": "background_option",
+            "label": "Background Option",
+            "type": "choice",
+            "choices": [
+              "image",
+              "video",
+              "color",
+              "custom",
+              "gradient"
+            ],
+            "default": "image"
+          },
+          {
+            "name": "background_image",
+            "label": "Background Image",
+            "type": "backgroundimage",
+            "default": {
+              "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+              "background_position": "MIDDLE_CENTER",
+              "background_size": "cover"
+            }
+          },
+          {
+            "name": "background_overlay_color",
+            "label": "Background Overlay Color",
+            "type": "color",
+            "default": {
+              "color": "#33323D",
+              "opacity": 0
+            }
+          },
+          {
+            "name": "background_color",
+            "label": "Background Color",
+            "type": "choice",
+            "choices": [
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "none"
+            ],
+            "default": "none"
+          },
+          {
+            "name": "background_custom",
+            "label": "Background Color",
+            "type": "color",
+            "default": {
+              "color": "#000000",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "background_gradient",
+            "label": "Background Gradient",
+            "type": "gradient",
+            "default": {
+              "colors": [
+                {
+                  "color": {
+                    "r": 12,
+                    "g": 99,
+                    "b": 255,
+                    "a": 1
+                  }
+                },
+                {
+                  "color": {
+                    "r": 24,
+                    "g": 151,
+                    "b": 255,
+                    "a": 1
+                  }
+                }
+              ],
+              "side_or_corner": {
+                "verticalSide": "TOP",
+                "horizontalSide": "LEFT"
+              }
+            }
+          },
+          {
+            "name": "fixed_background",
+            "label": "Fixed Background",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "text_align",
+            "label": "Text Align",
+            "type": "textalignment",
+            "default": {
+              "text_align": "CENTER"
+            }
+          },
+          {
+            "name": "text_color",
+            "label": "Text Color",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "custom"
+            ],
+            "default": "white"
+          },
+          {
+            "name": "text_color_custom",
+            "label": "Text Color",
+            "type": "color",
+            "default": {
+              "color": "#87909e",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "border",
+            "label": "Border",
+            "type": "border",
+            "default": {
+              "top": {
+                "width": {
+                  "value": 0,
+                  "units": "px"
+                },
+                "style": "none",
+                "color": "#e5e7ea",
+                "opacity": 100
+              },
+              "bottom": {
+                "width": {
+                  "value": 0,
+                  "units": "px"
+                },
+                "style": "none",
+                "color": "#e5e7ea",
+                "opacity": 100
+              }
+            }
+          },
+          {
+            "name": "responsive_settings",
+            "label": "Responsive Settings",
+            "type": "group",
+            "default": {
+              "tablet": {
+                "tablet_text_align": null,
+                "tablet_top_bottom_padding": "custom",
+                "tablet_spacing": {
+                  "padding": {
+                    "top": {
+                      "value": 17.25,
+                      "units": "rem"
+                    },
+                    "bottom": {
+                      "value": 17.25,
+                      "units": "rem"
+                    },
+                    "left": {
+                      "value": 0,
+                      "units": "rem"
+                    },
+                    "right": {
+                      "value": 0,
+                      "units": "rem"
+                    }
+                  },
+                  "margin": {
+                    "top": {
+                      "value": 0,
+                      "units": "rem"
+                    },
+                    "bottom": {
+                      "value": 0,
+                      "units": "rem"
+                    }
+                  }
+                },
+                "tablet_background_option": "auto",
+                "tablet_background_image": {
+                  "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+                  "background_size": "cover",
+                  "background_position": "MIDDLE_CENTER"
+                },
+                "tablet_background_overlay_color": {
+                  "color": "#343a40",
+                  "opacity": 0
+                },
+                "tablet_background_color": "primary",
+                "tablet_background_custom": {
+                  "color": "#fff",
+                  "opacity": 100
+                },
+                "tablet_background_gradient": {
+                  "colors": [
+                    {
+                      "color": {
+                        "r": 12,
+                        "g": 99,
+                        "b": 255,
+                        "a": 1
+                      }
+                    },
+                    {
+                      "color": {
+                        "r": 24,
+                        "g": 151,
+                        "b": 255,
+                        "a": 1
+                      }
+                    }
+                  ],
+                  "side_or_corner": {
+                    "verticalSide": "TOP",
+                    "horizontalSide": "LEFT"
+                  }
+                },
+                "tablet_fixed_background": false
+              },
+              "mobile": {
+                "mobile_text_align": null,
+                "mobile_top_bottom_padding": "custom",
+                "mobile_spacing": {
+                  "padding": {
+                    "top": {
+                      "value": 17.25,
+                      "units": "rem"
+                    },
+                    "bottom": {
+                      "value": 17.25,
+                      "units": "rem"
+                    },
+                    "left": {
+                      "value": 0,
+                      "units": "rem"
+                    },
+                    "right": {
+                      "value": 0,
+                      "units": "rem"
+                    }
+                  },
+                  "margin": {
+                    "top": {
+                      "value": 0,
+                      "units": "rem"
+                    },
+                    "bottom": {
+                      "value": 0,
+                      "units": "rem"
+                    }
+                  }
+                },
+                "mobile_background_option": "auto",
+                "mobile_background_image": {
+                  "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+                  "background_size": "cover",
+                  "background_position": "MIDDLE_CENTER"
+                },
+                "mobile_background_overlay_color": {
+                  "color": "#343a40",
+                  "opacity": 0
+                },
+                "mobile_background_color": "primary",
+                "mobile_background_custom": {
+                  "color": "#fff",
+                  "opacity": 100
+                },
+                "mobile_background_gradient": {
+                  "colors": [
+                    {
+                      "color": {
+                        "r": 12,
+                        "g": 99,
+                        "b": 255,
+                        "a": 1
+                      }
+                    },
+                    {
+                      "color": {
+                        "r": 24,
+                        "g": 151,
+                        "b": 255,
+                        "a": 1
+                      }
+                    }
+                  ],
+                  "side_or_corner": {
+                    "verticalSide": "TOP",
+                    "horizontalSide": "LEFT"
+                  }
+                }
+              }
+            },
+            "children": [
+              {
+                "name": "tablet",
+                "label": "Tablet",
+                "type": "group",
+                "default": {
+                  "tablet_text_align": null,
+                  "tablet_top_bottom_padding": "custom",
+                  "tablet_spacing": {
+                    "padding": {
+                      "top": {
+                        "value": 17.25,
+                        "units": "rem"
+                      },
+                      "bottom": {
+                        "value": 17.25,
+                        "units": "rem"
+                      },
+                      "left": {
+                        "value": 0,
+                        "units": "rem"
+                      },
+                      "right": {
+                        "value": 0,
+                        "units": "rem"
+                      }
+                    },
+                    "margin": {
+                      "top": {
+                        "value": 0,
+                        "units": "rem"
+                      },
+                      "bottom": {
+                        "value": 0,
+                        "units": "rem"
+                      }
+                    }
+                  },
+                  "tablet_background_option": "auto",
+                  "tablet_background_image": {
+                    "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+                    "background_size": "cover",
+                    "background_position": "MIDDLE_CENTER"
+                  },
+                  "tablet_background_overlay_color": {
+                    "color": "#343a40",
+                    "opacity": 0
+                  },
+                  "tablet_background_color": "primary",
+                  "tablet_background_custom": {
+                    "color": "#fff",
+                    "opacity": 100
+                  },
+                  "tablet_background_gradient": {
+                    "colors": [
+                      {
+                        "color": {
+                          "r": 12,
+                          "g": 99,
+                          "b": 255,
+                          "a": 1
+                        }
+                      },
+                      {
+                        "color": {
+                          "r": 24,
+                          "g": 151,
+                          "b": 255,
+                          "a": 1
+                        }
+                      }
+                    ],
+                    "side_or_corner": {
+                      "verticalSide": "TOP",
+                      "horizontalSide": "LEFT"
+                    }
+                  },
+                  "tablet_fixed_background": false
+                },
+                "children": [
+                  {
+                    "name": "tablet_text_align",
+                    "label": "Text Align",
+                    "type": "textalignment",
+                    "default": {}
+                  },
+                  {
+                    "name": "tablet_top_bottom_padding",
+                    "label": "Top Bottom Padding",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "zero",
+                      "half",
+                      "full",
+                      "custom"
+                    ],
+                    "default": "custom"
+                  },
+                  {
+                    "name": "tablet_spacing",
+                    "label": "Tablet Spacing",
+                    "type": "spacing",
+                    "default": {
+                      "padding": {
+                        "top": {
+                          "value": 17.25,
+                          "units": "rem"
+                        },
+                        "bottom": {
+                          "value": 17.25,
+                          "units": "rem"
+                        },
+                        "left": {
+                          "value": 0,
+                          "units": "rem"
+                        },
+                        "right": {
+                          "value": 0,
+                          "units": "rem"
+                        }
+                      },
+                      "margin": {
+                        "top": {
+                          "value": 0,
+                          "units": "rem"
+                        },
+                        "bottom": {
+                          "value": 0,
+                          "units": "rem"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "name": "tablet_background_option",
+                    "label": "Background Option",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "tablet_background_image",
+                    "label": "Background Image",
+                    "type": "backgroundimage",
+                    "default": {
+                      "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+                      "background_size": "cover",
+                      "background_position": "MIDDLE_CENTER"
+                    }
+                  },
+                  {
+                    "name": "tablet_background_overlay_color",
+                    "label": "Background Overlay Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#343a40",
+                      "opacity": 0
+                    }
+                  },
+                  {
+                    "name": "tablet_background_color",
+                    "label": "Background Color",
+                    "type": "choice",
+                    "choices": [
+                      "primary",
+                      "secondary",
+                      "tertiary",
+                      "white",
+                      "black",
+                      "dark",
+                      "light",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "none"
+                    ],
+                    "default": "primary"
+                  },
+                  {
+                    "name": "tablet_background_custom",
+                    "label": "Background Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#fff",
+                      "opacity": 100
+                    }
+                  },
+                  {
+                    "name": "tablet_background_gradient",
+                    "label": "Background Gradient",
+                    "type": "gradient",
+                    "default": {
+                      "colors": [
+                        {
+                          "color": {
+                            "r": 12,
+                            "g": 99,
+                            "b": 255,
+                            "a": 1
+                          }
+                        },
+                        {
+                          "color": {
+                            "r": 24,
+                            "g": 151,
+                            "b": 255,
+                            "a": 1
+                          }
+                        }
+                      ],
+                      "side_or_corner": {
+                        "verticalSide": "TOP",
+                        "horizontalSide": "LEFT"
+                      }
+                    }
+                  },
+                  {
+                    "name": "tablet_fixed_background",
+                    "label": "Fixed Background",
+                    "type": "boolean",
+                    "default": false
+                  }
+                ]
+              },
+              {
+                "name": "mobile",
+                "label": "Mobile",
+                "type": "group",
+                "default": {
+                  "mobile_text_align": null,
+                  "mobile_top_bottom_padding": "custom",
+                  "mobile_spacing": {
+                    "padding": {
+                      "top": {
+                        "value": 17.25,
+                        "units": "rem"
+                      },
+                      "bottom": {
+                        "value": 17.25,
+                        "units": "rem"
+                      },
+                      "left": {
+                        "value": 0,
+                        "units": "rem"
+                      },
+                      "right": {
+                        "value": 0,
+                        "units": "rem"
+                      }
+                    },
+                    "margin": {
+                      "top": {
+                        "value": 0,
+                        "units": "rem"
+                      },
+                      "bottom": {
+                        "value": 0,
+                        "units": "rem"
+                      }
+                    }
+                  },
+                  "mobile_background_option": "auto",
+                  "mobile_background_image": {
+                    "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+                    "background_size": "cover",
+                    "background_position": "MIDDLE_CENTER"
+                  },
+                  "mobile_background_overlay_color": {
+                    "color": "#343a40",
+                    "opacity": 0
+                  },
+                  "mobile_background_color": "primary",
+                  "mobile_background_custom": {
+                    "color": "#fff",
+                    "opacity": 100
+                  },
+                  "mobile_background_gradient": {
+                    "colors": [
+                      {
+                        "color": {
+                          "r": 12,
+                          "g": 99,
+                          "b": 255,
+                          "a": 1
+                        }
+                      },
+                      {
+                        "color": {
+                          "r": 24,
+                          "g": 151,
+                          "b": 255,
+                          "a": 1
+                        }
+                      }
+                    ],
+                    "side_or_corner": {
+                      "verticalSide": "TOP",
+                      "horizontalSide": "LEFT"
+                    }
+                  }
+                },
+                "children": [
+                  {
+                    "name": "mobile_text_align",
+                    "label": "Text Align",
+                    "type": "textalignment",
+                    "default": {}
+                  },
+                  {
+                    "name": "mobile_top_bottom_padding",
+                    "label": "Top Bottom Padding",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "zero",
+                      "half",
+                      "full",
+                      "custom"
+                    ],
+                    "default": "custom"
+                  },
+                  {
+                    "name": "mobile_spacing",
+                    "label": "Mobile Spacing",
+                    "type": "spacing",
+                    "default": {
+                      "padding": {
+                        "top": {
+                          "value": 17.25,
+                          "units": "rem"
+                        },
+                        "bottom": {
+                          "value": 17.25,
+                          "units": "rem"
+                        },
+                        "left": {
+                          "value": 0,
+                          "units": "rem"
+                        },
+                        "right": {
+                          "value": 0,
+                          "units": "rem"
+                        }
+                      },
+                      "margin": {
+                        "top": {
+                          "value": 0,
+                          "units": "rem"
+                        },
+                        "bottom": {
+                          "value": 0,
+                          "units": "rem"
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "name": "mobile_background_option",
+                    "label": "Background Option",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "mobile_background_image",
+                    "label": "Background Image",
+                    "type": "backgroundimage",
+                    "default": {
+                      "src": "https://www.leanlabs.com/hubfs/sr-assets/stack/Images/SR%20Hero%2001.jpg",
+                      "background_size": "cover",
+                      "background_position": "MIDDLE_CENTER"
+                    }
+                  },
+                  {
+                    "name": "mobile_background_overlay_color",
+                    "label": "Background Overlay Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#343a40",
+                      "opacity": 0
+                    }
+                  },
+                  {
+                    "name": "mobile_background_color",
+                    "label": "Background Color",
+                    "type": "choice",
+                    "choices": [
+                      "primary",
+                      "secondary",
+                      "tertiary",
+                      "white",
+                      "black",
+                      "dark",
+                      "light",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "none"
+                    ],
+                    "default": "primary"
+                  },
+                  {
+                    "name": "mobile_background_custom",
+                    "label": "Background Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#fff",
+                      "opacity": 100
+                    }
+                  },
+                  {
+                    "name": "mobile_background_gradient",
+                    "label": "Background Gradient",
+                    "type": "gradient",
+                    "default": {
+                      "colors": [
+                        {
+                          "color": {
+                            "r": 12,
+                            "g": 99,
+                            "b": 255,
+                            "a": 1
+                          }
+                        },
+                        {
+                          "color": {
+                            "r": 24,
+                            "g": 151,
+                            "b": 255,
+                            "a": 1
+                          }
+                        }
+                      ],
+                      "side_or_corner": {
+                        "verticalSide": "TOP",
+                        "horizontalSide": "LEFT"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "heading",
+        "label": "Heading",
+        "type": "group",
+        "default": [
+          {
+            "heading": "The fastest free way to a high-performing HubSpot website.",
+            "heading_size": "h1",
+            "heading_display_size": "auto",
+            "heading_color": "auto",
+            "heading_color_custom": {
+              "color": "#30343b",
+              "opacity": 100
+            },
+            "heading_align": "auto",
+            "class": "mb-0"
+          }
+        ],
+        "children": [
+          {
+            "name": "heading",
+            "label": "Heading",
+            "type": "text",
+            "default": "The fastest free way to a high-performing HubSpot website."
+          },
+          {
+            "name": "heading_size",
+            "label": "Size",
+            "type": "choice",
+            "choices": [
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "h6",
+              "p"
+            ],
+            "default": "h1"
+          },
+          {
+            "name": "heading_display_size",
+            "label": "Display Size",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "h6",
+              "p",
+              "display-4",
+              "display-3",
+              "display-2",
+              "display-1"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "heading_color",
+            "label": "Color",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "custom"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "heading_color_custom",
+            "label": "Color",
+            "type": "color",
+            "default": {
+              "color": "#30343b",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "heading_align",
+            "label": "Align",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "left",
+              "center",
+              "right"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "class",
+            "label": "CSS Class",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "name": "description",
+        "label": "Description",
+        "type": "richtext"
+      },
+      {
+        "name": "lead_text",
+        "label": "Lead Text",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "ctas",
+        "label": "CTA",
+        "type": "group",
+        "default": [
+          {
+            "cta_type": "btn",
+            "cta_style": "gradient_one",
+            "cta": "",
+            "button_text": "Get Started",
+            "modal_target": "demo",
+            "link": {
+              "url": {
+                "type": "EXTERNAL",
+                "href": "#",
+                "content_id": null
+              },
+              "open_in_new_tab": false,
+              "no_follow": false
+            },
+            "cta_size": "md"
+          },
+          {
+            "cta_type": "btn",
+            "cta_style": "secondary",
+            "cta": "",
+            "button_text": "Explore Sprocket Rocket",
+            "modal_target": "demo",
+            "link": {
+              "url": {
+                "type": "EXTERNAL",
+                "href": "#",
+                "content_id": null
+              },
+              "open_in_new_tab": false,
+              "no_follow": false
+            },
+            "cta_size": "md"
+          }
+        ],
+        "children": [
+          {
+            "name": "cta_type",
+            "label": "CTA Type",
+            "type": "choice",
+            "choices": [
+              "cta",
+              "hs_payment",
+              "btn",
+              "modal"
+            ],
+            "default": "btn"
+          },
+          {
+            "name": "cta_style",
+            "label": "CTA Style",
+            "type": "choice",
+            "choices": [
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "outline-primary",
+              "outline-secondary",
+              "outline-tertiary",
+              "outline-white",
+              "outline-black",
+              "outline-dark",
+              "outline-light",
+              "outline-success",
+              "outline-info",
+              "outline-warning",
+              "outline-danger",
+              "gradient_one",
+              "gradient_two",
+              "custom",
+              "none"
+            ],
+            "default": "primary"
+          },
+          {
+            "name": "default",
+            "label": "Default",
+            "type": "group",
+            "default": {
+              "background": {
+                "color": "#0c63ff",
+                "opacity": 100
+              },
+              "text": {
+                "color": "#fff",
+                "opacity": 100
+              },
+              "border": {
+                "color": "#0c63ff",
+                "opacity": 100
+              }
+            },
+            "children": [
+              {
+                "name": "background",
+                "label": "Background",
+                "type": "color",
+                "default": {
+                  "color": "#0c63ff",
+                  "opacity": 100
+                }
+              },
+              {
+                "name": "text",
+                "label": "Text",
+                "type": "color",
+                "default": {
+                  "color": "#fff",
+                  "opacity": 100
+                }
+              },
+              {
+                "name": "border",
+                "label": "Border",
+                "type": "color",
+                "default": {
+                  "color": "#0c63ff",
+                  "opacity": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "hover",
+            "label": "Hover",
+            "type": "group",
+            "default": {
+              "background": {
+                "color": "#5a93fd",
+                "opacity": 100
+              },
+              "text": {
+                "color": "#fff",
+                "opacity": 100
+              },
+              "border": {
+                "color": "#5a93fd",
+                "opacity": 100
+              }
+            },
+            "children": [
+              {
+                "name": "background",
+                "label": "Background",
+                "type": "color",
+                "default": {
+                  "color": "#5a93fd",
+                  "opacity": 100
+                }
+              },
+              {
+                "name": "text",
+                "label": "Text",
+                "type": "color",
+                "default": {
+                  "color": "#fff",
+                  "opacity": 100
+                }
+              },
+              {
+                "name": "border",
+                "label": "Border Color",
+                "type": "color",
+                "default": {
+                  "color": "#5a93fd",
+                  "opacity": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "cta",
+            "label": "CTA",
+            "type": "cta",
+            "default": ""
+          },
+          {
+            "name": "button_text",
+            "label": "Button Text",
+            "type": "text",
+            "default": "Get Started Now"
+          },
+          {
+            "name": "modal_target",
+            "label": "Modal Target",
+            "type": "text",
+            "default": "demo"
+          },
+          {
+            "name": "link",
+            "label": "Link",
+            "type": "link",
+            "default": {
+              "url": {
+                "type": "EXTERNAL",
+                "href": "#",
+                "content_id": null
+              },
+              "open_in_new_tab": false,
+              "no_follow": false
+            }
+          },
+          {
+            "name": "payment",
+            "label": "Payment link",
+            "type": "payment",
+            "default": {}
+          },
+          {
+            "name": "checkout_location",
+            "label": "Checkout behavior",
+            "type": "choice",
+            "choices": [
+              "new_tab",
+              "overlay"
+            ],
+            "default": "new_tab"
+          },
+          {
+            "name": "cta_size",
+            "label": "CTA Size",
+            "type": "choice",
+            "choices": [
+              "sm",
+              "md",
+              "lg"
+            ],
+            "default": "md"
+          },
+          {
+            "name": "add_icon",
+            "label": "Add icon",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "icon",
+            "label": "Icon",
+            "type": "group",
+            "default": {
+              "icon": {
+                "name": "arrow-right",
+                "unicode": "f061",
+                "type": "SOLID"
+              },
+              "position": "right",
+              "purpose": "decorative"
+            },
+            "children": [
+              {
+                "name": "icon",
+                "label": "Icon",
+                "type": "icon",
+                "default": {
+                  "name": "arrow-right",
+                  "unicode": "f061",
+                  "type": "SOLID"
+                }
+              },
+              {
+                "name": "position",
+                "label": "Position",
+                "type": "choice",
+                "choices": [
+                  "left",
+                  "right"
+                ],
+                "default": "right"
+              },
+              {
+                "name": "purpose",
+                "label": "Purpose",
+                "type": "choice",
+                "choices": [
+                  "decorative",
+                  "semantic"
+                ],
+                "default": "decorative"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "height",
+        "label": "Height",
+        "type": "choice",
+        "choices": [
+          "auto",
+          "small",
+          "medium",
+          "large",
+          "full"
+        ],
+        "default": "auto"
+      },
+      {
+        "name": "parallax",
+        "label": "Parallax",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "parallax_scroll_image",
+        "label": "Parallax Scroll Image",
+        "type": "group",
+        "default": {
+          "image": {
+            "size_type": "exact",
+            "src": "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/hero-01-parallax-image.png",
+            "alt": null,
+            "width": 727,
+            "height": 727,
+            "loading": "lazy"
+          },
+          "top": -30,
+          "left": -5,
+          "blur": 0
+        },
+        "children": [
+          {
+            "name": "image",
+            "label": "Image",
+            "type": "image",
+            "default": {
+              "size_type": "exact",
+              "src": "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/hero-01-parallax-image.png",
+              "alt": null,
+              "width": 727,
+              "height": 727,
+              "loading": "lazy"
+            }
+          },
+          {
+            "name": "top",
+            "label": "Top",
+            "type": "number",
+            "default": -30
+          },
+          {
+            "name": "left",
+            "label": "Left",
+            "type": "number",
+            "default": -5
+          },
+          {
+            "name": "right",
+            "label": "Right",
+            "type": "number"
+          },
+          {
+            "name": "width",
+            "label": "Width",
+            "type": "number",
+            "default": 50
+          },
+          {
+            "name": "blur",
+            "label": "Blur",
+            "type": "number",
+            "default": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "module_dir": "SR Offer Bar 06.module",
+    "module_label": "SR Offer Bar 06",
+    "module_id": 209349530640,
+    "fields": [
+      {
+        "name": "background_video",
+        "label": "Background Video",
+        "type": "file",
+        "default": [
+          "https://www.lean-labs.com/hubfs/sr-assets/videos/sr-bg-video.mp4"
+        ]
+      },
+      {
+        "name": "background_video_md",
+        "label": "Background Video Tablet",
+        "type": "file"
+      },
+      {
+        "name": "background_video_sm",
+        "label": "Background Video Mobile",
+        "type": "file"
+      },
+      {
+        "name": "enabled",
+        "label": "Enabled",
+        "type": "boolean",
+        "default": true
+      },
+      {
+        "name": "sr_module_id",
+        "label": "ID",
+        "type": "text"
+      },
+      {
+        "name": "class",
+        "label": "Class",
+        "type": "text"
+      },
+      {
+        "name": "design_settings",
+        "label": "Design Settings",
+        "type": "group",
+        "default": {
+          "border": {
+            "top": {
+              "color": "#e5e7ea",
+              "style": "none",
+              "width": {
+                "units": "px",
+                "value": 0
+              },
+              "opacity": 100
+            },
+            "bottom": {
+              "color": "#e5e7ea",
+              "style": "none",
+              "width": {
+                "units": "px",
+                "value": 0
+              },
+              "opacity": 100
+            }
+          },
+          "layout": "container",
+          "spacing": {
+            "margin": {
+              "top": {
+                "units": "rem",
+                "value": 0
+              },
+              "bottom": {
+                "units": "rem",
+                "value": 0
+              }
+            },
+            "padding": {
+              "top": {
+                "units": "rem",
+                "value": 6.25
+              },
+              "left": {
+                "units": "rem",
+                "value": 0
+              },
+              "right": {
+                "units": "rem",
+                "value": 0
+              },
+              "bottom": {
+                "units": "rem",
+                "value": 6.25
+              }
+            }
+          },
+          "text_align": null,
+          "text_color": "white",
+          "container_width": "narrow",
+          "background_color": "primary",
+          "background_image": {
+            "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+            "background_size": "cover",
+            "background_position": "MIDDLE_CENTER"
+          },
+          "fixed_background": false,
+          "background_custom": {
+            "color": "#fff",
+            "opacity": 100
+          },
+          "background_option": "color",
+          "text_color_custom": {
+            "color": "#87909e",
+            "opacity": 100
+          },
+          "top_bottom_padding": "custom",
+          "background_gradient": {
+            "colors": [
+              {
+                "color": {
+                  "a": 1,
+                  "b": 255,
+                  "g": 99,
+                  "r": 12
+                }
+              },
+              {
+                "color": {
+                  "a": 1,
+                  "b": 255,
+                  "g": 151,
+                  "r": 24
+                }
+              }
+            ],
+            "side_or_corner": {
+              "verticalSide": "TOP",
+              "horizontalSide": "LEFT"
+            }
+          },
+          "responsive_settings": {
+            "mobile": {
+              "mobile_spacing": {
+                "margin": {
+                  "top": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "bottom": {
+                    "units": "rem",
+                    "value": 0
+                  }
+                },
+                "padding": {
+                  "top": {
+                    "units": "rem",
+                    "value": 3.25
+                  },
+                  "left": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "right": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "bottom": {
+                    "units": "rem",
+                    "value": 3.25
+                  }
+                }
+              },
+              "mobile_text_align": {
+                "text_align": "CENTER"
+              },
+              "mobile_top_bottom_padding": "auto"
+            },
+            "tablet": {
+              "tablet_spacing": {
+                "margin": {
+                  "top": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "bottom": {
+                    "units": "rem",
+                    "value": 0
+                  }
+                },
+                "padding": {
+                  "top": {
+                    "units": "rem",
+                    "value": 3.25
+                  },
+                  "left": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "right": {
+                    "units": "rem",
+                    "value": 0
+                  },
+                  "bottom": {
+                    "units": "rem",
+                    "value": 3.25
+                  }
+                }
+              },
+              "tablet_text_align": null,
+              "tablet_top_bottom_padding": "auto"
+            }
+          },
+          "background_overlay_color": {
+            "color": "#343a40",
+            "opacity": 30
+          }
+        },
+        "children": [
+          {
+            "name": "layout",
+            "label": "Layout",
+            "type": "choice",
+            "choices": [
+              "container",
+              "container container-small",
+              "container container-large",
+              "container-fluid"
+            ],
+            "default": "container"
+          },
+          {
+            "name": "container_width",
+            "label": "Container Width",
+            "type": "choice",
+            "choices": [
+              "min",
+              "narrow",
+              "wide",
+              "max"
+            ],
+            "default": "narrow"
+          },
+          {
+            "name": "top_bottom_padding",
+            "label": "Top Bottom Padding",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "zero",
+              "half",
+              "full",
+              "custom"
+            ],
+            "default": "custom"
+          },
+          {
+            "name": "spacing",
+            "label": "Spacing",
+            "type": "spacing",
+            "default": {
+              "margin": {
+                "top": {
+                  "units": "rem",
+                  "value": 0
+                },
+                "bottom": {
+                  "units": "rem",
+                  "value": 0
+                }
+              },
+              "padding": {
+                "top": {
+                  "units": "rem",
+                  "value": 1.5625
+                },
+                "left": {
+                  "units": "rem",
+                  "value": 0
+                },
+                "right": {
+                  "units": "rem",
+                  "value": 0
+                },
+                "bottom": {
+                  "units": "rem",
+                  "value": 1.5625
+                }
+              }
+            }
+          },
+          {
+            "name": "background_option",
+            "label": "Background Option",
+            "type": "choice",
+            "choices": [
+              "image",
+              "video",
+              "color",
+              "custom",
+              "gradient"
+            ],
+            "default": "color"
+          },
+          {
+            "name": "background_image",
+            "label": "Background Image",
+            "type": "backgroundimage",
+            "default": {
+              "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+              "background_size": "cover",
+              "background_position": "MIDDLE_CENTER"
+            }
+          },
+          {
+            "name": "background_overlay_color",
+            "label": "Background Overlay Color",
+            "type": "color",
+            "default": {
+              "color": "#343a40",
+              "opacity": 30
+            }
+          },
+          {
+            "name": "background_color",
+            "label": "Background Color",
+            "type": "choice",
+            "choices": [
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "none"
+            ],
+            "default": "primary"
+          },
+          {
+            "name": "background_custom",
+            "label": "Background Color",
+            "type": "color",
+            "default": {
+              "color": "#fff",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "background_gradient",
+            "label": "Background Gradient",
+            "type": "gradient",
+            "default": {
+              "colors": [
+                {
+                  "color": {
+                    "a": 1,
+                    "b": 255,
+                    "g": 99,
+                    "r": 12
+                  }
+                },
+                {
+                  "color": {
+                    "a": 1,
+                    "b": 255,
+                    "g": 151,
+                    "r": 24
+                  }
+                }
+              ],
+              "side_or_corner": {
+                "verticalSide": "TOP",
+                "horizontalSide": "LEFT"
+              }
+            }
+          },
+          {
+            "name": "fixed_background",
+            "label": "Fixed Background",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "text_align",
+            "label": "Text Align",
+            "type": "textalignment",
+            "default": {}
+          },
+          {
+            "name": "text_color",
+            "label": "Text Color",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "custom"
+            ],
+            "default": "white"
+          },
+          {
+            "name": "text_color_custom",
+            "label": "Text Color",
+            "type": "color",
+            "default": {
+              "color": "#87909e",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "border",
+            "label": "Border",
+            "type": "border",
+            "default": {
+              "top": {
+                "color": "#e5e7ea",
+                "style": "none",
+                "width": {
+                  "units": "px",
+                  "value": 0
+                },
+                "opacity": 100
+              },
+              "bottom": {
+                "color": "#e5e7ea",
+                "style": "none",
+                "width": {
+                  "units": "px",
+                  "value": 0
+                },
+                "opacity": 100
+              }
+            }
+          },
+          {
+            "name": "responsive_settings",
+            "label": "Responsive Settings",
+            "type": "group",
+            "default": {
+              "mobile": {
+                "mobile_spacing": {
+                  "margin": {
+                    "top": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "bottom": {
+                      "units": "rem",
+                      "value": 0
+                    }
+                  },
+                  "padding": {
+                    "top": {
+                      "units": "rem",
+                      "value": 3.25
+                    },
+                    "left": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "right": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "bottom": {
+                      "units": "rem",
+                      "value": 3.25
+                    }
+                  }
+                },
+                "mobile_text_align": {
+                  "text_align": "CENTER"
+                },
+                "mobile_top_bottom_padding": "auto"
+              },
+              "tablet": {
+                "tablet_spacing": {
+                  "margin": {
+                    "top": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "bottom": {
+                      "units": "rem",
+                      "value": 0
+                    }
+                  },
+                  "padding": {
+                    "top": {
+                      "units": "rem",
+                      "value": 3.25
+                    },
+                    "left": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "right": {
+                      "units": "rem",
+                      "value": 0
+                    },
+                    "bottom": {
+                      "units": "rem",
+                      "value": 3.25
+                    }
+                  }
+                },
+                "tablet_text_align": null,
+                "tablet_top_bottom_padding": "auto"
+              }
+            },
+            "children": [
+              {
+                "name": "tablet",
+                "label": "Tablet",
+                "type": "group",
+                "default": {
+                  "tablet_background_color": "primary",
+                  "tablet_background_image": {
+                    "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+                    "background_size": "cover",
+                    "background_position": "MIDDLE_CENTER"
+                  },
+                  "tablet_fixed_background": false,
+                  "tablet_background_custom": {
+                    "color": "#fff",
+                    "opacity": 100
+                  },
+                  "tablet_background_option": "auto",
+                  "tablet_background_gradient": {
+                    "colors": [
+                      {
+                        "color": {
+                          "a": 1,
+                          "b": 255,
+                          "g": 99,
+                          "r": 12
+                        }
+                      },
+                      {
+                        "color": {
+                          "a": 1,
+                          "b": 255,
+                          "g": 151,
+                          "r": 24
+                        }
+                      }
+                    ],
+                    "side_or_corner": {
+                      "verticalSide": "TOP",
+                      "horizontalSide": "LEFT"
+                    }
+                  },
+                  "tablet_background_overlay_color": {
+                    "color": "#343a40",
+                    "opacity": 30
+                  }
+                },
+                "children": [
+                  {
+                    "name": "tablet_text_align",
+                    "label": "Text Align",
+                    "type": "textalignment",
+                    "default": {}
+                  },
+                  {
+                    "name": "tablet_top_bottom_padding",
+                    "label": "Top Bottom Padding",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "zero",
+                      "half",
+                      "full",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "tablet_spacing",
+                    "label": "Tablet Spacing",
+                    "type": "spacing",
+                    "default": {
+                      "margin": {
+                        "top": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "bottom": {
+                          "units": "rem",
+                          "value": 0
+                        }
+                      },
+                      "padding": {
+                        "top": {
+                          "units": "rem",
+                          "value": 3.25
+                        },
+                        "left": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "right": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "bottom": {
+                          "units": "rem",
+                          "value": 3.25
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "name": "tablet_background_option",
+                    "label": "Background Option",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "tablet_background_image",
+                    "label": "Background Image",
+                    "type": "backgroundimage",
+                    "default": {
+                      "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+                      "background_size": "cover",
+                      "background_position": "MIDDLE_CENTER"
+                    }
+                  },
+                  {
+                    "name": "tablet_background_overlay_color",
+                    "label": "Background Overlay Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#343a40",
+                      "opacity": 30
+                    }
+                  },
+                  {
+                    "name": "tablet_background_color",
+                    "label": "Background Color",
+                    "type": "choice",
+                    "choices": [
+                      "primary",
+                      "secondary",
+                      "tertiary",
+                      "white",
+                      "black",
+                      "dark",
+                      "light",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "none"
+                    ],
+                    "default": "primary"
+                  },
+                  {
+                    "name": "tablet_background_custom",
+                    "label": "Background Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#fff",
+                      "opacity": 100
+                    }
+                  },
+                  {
+                    "name": "tablet_background_gradient",
+                    "label": "Background Gradient",
+                    "type": "gradient",
+                    "default": {
+                      "colors": [
+                        {
+                          "color": {
+                            "r": 12,
+                            "g": 99,
+                            "b": 255,
+                            "a": 1
+                          }
+                        },
+                        {
+                          "color": {
+                            "r": 24,
+                            "g": 151,
+                            "b": 255,
+                            "a": 1
+                          }
+                        }
+                      ],
+                      "side_or_corner": {
+                        "verticalSide": "TOP",
+                        "horizontalSide": "LEFT"
+                      }
+                    }
+                  },
+                  {
+                    "name": "tablet_fixed_background",
+                    "label": "Fixed Background",
+                    "type": "boolean",
+                    "default": false
+                  }
+                ]
+              },
+              {
+                "name": "mobile",
+                "label": "Mobile",
+                "type": "group",
+                "default": {
+                  "mobile_background_color": "primary",
+                  "mobile_background_image": {
+                    "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+                    "background_size": "cover",
+                    "background_position": "MIDDLE_CENTER"
+                  },
+                  "mobile_background_custom": {
+                    "color": "#fff",
+                    "opacity": 100
+                  },
+                  "mobile_background_option": "auto",
+                  "mobile_background_overlay_color": {
+                    "color": "#343a40",
+                    "opacity": 30
+                  },
+                  "mobile_background_gradient": {
+                    "colors": [
+                      {
+                        "color": {
+                          "a": 1,
+                          "b": 255,
+                          "g": 99,
+                          "r": 12
+                        }
+                      },
+                      {
+                        "color": {
+                          "a": 1,
+                          "b": 255,
+                          "g": 151,
+                          "r": 24
+                        }
+                      }
+                    ],
+                    "side_or_corner": {
+                      "verticalSide": "TOP",
+                      "horizontalSide": "LEFT"
+                    }
+                  }
+                },
+                "children": [
+                  {
+                    "name": "mobile_text_align",
+                    "label": "Text Align",
+                    "type": "textalignment",
+                    "default": {
+                      "text_align": "CENTER"
+                    }
+                  },
+                  {
+                    "name": "mobile_top_bottom_padding",
+                    "label": "Top Bottom Padding",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "zero",
+                      "half",
+                      "full",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "mobile_spacing",
+                    "label": "Mobile Spacing",
+                    "type": "spacing",
+                    "default": {
+                      "margin": {
+                        "top": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "bottom": {
+                          "units": "rem",
+                          "value": 0
+                        }
+                      },
+                      "padding": {
+                        "top": {
+                          "units": "rem",
+                          "value": 3.25
+                        },
+                        "left": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "right": {
+                          "units": "rem",
+                          "value": 0
+                        },
+                        "bottom": {
+                          "units": "rem",
+                          "value": 3.25
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "name": "mobile_background_option",
+                    "label": "Background Option",
+                    "type": "choice",
+                    "choices": [
+                      "auto",
+                      "custom"
+                    ],
+                    "default": "auto"
+                  },
+                  {
+                    "name": "mobile_background_image",
+                    "label": "Background Image",
+                    "type": "backgroundimage",
+                    "default": {
+                      "src": "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+                      "background_size": "cover",
+                      "background_position": "MIDDLE_CENTER"
+                    }
+                  },
+                  {
+                    "name": "mobile_background_overlay_color",
+                    "label": "Background Overlay Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#343a40",
+                      "opacity": 30
+                    }
+                  },
+                  {
+                    "name": "mobile_background_color",
+                    "label": "Background Color",
+                    "type": "choice",
+                    "choices": [
+                      "primary",
+                      "secondary",
+                      "tertiary",
+                      "white",
+                      "black",
+                      "dark",
+                      "light",
+                      "success",
+                      "info",
+                      "warning",
+                      "danger",
+                      "none"
+                    ],
+                    "default": "primary"
+                  },
+                  {
+                    "name": "mobile_background_custom",
+                    "label": "Background Color",
+                    "type": "color",
+                    "default": {
+                      "color": "#fff",
+                      "opacity": 100
+                    }
+                  },
+                  {
+                    "name": "mobile_background_gradient",
+                    "label": "Background Gradient",
+                    "type": "gradient",
+                    "default": {
+                      "colors": [
+                        {
+                          "color": {
+                            "r": 12,
+                            "g": 99,
+                            "b": 255,
+                            "a": 1
+                          }
+                        },
+                        {
+                          "color": {
+                            "r": 24,
+                            "g": 151,
+                            "b": 255,
+                            "a": 1
+                          }
+                        }
+                      ],
+                      "side_or_corner": {
+                        "verticalSide": "TOP",
+                        "horizontalSide": "LEFT"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "bling_image",
+        "label": "Offer Image",
+        "type": "image",
+        "default": {
+          "src": "",
+          "alt": null,
+          "size_type": null,
+          "width": null,
+          "height": null,
+          "max_width": null,
+          "max_height": null,
+          "loading": "disabled"
+        }
+      },
+      {
+        "name": "heading",
+        "label": "Heading",
+        "type": "group",
+        "children": [
+          {
+            "name": "heading",
+            "label": "Heading",
+            "type": "text",
+            "default": "Strategy Kit"
+          },
+          {
+            "name": "heading_size",
+            "label": "Size",
+            "type": "choice",
+            "choices": [
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "h6",
+              "p"
+            ],
+            "default": "h5"
+          },
+          {
+            "name": "heading_display_size",
+            "label": "Display Size",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "h1",
+              "h2",
+              "h3",
+              "h4",
+              "h5",
+              "h6",
+              "p",
+              "display-4",
+              "display-3",
+              "display-2",
+              "display-1"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "heading_color",
+            "label": "Color",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "gradient_one",
+              "gradient_two",
+              "custom"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "heading_color_custom",
+            "label": "Color",
+            "type": "color",
+            "default": {
+              "color": "#30343b",
+              "opacity": 100
+            }
+          },
+          {
+            "name": "heading_align",
+            "label": "Align",
+            "type": "choice",
+            "choices": [
+              "auto",
+              "left",
+              "center",
+              "right"
+            ],
+            "default": "auto"
+          },
+          {
+            "name": "class",
+            "label": "CSS Class",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "name": "description",
+        "label": "Description",
+        "type": "richtext",
+        "default": "<p>Sprocket Rocket — the easiest and fastest way to build on HubSpot.</p>"
+      },
+      {
+        "name": "lead_text",
+        "label": "Lead Text",
+        "type": "boolean",
+        "default": false
+      },
+      {
+        "name": "ctas",
+        "label": "CTA",
+        "type": "group",
+        "default": [
+          {
+            "cta": "",
+            "link": {
+              "url": {
+                "href": "#",
+                "type": "EXTERNAL",
+                "content_id": null
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            },
+            "cta_size": "md",
+            "cta_type": "btn",
+            "cta_style": "secondary",
+            "button_text": "Get Started",
+            "modal_target": "demo"
+          }
+        ],
+        "children": [
+          {
+            "name": "cta_type",
+            "label": "CTA Type",
+            "type": "choice",
+            "choices": [
+              "cta",
+              "hs_payment",
+              "btn",
+              "modal"
+            ],
+            "default": "btn"
+          },
+          {
+            "name": "cta_style",
+            "label": "CTA Style",
+            "type": "choice",
+            "choices": [
+              "primary",
+              "secondary",
+              "tertiary",
+              "white",
+              "black",
+              "dark",
+              "light",
+              "success",
+              "info",
+              "warning",
+              "danger",
+              "outline-primary",
+              "outline-secondary",
+              "outline-tertiary",
+              "outline-white",
+              "outline-black",
+              "outline-dark",
+              "outline-light",
+              "outline-success",
+              "outline-info",
+              "outline-warning",
+              "outline-danger",
+              "gradient_one",
+              "gradient_two",
+              "custom",
+              "none"
+            ],
+            "default": "secondary"
+          },
+          {
+            "name": "default",
+            "label": "Default",
+            "type": "group",
+            "default": {
+              "text": {
+                "color": "#fff",
+                "opacity": 100
+              },
+              "border": {
+                "color": "#0c63ff",
+                "opacity": 100
+              },
+              "background": {
+                "color": "#0c63ff",
+                "opacity": 100
+              }
+            },
+            "children": [
+              {
+                "name": "background",
+                "label": "Background",
+                "type": "color",
+                "default": {
+                  "color": "#0c63ff",
+                  "opacity": 100
+                }
+              },
+              {
+                "name": "text",
+                "label": "Text",
+                "type": "color",
+                "default": {
+                  "color": "#fff",
+                  "opacity": 100
+                }
+              },
+              {
+                "name": "border",
+                "label": "Border",
+                "type": "color",
+                "default": {
+                  "color": "#0c63ff",
+                  "opacity": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "hover",
+            "label": "Hover",
+            "type": "group",
+            "default": {
+              "text": {
+                "color": "#fff",
+                "opacity": 100
+              },
+              "border": {
+                "color": "#5a93fd",
+                "opacity": 100
+              },
+              "background": {
+                "color": "#5a93fd",
+                "opacity": 100
+              }
+            },
+            "children": [
+              {
+                "name": "background",
+                "label": "Background",
+                "type": "color",
+                "default": {
+                  "color": "#5a93fd",
+                  "opacity": 100
+                }
+              },
+              {
+                "name": "text",
+                "label": "Text",
+                "type": "color",
+                "default": {
+                  "color": "#fff",
+                  "opacity": 100
+                }
+              },
+              {
+                "name": "border",
+                "label": "Border Color",
+                "type": "color",
+                "default": {
+                  "color": "#5a93fd",
+                  "opacity": 100
+                }
+              }
+            ]
+          },
+          {
+            "name": "cta",
+            "label": "CTA",
+            "type": "cta",
+            "default": ""
+          },
+          {
+            "name": "button_text",
+            "label": "Button Text",
+            "type": "text",
+            "default": "Get Started"
+          },
+          {
+            "name": "modal_target",
+            "label": "Modal Target",
+            "type": "text",
+            "default": "demo"
+          },
+          {
+            "name": "link",
+            "label": "Link",
+            "type": "link",
+            "default": {
+              "url": {
+                "href": "#",
+                "type": "EXTERNAL",
+                "content_id": null
+              },
+              "no_follow": false,
+              "open_in_new_tab": false
+            }
+          },
+          {
+            "name": "payment",
+            "label": "Payment link",
+            "type": "payment",
+            "default": {}
+          },
+          {
+            "name": "checkout_location",
+            "label": "Checkout behavior",
+            "type": "choice",
+            "choices": [
+              "new_tab",
+              "overlay"
+            ],
+            "default": "new_tab"
+          },
+          {
+            "name": "cta_size",
+            "label": "CTA Size",
+            "type": "choice",
+            "choices": [
+              "sm",
+              "md",
+              "lg"
+            ],
+            "default": "md"
+          },
+          {
+            "name": "add_icon",
+            "label": "Add icon",
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "icon",
+            "label": "Icon",
+            "type": "group",
+            "default": {
+              "icon": {
+                "name": "arrow-right",
+                "type": "SOLID",
+                "unicode": "f061"
+              },
+              "position": "right"
+            },
+            "children": [
+              {
+                "name": "icon",
+                "label": "Icon",
+                "type": "icon",
+                "default": {
+                  "name": "arrow-right",
+                  "type": "SOLID",
+                  "unicode": "f061"
+                }
+              },
+              {
+                "name": "position",
+                "label": "Position",
+                "type": "choice",
+                "choices": [
+                  "left",
+                  "right"
+                ],
+                "default": "right"
+              },
+              {
+                "name": "purpose",
+                "label": "Purpose",
+                "type": "choice",
+                "choices": [
+                  "decorative",
+                  "semantic"
+                ],
+                "default": "decorative"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "columns",
+        "label": "Columns",
+        "type": "group",
+        "default": {
+          "left_column": [
+            {
+              "column_breakpoint": "md",
+              "column_width": "9",
+              "column_offset": "0",
+              "column_order": null
+            }
+          ],
+          "right_column": [
+            {
+              "column_breakpoint": "md",
+              "column_width": "3",
+              "column_offset": "0",
+              "column_order": null
+            }
+          ]
+        },
+        "children": [
+          {
+            "name": "left_column",
+            "label": "Content",
+            "type": "group",
+            "default": [
+              {
+                "column_breakpoint": "md",
+                "column_width": "9",
+                "column_offset": "0",
+                "column_order": null
+              }
+            ],
+            "children": [
+              {
+                "name": "column_breakpoint",
+                "label": "Column Breakpoint",
+                "type": "choice",
+                "choices": [
+                  "na",
+                  "sm",
+                  "md",
+                  "lg",
+                  "xl"
+                ],
+                "default": "md"
+              },
+              {
+                "name": "column_width",
+                "label": "Column Width",
+                "type": "choice",
+                "choices": [
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12"
+                ],
+                "default": "9"
+              },
+              {
+                "name": "column_offset",
+                "label": "Column Offset",
+                "type": "choice",
+                "choices": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12"
+                ],
+                "default": "0"
+              },
+              {
+                "name": "column_order",
+                "label": "Column Order",
+                "type": "number"
+              }
+            ]
+          },
+          {
+            "name": "right_column",
+            "label": "Buttons",
+            "type": "group",
+            "default": [
+              {
+                "column_breakpoint": "md",
+                "column_width": "3",
+                "column_offset": "0",
+                "column_order": null
+              }
+            ],
+            "children": [
+              {
+                "name": "column_breakpoint",
+                "label": "Column Breakpoint",
+                "type": "choice",
+                "choices": [
+                  "na",
+                  "sm",
+                  "md",
+                  "lg",
+                  "xl"
+                ],
+                "default": "md"
+              },
+              {
+                "name": "column_width",
+                "label": "Column Width",
+                "type": "choice",
+                "choices": [
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12"
+                ],
+                "default": "3"
+              },
+              {
+                "name": "column_offset",
+                "label": "Column Offset",
+                "type": "choice",
+                "choices": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12"
+                ],
+                "default": "0"
+              },
+              {
+                "name": "column_order",
+                "label": "Column Order",
+                "type": "number"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "column_vertical_align",
+        "label": "Column Vertical Align",
+        "type": "choice",
+        "choices": [
+          "top",
+          "center",
+          "bottom",
+          "stretch"
+        ],
+        "default": "center"
+      }
+    ]
+  }
+]

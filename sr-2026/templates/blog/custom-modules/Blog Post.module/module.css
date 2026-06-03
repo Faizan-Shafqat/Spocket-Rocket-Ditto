@@ -1,0 +1,149 @@
+/*======= Featured Image =======*/ 
+
+.featured-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featured-image-wrapper {
+    width: 100%;
+    overflow: hidden;
+}
+
+.featured-image-hero a {
+    color: inherit;
+}
+
+.featured-image-hero {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+}
+
+.featured-image-wrapper.bg_image {
+    height: 600px;
+}
+.featured-image-hero.bg_image:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background);
+}
+
+.featured-image-hero .hero-container {
+    z-index: 2
+}
+
+
+
+
+/*======= Sidebar =======*/
+.sidebar {
+    justify-content: space-around;
+    align-items: flex-start;
+    display: flex;
+}
+
+.sidebar-wrapper {
+    position: sticky;
+    top: calc(100px + 0.5rem);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-menu.tags ul,
+.hero-tags {
+    list-style-type: none;
+    list-style-image: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu.recent ul {
+    list-style-type: none;
+    list-style-image: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu.recent ul li a {
+    display: block;
+    padding: .5rem 0;
+    font-size: .9rem;
+    line-height: normal;
+    text-decoration: none;
+}
+
+
+
+
+/*======= Table Of Contents =======*/
+.blog-toc__container details summary svg {
+    transform: rotate(0);
+    transition: transform .15s ease;
+    vertical-align: middle;
+}
+
+.blog-toc__container details>summary {
+    list-style: none;
+}
+
+.blog-toc__container details[open]>summary svg {
+    transform: rotate(90deg);
+}
+
+.sr-blog-post .toc-heading {
+    scroll-padding-top: 100px;
+    scroll-margin-block: 100px;
+}
+
+.blog-toc__container {
+    position: sticky;
+    top: var(--top, 3rem);
+    align-self: start;
+    transition: top 250ms ease-in-out;
+    transition-delay: 0ms;
+    margin-bottom: 2.5rem;
+}
+.blog-toc__container details .nav-group-title .heading {margin-bottom: 0;}
+
+[data-header-scroll="false"] .blog-toc__container .blog-toc {
+    position: sticky;
+    top: 6rem;
+    transition-delay: 300ms
+}
+
+.blog-toc__container .section-nav {
+    padding-left: 0;
+}
+
+.blog-toc__container .section-nav a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: .125rem 0;
+    transition: all 100ms ease-in-out;
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 15px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* number of lines to show */
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.blog-toc__container .section-nav .icon {
+    left: 0px;
+    opacity: 0;
+    position: absolute;
+}
+
+.blog-toc__container .section-nav .active .icon {
+    opacity: 1;
+}

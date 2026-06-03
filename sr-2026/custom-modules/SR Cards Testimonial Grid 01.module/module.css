@@ -1,0 +1,37 @@
+.sr-cards-testimonial-grid-01 .author-meta {
+	display: flex;
+	align-items: center;
+	margin-top: auto;
+}
+
+.sr-cards-testimonial-grid-01 .author-meta img {
+	height: 48px;
+	max-width: 48px;
+	object-fit: cover;
+	border-radius: var(--border_radius);
+	display: inline-block;
+}
+
+.sr-cards-testimonial-grid-01 .author-details {
+	line-height: 1.35;
+}
+
+.sr-cards-testimonial-grid-01 .author-name, .sr-cards-testimonial-grid-01 .author-title {
+	width: 100%;
+	display: block;
+}
+
+.sr-cards-testimonial-grid-01 .author-name {
+	font-weight: 600;
+}
+.sr-cards-testimonial-grid-01 .author-title p {
+	margin: 0;
+}
+
+.sr-cards-testimonial-grid-01 svg {
+	color: var(--icon-color);
+}
+
+.sr-cards-testimonial-grid-01 svg :is(path, rect,g) {
+	fill: currentColor;
+}

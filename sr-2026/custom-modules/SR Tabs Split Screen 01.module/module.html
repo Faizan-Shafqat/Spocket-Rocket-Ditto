@@ -1,0 +1,124 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	{% require_css %}
+	<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+	{% for tab in module.tabs %}
+	.{{ name }} [data-section="{{ loop.index }}"] {
+		{%- if tab.styles.content_background_option == 'image' -%}
+		background: url({{ resize_image_url(tab.styles.content_background_image.src, '1440') }}) no-repeat 0 0 / cover;
+		{%- endif -%}
+		{%- if tab.styles.content_background_option == 'custom' -%}
+		background-color: {{ macros.color(tab.styles.content_background_custom) }};
+		{%- endif -%}
+	}
+	{%- if tab.styles.content_background_option == 'image' -%}
+	@media (min-width: 992px) {
+		.{{ name }} [data-section="{{ loop.index }}"] {
+		background-image: url({{ resize_image_url(tab.styles.content_background_image.src, '2880') }});
+		}
+	}
+	{% endif %}
+	{% if tab.image_overlay %}
+	.{{ name }} .sr-tabs-split-screen-01-image__overlay[data-overlay="{{ loop.index }}"]::after {
+		background-color: {{ macros.color(tab.image_overlay_color) }};
+	}
+	@media screen and (max-width: 991px) {
+		.{{ name }} [data-section="{{ loop.index }}"] .mobile-content:before {
+			position: absolute;
+			content: '';
+			background: {{ macros.color(tab.image_overlay_color) }};
+			width: 100%;
+			height: 100%;
+		}
+	}
+	{% endif %}
+	{% endfor %}
+	@media screen and (min-width: 992px) {
+		.{{ name }} .sr-tabs-split-screen-01-image {
+			{% if module.col_alignment == 'content_image' %}
+			order: 1;
+			{% endif %}
+		}
+		.{{ name }} .menu {
+			{% if module.col_alignment == 'content_image' %}
+			right: auto;
+			left: 0;
+			{% endif %}
+		}
+	}
+	</style>
+	{% end_require_css %}
+
+	<div class="sr-tabs-split-screen-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+				<div class="row">
+					{% set firstTab = module.tabs|first %}
+					<div class="sr-tabs-split-screen-01-image">
+
+						{% for tab in module.tabs %}
+						{% if loop.first %}
+						<div class="image-info">
+							<div class="sr-tabs-split-screen-01-image__overlay" data-overlay="1"></div>
+							<div class="sr-tabs-split-screen__title" data-title="">
+								{{ macros.heading(tab.image_heading) }}
+							</div>
+						</div>
+						{% endif %}
+						<div class="{% if loop.first %}active{% endif %}" data-image="{{ loop.index }}">
+							{{ macros.image(tab.image, 'class="bg"') }}
+						</div>
+						{% endfor %}
+						<ul class="menu">
+							{% for tab in module.tabs %}
+							{% set index = loop.index %}
+							<li class="{{'flex-row-reverse' if module.col_alignment == 'content_image'}}{% if tab.menu_title_color != 'auto' %} text-{{ tab.menu_title_color }}{% endif %}" data-link="{{ index }}"><button type="button">{{ tab.menu_title }}</button></li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="content-scroll {% if module.text_align != 'auto' %} text-{{ module.text_align }}{% endif %}">
+						<div>
+						{% for tab in module.tabs %}
+						<div data-section="{{ loop.index }}" data-title="{{ tab.image_heading[0].heading }}" data-text-color="text-{{ tab.image_heading[0].heading_color }}" data-overlay="{{ tab.image_overlay_color.css }}" class="{% if tab.styles.content_background_option == 'color' %} bg-{{ tab.styles.content_background_color }}{% endif %} {% if tab.text_color != 'auto' %}text-{{ tab.text_color }}{% endif %}">
+							<div class="mobile-content">
+							<div class="sr-tabs-split-screen__title {% if loop.first %}active{% endif %}" data-title="{{ loop.index }}">
+								{{ macros.heading(tab.image_heading) }}
+							</div>
+								{{ macros.image(tab.image) }}
+							</div>
+							<div class="content-scroll__info">
+								{{ macros.heading(tab.heading) }}
+
+								{% if tab.description %}
+								<div class="description{% if tab.lead_text %} lead{% endif %}">
+									{{tab.description}}
+								</div>
+								{% endif %}
+
+								{{ macros.cta(tab.ctas, '{{"sr-spacer-top-50" if tab.heading|length > 0 or tab.description }}') }}
+							</div>
+						</div>
+						{% endfor %}
+						</div>
+					</div>
+				</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}

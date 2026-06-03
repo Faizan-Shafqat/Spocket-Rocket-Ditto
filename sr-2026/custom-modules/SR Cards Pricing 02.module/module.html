@@ -1,0 +1,107 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+			.{{ name }} .sr-card {
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+
+			.{{ name }} .sr-card .pricing-description {
+				padding-top: {{ module.design_settings.card_styles.spacing.padding.top.value ~ module.design_settings.card_styles.spacing.padding.top.units }};
+				padding-bottom: {{ module.design_settings.card_styles.spacing.padding.bottom.value ~ module.design_settings.card_styles.spacing.padding.bottom.units }};
+				padding-left: {{ module.design_settings.card_styles.spacing.padding.left.value ~ module.design_settings.card_styles.spacing.padding.left.units }};
+				padding-right: {{ module.design_settings.card_styles.spacing.padding.right.value ~ module.design_settings.card_styles.spacing.padding.right.units }};
+				border-bottom: 1px solid var(--borders);
+			}
+			.{{ name }} .sr-card .pricing-features {
+				padding-top: {{ module.design_settings.card_styles.spacing.padding.top.value ~ module.design_settings.card_styles.spacing.padding.top.units }};
+				padding-bottom: {{ module.design_settings.card_styles.spacing.padding.bottom.value ~ module.design_settings.card_styles.spacing.padding.bottom.units }};
+				padding-left: {{ module.design_settings.card_styles.spacing.padding.left.value ~ module.design_settings.card_styles.spacing.padding.left.units }};
+				padding-right: {{ module.design_settings.card_styles.spacing.padding.right.value ~ module.design_settings.card_styles.spacing.padding.right.units }};
+			}
+
+			.{{ name }} .sr-card:hover,
+			.{{ name }} .sr-card:has(.hiddenBtn .hiddenBtn:focus) {
+				border-color: {{ module.design_settings.card_styles.border.left.color }};
+			}
+		</style>
+	{% end_require_css %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-cards-pricing-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background {% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+
+					{% if module.heading ||  module.description %}
+					<div class="sr-spacer-bottom-75 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+						{{ macros.heading(module.heading) }}
+
+						{% if module.description %}
+							<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+						{% endif %}
+					</div>
+					{% endif %}
+
+					<div class="content-row">
+						<div class="row row-gap align-items-stretch" data-gap="{{ module.design_settings.card_styles.enable_gap }}">
+						{% for item in module.plan_1 %}
+							<div class="col-lg-4 text-{{ module.design_settings.card_styles.text_color }}">
+								<div class="sr-card">
+									<div class="pricing-description">
+										{{macros.heading(item.heading)}}
+									</div>
+									<div class="hiddenBtn">
+										<a {{ macros.link(module.plan_1.link) }}>
+											{{ item.heading[0].heading }}
+										</a>
+									</div>
+									<div class="pricing-features">
+										{{macros.features(item.features, module.design_settings.features_styles)}}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						</div>
+					</div>
+
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+
+		</div>
+	</div>
+{% endif %}

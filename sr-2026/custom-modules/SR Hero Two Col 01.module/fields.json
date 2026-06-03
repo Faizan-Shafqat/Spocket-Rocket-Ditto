@@ -1,0 +1,2235 @@
+[ {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "display_width" : null,
+  "type" : "boolean",
+  "default" : true
+}, {
+  "id" : "sr_module_id",
+  "name" : "sr_module_id",
+  "label" : "ID",
+  "help_text" : "Assign a ID to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : "half_width",
+  "type" : "text"
+}, {
+  "id" : "class",
+  "name" : "class",
+  "label" : "Class",
+  "help_text" : "Assign a CLASS to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : "half_width",
+  "type" : "text"
+}, {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.layout",
+    "name" : "layout",
+    "label" : "Layout",
+    "help_text" : "",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "container", "Default" ], [ "container container-small", "Small" ], [ "container container-large", "Large" ], [ "container-fluid", "Full Width" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "container-fluid"
+  }, {
+    "id" : "design_settings.container_width",
+    "name" : "container_width",
+    "label" : "Container Width",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "min", "Minimum" ], [ "narrow", "Narrow" ], [ "wide", "Wide" ], [ "max", "Maximum" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "max"
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : {
+    "layout" : "container-fluid",
+    "container_width" : "max"
+  }
+}, {
+  "id" : "left_column",
+  "name" : "left_column",
+  "label" : "Left Column",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "left_column.design_settings",
+    "name" : "design_settings",
+    "label" : "Design Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "left_column.design_settings.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "color"
+    }, {
+      "id" : "left_column.design_settings.background_gradient_from",
+      "name" : "background_gradient_from",
+      "label" : "Background Gradient From",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#0c63ff"
+      }
+    }, {
+      "id" : "left_column.design_settings.background_gradient_to",
+      "name" : "background_gradient_to",
+      "label" : "Background Gradient To",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#1897ff"
+      }
+    }, {
+      "id" : "left_column.design_settings.background_image",
+      "name" : "background_image",
+      "label" : "Background Image",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "responsive" : true,
+      "resizable" : true,
+      "show_loading" : true,
+      "display_width" : null,
+      "type" : "image",
+      "default" : {
+        "alt" : null,
+        "src" : null
+      }
+    }, {
+      "id" : "left_column.design_settings.background_overlay_color",
+      "name" : "background_overlay_color",
+      "label" : "Background Overlay Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#000",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "left_column.design_settings.background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "dark"
+    }, {
+      "id" : "left_column.design_settings.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Custom",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#fff"
+      }
+    }, {
+      "id" : "63d0f74e-8e8a-e7eb-0523-803cefdb01c4",
+      "name" : "padding",
+      "label" : "Padding",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "8557dd26-72ce-e3b3-aa50-9bfd074738ab",
+        "name" : "top",
+        "label" : "Top",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "display_width" : "half_width",
+        "type" : "number",
+        "default" : 10
+      }, {
+        "id" : "8a94bfb0-85dd-31cd-077f-462db2d64ede",
+        "name" : "bottom",
+        "label" : "Bottom",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "display_width" : "half_width",
+        "type" : "number",
+        "default" : 10
+      }, {
+        "id" : "8b33a7fe-88f3-947e-b9b9-e9cfc63af6cc",
+        "name" : "left",
+        "label" : "Left",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "display_width" : "half_width",
+        "type" : "number",
+        "default" : 10
+      }, {
+        "id" : "bdbc3381-e584-bcda-ca8d-94e9e470e2fd",
+        "name" : "right",
+        "label" : "Right",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "display_width" : "half_width",
+        "type" : "number",
+        "default" : 10
+      }, {
+        "id" : "left_column.design_settings.padding.units",
+        "name" : "units",
+        "label" : "Units",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "placeholder" : "",
+        "choices" : [ [ "px", "px" ], [ "rem", "rem" ], [ "vw", "vw" ], [ "%", "%" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "%"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "top" : 10,
+        "bottom" : 10,
+        "left" : 10,
+        "right" : 10,
+        "units" : "%"
+      }
+    }, {
+      "id" : "left_column.design_settings.column_size",
+      "name" : "column_size",
+      "label" : "Column Size",
+      "help_text" : "<a href='https://getbootstrap.com/docs/4.6/layout/grid/'>Documentation</a>",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "col-lg-6"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : {
+      "background_color" : "white",
+      "background_custom" : {
+        "color" : "#000",
+        "opacity" : 100
+      },
+      "background_option" : "color"
+    }
+  }, {
+    "id" : "left_column_media_type",
+    "name" : "media_type",
+    "label" : "Media Type",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "image", "Image" ], [ "video", "Video" ], [ "none", "None" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "video"
+  }, {
+    "id" : "left_column.image_",
+    "name" : "image_",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "left_column_media_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "image",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "display_width" : null,
+    "type" : "image",
+    "default" : {
+      "alt" : "Enhanced user experience",
+      "src" : "https://www.lean-labs.com/hs-fs/hubfs/LLv2/images/case-studies/sprocketrocket/2020%20Website%20Assets/Group%205.png",
+      "width" : 400,
+      "height" : 300,
+      "loading" : "lazy",
+      "max_width" : 1080,
+      "size_type" : "exact",
+      "max_height" : 810
+    }
+  }, {
+    "picker" : "file",
+    "id" : "left_column.video",
+    "name" : "video",
+    "label" : "Video",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "visibility" : {
+      "controlling_field" : "left_column_media_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "file",
+    "default" : [ "https://www.lean-labs.com/hubfs/LLv2/images/case-studies/sprocketrocket/Compressed%20Videos/01%20Complete%20Design%20Control-1.m4v" ]
+  }, {
+    "id" : "left_column.video_max_height",
+    "name" : "video_max_height",
+    "label" : "Video Max Height",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "left_column_media_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "display_width" : null,
+    "type" : "number",
+    "default" : 300
+  }, {
+    "id" : "left_column.loop",
+    "name" : "loop",
+    "label" : "Loop Video",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "left_column_media_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "checkbox",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : true
+  }, {
+    "id" : "left_column_heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 2
+    },
+    "children" : [ {
+      "id" : "left_column_heading.heading",
+      "name" : "heading",
+      "label" : "Heading",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "Enhanced user experience"
+    }, {
+      "id" : "left_column_heading.heading_size",
+      "name" : "heading_size",
+      "label" : "Size",
+      "help_text" : "HTML heading size",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "h2"
+    }, {
+      "id" : "left_column_heading.heading_display_size",
+      "name" : "heading_display_size",
+      "label" : "Display Size",
+      "help_text" : "Size that heading is displayed at",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "h4"
+    }, {
+      "id" : "left_column_heading.heading_color",
+      "name" : "heading_color",
+      "label" : "Color",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "left_column_heading.heading_color_custom",
+      "name" : "heading_color_custom",
+      "label" : "Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_heading.heading_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "left_column_heading.heading_align",
+      "name" : "heading_align",
+      "label" : "Align",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "left_column.heading.class",
+      "name" : "class",
+      "label" : "CSS Class",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : [ {
+      "heading" : "Enhanced user experience",
+      "heading_size" : "h3",
+      "heading_align" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_display_size" : "auto"
+    } ]
+  }, {
+    "id" : "left_column.description",
+    "name" : "description",
+    "label" : "Description",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "richtext",
+    "default" : "<p class='text-balance'>Easy-of-use ensures new users learn to use prototyping tools.</p>"
+  }, {
+    "id" : "left_column.lead_text",
+    "name" : "lead_text",
+    "label" : "Lead Text",
+    "help_text" : "Turn on to make the Description text larger",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : false
+  }, {
+    "id" : "left_column_cta",
+    "name" : "ctas",
+    "label" : "CTA",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "left_column_cta.cta_type",
+      "name" : "cta_type",
+      "label" : "CTA Type",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "cta", "HubSpot CTA" ], [ "hs_payment", "HubSpot Payment" ], [ "btn", "Button" ], [ "modal", "Modal" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "btn"
+    }, {
+      "id" : "left_column_cta.cta_style",
+      "name" : "cta_style",
+      "label" : "CTA Style",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "none",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "outline-primary", "Outline Primary" ], [ "outline-secondary", "Outline Secondary" ], [ "outline-tertiary", "Outline Tertiary" ], [ "outline-white", "Outline White" ], [ "outline-black", "Outline Black" ], [ "outline-dark", "Outline Dark" ], [ "outline-light", "Outline Light" ], [ "outline-success", "Outline Success" ], [ "outline-info", "Outline Info" ], [ "outline-warning", "Outline Warning" ], [ "outline-danger", "Outline Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "none"
+    }, {
+      "id" : "left_column_cta.default",
+      "name" : "default",
+      "label" : "Default",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_style",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "left_column.ctas.default.background",
+        "name" : "background",
+        "label" : "Background",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "left_column.ctas.default.text",
+        "name" : "text",
+        "label" : "Text",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "left_column.ctas.default.border",
+        "name" : "border",
+        "label" : "Border",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "text" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "border" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        },
+        "background" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "left_column_cta.hover",
+      "name" : "hover",
+      "label" : "Hover",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_style",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "left_column.ctas.hover.background",
+        "name" : "background",
+        "label" : "Background",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "left_column.ctas.hover.text",
+        "name" : "text",
+        "label" : "Text",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "left_column.ctas.hover.border",
+        "name" : "border",
+        "label" : "Border Color",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "text" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "border" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        },
+        "background" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "left_column_cta.cta",
+      "name" : "cta",
+      "label" : "CTA",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "cta",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "cta",
+      "default" : ""
+    }, {
+      "id" : "left_column_cta.button_text",
+      "name" : "button_text",
+      "label" : "Button Text",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "btn|modal",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "Get Started"
+    }, {
+      "id" : "left_column_cta.modal_target",
+      "name" : "modal_target",
+      "label" : "Modal Target",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "modal",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "demo"
+    }, {
+      "id" : "left_column_cta.link",
+      "name" : "link",
+      "label" : "Link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "btn",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+      "show_advanced_rel_options" : false,
+      "display_width" : null,
+      "type" : "link",
+      "default" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      }
+    }, {
+      "id" : "left_column_cta.payment",
+      "name" : "payment",
+      "label" : "Payment link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "hs_payment",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "payment",
+      "default" : { }
+    }, {
+      "id" : "left_column_cta.checkout_location",
+      "name" : "checkout_location",
+      "label" : "Checkout behavior",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : "left_column_cta.payment",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "id\":\\d+",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        }, {
+          "controlling_field" : "left_column_cta.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "hs_payment",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "radio",
+      "choices" : [ [ "new_tab", "Open in a new tab" ], [ "overlay", "Sliding overlay" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "new_tab"
+    }, {
+      "id" : "left_column_cta.cta_size",
+      "name" : "cta_size",
+      "label" : "CTA Size",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "none",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "sm", "Small" ], [ "md", "Default" ], [ "lg", "Large" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "md"
+    }, {
+      "id" : "left_column_cta.add_icon",
+      "name" : "add_icon",
+      "label" : "Add icon",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "left_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "cta",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      },
+      "display" : "checkbox",
+      "display_width" : null,
+      "type" : "boolean",
+      "default" : false
+    }, {
+      "id" : "left_column_cta.icon",
+      "name" : "icon",
+      "label" : "Icon",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : "left_column_cta.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "cta",
+          "property" : null,
+          "operator" : "NOT_EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : "left_column_cta.add_icon",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "children" : [ {
+        "id" : "left_column_cta.icon.icon",
+        "name" : "icon",
+        "label" : "Icon",
+        "required" : true,
+        "locked" : false,
+        "icon_set" : "fontawesome-5.14.0",
+        "display_width" : null,
+        "type" : "icon",
+        "default" : {
+          "name" : "arrow-right",
+          "type" : "SOLID",
+          "unicode" : "f061"
+        }
+      }, {
+        "id" : "left_column_cta.icon.position",
+        "name" : "position",
+        "label" : "Position",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "right"
+      }, {
+        "id" : "left_column_cta.icon.purpose",
+        "name" : "purpose",
+        "label" : "Purpose",
+        "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "decorative"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "icon" : {
+          "name" : "arrow-right",
+          "type" : "SOLID",
+          "unicode" : "f061"
+        },
+        "position" : "right"
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : [ {
+      "cta" : "",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "gradient_one",
+      "button_text" : "Get Started",
+      "modal_target" : "demo"
+    } ]
+  }, {
+    "id" : "left_column.text_align",
+    "name" : "text_align",
+    "label" : "Text Align",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "center"
+  }, {
+    "id" : "left_column.text_color",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "white"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : {
+    "ctas" : [ {
+      "cta" : "",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "gradient_one",
+      "button_text" : "Get Started",
+      "modal_target" : "demo"
+    } ],
+    "loop" : true,
+    "image" : {
+      "src" : null
+    },
+    "video" : [ "https://www.lean-labs.com/hubfs/LLv2/images/case-studies/sprocketrocket/Compressed%20Videos/01%20Complete%20Design%20Control-1.m4v" ],
+    "image_" : {
+      "alt" : "Enhanced user experience",
+      "src" : "https://www.lean-labs.com/hs-fs/hubfs/LLv2/images/case-studies/sprocketrocket/2020%20Website%20Assets/Group%205.png",
+      "width" : 400,
+      "height" : 300,
+      "loading" : "lazy",
+      "max_width" : 1080,
+      "size_type" : "exact",
+      "max_height" : 810
+    },
+    "heading" : [ {
+      "heading" : "Built for Everyone",
+      "heading_size" : "h2",
+      "heading_align" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_display_size" : "h5"
+    }, {
+      "heading" : "Enhanced user experience",
+      "heading_size" : "h3",
+      "heading_align" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_display_size" : "auto"
+    } ],
+    "lead_text" : true,
+    "media_type" : "video",
+    "text_align" : "center",
+    "text_color" : "white",
+    "design_settings" : {
+      "background_color" : "white",
+      "background_custom" : {
+        "color" : "#000",
+        "opacity" : 100
+      },
+      "background_option" : "color"
+    },
+    "video_max_height" : 300
+  }
+}, {
+  "id" : "right_column",
+  "name" : "right_column",
+  "label" : "Right Column",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "right_column.design_settings",
+    "name" : "design_settings",
+    "label" : "Design Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "right_column.design_settings.background_option",
+      "name" : "background_option",
+      "label" : "Background Option",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "image", "Image" ], [ "color", "Color" ], [ "custom", "Custom" ], [ "gradient", "Gradient" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "custom"
+    }, {
+      "id" : "right_column.design_settings.background_gradient_from",
+      "name" : "background_gradient_from",
+      "label" : "Background Gradient From",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#0c63ff"
+      }
+    }, {
+      "id" : "right_column.design_settings.background_gradient_to",
+      "name" : "background_gradient_to",
+      "label" : "Background Gradient To",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "gradient",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#1897ff"
+      }
+    }, {
+      "id" : "right_column.design_settings.background_image",
+      "name" : "background_image",
+      "label" : "Background Image",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "responsive" : true,
+      "resizable" : true,
+      "show_loading" : true,
+      "display_width" : null,
+      "type" : "image",
+      "default" : {
+        "alt" : null,
+        "src" : null
+      }
+    }, {
+      "id" : "right_column.design_settings.background_overlay_color",
+      "name" : "background_overlay_color",
+      "label" : "Background Overlay Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "image",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#000",
+        "opacity" : 0
+      }
+    }, {
+      "id" : "right_column.design_settings.background_color",
+      "name" : "background_color",
+      "label" : "Background Color",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "color",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "secondary"
+    }, {
+      "id" : "right_column.design_settings.background_custom",
+      "name" : "background_custom",
+      "label" : "Background Custom",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column.design_settings.background_option",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#202A3E",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "right_column.design_settings.padding",
+      "name" : "padding",
+      "label" : "Padding",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "right_column.design_settings.padding.top",
+        "name" : "top",
+        "label" : "Top",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "display_width" : "half_width",
+        "type" : "number",
+        "default" : 10
+      }, {
+        "id" : "right_column.design_settings.padding.bottom",
+        "name" : "bottom",
+        "label" : "Bottom",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "display_width" : "half_width",
+        "type" : "number",
+        "default" : 10
+      }, {
+        "id" : "right_column.design_settings.padding.left",
+        "name" : "left",
+        "label" : "Left",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "display_width" : "half_width",
+        "type" : "number",
+        "default" : 10
+      }, {
+        "id" : "right_column.design_settings.padding.right",
+        "name" : "right",
+        "label" : "Right",
+        "required" : false,
+        "locked" : false,
+        "display" : "text",
+        "step" : 1,
+        "display_width" : "half_width",
+        "type" : "number",
+        "default" : 10
+      }, {
+        "id" : "right_column.design_settings.padding.units",
+        "name" : "units",
+        "label" : "Units",
+        "help_text" : "",
+        "inline_help_text" : "",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "placeholder" : "",
+        "choices" : [ [ "px", "px" ], [ "rem", "rem" ], [ "vw", "vw" ], [ "%", "%" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "%"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "top" : 10,
+        "bottom" : 10,
+        "left" : 10,
+        "right" : 10,
+        "units" : "%"
+      }
+    }, {
+      "id" : "right_column.design_settings.column_size",
+      "name" : "column_size",
+      "label" : "Column Size",
+      "help_text" : "<a href='https://getbootstrap.com/docs/4.6/layout/grid/'>Documentation</a>",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "col-lg-6"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : {
+      "background_color" : "white",
+      "background_custom" : {
+        "color" : "#000",
+        "opacity" : 100
+      },
+      "background_option" : "color"
+    }
+  }, {
+    "id" : "right_column_media_type",
+    "name" : "media_type",
+    "label" : "Media Type",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "image", "Image" ], [ "video", "Video" ], [ "none", "None" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "image"
+  }, {
+    "id" : "right_column.image_",
+    "name" : "image_",
+    "label" : "Image",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "right_column_media_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "image",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "display_width" : null,
+    "type" : "image",
+    "default" : {
+      "alt" : "Prototype with robust modules",
+      "src" : "https://www.lean-labs.com/hs-fs/hubfs/LLv2/images/case-studies/sprocketrocket/2020%20Website%20Assets/Group%205.png",
+      "width" : 400,
+      "height" : 300,
+      "loading" : "lazy",
+      "max_width" : 1080,
+      "size_type" : "exact",
+      "max_height" : 810
+    }
+  }, {
+    "picker" : "file",
+    "id" : "right_column.video",
+    "name" : "video",
+    "label" : "Video",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : null,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "visibility" : {
+      "controlling_field" : "right_column_media_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "file",
+    "default" : [ "https://www.lean-labs.com/hubfs/LLv2/images/case-studies/sprocketrocket/Compressed%20Videos/01%20Complete%20Design%20Control-1.m4v" ]
+  }, {
+    "id" : "right_column.video_max_height",
+    "name" : "video_max_height",
+    "label" : "Video Max Height",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "right_column_media_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "display_width" : null,
+    "type" : "number",
+    "default" : 300
+  }, {
+    "id" : "right_column.loop",
+    "name" : "loop",
+    "label" : "Loop Video",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "right_column_media_type",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "video",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "checkbox",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : true
+  }, {
+    "id" : "right_column_heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 1
+    },
+    "children" : [ {
+      "id" : "right_column_heading.heading",
+      "name" : "heading",
+      "label" : "Heading",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "Prototype with robust modules"
+    }, {
+      "id" : "right_column_heading.heading_size",
+      "name" : "heading_size",
+      "label" : "Size",
+      "help_text" : "HTML heading size",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "h4"
+    }, {
+      "id" : "right_column_heading.heading_display_size",
+      "name" : "heading_display_size",
+      "label" : "Display Size",
+      "help_text" : "Size that heading is displayed at",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "right_column_heading.heading_color",
+      "name" : "heading_color",
+      "label" : "Color",
+      "required" : false,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "right_column_heading.heading_color_custom",
+      "name" : "heading_color_custom",
+      "label" : "Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_heading.heading_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "right_column_heading.heading_align",
+      "name" : "heading_align",
+      "label" : "Align",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "right_column.heading.class",
+      "name" : "class",
+      "label" : "CSS Class",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : [ {
+      "heading" : "Prototype with robust modules",
+      "heading_size" : "h3",
+      "heading_align" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_display_size" : "auto"
+    } ]
+  }, {
+    "id" : "right_column.description",
+    "name" : "description",
+    "label" : "Description",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "richtext",
+    "default" : "<p class='text-balance'>Choose from a vast selection of modules and drag-and-drop.</p>"
+  }, {
+    "id" : "right_column.lead_text",
+    "name" : "lead_text",
+    "label" : "Lead Text",
+    "help_text" : "Turn on to make the Description text larger",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : false
+  }, {
+    "id" : "right_column_cta",
+    "name" : "ctas",
+    "label" : "CTA",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : null,
+      "default" : 2
+    },
+    "children" : [ {
+      "id" : "right_column_cta.cta_type",
+      "name" : "cta_type",
+      "label" : "CTA Type",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "cta", "HubSpot CTA" ], [ "hs_payment", "HubSpot Payment" ], [ "btn", "Button" ], [ "modal", "Modal" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "btn"
+    }, {
+      "id" : "right_column_cta.cta_style",
+      "name" : "cta_style",
+      "label" : "CTA Style",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "none",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "outline-primary", "Outline Primary" ], [ "outline-secondary", "Outline Secondary" ], [ "outline-tertiary", "Outline Tertiary" ], [ "outline-white", "Outline White" ], [ "outline-black", "Outline Black" ], [ "outline-dark", "Outline Dark" ], [ "outline-light", "Outline Light" ], [ "outline-success", "Outline Success" ], [ "outline-info", "Outline Info" ], [ "outline-warning", "Outline Warning" ], [ "outline-danger", "Outline Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ], [ "none", "None" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "none"
+    }, {
+      "id" : "right_column_cta.default",
+      "name" : "default",
+      "label" : "Default",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_style",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "right_column.ctas.default.background",
+        "name" : "background",
+        "label" : "Background",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "right_column.ctas.default.text",
+        "name" : "text",
+        "label" : "Text",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "right_column.ctas.default.border",
+        "name" : "border",
+        "label" : "Border",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "text" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "border" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        },
+        "background" : {
+          "color" : "#0c63ff",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "right_column_cta.hover",
+      "name" : "hover",
+      "label" : "Hover",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_style",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "children" : [ {
+        "id" : "right_column.ctas.hover.background",
+        "name" : "background",
+        "label" : "Background",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "right_column.ctas.hover.text",
+        "name" : "text",
+        "label" : "Text",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "right_column.ctas.hover.border",
+        "name" : "border",
+        "label" : "Border Color",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "text" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "border" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        },
+        "background" : {
+          "color" : "#5a93fd",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "right_column_cta.cta",
+      "name" : "cta",
+      "label" : "CTA",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "cta",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "cta",
+      "default" : ""
+    }, {
+      "id" : "right_column_cta.button_text",
+      "name" : "button_text",
+      "label" : "Button Text",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "btn|modal",
+        "property" : null,
+        "operator" : "MATCHES_REGEX",
+        "access" : null
+      },
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "Get Started"
+    }, {
+      "id" : "right_column_cta.modal_target",
+      "name" : "modal_target",
+      "label" : "Modal Target",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "modal",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "demo"
+    }, {
+      "id" : "right_column_cta.link",
+      "name" : "link",
+      "label" : "Link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "btn",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "supported_types" : [ "EXTERNAL", "CONTENT", "FILE", "EMAIL_ADDRESS", "BLOG", "CALL_TO_ACTION", "PHONE_NUMBER", "PAYMENT" ],
+      "show_advanced_rel_options" : false,
+      "display_width" : null,
+      "type" : "link",
+      "default" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      }
+    }, {
+      "id" : "right_column_cta.payment",
+      "name" : "payment",
+      "label" : "Payment link",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "hs_payment",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "payment",
+      "default" : { }
+    }, {
+      "id" : "right_column_cta.checkout_location",
+      "name" : "checkout_location",
+      "label" : "Checkout behavior",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : "right_column_cta.payment",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "id\":\\d+",
+          "property" : null,
+          "operator" : "MATCHES_REGEX",
+          "access" : null
+        }, {
+          "controlling_field" : "right_column_cta.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "hs_payment",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "display" : "radio",
+      "choices" : [ [ "new_tab", "Open in a new tab" ], [ "overlay", "Sliding overlay" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "new_tab"
+    }, {
+      "id" : "right_column_cta.cta_size",
+      "name" : "cta_size",
+      "label" : "CTA Size",
+      "required" : true,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "none",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      },
+      "display" : "select",
+      "choices" : [ [ "sm", "Small" ], [ "md", "Default" ], [ "lg", "Large" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "md"
+    }, {
+      "id" : "right_column_cta.add_icon",
+      "name" : "add_icon",
+      "label" : "Add icon",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "right_column_cta.cta_type",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "cta",
+        "property" : null,
+        "operator" : "NOT_EQUAL",
+        "access" : null
+      },
+      "display" : "checkbox",
+      "display_width" : null,
+      "type" : "boolean",
+      "default" : false
+    }, {
+      "id" : "right_column_cta.icon",
+      "name" : "icon",
+      "label" : "Icon",
+      "required" : false,
+      "locked" : false,
+      "visibility_rules" : "ADVANCED",
+      "advanced_visibility" : {
+        "boolean_operator" : "AND",
+        "criteria" : [ {
+          "controlling_field" : "right_column_cta.cta_type",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "cta",
+          "property" : null,
+          "operator" : "NOT_EQUAL",
+          "access" : null
+        }, {
+          "controlling_field" : "right_column_cta.add_icon",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "true",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        } ],
+        "children" : [ ]
+      },
+      "children" : [ {
+        "id" : "right_column_cta.icon.icon",
+        "name" : "icon",
+        "label" : "Icon",
+        "required" : true,
+        "locked" : false,
+        "icon_set" : "fontawesome-5.14.0",
+        "display_width" : null,
+        "type" : "icon",
+        "default" : {
+          "name" : "arrow-right",
+          "type" : "SOLID",
+          "unicode" : "f061"
+        }
+      }, {
+        "id" : "right_column_cta.icon.position",
+        "name" : "position",
+        "label" : "Position",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "left", "Left" ], [ "right", "Right" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "right"
+      }, {
+        "id" : "right_column_cta.icon.purpose",
+        "name" : "purpose",
+        "label" : "Purpose",
+        "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "decorative"
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "icon" : {
+          "name" : "arrow-right",
+          "type" : "SOLID",
+          "unicode" : "f061"
+        },
+        "position" : "right"
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : [ {
+      "cta" : "",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "gradient_one",
+      "button_text" : "Get Started",
+      "modal_target" : "demo"
+    }, {
+      "cta" : "",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "secondary",
+      "button_text" : "Watch Video",
+      "modal_target" : "demo",
+      "add_icon" : true,
+      "icon" : {
+        "icon" : {
+          "name" : "play",
+          "type" : "SOLID",
+          "unicode" : "f061"
+        },
+        "position" : "right",
+        "purpose" : "decorative"
+      }
+    } ]
+  }, {
+    "id" : "right_column.text_align",
+    "name" : "text_align",
+    "label" : "Text Align",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "center"
+  }, {
+    "id" : "right_column.text_color",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "white"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : {
+    "ctas" : [ {
+      "cta" : "",
+      "link" : {
+        "url" : {
+          "href" : "#",
+          "type" : "EXTERNAL",
+          "content_id" : null
+        },
+        "no_follow" : false,
+        "open_in_new_tab" : false
+      },
+      "cta_size" : "md",
+      "cta_type" : "btn",
+      "cta_style" : "none",
+      "button_text" : "Let's Do This",
+      "modal_target" : "demo"
+    } ],
+    "loop" : true,
+    "image" : {
+      "src" : null
+    },
+    "video" : [ "https://www.lean-labs.com/hubfs/LLv2/images/case-studies/sprocketrocket/Compressed%20Videos/01%20Complete%20Design%20Control-1.m4v" ],
+    "image_" : {
+      "alt" : "Prototype with robust modules",
+      "src" : "https://www.lean-labs.com/hs-fs/hubfs/LLv2/images/case-studies/sprocketrocket/2020%20Website%20Assets/Group%205.png",
+      "width" : 400,
+      "height" : 300,
+      "loading" : "lazy",
+      "max_width" : 1080,
+      "size_type" : "exact",
+      "max_height" : 810
+    },
+    "heading" : [ {
+      "heading" : "Prototype with robust modules",
+      "heading_size" : "h4",
+      "heading_align" : "auto",
+      "heading_color" : "auto",
+      "heading_color_custom" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      },
+      "heading_display_size" : "auto"
+    } ],
+    "lead_text" : true,
+    "media_type" : "image",
+    "text_align" : "center",
+    "text_color" : "white",
+    "design_settings" : {
+      "background_color" : "secondary",
+      "background_custom" : {
+        "color" : "#000",
+        "opacity" : 100
+      },
+      "background_option" : "color"
+    },
+    "video_max_height" : 300
+  }
+} ]

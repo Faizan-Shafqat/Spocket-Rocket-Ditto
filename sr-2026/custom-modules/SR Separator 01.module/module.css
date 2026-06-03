@@ -1,0 +1,30 @@
+.sr-separator-01 .separator-line {
+    display: flex;
+}
+
+.sr-separator-01 .separator-line:before {
+    margin-right: .625rem;
+}
+
+.sr-separator-01 .separator-line:after {
+    margin-left: .625rem;
+}
+
+.sr-separator-01 .separator-line--shadow {
+    box-shadow: 0 3px 7px rgb(0 0 0 / 80%);
+    border-radius: 100%;
+}
+
+.sr-separator-01 .separator-line--shadow:before,
+.sr-separator-01 .separator-line--shadow:after {
+    margin: 0;
+}
+
+.sr-separator-01 .separator-line>div {
+    max-width: 80%;
+    margin: 0 auto;
+}
+
+.sr-separator-01 .separator-line>div * {
+    max-width: 100%;
+}

@@ -1,0 +1,117 @@
+{% if module.enabled %}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% set width_class =
+    module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+    module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+    module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+    'col-md-12'
+%}
+
+<div class="sr-multicol-media sr-two-col-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {% if module.use_image_as_background %} sr-bg-image{% endif %} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+	{{ macros.module_bg_video(module) }}
+
+	<div class="{{ module.design_settings.layout }}">
+		{% if module.design_settings.container_width != 'max' %}
+		<div class="row">
+			<div class="{{ width_class }}">
+		{% endif %}
+
+				{% if module.heading || module.description %}
+				<div class="{{ macros.text_align(module.design_settings) }} sr-spacer-bottom-50">
+					{{ macros.heading(module.heading)}}
+					{% if module.description %}
+					<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description }}</div>
+					{% endif %}
+				</div>
+				{% endif %}
+
+				<div class="row row-gap sr-valign-{{ module.column_vertical_align }}">
+					{% for item in module.column %}
+					{% set colsize = 12 / loop.length %}
+					<div class="{% if item.class %}{{ item.class }} {% endif %}{% if !item.custom_column_size %}col-md-{{ colsize|int }}{% else %}{{ macros.col_size(item.column_size) }}{% endif %} sr-col{% if item.col_text_align != 'auto' %} text-{{item.col_text_align}}{% else %} {{ macros.text_align(module.design_settings) }}{% endif %}{% if item.text_color != 'auto' %} text-{{item.text_color}}{% elif module.design_settings.column_styles.text_color != 'auto' %} text-{{ module.design_settings.column_styles.text_color }} {% endif %}{% if module.use_image_as_background %} prototype-background{% endif %} sr-repeater-{{loop.index}}{% if module.column_vertical_align == 'stretch' %} d-flex flex-wrap{% endif %}" style="{% if module.use_image_as_background && item.col_media_type == 'image' %}background-image: url({{ resize_image_url(item.col_image.src, item.col_image.width, item.col_image.height) }}); --bg-overlay: {{ item.col_overlay_color.css }}{% endif %}{%- if item.video.background_video_design != 'none'  -%}--v-accent: var(--{{ item.video.video_accent_color }}); {% if item.video.video_accent_color == 'custom' %}--v-custom: {{ item.video.custom_accent_color.css }}{% endif %}{% endif %}">
+						<div class="content-wrapper">
+							{% if item.col_media_type == "image" %}
+							{% if item.col_image.src and !module.use_image_as_background %}
+							<div class="responsive-image{% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}">
+								{% if item.add_to_lightbox %}
+								{{ require_js(get_asset_url('../../js/fslightbox.js'), { defer: true }) }}
+								<a data-fslightbox="col-gallery" role="button" aria-label="View larger version of image" href="{{ item.col_image.src }}">
+								{% endif %}
+								{% if item.image_link.url.href && !item.add_to_lightbox %}
+								<a {{ macros.link(item.image_link) }} role="link" aria-label="{{item.col_image.alt}}'s link {{ ' (Opens in new tab)' if item.image_link.open_in_new_tab }}">
+								{% endif %}
+								{{ macros.image(item.col_image, "{{ 'style=\"--img-corner: {{ item.image_corner_radius }}px\"' if item.image_corner_radius }}") }}
+								{% if item.image_link.url.href && !item.add_to_lightbox %}
+								</a>
+								{% endif %}
+								{% if item.add_to_lightbox %}
+								</a>
+								{% endif %}
+							</div>
+							{% endif %}
+							{% elif item.col_media_type == "form" %}
+							<div{% if item.heading || item.col_content || item.ctas %} class="mb-4"{% endif %}>
+								{{ macros.form(item.form) }}
+							</div>
+							{% elif item.col_media_type == "video" %}
+							{{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+							{{ macros.video(item.video, '{% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}') }}
+							{% elif item.col_media_type == "lottie" %}
+							{{ require_js("https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js", {defer:true, position: "head", type: "module"}) }}
+							<div class="lottie {% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}">
+								{{item.lottie_embed_code}}
+							</div>
+							{% endif %}
+							{{ macros.heading(item.heading)}}
+							{% if item.col_content %}
+							<div class="col-content{% if item.lead_text %} lead{% endif %}">
+								{{ item.col_content }}
+							</div>
+							{% endif %}
+							{{ macros.features(item.features, module.design_settings.features_styles) }}
+							{{ macros.cta(item.ctas, '{{ "sr-spacer-top-25" if item.col_content || item.heading }}') }}
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+		{% if module.design_settings.container_width != 'max' %}
+			</div>
+		</div>
+		{% endif %}
+	</div>
+</div>
+
+{% require_css %}
+<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+	.{{ name }} .content-wrapper {
+		{% if module.design_settings.column_styles.spacing.css -%}
+		{{ module.design_settings.column_styles.spacing.css }}
+		{%- endif -%}
+		{%- if module.design_settings.column_styles.background_color == "gradient" -%}
+		background: {{ module.design_settings.column_styles.background_gradient.css }};
+		{%- elif module.design_settings.column_styles.background_color == "custom" -%}
+		background-color: {{ module.design_settings.column_styles.background_custom.css }};
+		{% elif module.design_settings.column_styles.background_color != "auto" %}
+		background-color: var(--{{ module.design_settings.column_styles.background_color }});
+		{%- endif -%}
+		{% if module.design_settings.column_styles.text_color == "custom" %}
+		color: {{ module.design_settings.column_styles.text_color_custom.css }};
+		{%- endif -%}
+		{% if module.design_settings.column_styles.border.css %}
+		{{ module.design_settings.column_styles.border.css }}
+		{%- endif -%}
+		{% if module.design_settings.column_styles.border_radius >= 0 %}
+		border-radius: {{ module.design_settings.column_styles.border_radius }}px;
+		{%- endif -%}
+		{% if module.design_settings.column_styles.shadow %}
+		box-shadow: {{ "inset" if module.design_settings.column_styles.inset }} {{ module.design_settings.column_styles.horizontal ~ "px" }} {{ module.design_settings.column_styles.vertical ~ "px" }} {{ module.design_settings.column_styles.blur ~ "px" }} {{ module.design_settings.column_styles.spread ~ "px" }} {{ module.design_settings.column_styles.color.css }};
+		{%- endif %}
+	}
+</style>
+{% end_require_css %}
+
+{% endif %}

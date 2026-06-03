@@ -1,0 +1,95 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-video-overlay-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }} role="img" aria-label="Overlay Background Image">
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="video-overlay">
+			<div class="{{ module.design_settings.layout }}">
+				{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+						{% endif %}
+						{% if module.heading || module.description || module.ctas %}
+						<div class="{{ macros.text_align(module.design_settings) }} sr-spacer-bottom-25 position-relative" style="z-index: 2">
+							{{ macros.heading(module.heading) }}
+							{% if module.description %}
+							<div class="description{% if module.lead_text %} lead{% endif %}">
+								{{ module.description}}
+							</div>
+							{% endif %}
+							{{ macros.cta(module.ctas, 'sr-spacer-top-25') }}
+						</div>
+						{% endif %}
+						<button class="play-button-wrapper" type="button" aria-label="Play Video" tabindex="0">
+							{% if module.play_icon.icon_type != 'none' %}
+							<div role="presentation">
+								{% if module.play_icon.icon_type == 'icon' %}
+								<span class="icon-icon{{ ' p-0' if module.play_icon.icon_background.opacity == 0 }}" style="--icon-width: {{ module.play_icon.icon_size|default(18) ~ 'px' }}; --icon-color: {{ module.play_icon.icon_color.css || 'var(--primary)' }}; {% if module.play_icon.icon_background.opacity != 0 %} --icon-background: {{ module.play_icon.icon_background.css }};{% endif %}">
+								{% icon
+									name="{{ module.play_icon.icon.name }}"
+									style="{{ module.play_icon.icon.type }}"
+									unicode="{{ module.play_icon.icon.unicode }}"
+									icon_set="{{ module.play_icon.icon.icon_set }}"
+									no_wrapper=true
+								%}
+								</span>
+								{% elif module.play_icon.icon_type == 'custom' %}
+								<span class="icon-custom" style="--icon-width: {{ module.play_icon.icon_size|default(18) ~ 'px' }};">
+								{{ module.play_icon.html }}
+								</span>
+								{% else %}
+								<span class="icon-image" style="--icon-width: {{ module.play_icon.image.width }}px">
+								{{ macros.image(module.play_icon.image) }}
+								</span>
+								{% endif %}
+							</div>
+							{% endif %}
+						</button>
+						{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="modal-container">
+			<div class="video-modal">
+				{{ macros.video(module.video) }}
+				<div>
+					<span class="close-button" style="--color: {{ module.video.close_icon.icon_color.css }}; --bg: {{ module.video.close_icon.background.css }}" role="button" aria-label="Close Video" tabindex="0">
+						<span role="presentation">{% icon name="{{ module.video.close_icon.close_icon.name }}" style="{{ module.video.close_icon.close_icon.type }}" unicode="{{ module.video.close_icon.close_icon.unicode }}" icon_set="{{ module.video.close_icon.close_icon.icon_set }}" height="21" no_wrapper=true%}</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{name}} .play-button-wrapper {
+			{% if module.heading || module.description || module.ctas %}
+			position: relative;
+			top: auto;
+			left: auto;
+			transform: none;
+			{% else %}
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			{% endif %}
+		}
+	</style>
+	{% end_require_css %}
+
+	{% endif %}

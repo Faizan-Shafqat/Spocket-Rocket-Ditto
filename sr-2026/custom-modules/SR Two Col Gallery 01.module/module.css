@@ -1,0 +1,63 @@
+.sr-two-col-gallery-01 .columns {
+	column-count: var(--image_count);
+	column-gap: var(--column_gap);
+	column-fill: balance;
+}
+.sr-two-col-gallery-01 .columns .image-inner {
+	position: relative;
+	break-inside: avoid;
+	margin-bottom: var(--column_gap);
+}
+
+.sr-two-col-gallery-01 .columns .image-inner img {
+	border-radius: var(--border_radius);	
+	width: 100%;
+}
+
+.sr-two-col-gallery-01 .columns .image-inner:before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	background: transparent;
+	transition: all 0.2s ease;
+	border-radius: var(--border_radius);
+}
+
+.sr-two-col-gallery-01 .plus {
+	position: absolute;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 3rem;
+	width: 3rem;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	opacity: 0;
+	border-radius: 50%;
+	background: var(--primary);
+	transition: all 0.2s ease;
+}
+
+.sr-two-col-gallery-01 .plus svg {
+	color: #fff;
+	margin-left: 1px;
+}
+
+.sr-two-col-gallery-01 .columns a:is(:hover,:active,:focus) .plus {
+	opacity: 1;
+}
+
+.sr-two-col-gallery-01 .columns a:is(:hover,:active,:focus) .image-inner:before {
+	background: var(--overlay-color);
+}
+
+.sr-two-col-gallery-01 .columns {
+	align-items: center;
+	justify-content: center;
+}

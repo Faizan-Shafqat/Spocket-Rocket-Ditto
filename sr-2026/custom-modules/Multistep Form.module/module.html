@@ -1,0 +1,371 @@
+{% require_css %}
+<style>
+	{% scope_css %}
+	.multistep-form__form {
+		{% if module.style.background.background_option == 'gradient' %}
+		background: {{ module.style.background.background_gradient.css }};
+		{% endif %}
+		background-color: {{ module.style.background.background_color.css }};
+		{{ module.style.background.border.css }}
+		border-radius: {{ module.style.background.radius ~ "px" }};
+		{{ module.style.base_font.css }}
+	}
+	@media only screen and (min-width: 640px) {
+		.multistep-form__form {
+			{{ module.style.background.spacing.css }}
+		}
+	}
+	.multistep-form__tabs-item > .step {
+		{{ module.style.tabs.tab_label.font.css }}
+		transition: color 0.2s ease-in-out;
+	}
+	.multistep-form__tabs-item[aria-selected='true'] > .step {
+		color: {{ module.style.tabs.tab_label.font_active.css }}
+	}
+	.multistep-form__tabs-item {
+		{{ module.style.tabs.tab_name.font.css }}
+		color: {{ module.style.tabs.tab_name.font_active.css }};
+		border-top: {{ module.style.tabs.progress_bar.height ~ "px" }} solid {{ module.style.tabs.progress_bar.color.css }}
+	}
+	.multistep-form__tabs-item::before {
+		background-color: {{ module.style.tabs.progress_bar.active_color.css }};
+		height: {{ module.style.tabs.progress_bar.height ~ "px" }};
+		top: -{{ module.style.tabs.progress_bar.height ~ "px" }};
+	}
+	@media only screen and (min-width: 640px) {
+		.multistep-form__tabs-item[aria-disabled='true'] {
+			{{ module.style.tabs.tab_name.font.css }};
+		}
+	}
+	label,
+	legend {
+		letter-spacing: {{ module.style.fields.field_label.letter_spacing ~ "px" }};
+		{{ module.style.fields.field_label.font.css }}
+	}
+	label [data-required='true']::after,
+	legend [data-required='true']::after {
+		color: {{ module.style.fields.error.font.color }};
+	}
+	[multiple],
+	[type='date'],
+	[type='datetime-local'],
+	[type='email'],
+	[type='month'],
+	[type='number'],
+	[type='password'],
+	[type='search'],
+	[type='tel'],
+	[type='text'],
+	[type='time'],
+	[type='url'],
+	[type='week'],
+	select,
+	textarea {
+		background-color: {{ module.style.fields.field_input.background.css }};
+		{{ module.style.fields.border.border.css }}
+		border-radius: {{ module.style.fields.border.border_radius ~ "px" }};
+		{{ module.style.fields.field_input.font.css }}
+	}
+	input:focus-visible,
+	select:focus-visible,
+	textarea:focus-visible {
+		outline: 2px solid {{ module.style.fields.border.border_focus.css }};
+	}
+	.field_description,
+	.field_description p {
+		{{ module.style.fields.field_label.field_description.font.css }}
+	}
+	.form__field > .field_description {
+		{{ module.style.fields.field_label.field_description.text_alignment.css }}
+	}
+	[multiple],
+	[type='date'],
+	[type='datetime-local'],
+	[type='email'],
+	[type='month'],
+	[type='number'],
+	[type='password'],
+	[type='search'],
+	[type='tel'],
+	[type='text'],
+	[type='time'],
+	[type='url'],
+	[type='week'],
+	select {
+		line-height: {{ module.style.fields.field_input.height ~ "px" }}
+	}
+	.form__error-text {
+		{{ module.style.fields.error.font.css }}
+	}
+	input[aria-invalid='true'],
+	select[aria-invalid='true'],
+	textarea[aria-invalid='true'] {
+		border-color: {{ module.style.fields.error.font.color }};
+		color: {{ module.style.fields.error.font.color }};
+		box-shadow: 0 0 0 1px hsl(var(--form-error-color));
+	}
+	select[aria-invalid='true'] {
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath fill='hsl(356, 75%, 53%)' d='M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z'/%3E%3C/svg%3E");
+	}
+	[type='checkbox'],
+	[type='radio'] {
+		border-radius: {{ module.style.fields.border.border_radius ~ "px" }};
+		{{ module.style.fields.border.border.css }}
+	}
+	[type='checkbox']:checked,
+	[type='radio']:checked {
+		background-color: {{ module.style.fields.field_input.checkbox_radio.background.css }};
+	}
+	button[data-action="next"],
+	button[type="submit"] {
+		{{ module.style.buttons.next_step.default.font.css }}
+		background-color: {{ module.style.buttons.next_step.default.background.css }};
+		{{ module.style.buttons.next_step.default.border.css }}
+		border-radius: {{ module.style.buttons.next_step.default.border_radius ~ "px" }};
+		{{ module.style.buttons.next_step.default.padding.css }}
+	}
+	button[data-action="next"]:hover,
+	button[type="submit"]:hover {
+		background-color: {{ module.style.buttons.next_step.hover.background.css }};
+		color: {{ module.style.buttons.next_step.hover.font_color.css }};
+		{% if module.style.buttons.next_step.hover.border_color.css %}
+		border-color: {{ module.style.buttons.next_step.hover.border_color.css }}
+		{% endif %}
+	}
+	button[data-action="prev"] {
+		{{ module.style.buttons.previous_step.default.font.css }}
+		background-color: {{ module.style.buttons.previous_step.default.background.css }};
+		{{ module.style.buttons.previous_step.default.border.css }}
+		border-radius: {{ module.style.buttons.previous_step.default.border_radius ~ "px" }};
+		{{ module.style.buttons.previous_step.default.padding.css }}
+	}
+	button[data-action="prev"]:hover {
+		background-color: {{ module.style.buttons.previous_step.hover.background.css }};
+		color: {{ module.style.buttons.previous_step.hover.font_color.css }};
+		{% if module.style.buttons.previous_step.hover.border_color.css %}
+		border-color: {{ module.style.buttons.previous_step.hover.border_color.css }}
+		{% endif %}
+	}
+	{% if module.show_intro %}
+	.multistep-form_intro {
+		{% if module.style.intro.background.background_option == 'gradient' %}
+		{{ module.style.form.intro.background.background_gradient.css }}
+		{% endif %}
+		{% if module.style.intro.background.background_option == 'image' %}
+		{{ module.style.intro.background.background_image.css }}
+		{% endif %}
+		background-color: {{ module.style.intro.background.background_color.css }};
+		{{ module.style.intro.background.border.css }}
+		border-radius: {{ module.style.intro.background.radius ~ "px" }};
+		{{ module.style.intro.background.spacing.css }}
+	}
+	{% if module.style.intro.background.background_option == 'image' %}
+	.multistep-form_intro > div {
+		position: relative;
+	}
+	.multistep-form_intro::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background: {{ module.style.intro.background.background_overlay_color.css }}
+	}
+	{% endif %}
+	.multistep-form_intro .label {
+		{{ module.style.intro.label_.font.css }}
+		{{ module.style.intro.label_.text_align.css }}
+	}
+	.multistep-form_intro .heading {
+		{{ module.style.intro.heading.font.css }}
+		{{ module.style.intro.heading.text_align.css }}
+	}
+	.multistep-form_intro .description {
+		{{ module.style.intro.description.font.css }}
+		{{ module.style.intro.description.text_align.css }}
+	}
+	.multistep-form_intro button {
+		{{ module.style.intro.button.default.font.css }}
+		background-color: {{ module.style.intro.button.default.background.css }};
+		{{ module.style.intro.button.default.border.css }}
+		border-radius: {{ module.style.intro.button.default.border_radius ~ "px" }};
+		{{ module.style.intro.button.default.padding.css }}
+	}
+	.multistep-form_intro button:hover {
+		background-color: {{ module.style.intro.button.hover.background.css }};
+		color: {{ module.style.intro.button.hover.font_color.css }};
+		{% if module.style.intro.button.hover.border_color.css %}
+		border-color: {{ module.style.intro.button.hover.border_color.css }}
+		{% endif %}
+	}
+	{% endif %}
+	{% end_scope_css %}
+</style>
+{% end_require_css %}
+
+<div class="multistep-form form-{{ name }}{% if module.class %} {{ module.class }}{% endif %}"{% if module.sr_module_id %} id="{{ module.sr_module_id }}"{% endif %}>
+
+	<div class="multistep-form_container mx-auto">
+
+		{% if module.show_intro %}
+		<div class="multistep-form_intro">
+			<div>
+				{% if module.intro.content.label_ %}
+				<p class="m-0 label">
+					{{ module.intro.content.label_ }}
+				</p>
+				{% endif %}
+				{% if module.intro.content.heading %}
+				<p class="m-0 heading">
+					{{ module.intro.content.heading }}
+				</p>
+				{% endif %}
+				<div class="description{{ " margintop-1" if module.intro.content.label_ || module.intro.content.heading }}">
+					{{ module.intro.content.description }}
+					<button type="button"{{" class='margintop-2'" if module.intro.content.description }}>
+						{{ module.intro.content.button_text }}
+					</button>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+		<!-- Multistep Form -->
+		<form class="multistep-form__form" lang="en" novalidate>
+
+			<!-- Step Navigation -->
+			<div class="multistep-form__tabs display-flex align-start marginbottom-3 sm:marginbottom-5" role="tablist">
+				{% for step in module.steps %}
+				<button id="{{ name }}_multistep-form__tab-{{ loop.index }}" class="flex-1 px-0 pt-2 multistep-form__tabs-item" type="button" role="tab" aria-controls="{{ name }}_multistep-form__panel-{{ loop.index }}"{{ ' aria-selected="false" tabindex="-1" aria-disabled="true"' if not loop.first else ' aria-selected="true"'}}>
+					<span class="d-block step" aria-hidden="true">{{ step.tab_label }}</span>
+					{{ step.tab_name}}
+				</button>
+				{% endfor %}
+			</div>
+			<!-- / End Step Navigation -->
+
+			{% for step in module.steps %}
+			<!-- Step {{ loop.index }} -->
+			<section id="{{ name }}_multistep-form__panel-{{ loop.index }}" role="tabpanel" aria-labelledby="{{ name }}_multistep-form__tab-{{ loop.index }}" tabindex="0"{{ " hidden" if not loop.first }}>
+				{% for field_goup in step.field_group %}
+				<div class="field-group{% if field_goup.field|length > 1 %} sm:d-grid sm:grid-col-{{ field_goup.field|length }}{% endif %} margintop-{{ field_goup.margin }}">
+					{% for field in field_goup.field %}
+					{% if field.field_type != "checkbox"  && field.field_type != "radio" && field.field_type != "boolean" %}
+					<div class="margintop-3 sm:margintop-0 form__field"{% if field.hidden %} hidden{% endif %}{% if field.conditional_logic %} data-conditional="true" data-validation-type="{{ field.validation_type || "EQUAL" }}" data-property="{{ field.property_to_show }}" data-value="{{ field.validation_text }}"{% endif %}>
+						{% if field.field_label %}
+						<label {{ 'for="{{ field.form_property }}"' if field.field_type != "none" }}{{' class="p-0"' if field.description }}>
+							{{ field.field_label }}
+							{% if field.required && field.field_type != "none" %}
+							<span data-required="true" aria-hidden="true"></span>
+							{% endif %}
+						</label>
+						{% endif %}
+						{% if field.description %}
+						<legend class="field_description" {% if field.field_type == "none" %}id="{{ field.form_property }}" name="{{ field.form_property }}"{% endif %}>
+							{{ field.description }}
+						</legend>
+						{% endif %}
+						{% if field.field_type == "text" %}
+						<input class="form__field-input" id="{{ field.form_property }}" type="text" name="{{ field.form_property }}"{{ " required aria-required='true'" if field.required }}{% if field.placeholder %} placeholder="{{ field.placeholder }}"{% endif %}{% if field.default_value %} value="{{ field.default_value }}"{% endif %}>
+						{% elif field.field_type == "rich_text" %}
+						<textarea class="form__field-input" id="{{ field.form_property }}" name="{{ field.form_property }}" rows="5"{{ " required aria-required='true'" if field.required }}{% if field.placeholder %} placeholder="{{ field.placeholder }}"{% endif %}{% if field.default_value %} value="{{ field.default_value }}"{% endif %}></textarea>
+						{% elif field.field_type == "email" %}
+						<input class="form__field-input" id="{{ field.form_property }}" type="email" name="{{ field.form_property }}" autocomplete="email" inputmode="email"{{ " required aria-required='true'" if field.required }}{% if field.placeholder %} placeholder="{{ field.placeholder }}"{% endif %}{% if field.default_value %} value="{{ field.default_value }}"{% endif %}>
+						{% elif field.field_type == "phone_number" %}
+						<input class="form__field-input" id="{{ field.form_property }}" type="tel" name="{{ field.form_property }}" autocomplete="tel" inputmode="tel"{{ " required aria-required='true'" if field.required }}{% if field.placeholder %} placeholder="{{ field.placeholder }}"{% endif %}{% if field.default_value %} value="{{ field.default_value }}"{% endif %}>
+						{% elif field.field_type == "dropdown" %}
+						<select class="form__field-input" id="{{ field.form_property }}" name="{{ field.form_property }}"{{ " required aria-required='true'" if field.required }}>
+							{% if field.placeholder %}
+							<option value="" disabled selected>{{ field.placeholder }}</option>
+							{% endif %}
+							{% for choice in field.choices %}
+							<option value="{{ choice.value }}">{{ choice.text }}</option>
+							{% endfor %}
+						</select>
+						{% endif %}
+					</div>
+					{% elif field.field_type == "boolean" %}
+					<fieldset class="margintop-3 sm:margintop-0 form__field"{% if field.hidden %} hidden{% endif %}{% if field.conditional_logic %} data-conditional="true" data-validation-type="{{ field.validation_type || "EQUAL" }}" data-property="{{ field.property_to_show }}" data-value="{{ field.validation_text }}"{% endif %}>
+						<label for="{{ field.form_property }}" class="form__choice-wrapper">
+							<input class="form__field-input" id="{{ field.form_property }}" type="checkbox" name="{{ field.form_property }}" value="{{ 'true' if field.checked else 'false'}}"{{ " checked" if field.checked }}>
+							<div>
+								{{ field.field_label }}
+								{% if field.description %}
+								<legend class="field_description">
+									{{ field.description }}
+								</legend>
+								{% endif %}
+							</div>
+						</label>
+					</fieldset>
+					{% else %}
+					<fieldset class="margintop-3 sm:margintop-0 form__field"{% if field.hidden %} hidden{% endif %}{% if field.conditional_logic %} data-conditional="true" data-validation-type="{{ field.validation_type || "EQUAL" }}" data-property="{{ field.property_to_show }}" data-value="{{ field.validation_text }}"{% endif %}>
+						<legend>
+							{{ field.field_label }}
+							{% if field.required %}
+							<span data-required="true" aria-hidden="true"></span>
+							{% endif %}
+						</legend>
+						{% if field.description %}
+						<legend class="field_description">
+							{{ field.description }}
+						</legend>
+						{% endif %}
+							{% for choice in field.choices %}
+							<label for="{{ field.form_property }}_{{ loop.index }}" class="form__choice-wrapper">
+								<input id="{{ field.form_property }}_{{ loop.index }}" class="form__field-input" type="{{ field.field_type }}" name="{{ field.form_property }}" value="{{ choice.value }}"{{ " required aria-required='true'" if field.required }}>
+								<span>{{ choice.text }}</span>
+							</label>
+							{% endfor %}
+					</fieldset>
+					{% endif %}
+					{% endfor %}
+				</div>
+				{% endfor %}
+				{% if loop.first %}
+				<div class="display-flex align-center justify-center sm:justify-{{ module.style.buttons.alignment.horizontal_align|lower }} margintop-4 sm:margintop-5">
+					<button type="button" data-action="next">
+						{{ step.buttons.next }}
+					</button>
+				</div>
+				{% else %}
+				<div class="display-flex column-reverse sm:flex-row align-center justify-center sm:justify-{{ module.style.buttons.alignment.horizontal_align|lower }} margintop-4 sm:margintop-5">
+					<button type="button" class="margintop-1 sm:margintop-0" data-action="prev">
+						{{ step.buttons.previous }}
+					</button>
+					<button {{ 'type="submit"' if loop.last else 'type="button" data-action="next"' }}>
+						{{ step.buttons.next }}
+					</button>
+				</div>
+				{% endif %}
+			</section>
+			<!-- / End Step {{ loop.index }} -->
+			{% endfor %}
+
+			<!-- Thank You -->
+			<section class="multistep-form__thank-you"{% if module.form.response_type == 'redirect' %} data-redirect="{{ module.form.redirect_url || page_by_id(module.form.redirect_id).absolute_url }}"{% endif %} hidden>
+				{{ module.form.message }}
+			</section>
+			<!-- / End Thank You -->
+
+		</form>
+		<!-- / End Multistep Form -->
+
+	</div>
+
+	<div class="multistep-form__hs-form" hidden>
+		{% if module.exit_intent %}
+		<div class="exit-form">
+			{% form
+				form_to_use="{{ module.form.form_id }}"
+				response_response_type="inline"
+				response_message="..."
+			%}
+		</div>
+		{% endif %}
+		{% form
+			form_to_use="{{ module.form.form_id }}"
+		%}
+	</div>
+</div>

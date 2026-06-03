@@ -1,0 +1,85 @@
+<!--
+templateType: page
+isAvailableForNewContent: true
+label: SR Hero Preview (DND)
+screenshotPath: ../images/sr-page.jpg
+-->
+
+	{% include './header.html' %}
+
+	<body class="{{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+		{% block header %}
+			{% boolean "enabled_site_header" label='Enable Global Site Header', value=false, export_to_template_context=True %}
+			{% if widget_data.enabled_site_header.value %}
+				{% global_partial path="../templates/partials/site_header.html" %}
+			{% endif %}
+		{% endblock header %}
+
+		{% block body %}
+			{% dnd_area "body_dnd_area", class='body_dnd_area' label="Main Content" %}
+				{% dnd_section %}
+					{% dnd_module overrideable=True, widget_name='SR Hero 01', path='../custom-modules/SR Hero 01', label='SR Hero 01' %}
+						{% module_attribute "heading" %}
+							[{"heading":"{{ request.query_dict.hero_heading|default('Heading One')|escape }}","heading_size":"{{ request.query_dict.hero_heading_size|default('h1') }}","heading_display_size":"{{ request.query_dict.hero_heading_display_size|default('auto') }}","heading_color":"{{ request.query_dict.hero_heading_color|default('auto') }}","heading_align":"{{ request.query_dict.hero_heading_align|default('auto') }}","class":"mb-0"},{"heading":"{{ request.query_dict.hero_heading_2|default('')|escape }}","heading_size":"{{ request.query_dict.hero_heading_2_size|default('h2') }}","heading_display_size":"{{ request.query_dict.hero_heading_2_display_size|default('auto') }}","heading_color":"{{ request.query_dict.hero_heading_2_color|default('auto') }}","heading_align":"{{ request.query_dict.hero_heading_2_align|default('auto') }}","class":"mb-0"}]
+						{% end_module_attribute %}
+						{% module_attribute "description" %}
+							{{ request.query_dict.hero_description|default('<p>Description One</p>') }}
+						{% end_module_attribute %}
+						{% module_attribute "lead_text" %}
+							{{ request.query_dict.hero_lead_text|default(true) }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.layout" %}
+							{{ request.query_dict.hero_layout|default('container') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.container_width" %}
+							{{ request.query_dict.hero_container_width|default('wide') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.top_bottom_padding" %}
+							{{ request.query_dict.hero_padding|default('custom') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.background_option" %}
+							{{ request.query_dict.hero_bg_option|default('color') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.background_image" %}
+							{{ request.query_dict.hero_bg_image|default('{"src":"","background_position":"MIDDLE_CENTER","background_size":"cover"}') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.background_overlay_color" %}
+							{{ request.query_dict.hero_bg_overlay|default('{"color":"#33323D","opacity":0}') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.background_color" %}
+							{{ request.query_dict.hero_bg_color|default('primary') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.background_custom" %}
+							{{ request.query_dict.hero_bg_custom|default('{"color":"#000000","opacity":100}') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.text_align" %}
+							{{ request.query_dict.hero_text_align|default('{"text_align":"CENTER"}') }}
+						{% end_module_attribute %}
+						{% module_attribute "design_settings.text_color" %}
+							{{ request.query_dict.hero_text_color|default('white') }}
+						{% end_module_attribute %}
+						{% module_attribute "height" %}
+							{{ request.query_dict.hero_height|default('auto') }}
+						{% end_module_attribute %}
+						{% module_attribute "parallax" %}
+							{{ request.query_dict.hero_parallax|default(true) }}
+						{% end_module_attribute %}
+						{% module_attribute "ctas" %}
+							[{"cta_type":"{{ request.query_dict.hero_cta1_type|default('btn') }}","button_text":"{{ request.query_dict.hero_cta1_text|default('Test Button One')|escape }}","link":{{ request.query_dict.hero_cta1_link|default('{"url":{"type":"EXTERNAL","href":"#","content_id":null},"open_in_new_tab":false,"no_follow":false}') }},"cta_style":"{{ request.query_dict.hero_cta1_style|default('gradient_one') }}","cta_size":"{{ request.query_dict.hero_cta1_size|default('md') }}"},{"cta_type":"{{ request.query_dict.hero_cta2_type|default('btn') }}","button_text":"{{ request.query_dict.hero_cta2_text|default('Test button Two')|escape }}","link":{{ request.query_dict.hero_cta2_link|default('{"url":{"type":"EXTERNAL","href":"#","content_id":null},"open_in_new_tab":false,"no_follow":false}') }},"cta_style":"{{ request.query_dict.hero_cta2_style|default('secondary') }}","cta_size":"{{ request.query_dict.hero_cta2_size|default('md') }}"}]
+						{% end_module_attribute %}
+					{% end_dnd_module %}
+				{% end_dnd_section %}
+			{% end_dnd_area %}
+		{% endblock body %}
+
+		{% block footer %}
+			{% boolean "enabled_site_footer" label='Enable Global Site Footer', value=false, export_to_template_context=True %}
+			{% if widget_data.enabled_site_footer.value %}
+				{% global_partial path="../templates/partials/site_footer.html" %}
+			{% endif %}
+		{% endblock footer %}
+
+		{% include './footer-includes.html' %}
+	</body>
+</html>

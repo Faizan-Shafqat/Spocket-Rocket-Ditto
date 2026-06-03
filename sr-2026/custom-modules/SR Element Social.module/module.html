@@ -1,0 +1,28 @@
+{% import "../../templates/macros.html" as macros %}
+<ul class="sr-social {{ module.design_settings.style }} {% if module.design_settings.style == 'vertical' %}align-items-{{ module.design_settings.vertical_alignment.vertical_align|lower|replace('middle', 'center')|replace('top', 'start')|replace('bottom', 'end') }} justify-content-{{ module.design_settings.vertical_alignment.horizontal_align|lower|replace('left', 'start')|replace('right', 'end') }}{% elif module.design_settings.style == 'horizontal' %} align-items-{{ module.design_settings.horizontal_alignment.horizontal_align|lower|replace('left', 'start')|replace('right', 'end') }}{% else %}text-{{ module.align }}{% endif %}" {{ "data-preview" if module_preview }}>
+	{% for item in module.icons %}
+	<li>
+		<a {{ macros.link(item.link) }}{% if item.icon_type == 'icon' && item.background.opacity != 0 %} class="icon-bg" style="--b: {{ item.background.css }}; --h: {{ item.icon_size ~ 'px' }}; --w: {{ item.icon_size ~ 'px' }}; --f: {{ item.icon_color.css }}"{% elif item.icon_type == 'icon' %}style="--f: {{ item.icon_color.css }}"{% endif %} role="link" aria-label="{{ item.aria_label }}">
+			<span aria-hidden="true">
+				{% if item.icon_type == 'icon' %}
+				{% icon name="{{ item.icon.name }}" style="{{ item.icon.type }}" unicode="{{ item.icon.unicode }}" height="{{ item.background.opacity == 0 ? item.icon_size : item.icon_size * .5 }}" no_wrapper=true %}
+				{% elif item.icon_type == 'image' %}
+				{{ macros.image(item.image) }}
+				{% elif item.icon_type == 'svg' %}
+				{{ item.svg }}
+				{% endif %}
+			</span>
+		</a>
+	</li>
+	{% endfor %}
+</ul>
+
+{% require_css %}
+<style>
+	{% scope_css %}
+    .sr-social {
+        {{ module.design_settings.spacing.css }};
+    }
+    {% end_scope_css %}
+</style>
+{% end_require_css %}

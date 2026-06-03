@@ -1,0 +1,9 @@
+.sr-stats-05 .counter-wrapper {
+    gap: 3rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.sr-stats-05 .counter-item:last-child:nth-child(2n+1) {
+    grid-column: 1 / -1;
+}

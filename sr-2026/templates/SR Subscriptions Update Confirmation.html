@@ -1,0 +1,56 @@
+<!--
+templateType: email_subscriptions_confirmation_page
+isAvailableForNewContent: true
+label: SR Subscriptions Update Confirmation
+-->
+{% include './header.html' %}
+
+	{% set SRContentType = "SUBSCRIPTIONS_UPDATE_CONFIRMATION" %}
+
+	<style>
+		form {
+			margin-top: 2.5rem;
+			margin-bottom: 2.5rem
+		}
+		#hs-subscriptions-unsubscribe-survey-legend {
+			margin-bottom: 1.5rem;
+		}
+		form .hs-button {
+			margin-top: 2.5rem;
+		}
+		#hs-subscriptions-survey-submit-button {
+			justify-content: center;
+		}
+	</style>
+
+	<body class="system {{ widget_data.body_class.value }} {{ builtin_body_classes }} {% set theme_name = content.template_path|split('/')|first %}{{ theme_name }} {% set template_name = content.template_path|split('/')|last %}{{ template_name[:-5] if template_name }}">
+
+	{% block header %}
+		{% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+		{% if widget_data.enabled_site_header.value %}
+			{% global_partial path="../templates/partials/site_header.html" %}
+		{% endif %}
+	{% endblock header %}
+
+	{% block body %}
+	<div class="sr-line-bottom sr-spacer-top-100 bg-dark text-white sr-form btn-wrapper btn-primary-wrapper btn-wrapper-md">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 offset-md-2 sr-spacer-100 ">
+					{% email_subscriptions_confirmation "email_subscriptions_confirmation" overrideable=True, label='Subscriptions Update Confirmation', header='Communication Preferences', unsubscribe_all_success='You have successfully unsubscribed from all email communications.', subscription_update_success='You have successfully updated your email preferences.', subheader_text='<p>\n                                If this is not your email address, please ignore this page since the email associated with this page was most likely forwarded to you.\n                            </p>' %}
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endblock body %}
+
+	{% block footer %}
+		{% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+		{% if widget_data.enabled_site_footer.value %}
+			{% global_partial path="../templates/partials/site_footer.html" %}
+		{% endif %}
+	{% endblock footer %}
+
+	{% include './footer-includes.html' %}
+	</body>
+</html>

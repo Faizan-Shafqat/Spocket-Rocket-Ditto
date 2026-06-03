@@ -1,0 +1,46 @@
+
+{% if module.enabled %}
+
+{% import "../../templates/macros.html" as macros %}
+
+{% if module.design_settings.container_width == 'min' %}
+	{% set width_class = 'col-md-6 offset-md-3' %}
+{% elif module.design_settings.container_width == 'narrow' %}
+	{% set width_class = 'col-md-8 offset-md-2' %}
+{% elif module.design_settings.container_width == 'wide' %}
+	{% set width_class = 'col-md-10 offset-md-1' %}
+{% else %}
+	{% set width_class = 'col-md-12' %}
+{% endif %}
+
+<div class="sr-offer-two-col-03 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+	{{ macros.module_bg_video(module) }}
+
+	<div class="content-wrapper">
+		<div class="area-heading ">
+			<div class="{{ module.design_settings.layout }}">
+				<div class="row">
+					<div class="col-lg-6 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+						{{ macros.heading(module.heading) }}
+						{% if module.description %}
+							<div class="description{% if module.lead_text %} lead{% endif %}">
+								{{module.description}}
+							</div>
+						{% endif %}
+					</div>
+					<div class="col-lg-5 offset-lg-1 d-flex align-items-start">
+						{{ macros.form(module.form, false, false, 'Download Now') }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+	</style>
+{% end_require_css %}
+{% endif %}

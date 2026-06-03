@@ -1,0 +1,81 @@
+.sr-cards-filter-02 .container {
+    position: relative;
+}
+
+.sr-cards-filter-02-filter {
+    margin-bottom: 3.125rem;
+    gap: 1rem;
+}
+
+.sr-cards-filter-02-filter button {
+    -webkit-appearance: none;
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    box-shadow: none;
+    padding: 0 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.sr-cards-filter-02-filter button:hover {
+    transform: translateY(-2px);
+}
+
+.sr-cards-filter-02-filter button.active {
+    font-weight: bold;
+}
+
+.sr-cards-filter-02-items {
+    position: relative;
+    align-items: stretch;
+    row-gap: 30px;
+}
+
+.sr-cards-filter-02-item {
+    opacity: 1;
+}
+
+.sr-cards-filter-02-item img {
+    margin-bottom: 1.5rem;
+    max-width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.sr-cards-filter-02-item > a:hover img {
+    transform: scale(1.05);
+}
+
+.sr-cards-filter-02-item a {
+    display: block;
+    height: 100%;
+}
+
+.sr-cards-filter-02-item a,
+.sr-cards-filter-02-item h4 {
+    color: inherit;
+    margin: 0;
+    text-decoration: none;
+}
+
+.sr-cards-filter-02-item .item-card {
+    padding: 1.5625rem;
+    background: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.sr-cards-filter-02-item a:hover .item-card {
+    background-color: var(--background_color_hover);
+    color: var(--text_color_hover);
+    box-shadow: 15px 25px 60px 0px rgba(0, 0, 0, 0.1);
+}
+
+.sr-cards-filter-02-items::after {
+    content: '';
+    display: table;
+    clear: both;
+}

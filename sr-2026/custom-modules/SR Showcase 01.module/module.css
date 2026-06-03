@@ -1,0 +1,279 @@
+.showcase-col {
+    margin-bottom: 2rem;
+}
+
+.sr-showcase .showcasecontent .row>div {
+    display: flex;
+        flex-direction: column;
+        gap: 16px;
+}
+
+.sr-showcase .flex-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.sr-showcase .flex-wrapper .btn-wrapper {
+    margin: 0 0.5rem;
+}
+
+.sr-showcase .showcase-card a {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.sr-showcase button.close {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    background: #333;
+    border-radius: 50%;
+    color: #fff;
+    opacity: 1;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0;
+}
+
+.sr-showcase button.close svg {
+    height: 16px;
+    width: 16px;
+}
+
+.industry-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.sr-showcase span.industry {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 12px;
+    color: #4f545d;
+    background: #F6F6FE;
+    border: 1px solid #E6E9FC;
+    box-sizing: border-box;
+    padding: 6px 9px;
+}
+
+body.modal-open {
+    padding: 0 !important;
+}
+
+.sr-showcase .modal-body {
+    padding: 0;
+}
+
+.sr-showcase .showcase-modal-content p:last-child {
+    margin-bottom: 0;
+}
+
+.showcase-card {
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
+    height: 100%;
+    transition: all .6s ease;
+    background-color: transparent;
+    border-radius: var(--border_radius);
+    overflow: hidden;
+}
+
+.showcase-image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 587 / 450;
+    overflow: hidden;
+    border-radius: 3px;
+    background-size: cover;
+    background-position: center;
+}
+
+.showcase-image img {
+    position: absolute;
+    top: 0;
+    transition: transform 4s ease, top 4s ease;
+    width: 100%
+}
+
+.showcase-card.scroll:has(a:is(:hover, :focus)) .showcase-image img {
+    transform: translateY(-100%);
+    top: 100%;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+    border-radius: var(--border_radius);
+    padding: 80px;
+}
+
+.sr-showcase .button-text {
+    position: absolute;
+    z-index: 11;
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: all .2s ease;
+    font-weight: bold;
+    text-decoration: underline
+}
+
+.showcase-image:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    transition: all .2s ease;
+    background: rgba(0, 0, 0, 0.0);
+}
+
+.showcase-card:has(a:is(:hover, :focus)) {
+    transform: scale(1.05);
+}
+
+.showcase-card:has(a:is(:hover, :focus)) .button-text {
+    opacity: 1;
+}
+
+.showcase-card:has(a:is(:hover, :focus)) .showcase-image:before {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.showcase-content h5, .showcase-content h6 {
+    line-height: 1.2;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.sr-showcase .hs-form select {
+    background-image: url(https://www.sprocketrocket.co/hubfs/sprocket-rocket/images/icon-select.png);
+    background-position: calc(100% - 12px) center;
+    background-repeat: no-repeat;
+    min-width: 200px;
+}
+
+.showcase-content h6 {
+    font-weight: 600;
+}
+
+.showcase-content img {
+    margin-right: 1rem;
+}
+
+.showcase-content {
+    padding: 1rem;
+}
+
+.showcasecontent {
+    padding-top: 2.7rem;
+}
+
+.showcase-slider .blaze-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #fff;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    color: var(--heading);
+    z-index: 1;
+    transition: all .25s ease;
+    border: 1px solid;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0;
+}
+
+.showcase-slider .blaze-arrow:is(:hover, :focus) {
+    color: #fff;
+    background-color: var(--primary);
+}
+
+.showcase-slider .blaze-arrow :is(svg,g,path) {
+    fill: currentColor;
+}
+
+.sr-showcase .blaze-pagination button {
+    padding: 0!important;
+}
+
+.sr-showcase button.close {
+    top: 1rem;
+    right: 1rem;
+    border: 0;
+    background: 0;
+    color: #000;
+    font-weight: 100;
+    z-index: 1;
+}
+
+.showcase-slider {
+    background-color: #d8d8d8;
+    background-image: url(https://www.lean-labs.com/hubfs/Showcase/load.gif);
+    background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: var(--border_radius);
+}
+
+.showcase-slider .blaze-track-container {
+    border: 1px solid #ccc;
+    border-radius: var(--border_radius);
+    box-shadow: 0 5px 20px 0 rgba(0, 0, 0, .1);
+    overflow: hidden;
+}
+
+.showcase-slider .blaze-arrow.blaze-next {
+    right: -50px;
+}
+
+.showcase-slider .blaze-arrow.blaze-prev {
+    left: -50px;
+}
+
+.showcase-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: .5rem;
+}
+
+.showcase-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover
+}
+
+@media (max-width: 767px) {
+    .showcase-slider {
+        min-height: 0;
+    }
+    .sr-showcase .modal-content {
+        padding: 5rem 1rem 2.5rem;
+    }
+    .showcase-slider .blaze-arrow {
+        transform: translateY(-50%) scale(0.75);
+    }
+    .showcase-slider .blaze-arrow.blaze-prev {
+        left: -1rem;
+    }
+    .showcase-slider .blaze-arrow.blaze-next {
+        right: -1rem
+    }
+}

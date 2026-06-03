@@ -1,0 +1,175 @@
+# SR Two Col Slider 01
+
+**Slug:** `sr-two-col-slider-01`
+**HubSpot module ID:** 210345738068
+**Inferred category:** Multi-column section
+**Documentation:** https://docs.sprocketrocket.co/
+**Host templates:** PAGE, BLOG_POST, BLOG_LISTING
+**Content types:** LANDING_PAGE, SITE_PAGE, BLOG_LISTING, BLOG_POST
+**Available for new content:** yes
+
+**Module path:** `sr-2026/custom-modules/SR Two Col Slider 01.module`
+
+## Notable defaults
+- slide_design_settings.background_option: default background: color
+
+## Top-level groups
+- **design_settings** (group) — Design Settings
+  - **design_settings.slider_styles** (group) — Slider Styles
+  - **design_settings.column_styles** (group) — Column Styles
+  - **design_settings.responsive_settings** (group) — Responsive Settings
+    - **design_settings.responsive_settings.tablet** (group) — Tablet
+    - **design_settings.responsive_settings.mobile** (group) — Mobile
+- **slides** (group — repeater(default=2, max=∞)) — Slides
+  - **slides.design_settings** (group) — Design Setting
+    - **3ef1f865-b2e3-5377-7dc4-7ed8953ecd31** (group) — Features Styles
+  - **1** (group — repeater(default=2, max=∞)) — Column
+    - **column.video** (group — when col_media_type EQUAL video) — Video
+      - **style_options** (group) — Style Options
+      - **placeholder_fields** (group) — Placeholder text
+    - **column_heading** (group) — Heading
+    - **features** (group) — Features
+      - **features.icon** (group) — Icon
+      - **features.heading** (group) — Heading
+    - **cta** (group) — CTA
+      - **column.cta.default** (group — when column.cta.cta_style EQUAL custom) — Default
+      - **column.cta.hover** (group — when column.cta.cta_style EQUAL custom) — Hover
+      - **column.cta.icon** (group — when cta_type NOT_EQUAL cta AND column.cta.add_icon EQUAL true) — Icon
+    - **column.column_size** (group — repeater(default=1, max=4) ; when column.custom_column_size EQUAL true) — Column Size
+
+## Fields
+- `enabled` (boolean) — Enabled
+- `sr_module_id` (text) — ID — _Assign a ID to the module_
+- `class` (text) — Class — _Assign a CLASS to the module_
+- `slider_styles.arrow_left` (icon) — Arrow Left Icon [when arrows EQUAL true]
+- `slider_styles.arrow_right` (icon) — Arrow Right Icon [when arrows EQUAL true]
+- `slider_styles.arrow_color` (color) — Arrows Color [when arrows EQUAL true]
+- `slider_styles.dots_color` (color) — Dots Color [when dots EQUAL true]
+- `slider_styles.dots_color_default` (color) — Dots Color (Default) [when dots EQUAL true]
+- `design_settings.slider_styles.purpose` (choice) — Purpose [required] — _The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden="true" will be added to the…_
+- `column_styles.background_color` (choice) — Background Color [required]
+- `column_styles.background_custom` (color) — Background Color [when column_styles.background_color EQUAL custom]
+- `column_styles.background_gradient` (gradient) — Gradient [when column_styles.background_color EQUAL gradient]
+- `column_styles.text_color` (choice) — Text Color [required]
+- `column_styles.text_color_custom` (color) — Text Color [when column_styles.text_color EQUAL custom]
+- `column_styles.spacing` (spacing) — Spacing
+- `column_styles.border` (border) — Border
+- `design_settings.column_styles.border_radius` (number) — Border Radius
+- `design_settings.column_styles.shadow` (boolean) — Shadow
+- `design_settings.column_styles.horizontal` (number) — Horizontal [when design_settings.column_styles.shadow EQUAL true] — _A positive value puts the shadow on the right side of the box, a negative value puts the shadow on the left side of the box_
+- `design_settings.column_styles.vertical` (number) — Vertical [when design_settings.column_styles.shadow EQUAL true] — _The vertical offset of the shadow. A positive value puts the shadow below the box, a negative value puts the shadow above the box_
+- `design_settings.column_styles.blur` (number) — Blur [when design_settings.column_styles.shadow EQUAL true] — _The blur radius. The higher the number, the more blurred the shadow will be_
+- `design_settings.column_styles.spread` (number) — Spread [when design_settings.column_styles.shadow EQUAL true] — _The spread radius. A positive value increases the size of the shadow, a negative value decreases the size of the shadow_
+- `design_settings.column_styles.inset` (boolean) — Inset [when design_settings.column_styles.shadow EQUAL true] — _Changes the shadow to an inner shadow_
+- `design_settings.column_styles.color` (color) — Color [when design_settings.column_styles.shadow EQUAL true] — _The color of the shadow_
+- `design_settings.top_bottom_padding` (choice) — Top Bottom Padding [required] — _Use default values: Uses any inherit padding valuesNo Padding: Set padding to 0Small: Uses a preset small paddingLarge: Uses a preset lar…_
+- `design_settings.spacing` (spacing) — Spacing [when design_settings.top_bottom_padding EQUAL custom]
+- `design_settings.border` (border) — Border
+- `design_settings.responsive_settings.tablet.tablet_text_align` (textalignment) — Text Align
+- `design_settings.responsive_settings.tablet.tablet_top_bottom_padding` (choice) — Top Bottom Padding [required]
+- `design_settings.responsive_settings.tablet.tablet_spacing` (spacing) — Tablet Spacing [when design_settings.responsive_settings.tablet.tablet_top_bottom_padding EQUAL custom]
+- `design_settings.responsive_settings.mobile.mobile_text_align` (textalignment) — Text Align
+- `design_settings.responsive_settings.mobile.mobile_top_bottom_padding` (choice) — Top Bottom Padding [required]
+- `design_settings.responsive_settings.mobile.mobile_spacing` (spacing) — Mobile Spacing [when design_settings.responsive_settings.mobile.mobile_top_bottom_padding EQUAL custom]
+- `ad1cdefb-81c0-a6c1-b231-a415db9455dd` (choice) — Style [required]
+- `67c2df65-c2ea-5b6a-d656-cee18180ff37` (number) — Item Width [when slides.design_settings.features_styles.style EQUAL grid]
+- `6ddfa918-68c7-b6b7-3a7b-0bcf21e04020` (number) — Gap
+- `7318bfab-0653-3ce5-3044-38f15b690f07` (choice) — Icon Alignment [required]
+- `slide_design_settings.layout` (choice) — Layout [required]
+- `slide_design_settings.container_width` (choice) — Container Width [required] — _Maximum: 100% of the container Wide: 83% of the container Narrow: 66% of the container Minimum: 50% of the container_
+- `slide_design_settings.background_option` (choice) — Background Option [required]
+- `slides.design_settings.background_video` (file/video) — Background Video [when slide_design_settings.background_option EQUAL video] — _Add multiple file formats in order to provide compatibility with a broad range of browsers_
+- `slide_design_settings.background_image` (image) — Background Image [when slide_design_settings.background_option MATCHES_REGEX image|video] — _Source for background image or before the video loads_
+- `slide_design_settings.background_overlay_color` (color) — Background Overlay Color [when slide_design_settings.background_option MATCHES_REGEX image|video] — _Overlay color on top of the image/video_
+- `slide_design_settings.background_color` (choice) — Background Color [when slide_design_settings.background_option EQUAL color] [required]
+- `slide_design_settings.background_custom` (color) — Background Color [when slide_design_settings.background_option MATCHES_REGEX custom|image|video] — _For transparent images or before the image/video loads_
+- `slide_design_settings.text_align` (choice) — Text Align [required]
+- `slide_design_settings.text_color` (choice) — Text Color [required] — _Set to Auto to use the default text colorSet to Custom to set a custom text color_
+- `slide_design_settings.text_color_custom` (color) — Text Color [when slide_design_settings.text_color EQUAL custom]
+- `col_media_type` (choice) — Media Type [required]
+- `slides.column.media_padding` (boolean) — Media Padding — _Padding around the media item_
+- `column.col_image` (image) — Image [when col_media_type EQUAL image]
+- `column.image_corner_radius` (number) — Image Corner Radius [when slides.column.col_media_type EQUAL image]
+- `column.image_link` (link) — Image Link [when slides.column.col_media_type EQUAL image]
+- `video_type` (choice) — Video type [when null EQUAL null OR video_type EQUAL hubspot_video]
+- `hubspot_video` (videoplayer) — HubSpot Video [when video_type EQUAL hubspot_video]
+- `embed_field` (embed) — Embed [when video_type EQUAL embed]
+- `oembed_thumbnail` (image) — Custom Thumbnail [when video_type EQUAL embed AND embed_field MATCHES_REGEX (?=.*"source_type":"oembed") AND embed_field MATCHES_REGEX (?=.*"oembed_url":"(?!")+)]
+- `style_options.oembed_thumbnail_play_button_color` (color) — Play button color
+- `placeholder_fields.placeholder_title` (text) — Video placeholder title
+- `placeholder_fields.placeholder_description` (text) — Video placeholder description
+- `html_video` (file/file) — Video File [when video_type EQUAL html_video] — _Add multiple file formats in order to provide compatibility with a broad range of browsers_
+- `video_poster` (image) — Video Poster [when video_type EQUAL html_video AND html_video NOT_EMPTY null]
+- `show_controls` (boolean) — Show Controls [when video_type EQUAL html_video AND html_video NOT_EMPTY null]
+- `autoplay` (boolean) — Autoplay [when video_type EQUAL html_video AND html_video NOT_EMPTY null]
+- `loop` (boolean) — Loop [when video_type EQUAL html_video AND html_video NOT_EMPTY null]
+- `muted` (boolean) — Muted [when video_type EQUAL html_video AND html_video NOT_EMPTY null]
+- `background_video_design` (choice) — Video Accent [when col_media_type MATCHES_REGEX video|youtube|wistia] [required] — _Add a design accent behind your video_
+- `video_accent_color` (choice) — Video Accent Color [when background_video_design NOT_EQUAL none] [required]
+- `custom_accent_color` (color) — Custom Accent Color [when video_accent_color EQUAL custom]
+- `column.lottie_embed_code` (text) — Lottie Embed Code [when col_media_type EQUAL lottie]
+- `col_heading` (text) — Heading
+- `col_heading_size` (choice) — Size [required] — _HTML heading size_
+- `col_heading_display_size` (choice) — Display Size [required] — _Size that heading is displayed at_
+- `col_heading_color` (choice) — Color [required]
+- `column.heading.heading_color_custom` (color) — Color [when col_heading_color EQUAL custom]
+- `col_heading.heading_align` (choice) — Align [required]
+- `column.heading.class` (text) — CSS Class
+- `column.col_content` (richtext) — Content
+- `column.lead_text` (boolean) — Lead Text — _Turn on to make the content text larger_
+- `features.icon.icon_type` (choice) — Icon Type [required]
+- `features.icon.image` (image) — Image [when features.icon.icon_type EQUAL image]
+- `features.icon.icon` (icon) — Icon [when features.icon.icon_type EQUAL icon]
+- `features.icon.icon_color` (color) — Icon Color [when features.icon.icon_type EQUAL icon]
+- `features.icon.icon_background` (color) — Icon Background [when features.icon.icon_type EQUAL icon]
+- `column.features.icon.html` (text) — HTML [when features.icon.icon_type EQUAL custom]
+- `column.features.icon.icon_size` (number) — Icon Size [when features.icon.icon_type NOT_EQUAL none]
+- `features.icon.purpose` (choice) — Purpose [required] — _The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden="true" will be added to the…_
+- `features.heading.heading` (text) — Heading
+- `features.heading.heading_size` (choice) — Size [required] — _HTML heading size_
+- `features.heading.heading_display_size` (choice) — Display Size [required] — _Size that heading is displayed at_
+- `features.heading.heading_color` (choice) — Color [required]
+- `features.heading.heading_color_custom` (color) — Color [when features.heading.heading_color EQUAL custom]
+- `features.heading.heading_align` (choice) — Align [required]
+- `column.features.heading.class` (text) — CSS Class
+- `description.lead_text` (richtext) — Description
+- `features.lead_text` (boolean) — Lead Text — _Turn on to make the Description text larger_
+- `cta_type` (choice) — CTA Type [required]
+- `column.cta.cta_style` (choice) — CTA Style [when cta_type NOT_EQUAL none] [required]
+- `column.ctas.default.background` (color) — Background
+- `column.ctas.default.text` (color) — Text
+- `column.ctas.default.border` (color) — Border
+- `column.ctas.hover.background` (color) — Background
+- `column.ctas.hover.text` (color) — Text
+- `column.ctas.hover.border` (color) — Border Color
+- `column.cta.cta` (cta) — CTA [when cta_type EQUAL cta]
+- `column.cta.button_text` (text) — Button Text [when cta_type MATCHES_REGEX btn|modal]
+- `column.cta.modal_target` (text) — Modal Target [when cta_type EQUAL modal]
+- `column.ctas.link` (link) — Link [when cta_type EQUAL btn]
+- `column.cta.payment` (payment) — Payment link [when cta_type EQUAL hs_payment]
+- `column.cta.checkout_location` (choice) — Checkout behavior [when column.cta.payment MATCHES_REGEX id":\d+ AND cta_type EQUAL hs_payment]
+- `column.ctas.cta_size` (choice) — CTA Size [when cta_type NOT_EQUAL none] [required]
+- `column.cta.add_icon` (boolean) — Add icon [when cta_type NOT_EQUAL cta]
+- `column.cta.icon.icon` (icon) — Icon [required]
+- `column.cta.icon.position` (choice) — Position [required]
+- `column.cta.icon.purpose` (choice) — Purpose [required] — _The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden="true" will be added to the…_
+- `column.col_text_align` (choice) — Text Align [required]
+- `column.text_color` (choice) — Text Color [required]
+- `column.custom_column_size` (boolean) — Custom Column Size
+- `column.column_size.column_breakpoint` (choice) — Column Breakpoint [required]
+- `column.column_size.column_width` (choice) — Column Width [required]
+- `column.column_size.column_offset` (choice) — Column Offset [required]
+- `column.column_size.column_order` (number) — Column Order
+- `column.class` (text) — CSS Class — _Assign a CLASS to the column_
+- `column_vertical_align` (choice) — Column Vertical Align [required]
+- `slide.class` (text) — Slide Class — _Assign a CLASS to the slide_
+- `33f086c7-41dd-a4f0-8dfb-e9be22b017c7` (boolean) — Dots
+- `63a50d0a-0c8d-4689-34d2-38a614f13206` (boolean) — Arrows
+- `63a50d0a-0c8d-4689-34d2-38a614f13202` (boolean) — Fade
+- `dbf95792-1f00-b43e-7ade-43aca35a2bfb` (boolean) — Autoplay
+- `dbf95792-1f00-b43e-7ade-43aca35a2bf1` (boolean) — Auto Scroll [when dbf95792-1f00-b43e-7ade-43aca35a2bfb EQUAL true] — _Continuously scrolls the carousel_
+- `e4e91ff5-7fa2-3356-c2c6-d8acb86697fe` (number) — Scroll Speed [when dbf95792-1f00-b43e-7ade-43aca35a2bfb EQUAL true AND dbf95792-1f00-b43e-7ade-43aca35a2bf1 EQUAL true]
+- `e4e91ff5-7fa2-3356-c2c6-d8acb86697ff` (number) — Autoplay Speed [when dbf95792-1f00-b43e-7ade-43aca35a2bfb EQUAL true AND dbf95792-1f00-b43e-7ade-43aca35a2bf1 EQUAL false] — _Set to 0 for continuous autoplay_
+- `dbf95792-1f00-b43e-7ade-43aca35a2bf2` (boolean) — Progress Bar [when dbf95792-1f00-b43e-7ade-43aca35a2bfb EQUAL true AND dbf95792-1f00-b43e-7ade-43aca35a2bf1 EQUAL false]
+- `progressbar_color` (color) — Progress Bar Color [when dbf95792-1f00-b43e-7ade-43aca35a2bfb EQUAL true AND dbf95792-1f00-b43e-7ade-43aca35a2bf1 EQUAL false AND dbf95792-1f00-b43e-7ade-43aca35a2bf2 EQUAL true]
+- `slide_vertical_align` (choice) — Slider Vertical Align [required]

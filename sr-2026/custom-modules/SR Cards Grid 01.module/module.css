@@ -1,0 +1,73 @@
+.sr-cards-grid-01 {
+	--card-min-height: auto;
+}
+
+.sr-cards-grid-01 > div {
+	position: relative;
+}
+
+.sr-cards-grid-01 .card {
+	border: none;
+	border-radius: 0;
+	background-color: transparent;
+	display: flex;
+	align-items: center;
+}
+
+.sr-cards-grid-01 .card-inner {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	transition: all 0.25s ease-in-out;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+	.sr-cards-grid-01 .card:nth-child(2n) {
+		border-right: none;
+	}
+}
+
+@media only screen and (min-width: 992px) {
+	.sr-cards-grid-01 .card {
+		min-height: var(--card-min-height, auto);
+	}
+	.sr-cards-grid-01 .description {
+		padding-bottom: 0;
+		transition: padding-bottom 250ms ease;
+	}
+
+	.sr-cards-grid-01 .card .cta-container {
+		display: grid;
+		opacity: 0;
+		grid-template-rows: 0fr;
+		transition: grid-template-rows 250ms ease, opacity 300ms ease;
+	}
+
+	.sr-cards-grid-01 .card .cta-container .cta-group {
+		overflow: hidden;
+	}
+
+	.sr-cards-grid-01 .card:hover .description,
+	.sr-cards-grid-01 .card:has(:is(.cta_button,.cta-button,[data-hubspot-cta-id]):focus) .description {
+		padding-bottom: 3.125rem;
+		transition: padding-bottom 250ms ease;
+	}
+
+	.sr-cards-grid-01 .card:hover .cta-container,
+	.sr-cards-grid-01 .card:has(:is(.cta_button,.cta-button,[data-hubspot-cta-id]):focus) .cta-container {
+		grid-template-rows: 1fr;
+		opacity: 1;
+		transition: grid-template-rows 250ms ease, opacity 300ms ease;
+	}
+	
+	.sr-cards-grid-01 .card:nth-child(3n) {
+		border-right: none !important;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.sr-cards-grid-01 .card:first-child {
+		border-top: none !important;
+	}
+}

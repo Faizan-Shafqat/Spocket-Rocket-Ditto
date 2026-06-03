@@ -1,0 +1,46 @@
+.sr-gallery-02 .gallery-container,
+.sr-gallery-02 [class*=col-] {
+    overflow: hidden;
+}
+
+.sr-gallery-02 .sr-gallery .lightbox img {
+    width: 100%;
+    border-radius: 0;
+    position: relative;
+    height: 100%;
+    scale: 1.05;
+    object-fit: cover;
+}
+
+.sr-gallery .overlay {
+    color: #fff;
+    left: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    transition: .4s;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--overlay);
+}
+
+.sr-gallery .lightbox:is(:hover, :focus) .overlay {
+    opacity: 1;
+}
+
+.sr-gallery-02 .overlay .icon-wrapper {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sr-gallery-02 .icon-wrapper svg{
+    fill: currentColor;
+}

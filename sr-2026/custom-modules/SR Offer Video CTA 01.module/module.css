@@ -1,0 +1,28 @@
+.sr-offer-video-cta-01 .container {
+    position: relative;
+}
+
+@media only screen and (min-width: 768px) {
+    .sr-offer-video-cta-01-inner {
+        position: relative;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .sr-offer-video-cta-01 .sr-offer-video-cta-01-video {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: auto;
+        width: 100%;
+        display: block;
+        transition: all ease-in-out 1s;
+        z-index: 3;
+    }
+
+    .sr-offer-video-cta-01 .sr-offer-video-cta-01-video.active {
+        width: 100%;
+        padding: 0;
+        margin-right: 0;
+    }
+}

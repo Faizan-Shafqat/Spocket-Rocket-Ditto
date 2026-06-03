@@ -1,0 +1,10 @@
+{
+  "global" : false,
+  "content_types" : [ "LANDING_PAGE", "SITE_PAGE", "BLOG_LISTING", "BLOG_POST" ],
+  "inline_help_text" : "<a href='https://docs.sprocketrocket.co/'>Support</a> | <a href='https://docs.sprocketrocket.co/modules/footers/sr-footer-min-02'>Documentation</a>",
+  "host_template_types" : [ "PAGE", "BLOG_POST", "BLOG_LISTING" ],
+  "module_id" : 210345737838,
+  "label" : "SR Footer Min 02",
+  "icon" : "https://www.sprocketrocket.co/hubfs/sr-assets/icons/sr-icon-footer.svg",
+  "is_available_for_new_content" : true
+}

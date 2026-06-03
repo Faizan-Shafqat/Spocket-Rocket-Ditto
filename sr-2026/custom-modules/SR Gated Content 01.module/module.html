@@ -1,0 +1,166 @@
+{% if module.enabled %}
+	{% import "../../templates/macros.html" as macros %}
+	
+		{% if is_in_editor %}
+		<div class="hs-placeholder mb-0">
+			<div class="hs-placeholder__inner">
+				<h4 class="hs-placeholder__title py-4">SR Gated Content 01</h4>
+			</div>
+		</div>
+	
+		{% else %}
+		<!-- if contact doesn't have email inside of CRM -->
+		{% if !contact_without_defaults.email %}
+		<div class="sr-gated-content-01 {{name}} fade {% if module.class %} {{ module.class }}{% endif %} sr_module"{% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} data-modal-open-at="{{ module.modal_open_at }}" {{ "data-preview" if module_preview }} tabindex="-1" role="dialog" aria-labelledby="{{name}}" aria-hidden="true">
+	
+			{% if module.design_settings.background_option == 'video' %}
+				{{macros.bg_video(module.background_video, module.design_settings.background_image.src)}}
+			{% endif %}
+	
+			<div class="modal fade sr-modal" tabindex="-1" role="dialog" aria-labelledby="gated-popupTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document" style=" max-width: {{ module.design_settings.modal_width }}px;">
+					<div class="modal-content sr-border {{ macros.module_background(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<div class="modal-body">
+						{{ macros.image(module.modal_image, 'class="sr-spacer-bottom-25"') }}
+						{{ macros.heading(module.heading) }}
+	
+						{% if module.description %}
+						<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+						{% endif %}
+	
+						{% if module.form.enabled %}
+						<div class="sr-spacer-top-25">
+							{{ macros.form(module.form, false, true, 'Get Started') }}
+						</div>
+						{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+	
+	{% endif %}
+	
+		{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+	
+			.{{name}} button.close {
+				border-color: {{ module.design_settings.close_icon_color.css }};
+				color: {{ module.design_settings.close_icon_color.css }};
+			}
+	
+			.{{name}} button.close:hover {
+				background:  {{ module.design_settings.close_icon_color.css }};
+				color: #fff;
+			}
+	
+			{% if module.design_settings.background_option == 'gradient' %}
+			.{{name}} .modal-content {
+				background: {{ module.design_settings.background_gradient.css }} !important;
+			}
+			{% elif module.design_settings.background_option == 'custom' %}
+			.{{name}} .modal-content {
+				background-color: {{ module.design_settings.background_custom.css }} !important;
+			}
+			{% endif %}
+			{% if module.design_settings.overlay_option == 'gradient' %}
+			.{{name}} {
+				background: {{ module.design_settings.overlay_gradient.css }};
+			}
+			{% elif module.design_settings.overlay_option == 'custom' %}
+			.{{name}} {
+				background-color: {{ module.design_settings.overlay_custom.css }}
+			}
+			{% endif %}
+			.{{name}}.modal-backdrop {
+				background-color: {{ module.design_settings.backdrop_color.css }};
+			}
+		</style>
+		{% end_require_css %}	
+	
+		{% require_js %}
+		<script>
+			(function() {
+				const module = document.querySelector('.{{name}}');
+				if (!module) return;
+				
+				const modal = module.querySelector('.modal');
+				if (!modal) return;
+				
+				const modalOpenAt = module.dataset.modalOpenAt || 30;
+				const sessionKey = 'gatedContentClosed_{{name}}';
+				
+				if (sessionStorage.getItem(sessionKey) === 'true') return;
+				
+				let modalShown = false;
+				
+				// Form submission handler
+				window.addEventListener('message', function(event) {
+					if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormSubmit') {
+						const formInModal = modal.querySelector('form');
+						if (formInModal && event.data.id) {
+							hideModal();
+						}
+					}
+				});
+				
+				// Scroll trigger
+				function handleScroll() {
+					if (modalShown) return;
+					
+					const documentHeight = document.body.scrollHeight;
+					const percentage = parseFloat(modalOpenAt) / 100;
+					const triggerAt = percentage * documentHeight;
+					
+					if (window.scrollY >= triggerAt) {
+						modalShown = true;
+						showModal();
+						window.removeEventListener('scroll', handleScroll);
+					}
+				}
+				
+				window.addEventListener('scroll', handleScroll);
+				
+				// Close button handler
+				const closeButton = modal.querySelector('[data-dismiss="modal"]');
+				if (closeButton) {
+					closeButton.addEventListener('click', hideModal);
+				}
+				
+				// Escape key handler
+				document.addEventListener('keydown', function(e) {
+					if (e.key === 'Escape' && modal.classList.contains('show')) {
+						hideModal();
+					}
+				});
+				
+				function showModal() {
+					modal.style.display = 'block';
+					modal.classList.add('show');
+					document.body.classList.add('modal-open');
+					
+					const backdrop = document.createElement('div');
+					backdrop.className = 'modal-backdrop show {{name}}';
+					document.body.appendChild(backdrop);
+				}
+				
+				function hideModal() {
+					modal.style.display = 'none';
+					modal.classList.remove('show');
+					document.body.classList.remove('modal-open');
+					
+					const backdrop = document.querySelector('.modal-backdrop');
+					if (backdrop) backdrop.remove();
+					
+					sessionStorage.setItem(sessionKey, 'true');
+				}
+			})();
+		</script>
+		{% end_require_js %}
+	
+	{% endif %}

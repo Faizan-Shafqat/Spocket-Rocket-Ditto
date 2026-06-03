@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ditto · SR LightRAG graph</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #ff7a59;
+    --green: #3fb950;
+    --orange: #d29922;
+
+    --color-person: #4A90D9;
+    --color-organization: #E67E22;
+    --color-concept: #9B59B6;
+    --color-event: #27AE60;
+    --color-artifact: #E74C3C;
+    --color-default: #8b949e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  /* ─── Header ─── */
+  #header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 44px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 12px;
+    z-index: 100;
+  }
+
+  #logo {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+
+  #title {
+    font-size: 13px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  #header-spacer { flex: 1; }
+
+  #search-wrap {
+    position: relative;
+  }
+  #search {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 12px;
+    padding: 5px 10px 5px 28px;
+    width: 180px;
+    outline: none;
+    transition: border-color 0.15s, width 0.2s;
+  }
+  #search:focus { border-color: var(--accent); width: 240px; }
+  #search::placeholder { color: var(--text-muted); }
+  #search-icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  #stats {
+    font-size: 11px;
+    color: var(--text-muted);
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  #stats span b { color: var(--text); }
+
+  /* ─── Canvas ─── */
+  #canvas {
+    position: fixed;
+    top: 44px;
+    left: 0; right: 0; bottom: 0;
+  }
+  svg {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+  }
+  svg:active { cursor: grabbing; }
+
+  .link {
+    stroke: var(--border);
+    stroke-opacity: 0.6;
+    fill: none;
+  }
+  .link.highlighted { stroke: var(--accent); stroke-opacity: 0.9; }
+
+  .node circle {
+    stroke-width: 2;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .node circle.ring-new {
+    stroke: var(--green) !important;
+    stroke-width: 3;
+  }
+  .node circle.ring-recent {
+    stroke-dasharray: 4 2;
+  }
+  .node text {
+    font-size: 10px;
+    fill: var(--text);
+    pointer-events: none;
+    text-shadow: 0 0 4px var(--bg), 0 0 4px var(--bg);
+  }
+
+  .dimmed { opacity: 0.15 !important; }
+
+  /* ─── Legend ─── */
+  #legend {
+    position: fixed;
+    bottom: 16px;
+    left: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 11px;
+    z-index: 100;
+    min-width: 130px;
+  }
+  #legend h4 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .legend-row {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 2px 4px;
+    transition: background 0.1s;
+  }
+  .legend-row:hover { background: rgba(255,255,255,0.05); }
+  .legend-row.dimmed-type { opacity: 0.35; }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  #filters {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+  .filter-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text-muted);
+    font-size: 10px;
+    padding: 3px 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .filter-btn.active-green {
+    background: var(--green);
+    border-color: var(--green);
+    color: #fff;
+  }
+
+  /* ─── Detail Panel ─── */
+  #detail {
+    position: fixed;
+    top: 54px;
+    right: 16px;
+    width: 280px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    z-index: 100;
+    display: none;
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+  }
+  #detail.visible { display: block; }
+  #detail-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    color: var(--text-muted);
+    font-size: 16px;
+    line-height: 1;
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  #detail-close:hover { color: var(--text); background: rgba(255,255,255,0.08); }
+  #detail-type {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 4px;
+  }
+  #detail-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    padding-right: 20px;
+  }
+  #detail-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  #detail-connections h5 {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .conn-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 4px 6px;
+    transition: background 0.1s;
+  }
+  .conn-item:hover { background: rgba(255,255,255,0.05); }
+  .conn-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  .conn-info .conn-name { font-size: 12px; font-weight: 500; }
+  .conn-info .conn-rel { font-size: 10px; color: var(--text-muted); line-height: 1.5; margin-top: 2px; }
+
+  /* ─── Tooltip ─── */
+  #tooltip {
+    position: fixed;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 11px;
+    max-width: 200px;
+    pointer-events: none;
+    z-index: 200;
+    display: none;
+  }
+  #tooltip.visible { display: block; }
+  #tooltip .t-name { font-weight: 600; margin-bottom: 3px; }
+  #tooltip .t-type { color: var(--text-muted); font-size: 10px; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div id="header">
+  <div id="logo">SR</div>
+  <div id="title">HubSpot SR · LightRAG cache graph</div>
+  <div id="header-spacer"></div>
+  <div id="search-wrap">
+    <span id="search-icon">⌕</span>
+    <input id="search" type="text" placeholder="Search nodes… (/)">
+  </div>
+  <div id="stats">
+    <span><b id="stat-nodes">0</b> nodes</span>
+    <span><b id="stat-links">0</b> edges</span>
+  </div>
+</div>
+
+<div id="load-error" style="display:none;position:fixed;top:44px;left:0;right:0;padding:10px 16px;background:#2d1f14;border-bottom:1px solid var(--orange);color:var(--text);font-size:12px;z-index:99;line-height:1.45;">
+  <strong>data.json</strong> did not load. Open this app over HTTP (not file://). With Ditto running: <code style="color:var(--accent)">http://localhost:3000/lightrag-graph/</code> — or run <code style="color:var(--accent)">npx --yes serve .</code> from <code>lightrag-d3-kit/lightrag-d3-kit</code>.
+</div>
+
+<!-- Canvas -->
+<div id="canvas">
+  <svg id="svg"></svg>
+</div>
+
+<!-- Legend -->
+<div id="legend">
+  <h4>Entity Type</h4>
+  <div id="legend-rows"></div>
+  <div id="filters">
+    <button class="filter-btn active-green" id="btn-new">New</button>
+    <button class="filter-btn active" id="btn-recent">Recent</button>
+  </div>
+</div>
+
+<!-- Detail Panel -->
+<div id="detail">
+  <span id="detail-close">×</span>
+  <div id="detail-type"></div>
+  <div id="detail-name"></div>
+  <div id="detail-desc"></div>
+  <div id="detail-connections">
+    <h5>Connections</h5>
+    <div id="conn-list"></div>
+  </div>
+</div>
+
+<!-- Tooltip -->
+<div id="tooltip">
+  <div class="t-name" id="tt-name"></div>
+  <div class="t-type" id="tt-type"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script>
+const COLORS = {
+  person:       '#4A90D9',
+  organization: '#E67E22',
+  concept:      '#9B59B6',
+  event:        '#27AE60',
+  artifact:     '#E74C3C',
+  default:      '#8b949e'
+};
+
+function color(group) {
+  return COLORS[group] || COLORS.default;
+}
+
+function nodeRadius(d) {
+  return Math.max(10, Math.min(40, 8 + d.degree * 2.2));
+}
+
+let data, simulation, svg, g, linkSel, nodeSel;
+let pinnedNodes = new Set();
+let activeFilters = { new: false, recent: false };
+let hiddenTypes = new Set();
+let selectedNode = null;
+
+async function load() {
+  try {
+    const res = await fetch("data.json", { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(res.status + " " + res.statusText);
+    }
+    data = await res.json();
+    document.getElementById("load-error").style.display = "none";
+    render();
+  } catch (err) {
+    console.error(err);
+    document.getElementById("load-error").style.display = "block";
+  }
+}
+
+function render() {
+  const W = window.innerWidth;
+  const H = window.innerHeight - 44;
+
+  document.getElementById('stat-nodes').textContent = data.nodes.length;
+  document.getElementById('stat-links').textContent = data.links.length;
+
+  buildLegend();
+
+  svg = d3.select('#svg')
+    .attr('viewBox', [0, 0, W, H]);
+
+  // Zoom
+  const zoom = d3.zoom()
+    .scaleExtent([0.2, 4])
+    .on('zoom', e => g.attr('transform', e.transform));
+
+  svg.call(zoom);
+
+  g = svg.append('g');
+
+  // Build node lookup
+  const nodeById = new Map(data.nodes.map(d => [d.id, d]));
+
+  // Resolve links
+  const links = data.links.map(l => ({
+    ...l,
+    source: nodeById.get(l.source) || l.source,
+    target: nodeById.get(l.target) || l.target
+  }));
+
+  simulation = d3.forceSimulation(data.nodes)
+    .force('link', d3.forceLink(links).id(d => d.id).distance(d => 80 / (d.weight || 1) + 40))
+    .force('charge', d3.forceManyBody().strength(-180))
+    .force('center', d3.forceCenter(W / 2, H / 2))
+    .force('collision', d3.forceCollide().radius(d => nodeRadius(d) + 6))
+    .alphaDecay(0.025);
+
+  // Links
+  linkSel = g.append('g').attr('class', 'links')
+    .selectAll('line')
+    .data(links)
+    .join('line')
+    .attr('class', 'link')
+    .attr('stroke-width', d => Math.max(0.5, (d.weight || 1) * 0.4));
+
+  // Nodes
+  nodeSel = g.append('g').attr('class', 'nodes')
+    .selectAll('.node')
+    .data(data.nodes)
+    .join('g')
+    .attr('class', 'node')
+    .call(drag(simulation))
+    .on('click', (e, d) => { e.stopPropagation(); selectNode(d, links); })
+    .on('dblclick', (e, d) => { e.stopPropagation(); unpin(d); })
+    .on('mouseenter', (e, d) => showTooltip(e, d))
+    .on('mousemove', (e) => moveTooltip(e))
+    .on('mouseleave', hideTooltip);
+
+  nodeSel.append('circle')
+    .attr('r', nodeRadius)
+    .attr('fill', d => color(d.group))
+    .attr('fill-opacity', 0.85)
+    .attr('stroke', d => d.isNew ? '#3fb950' : d.isRecent ? color(d.group) : '#30363d')
+    .attr('stroke-width', d => d.isNew ? 3 : 1.5)
+    .attr('class', d => d.isNew ? 'ring-new' : d.isRecent ? 'ring-recent' : '');
+
+  nodeSel.append('text')
+    .attr('dy', d => nodeRadius(d) + 12)
+    .attr('text-anchor', 'middle')
+    .text(d => d.id.length > 18 ? d.id.slice(0, 16) + '…' : d.id)
+    .style('display', d => d.degree >= 3 ? 'block' : 'none');
+
+  simulation.on('tick', () => {
+    linkSel
+      .attr('x1', d => d.source.x)
+      .attr('y1', d => d.source.y)
+      .attr('x2', d => d.target.x)
+      .attr('y2', d => d.target.y);
+    nodeSel.attr('transform', d => `translate(${d.x},${d.y})`);
+  });
+
+  // Click background to deselect
+  svg.on('click', () => deselect());
+
+  // Search
+  const searchEl = document.getElementById('search');
+  searchEl.addEventListener('input', () => applySearch(searchEl.value, links));
+  document.addEventListener('keydown', e => {
+    if (e.key === '/' && document.activeElement !== searchEl) {
+      e.preventDefault();
+      searchEl.focus();
+    }
+    if (e.key === 'Escape') {
+      searchEl.value = '';
+      applySearch('', links);
+      deselect();
+    }
+  });
+
+  // Detail close
+  document.getElementById('detail-close').addEventListener('click', deselect);
+}
+
+function drag(sim) {
+  return d3.drag()
+    .on('start', (e, d) => {
+      if (!e.active) sim.alphaTarget(0.3).restart();
+      d.fx = d.x; d.fy = d.y;
+    })
+    .on('drag', (e, d) => {
+      d.fx = e.x; d.fy = e.y;
+    })
+    .on('end', (e, d) => {
+      if (!e.active) sim.alphaTarget(0);
+      if (!pinnedNodes.has(d.id)) {
+        d.fx = null; d.fy = null;
+      }
+    });
+}
+
+function unpin(d) {
+  pinnedNodes.delete(d.id);
+  d.fx = null; d.fy = null;
+  simulation.alphaTarget(0.1).restart();
+  setTimeout(() => simulation.alphaTarget(0), 300);
+}
+
+function selectNode(d, links) {
+  selectedNode = d;
+  pinnedNodes.add(d.id);
+
+  // Highlight
+  const connectedIds = new Set();
+  links.forEach(l => {
+    if (l.source.id === d.id || l.source === d.id) connectedIds.add(l.target.id || l.target);
+    if (l.target.id === d.id || l.target === d.id) connectedIds.add(l.source.id || l.source);
+  });
+
+  nodeSel.selectAll('circle')
+    .classed('dimmed', nd => nd.id !== d.id && !connectedIds.has(nd.id));
+  linkSel
+    .classed('dimmed', l => (l.source.id || l.source) !== d.id && (l.target.id || l.target) !== d.id)
+    .classed('highlighted', l => (l.source.id || l.source) === d.id || (l.target.id || l.target) === d.id);
+
+  // Detail panel
+  const nodeById = new Map(data.nodes.map(n => [n.id, n]));
+  const myLinks = links.filter(l =>
+    (l.source.id || l.source) === d.id || (l.target.id || l.target) === d.id
+  );
+
+  document.getElementById('detail-type').textContent = d.group;
+  document.getElementById('detail-type').style.color = color(d.group);
+  document.getElementById('detail-name').textContent = d.id;
+  document.getElementById('detail-desc').textContent = d.desc || '';
+
+  const connList = document.getElementById('conn-list');
+  connList.innerHTML = '';
+  myLinks.forEach(l => {
+    const otherId = (l.source.id || l.source) === d.id
+      ? (l.target.id || l.target)
+      : (l.source.id || l.source);
+    const other = nodeById.get(otherId);
+    if (!other) return;
+    const item = document.createElement('div');
+    item.className = 'conn-item';
+    item.innerHTML = `
+      <div class="conn-dot" style="background:${color(other.group)}"></div>
+      <div class="conn-info">
+        <div class="conn-name">${other.id}</div>
+        <div class="conn-rel">${l.desc || ''}</div>
+      </div>`;
+    item.addEventListener('click', () => selectNode(other, links));
+    connList.appendChild(item);
+  });
+
+  document.getElementById('detail').classList.add('visible');
+}
+
+function deselect() {
+  selectedNode = null;
+  nodeSel?.selectAll('circle').classed('dimmed', false);
+  linkSel?.classed('dimmed', false).classed('highlighted', false);
+  document.getElementById('detail').classList.remove('visible');
+}
+
+function applySearch(query, links) {
+  if (!query.trim()) {
+    nodeSel.selectAll('circle').classed('dimmed', false);
+    linkSel.classed('dimmed', false);
+    return;
+  }
+  const q = query.toLowerCase();
+  const matchIds = new Set(
+    data.nodes.filter(d =>
+      d.id.toLowerCase().includes(q) ||
+      (d.group || '').toLowerCase().includes(q) ||
+      (d.desc || '').toLowerCase().includes(q)
+    ).map(d => d.id)
+  );
+  nodeSel.selectAll('circle').classed('dimmed', d => !matchIds.has(d.id));
+  linkSel.classed('dimmed', l =>
+    !matchIds.has(l.source.id || l.source) || !matchIds.has(l.target.id || l.target)
+  );
+}
+
+function buildLegend() {
+  const types = [...new Set(data.nodes.map(d => d.group))].sort();
+  const rows = document.getElementById('legend-rows');
+  rows.innerHTML = '';
+  types.forEach(t => {
+    const row = document.createElement('div');
+    row.className = 'legend-row';
+    row.dataset.type = t;
+    row.innerHTML = `<div class="dot" style="background:${color(t)}"></div><span>${t}</span>`;
+    row.addEventListener('click', () => toggleType(t, row));
+    rows.appendChild(row);
+  });
+
+  // Filter buttons
+  document.getElementById('btn-new').addEventListener('click', () => {
+    activeFilters.new = !activeFilters.new;
+    document.getElementById('btn-new').classList.toggle('active-green', activeFilters.new);
+    applyFilters();
+  });
+  document.getElementById('btn-recent').addEventListener('click', () => {
+    activeFilters.recent = !activeFilters.recent;
+    document.getElementById('btn-recent').classList.toggle('active', activeFilters.recent);
+    applyFilters();
+  });
+}
+
+function toggleType(t, row) {
+  if (hiddenTypes.has(t)) {
+    hiddenTypes.delete(t);
+    row.classList.remove('dimmed-type');
+  } else {
+    hiddenTypes.add(t);
+    row.classList.add('dimmed-type');
+  }
+  applyFilters();
+}
+
+function applyFilters() {
+  if (!nodeSel) return;
+  nodeSel.style('display', d => {
+    if (hiddenTypes.has(d.group)) return 'none';
+    if (activeFilters.new && !d.isNew) return 'none';
+    if (activeFilters.recent && !d.isRecent) return 'none';
+    return null;
+  });
+  linkSel.style('display', l => {
+    const src = l.source.group || '';
+    const tgt = l.target.group || '';
+    if (hiddenTypes.has(src) || hiddenTypes.has(tgt)) return 'none';
+    return null;
+  });
+}
+
+function showTooltip(e, d) {
+  const tt = document.getElementById('tooltip');
+  document.getElementById('tt-name').textContent = d.id;
+  document.getElementById('tt-type').textContent = `${d.group} · ${d.degree} connections`;
+  tt.classList.add('visible');
+  moveTooltip(e);
+}
+
+function moveTooltip(e) {
+  const tt = document.getElementById('tooltip');
+  tt.style.left = (e.clientX + 14) + 'px';
+  tt.style.top = (e.clientY - 10) + 'px';
+}
+
+function hideTooltip() {
+  document.getElementById('tooltip').classList.remove('visible');
+}
+
+// Handle resize
+window.addEventListener('resize', () => {
+  if (simulation) {
+    const W = window.innerWidth;
+    const H = window.innerHeight - 44;
+    svg.attr('viewBox', [0, 0, W, H]);
+    simulation.force('center', d3.forceCenter(W / 2, H / 2)).restart();
+  }
+});
+
+load();
+</script>
+
+</body>
+</html>

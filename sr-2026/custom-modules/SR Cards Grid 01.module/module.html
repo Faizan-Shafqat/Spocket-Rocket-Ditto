@@ -1,0 +1,131 @@
+{% if module.enabled %}
+{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-cards-grid-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+						{% if module.heading || module.description %}
+							<div class="{% if module.text_align != 'auto' %} text-{{ module.text_align }}{% endif %} {% if module.text_color != 'auto' %}text-{{ module.text_color }}{% endif %} sr-spacer-bottom-100">
+								{{ macros.heading(module.heading) }}
+								{% if module.description %}
+									<div class="description {% if module.lead_text %} lead{% endif %}">
+										{{ module.description }}
+									</div>
+								{% endif %}
+							</div>
+						{% endif %}
+						<div class="cards row{{' row-gap' if module.design_settings.enable_gap else ' mx-0'}}">
+							{% for item in module.column %}
+								<div class="card col-lg-4 col-md-6 {% if item.text_align != 'auto' %} text-{{ item.text_align }}{% endif %}{{' px-0' if !module.design_settings.enable_gap}}">
+									<div class="card-inner">
+										{{ macros.heading(item.heading) }}
+										<div class="description{% if item.lead_text %} lead{% endif %}">{{ item.col_text }}</div>
+										<div class="cta-container pt-4 pt-lg-0">{{ macros.cta(item.ctas) }}</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% set mdBottomRowCount = module.column|length % 3 %}
+	{% if mdBottomRowCount == 0 %}
+		{% set mdBottomRowCount = 3 %}
+	{% endif %}
+
+	{% set smBottomRowCount = module.column|length % 2 %}
+	{% if smBottomRowCount == 0 %}
+		{% set smBottomRowCount = 2 %}
+	{% endif %}
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+
+			.{{name}} .card-inner {
+				{{ module.design_settings.card_styles.spacing.css }}
+				{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.border.css %}
+				{{ module.design_settings.card_styles.border.css }}
+				{% endif %}
+				{% if module.design_settings.card_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+				{% endif %}
+				{% if module.design_settings.card_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+				{% endif %}
+			}
+
+			.{{name}} .card:hover .card-inner,
+			.{{name}} .card-inner:has(:is(.cta_button,.cta-button,[data-hubspot-cta-id]):focus) {
+				{%- if module.design_settings.card_styles.hover_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.card_styles.hover_styles.background_gradient.css }};
+				{%- elif module.design_settings.card_styles.hover_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.card_styles.hover_styles.background_custom.css }};
+				{%- elif module.design_settings.card_styles.hover_styles.background_color != "auto" -%}
+				background-color: var(--{{ module.design_settings.card_styles.hover_styles.background_color }});
+				{%- endif -%}
+				{%- if module.design_settings.card_styles.hover_styles.text_color == "custom" %}
+				color: {{ module.design_settings.card_styles.hover_styles.text_color_custom.css }};
+				{%- endif -%}
+				{% if module.design_settings.card_styles.hover_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.card_styles.hover_styles.inset }} {{ module.design_settings.card_styles.hover_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.hover_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.hover_styles.blur ~ "px" }} {{ module.design_settings.card_styles.hover_styles.spread ~ "px" }} {{ module.design_settings.card_styles.hover_styles.color.css }};
+				{% endif %}
+			}
+
+
+			@media only screen and (min-width: 768px) and (max-width: 992px) {
+				.{{ name }}.sr-cards-grid-01 .card {
+					border-right: 1px solid {{ module.grid_border_color.css }};
+					border-bottom: 1px solid {{ module.grid_border_color.css }};
+				}
+			}
+			@media only screen and (min-width: 992px) {
+				.{{ name }}.sr-cards-grid-01 .card {
+					border-right: 1px solid {{ module.grid_border_color.css }};
+					border-bottom: 1px solid {{ module.grid_border_color.css }};
+				}
+				.sr-cards-grid-01 .cards .card:nth-last-child(-n+{{ mdBottomRowCount }}) {
+					border-bottom: none;
+				}
+			}
+			@media only screen and (min-width: 767px) {
+				.sr-cards-grid-01 .cards .card:nth-last-child(-n+{{ smBottomRowCount }}) {
+					border-bottom: none;
+				}
+			}
+			@media only screen and (max-width: 768px) {
+				.{{ name }}.sr-cards-grid-01 .card {
+					border-right: none;
+					border-bottom: none;
+					border-top: 1px solid {{ module.grid_border_color.css }};
+				}
+			}
+		</style>
+	{% end_require_css %}
+{% endif %}

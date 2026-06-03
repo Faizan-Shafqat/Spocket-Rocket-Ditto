@@ -1,0 +1,97 @@
+.sr-pricing-02 .card {
+  border-style: solid;
+  border-width: 0;
+  padding: 0;
+  text-align: center;
+  -webkit-transition: background 0.25s ease-in-out;
+  -moz-transition: background 0.25s ease-in-out;
+  transition: background 0.25s ease-in-out;
+}
+
+
+
+.sr-pricing-02 .card-inner ul {
+  padding: 0;
+  list-style: none;
+  margin-bottom: 0;
+  margin-top: 2rem;
+}
+
+.sr-pricing-02 .pricing-name {
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.sr-pricing-02 .card-inner {
+  height: 100%;
+  position: relative;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.sr-pricing-02 .card.active {
+  border: none;
+}
+
+@media only screen and (min-width : 992px) {
+  .sr-pricing-02 .card {
+    flex: 1;
+  }
+
+  .sr-pricing-02 .card-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+@media only screen and (max-width : 992px) {
+  .sr-pricing-02 .card {
+    margin-bottom: 1.5rem;
+  }
+
+  .sr-pricing-02 .card {
+    margin: 1rem 0;
+  }
+}
+
+
+.sr-pricing-02 .feature-list li {
+  position: relative;
+  text-align: left;
+  margin-bottom: 1.7rem;
+  display: flex;
+  align-items: start;
+  gap: 10px;
+}
+
+.sr-pricing-02 .feature-list li:last-child {
+  padding-bottom: 0;
+}
+
+.sr-pricing-02 .feature-list li p {
+  margin-bottom: 0;
+}
+
+.sr-pricing-02 .icon-icon {
+  color: var(--icon-color);
+  background: var(--icon-background);
+  display: block;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  padding: .375rem
+}
+
+
+.sr-pricing-02 .icon-icon svg:not([style]):not([fill]),
+.sr-pricing-02 .icon-icon svg g:not([style]):not([fill]),
+.sr-pricing-02 .icon-icon svg path:not([style]):not([fill]) {
+  fill: var(--icon-color)
+}
+
+.sr-pricing-02 .icon-image {
+  display: block;
+  min-width: var(--icon-width);
+}

@@ -1,0 +1,66 @@
+{% import "../../templates/macros.html" as macros %}
+<div class="sr-logos{% if module.carousel_settings.arrow %} flex{% endif %}" {{ "data-preview" if module_preview }}>
+
+	<div class="{{name}} blaze-slider"
+	data-carousel="{{ module.carousel }}"
+	{% if module.carousel %}
+	data-autoplay="{{ module.carousel_settings.autoplay }}"
+	data-autoplayspeed="{{ module.carousel_settings.autoplay_speed }}"
+	data-show="{{ module.carousel_settings.slides_to_show }}"
+	data-scroll="{{ module.carousel_settings.slides_to_scroll }}"
+	style="--slides-to-show: {{ module.carousel_settings.slides_to_show }}"
+	{% endif %}>
+		<div class="blaze-container">
+
+			{% if module.carousel_settings.arrow %}
+			<button aria-label="Previous Slide" type="button" class="blaze-arrow blaze-prev chevron-left">{% icon name="chevron-left" style="SOLID" unicode="f053" icon_set="fontawesome-5.14.0" width="12" height="12" no_wrapper=true %}</button>
+			{% endif %}
+
+			<div class="blaze-track-{{ 'container' if module.carousel else 'wrapper' }}">
+				<div class="blaze-{{ 'track' if module.carousel else 'wrapper' }}">
+					{% for item in module.image %}
+					<div class="slider-img d-inline">
+
+						{% if item.link.url.href %}
+						<a {{macros.link(item.link)}}>
+						{% endif %}
+
+						{{ macros.image(item.image) }}
+						<div class="text-center mt-1 small">
+							{{ item.caption }}
+						</div>
+
+						{% if item.link.url.href %}
+						</a>
+						{% endif %}
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+
+			{% if module.carousel_settings.arrow %}
+			<button aria-label="Next Slide" type="button" class="blaze-arrow blaze-next chevron-right">{% icon name="chevron-right" style="SOLID" unicode="f054" icon_set="fontawesome-5.14.0" width="12" height="12" no_wrapper=true %}</button>
+			{% endif %}
+
+			{% if module.carousel_settings.dots %}
+			<div class="blaze-pagination"></div>
+			{% endif %}
+
+		</div>
+	</div>
+</div>
+
+{% if module.carousel %}
+{{ require_css(get_asset_url('../../css/blaze-slider.css'), { async: true }) }}
+{{ require_js(get_asset_url('../../js/blaze-slider.js')) }}
+{% endif %}
+
+{% require_css %}
+<style>
+    {% scope_css %}
+    .sr-logos {
+        {{ module.design_settings.spacing.css }};
+    }
+    {% end_scope_css %}
+</style>
+{% end_require_css %}

@@ -1,0 +1,145 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-cards-filter-01 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" 
+		 {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} 
+		 {{ "data-preview" if module_preview }}
+		 data-cols-base="{{ base_cols }}"
+		 data-cols-md="{{ md_cols }}"
+		 data-cols-lg="{{ lg_cols }}"
+		 data-cols-xl="{{ xl_cols }}">
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+						{% if module.heading ||  module.description %}
+							<div class="sr-spacer-bottom-50 {% if module.text_align != 'auto' %} text-{{ module.text_align }}{% endif %} {% if module.text_color != 'auto' %}text-{{ module.text_color }}{% endif %}">
+								{{ macros.heading(module.heading) }}
+
+								{% if module.description %}
+									<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						{% if module.filters %}
+						<div class="row hs-form align-items center justify-content-center sr-spacer-bottom-50">
+							{% for item in module.filters %}
+							<div class="filter-option">
+								<select aria-label="{{ item.title }}" name="filterOption{{loop.index}}" id="filterOption{{loop.index}}">
+									<option value="">{{ item.title }}</option>
+									{% for tag in item.tags %}
+										<option value=".tag-{{ tag|lower|replace(" ","-")|regex_replace("[?,.!@$%&*^<>;:]", "") }}">{{ tag }}</option>
+									{% endfor %}
+								</select>
+							</div>
+							{% endfor %}
+						</div>
+						{% endif %}
+						<div class="items hideitems isotope row content-row overflow-hidden mx-0" data-desc="{{ module.show_card_description }}">
+							{% for item in module.column %}
+								<div class="item {% for tag in item.tags %}tag-{{tag|lower|replace(" ","-")|regex_replace("[?,.!@$%&*^<>;:]", "") }} {% endfor %}{{ macros.col_size(module.column_size) }}" style="{{ '--bg:' ~ item.background_color.css if item.background_color.css }}; {{ '--bgHover: ' ~ item.brand_color.css if item.brand_color.css }}; {{ '--color: ' ~ item.text_color.css if item.text_color.css }}; {{ '--colorHover: ' ~ item.hover_text_color.css if item.hover_text_color.css }};" tabindex="0">
+									<div class="item-inner sr-border sr-card">
+										<div class="hover {% if item.logo_hover.src %}logohover{% endif%}">
+											{% if item.link.url.href %}
+											<a class="tile-link" {{ macros.link(item.link) }}>
+											{% else %}
+											<div class="tile-link">
+											{% endif %}
+												<div class="card-top">
+													<div class="card-inner">
+														<div class="logo-nohover">
+															{{ macros.image(item.logo, 'class="logo"') }}
+														</div>
+														{% if item.logo_hover.src %}
+														<div class="logo-hover">
+															{{ macros.image(item.logo_hover, 'class="logo"') }}
+														</div>
+														{% endif %}
+														<p class="small">{{ item.text }}</p>
+													</div>
+												</div>
+											{% if item.link.url.href %}
+											</a>
+											{% else %}
+											</div>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+						{% if module.show_load_more_button %}
+						<div class="text-center load-more-button">
+							<a href="#" class="btn btn-{{ module.button_style }}">{{module.button_text}}</a>
+						</div>
+						{% endif %}
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{{ require_css('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css') }}
+	{% require_css %}
+		<style>
+			{{ macros.design_settings(name, module.design_settings) }}
+
+			{% if module.show_load_more_button %}
+			.{{name}} .items.hideitems .item:nth-child(n+{{ module.cards_to_show + 1}}) {
+				display: none;
+			}
+			{% endif %}
+
+			.{{ name }} .content-row {
+				{% if module.design_settings.row_styles.spacing.css -%}
+				{{ module.design_settings.row_styles.spacing.css }}
+				{%- endif -%}
+				{%- if module.design_settings.row_styles.background_color == "gradient" -%}
+				background: {{ module.design_settings.row_styles.background_gradient.css }};
+				{%- elif module.design_settings.row_styles.background_color == "custom" -%}
+				background-color: {{ module.design_settings.row_styles.background_custom.css }};
+				{% elif module.design_settings.row_styles.background_color != "auto" %}
+				background-color: var(--{{ module.design_settings.row_styles.background_color }});
+				{%- endif -%}
+				{% if module.design_settings.row_styles.border.css %}
+				{{ module.design_settings.row_styles.border.css }}
+				{%- endif -%}
+				{% if module.design_settings.row_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.row_styles.border_radius }}px;
+				{%- endif -%}
+				{% if module.design_settings.row_styles.shadow %}
+				box-shadow: {{ "inset" if module.design_settings.row_styles.inset }} {{ module.design_settings.row_styles.horizontal ~ "px" }} {{ module.design_settings.row_styles.vertical ~ "px" }} {{ module.design_settings.row_styles.blur ~ "px" }} {{ module.design_settings.row_styles.spread ~ "px" }} {{ module.design_settings.row_styles.color.css }};
+				{%- endif %}
+			}
+
+			.{{ name }} .content-row:before {
+				{% if module.design_settings.row_styles.border_radius >= 0 %}
+				border-radius: {{ module.design_settings.row_styles.border_radius }}px;
+				{%- endif -%}
+				{%- if module.design_settings.row_styles.background_color == "gradient" -%}
+				border-color: {{ module.design_settings.row_styles.background_gradient.css }};
+				{%- elif module.design_settings.row_styles.background_color == "custom" -%}
+				border-color: {{ module.design_settings.row_styles.background_custom.css }};
+				{% elif module.design_settings.row_styles.background_color != "auto" %}
+				border-color: var(--{{ module.design_settings.row_styles.background_color }});
+				{%- endif -%}
+			}
+		</style>
+	{% end_require_css %}
+
+{% endif %}

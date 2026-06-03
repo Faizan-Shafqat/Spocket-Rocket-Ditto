@@ -1,0 +1,42 @@
+
+.sr-cards-pricing-03 .pricing-box {
+  text-align: center;
+}
+
+.sr-cards-pricing-03 .features-box {
+  text-align: left;
+}
+
+.sr-cards-pricing-03 .features-box ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0;
+  column-gap: 30px;
+  margin: 1.5625rem 0;
+}
+
+.sr-cards-pricing-03 .features-box ul li {
+  width: calc(50% - 15px);
+  list-style: none;
+  position: relative;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media (max-width:991px) {
+
+  .sr-cards-pricing-03 .features-box ul li {
+    width: 100%;
+  }
+
+  .sr-cards-pricing-03 .features-box {
+    margin-top: 1.5rem;
+  }
+
+  .sr-cards-pricing-03 .features-box ul {
+    margin: 0.8rem 0;
+  }
+}

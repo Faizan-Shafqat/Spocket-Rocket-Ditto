@@ -1,0 +1,170 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-hero-two-col-01 {{ name }} {% if module.design_settings.grid_margins %}my-2{% endif %} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					<div class="row">
+						<div class="left_column {{module.left_column.design_settings.column_size}} p-0">
+							<div class="hero-block h-100 {% if module.left_column.design_settings.background_option == "color" %}bg-{{ module.left_column.design_settings.background_color }}{% endif %} {% if module.left_column.text_color != 'auto' %}text-{{ module.left_column.text_color }}{% endif %} {% if module.left_column.text_align != 'auto' %}text-{{ module.left_column.text_align }}{% endif %}" {% if module.left_column.design_settings.background_option == "custom" %}style="background: {{module.left_column.design_settings.background_custom.css}};"{% endif %}>
+								<div class="d-flex flex-column">
+									{% if module.left_column.media_type == "video" %}
+									<div class="media-item sr-spacer-bottom-50">
+										<video class="responsive-video-file" autoplay {% if module.left_column.loop %}loop{% endif %} muted playsinline style="max-height: {{module.left_column.video_max_height}}px">
+											{% for item in module.left_column.video %}
+											{% set file = item|split('.')|last %}
+											{% if file == "m4v" %} {% set file = "mp4" %}{% endif %}
+											<source src="{{ item }}" type="video/{{file}}">
+											{% endfor %}
+										</video>
+									</div>
+									{% elif module.left_column.media_type == "image" %}
+									<div class="media-item sr-spacer-bottom-50">
+										{{ macros.image(module.left_column.image_) }}
+									</div>
+									{% endif %}
+
+									<div class="content-info">
+										{{ macros.heading(module.left_column.heading) }}
+										{% if module.left_column.description %}
+											<div class="description{% if module.left_column.lead_text %} lead{% endif %}">
+												{{ module.left_column.description }}
+											</div>
+										{% endif %}
+										{{ macros.cta(module.left_column.ctas, '{% if module.left_column.content %}sr-spacer-top-50{% endif %}') }}
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="right_column {{module.right_column.design_settings.column_size}} p-0">
+							<div class="hero-block h-100 {% if module.right_column.design_settings.background_option == "color" %}bg-{{ module.right_column.design_settings.background_color }}{% endif %} {% if module.right_column.text_color != 'auto' %}text-{{ module.right_column.text_color }}{% endif %} {% if module.right_column.text_align != 'auto' %}text-{{ module.right_column.text_align }}{% endif %}" {% if module.right_column.design_settings.background_option == "custom" %}style="background: {{module.right_column.design_settings.background_custom.css}};"{% endif %}>
+								<div class="d-flex flex-column">
+									{% if module.right_column.media_type == "video" %}
+									<div class="media-item sr-spacer-bottom-50">
+										<video class="responsive-video-file" autoplay {% if module.right_column.loop %}loop{% endif %} muted playsinline style="max-height: {{module.right_column.video_max_height}}px">
+											{% for item in module.right_column.video %}
+											{% set file = item|split('.')|last %}
+											{% if file == "m4v" %} {% set file = "mp4" %}{% endif %}
+											<source src="{{ item }}" type="video/{{file}}">
+											{% endfor %}
+										</video>
+									</div>
+									{% elif module.right_column.media_type == "image" %}
+									<div class="media-item sr-spacer-bottom-50">
+										{{ macros.image(module.right_column.image_) }}
+									</div>
+									{% endif %}
+
+									<div class="content-info">
+										{{ macros.heading(module.right_column.heading) }}
+										{% if module.right_column.description %}
+											<div class="description{% if module.right_column.lead_text %} lead{% endif %}">
+												{{ module.right_column.description }}
+											</div>
+										{% endif %}
+
+										{{ macros.cta(module.right_column.ctas, '{% if module.right_column.content %}sr-spacer-top-50{% endif %}') }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{% if module.left_column.design_settings.background_option == 'image' %}
+			.{{ name }} .left_column .hero-block {
+				background-image: url({{ resize_image_url(module.left_column.design_settings.background_image.src, '1440') }});
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				position: relative;
+			}
+			@media (min-width: 768px) {
+				.{{ name }} .left_column .hero-block {
+					background-image: url({{ resize_image_url(module.left_column.design_settings.background_image.src, '2880') }});
+				}
+			}
+			.{{ name }} .left_column .hero-block:before {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: rgba({{ module.left_column.design_settings.background_overlay_color.color|convert_rgb }}, {% if module.left_column.design_settings.background_overlay_color.opacity != '100' %}0.{% endif %}{{ module.left_column.design_settings.background_overlay_color.opacity }});
+			}
+			.{{ name }} .left_column .hero-block > div {
+				position: relative;
+			}
+		{% elif module.left_column.design_settings.background_option == 'gradient' %}
+			.{{ name }} .left_column .hero-block {
+				background: linear-gradient(-225deg, {{module.left_column.design_settings.background_gradient_from.color}} 0%, {{module.left_column.design_settings.background_gradient_to.color}} 100%);
+			}
+		{% endif %}
+
+		.{{name}} .left_column .hero-block > div {
+			padding-top: {{module.left_column.design_settings.padding.top}}{{module.left_column.design_settings.padding.units}};
+			padding-right:{{module.left_column.design_settings.padding.right}}{{module.left_column.design_settings.padding.units}};
+			padding-bottom: {{module.left_column.design_settings.padding.bottom}}{{module.left_column.design_settings.padding.units}};
+			padding-left: {{module.left_column.design_settings.padding.left}}{{module.left_column.design_settings.padding.units}};
+		}
+		{% if module.right_column.design_settings.background_option == 'image' %}
+			.{{ name }} .right_column .hero-block {
+				background-image: url({{ resize_image_url(module.right_column.design_settings.background_image.src, '1440') }});
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				position: relative;
+			}
+			@media (min-width: 768px) {
+				.{{ name }} .right_column .hero-block {
+					background-image: url({{ resize_image_url(module.right_column.design_settings.background_image.src, '2880') }});
+				}
+			}
+			.{{ name }} .right_column .hero-block:before {
+				content: "";
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				background: rgba({{ module.right_column.design_settings.background_overlay_color.color|convert_rgb }}, {% if module.right_column.design_settings.background_overlay_color.opacity != '100' %}0.{% endif %}{{ module.right_column.design_settings.background_overlay_color.opacity }});
+			}
+			.{{ name }} .right_column .hero-block > div {
+				position: relative;
+			}
+		{% elif module.right_column.design_settings.background_option == 'gradient' %}
+			.{{ name }} .right_column .hero-block {
+				background: linear-gradient(-225deg, {{module.right_column.design_settings.background_gradient_from.color}} 0%, {{module.right_column.design_settings.background_gradient_to.color}} 100%);
+			}
+		{% endif %}
+		.{{name}} .right_column .hero-block > div {
+		padding-top: {{module.right_column.design_settings.padding.top}}{{module.right_column.design_settings.padding.units}};
+		padding-right:{{module.right_column.design_settings.padding.right}}{{module.right_column.design_settings.padding.units}};
+		padding-bottom: {{module.right_column.design_settings.padding.bottom}}{{module.right_column.design_settings.padding.units}};
+		padding-left: {{module.right_column.design_settings.padding.left}}{{module.right_column.design_settings.padding.units}};
+	}
+	</style>
+	{% end_require_css %}
+{% endif %}

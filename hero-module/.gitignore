@@ -1,0 +1,4 @@
+node_modules/
+*.log
+# Never commit a filled hubspot.config.yml with a real PAK; use a local copy if needed
+hubspot.config.local.yml

@@ -1,0 +1,39 @@
+{% if module.enabled %}
+
+	{% if is_in_editor %}
+	<div class="hs-placeholder mb-0">
+		<div class="hs-placeholder__inner">
+			<h4 class="hs-placeholder__title py-4">SR Nav Progress Bar 01</h4>
+		</div>
+	</div>
+	{% endif %}
+
+	{% require_css %}
+	<style>
+		.sr-nav-progress-bar-01 {
+			position:fixed;
+			top:0;
+			left:0;
+			z-index:99999;
+			width:100%;
+			height: {{ module.bar_height }}px;
+			-webkit-appearance:none;
+			border:none;
+			background-color:transparent;
+			color: {{ module.bar_color.css }}
+		}
+		.sr-nav-progress-bar-01::-webkit-progress-bar {
+			background-color:transparent
+		}
+		.sr-nav-progress-bar-01::-webkit-progress-value {
+			background-color: {{ module.bar_color.css }}
+		}
+		.sr-nav-progress-bar-01::-moz-progress-bar {
+			background-color: {{ module.bar_color.css }}
+		}
+	</style>
+	{% end_require_css %}
+
+	<progress value="0" class="{{name}} sr-nav-progress-bar-01{%if module.class %} {{ module.class }}{% endif %}" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}></progress>
+
+{% endif %}

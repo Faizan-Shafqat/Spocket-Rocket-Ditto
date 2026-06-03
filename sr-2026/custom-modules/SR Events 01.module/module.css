@@ -1,0 +1,18 @@
+.sr-events-01 .content-wrapper {
+    position: relative;
+    transition: all .25s ease;
+    gap: 0.5rem;
+    z-index: 0;
+}
+
+.sr-events-01 .content-wrapper:is(:hover, :focus) {
+    z-index: 10;
+}
+
+.sr-events-01 .content-wrapper .heading:last-child {
+    margin-bottom: 0;
+}
+
+.sr-events-01 .content-wrapper.sr-card:last-of-type {
+    border-bottom: none;
+}

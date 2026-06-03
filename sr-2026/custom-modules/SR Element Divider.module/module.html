@@ -1,0 +1,3 @@
+<div class="sr-divider"{% if module.design_settings.spacing.css %} style="{{ module.design_settings.spacing.css }}"{% endif %} {{ "data-preview" if module_preview }}>
+{% if module.show_line %}<hr style="border-top: {{module.design_settings.border.top.width.value}}px  {{module.design_settings.border.top.style}} {{module.design_settings.border.top.color}}; margin: {{ module.spacing / 16}}rem 0">{% endif %}
+</div>

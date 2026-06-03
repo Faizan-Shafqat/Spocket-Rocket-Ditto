@@ -1,0 +1,107 @@
+{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+	<style>
+		{% scope_css %}
+	
+		{# Menu #}
+		.header__container--min {
+			background: {{ module.styles.menu.background.background.css }};
+			box-shadow: 15px 25px 60px {{ module.styles.menu.shadow.shadow.css }};
+		}
+	
+		.header__container--min.header-scroll {
+			{% if module.styles.menu.background.background_on_scroll.color %}
+			background: {{ module.styles.menu.background.background_on_scroll.css }};
+			{% endif %}
+			box-shadow: 15px 25px 60px {{ module.styles.menu.shadow.shadow_on_scroll.css}};
+		}
+	
+		.header__wrapper--bottom {
+			{{ module.styles.menu.spacing.css }}
+		}
+	
+		{# Top bar #}
+		.header__menu-announcement {
+			{{ module.styles.top_bar.spacing.css }}
+		}
+		.header__top {
+			background-color: {{ module.styles.top_bar.background.color.css }};
+		}
+	
+		{% if module.top_bar.type == "announcement" %}
+		.header__menu-announcement {
+			{{ module.styles.top_bar.text.algin.css }};
+			width: 100%;
+			{% if !module.styles.custom_fonts %}
+			{% if module.styles.top_bar.text.font.color %}
+			color: {{ module.styles.top_bar.text.font.color }};
+			{% endif %}
+			{% if module.styles.top_bar.text.font.size %}
+			font-size: {{ module.styles.top_bar.text.font.size ~ module.styles.top_bar.text.font.size_unit }};
+			{% endif %}
+			{% if module.styles.top_bar.text.font.style %}
+			{{ module.styles.top_bar.text.font.style }};
+			{% endif %}
+			{% else %}
+			{% if module.styles.top_bar.text.color %}
+			color: {{ module.styles.top_bar.text.color.css }};
+			{% endif %}
+			{% if module.styles.top_bar.text.size %}
+			font-size: {{ module.styles.top_bar.text.size ~ "px" }};
+			{% endif %}
+			{% endif %}
+		}
+		{% endif %}
+		{% end_scope_css %}
+	</style>
+	{% end_require_css %}
+	
+	<header class="header__container--min" data-fixed="{{ module.settings.fixed }}" data-scroll="{{ module.settings.scroll }}" data-transparent="{{ module.styles.menu.background.background.opacity == 0 }}" {{ "data-preview" if module_preview }}>
+		<a class="skip-main bg-dark text-white" href="#main-content">Skip to main content</a>
+		{% if module.top_bar.type == "announcement" %}
+		<div class="header__top header__top-{{ module.top_bar.type }}">
+			<div class="{{ module.settings.width }}">
+				<div class="header__wrapper header__wrapper--top header__menu--align-{{ module.styles.top_bar.align.text_align|lower }}">
+					{% if module.top_bar.type == "announcement" %}
+					<div class="header__menu-announcement">
+						{{ module.top_bar.rich_text }}
+					</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		<div class="header__bottom">
+			<div class="{{ module.settings.width }}">
+				<div class="header__wrapper header__wrapper--bottom">
+					{% if module.logo.logo.src %}
+					<div class="header__logo-col">
+						<div class="header__logo">
+							{% if module.logo.link.url.href %}
+							<a {{ macros.link(module.logo.link) }} class="header__logo-link" role="link" aria-label="{{module.logo.logo.alt}}'s link {{ ' (Opens in new tab)' if module.logo.link.open_in_new_tab }}">
+							{% endif %}
+								<div class="d-none d-md-block">
+									<img class="header__logo-image header__logo-default {{ "logo-hide" if module.settings.fixed && module.logo.logo.src}}" src="{{ module.logo.logo.src }}" loading="eager" alt="{{ module.logo.logo.alt }}" height="{{ module.logo.logo.height }}" width="{{ module.logo.logo.width }}">
+									<img class="header__logo-image header__logo-scroll" src="{{ module.logo.logo_on_scroll.src }}" loading="eager" alt="{{ module.logo.logo_on_scroll.alt }}" height="{{ module.logo.logo_on_scroll.height }}" width="{{ module.logo.logo_on_scroll.width }}">
+								</div>
+								{% if module.logo.logo_on_mobile %}
+								<div class="d-md-none">
+									<img class="header__logo-image header__logo-default {{ "logo-hide" if module.settings.fixed && module.logo.mobile_logo.src }} logo_mobile" src="{{ module.logo.mobile_logo.src }}" loading="eager" alt="{{ module.logo.mobile_logo.alt }}" height="{{ module.logo.mobile_logo.height }}" width="{{ module.logo.mobile_logo.width }}">
+									<img class="header__logo-image header__logo-scroll logo_mobile" src="{{ module.logo.mobile_logo_on_scroll.src }}" loading="eager" alt="{{ module.logo.mobile_logo_on_scroll.alt }}" height="{{ module.logo.mobile_logo_on_scroll.height }}" width="{{ module.logo.mobile_logo_on_scroll.width }}">
+								</div>
+								{% endif %}
+							{% if module.logo.link.url.href %}
+							</a>
+							{% endif %}
+						</div>
+					</div>
+					{% endif %}
+					<div class="header__button-col">
+						{{ macros.cta(module.button.ctas) }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="main-content" tabindex="-1"></div>
+	</header>

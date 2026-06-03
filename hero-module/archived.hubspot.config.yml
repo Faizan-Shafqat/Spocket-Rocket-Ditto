@@ -1,0 +1,8 @@
+defaultPortal: my-portal
+portals:
+  - name: my-portal
+    portalId: 12345678
+    env: prod
+    authType: personalaccesskey
+    personalAccessKey: PASTE_YOUR_KEY
+    accountType: STANDARD

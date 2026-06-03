@@ -1,0 +1,81 @@
+.sr-blog-listing-02 .latest-posts {
+	row-gap: 30px;
+}
+
+.sr-blog-listing-02 .article-panel {
+	position: relative;
+	transition: all .3s ease-in-out;
+	animation-timing-function: ease-in-out;
+	height: 100%;
+	border: 1px solid;
+	overflow: hidden;
+}
+
+.sr-blog-listing-02 .article-panel:hover {
+	box-shadow: 15px 25px 60px 0 rgb(0 0 0 / 13%);
+}
+
+
+.sr-blog-listing-02 .article-panel .article-content {
+	padding: 1.875rem;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.sr-blog-listing-02 .article-content .spaced {
+	margin-bottom: 1.875rem;
+}
+
+.sr-blog-listing-02 .article-content .article-meta {
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+    font-size: 12px;
+}
+
+.sr-blog-listing-02 .article-content .reading-minutes {
+	min-width: 29%;
+}
+
+.sr-blog-listing-02 .tag { 
+	font-size: .75rem;
+	padding: .25rem .5rem;
+	transition: all .25s ease;
+	background-color: var(--light);
+	color: var(--body_color);
+	border-radius: 4px;
+	display: inline-block;
+	margin-bottom: .5rem;
+}
+
+.sr-blog-listing-02 .article-panel .heading {
+	display: block;
+}
+
+.sr-blog-listing-02 .article-meta span.bull {
+	padding: 0 0.25rem;
+}
+
+.sr-blog-listing-02 .article-panel a,
+.sr-blog-listing-02 .article-panel a:hover {
+	color: inherit;
+}
+
+.sr-blog-listing-02 .article-panel a {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.sr-blog-listing-02 .article-panel .article-img {
+	aspect-ratio: 16/9;
+	overflow: hidden;
+}
+
+.sr-blog-listing-02 .article-panel .article-img img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}

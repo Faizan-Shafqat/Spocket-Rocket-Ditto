@@ -1,0 +1,56 @@
+{% set posts = blog_recent_posts(module.blog, module.blog_post_offset) %}
+{% set post = posts[module.blog_post_offset - 1] %}
+
+<a href="{{ post.absolute_url }}" class="blog-card bg-{{ module.design_settings.background_color }} text-{{ module.design_settings.text_color }} {{ name }}" {{ "data-preview" if module_preview }}>
+	<div class="blog-image" role="img" aria-label="{{ post.name|striptags }}'s featured image" style="background-image: url({{post.featured_image }});"></div>
+	<div class="card-body">
+		{% if module.show_tag %}
+		<div class="tag bg-primary text-white">
+			<small>{{ post.topic_list[0].name }}</small>
+		</div>
+		{% endif %}
+		<h3 class="h6 heading">{{ post.name}}</h3>
+		<p>{{ post.post_summary|regex_replace('{%\\s*module_block.*?end_module_block\\s*%}', '', 'si')|striptags|truncate(module.summary_character_limit, False, "")  }}</p>
+		<div class="meta">
+			{% if post.blog_post_author.avatar && module.show_author %}
+			<div class="avatar">
+				<img src="{{ post.blog_post_author.avatar }}" alt="{{ post.blog_post_author.full_name }}" />
+			</div>
+			{% endif %}
+			<div>
+				{% if post.blog_post_author.avatar && module.show_author %}
+				<span class="author font-weight-bold" href="{{ blog_author_url(group.id, post.blog_post_author.slug) }}">{{ post.blog_post_author.full_name }}</span>
+				{% endif  %}
+				{% if module.show_date %}
+				<span class="date">{{ post.publish_date_local_time|datetimeformat('%B %d, %Y') }} </span>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</a>
+
+{% require_css %}
+<style>
+	.{{ name }} {
+		{{ module.design_settings.spacing.css }};
+		{{ module.design_settings.border.css }};
+		{{ "border-radius: " ~ module.design_settings.border_radius ~ "px;" if module.design_settings.border_radius }}
+	}
+	{% if module.design_settings.border_radius %}
+	.{{ name }} .blog-image {
+		border-top-right-radius: {{ module.design_settings.border_radius ~ "px" }};
+		border-top-left-radius: {{ module.design_settings.border_radius ~ "px" }};
+	}
+	{% endif %}
+	{% if module.design_settings.background_color == 'custom' %}
+	.{{ name }} .accordion_group {
+		background-color: {{ module.design_settings.background_custom.css }};
+	}
+	{% endif %}
+	{% if module.design_settings.text_color == 'custom' %}
+	.{{ name }} {
+		color: {{ module.design_settings.text_color_custom.css }};
+	}
+	{% endif %}
+</style>
+{% end_require_css %}

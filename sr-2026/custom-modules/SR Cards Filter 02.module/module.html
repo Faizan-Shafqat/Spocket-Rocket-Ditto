@@ -1,0 +1,83 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		{% if module.show_load_more_button %}
+		.{{name}} .sr-cards-filter-02-items.hideitems .sr-cards-filter-02-item:nth-child(n+{{ module.cards_to_show + 1}}) {
+			display: none;
+		}
+		{% endif %}
+	</style>
+	{% end_require_css %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	<div class="sr-cards-filter-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+
+						{% if module.heading ||  module.description %}
+							<div class="sr-spacer-bottom-75">
+								{{ macros.heading(module.heading) }}
+								{% if module.description %}
+									<div class="description">{{ module.description}}</div>
+								{% endif %}
+							</div>
+						{% endif %}
+
+						{% if module.filters.tags|length %}
+						<div class="sr-cards-filter-02-filter filter-button-group row justify-content-center {% if module.text_align  == 'center' %}justify-content-md-center{% elif module.text_align == 'right' %}justify-content-md-end{% endif %} flex-wrap flex-md-wrap">
+							<button type="button" data-filter="*" class="col-auto active text-primary">{{ module.filters.title }}</button>
+							{% for tag in module.filters.tags %}
+								<button type="button" data-filter=".tag-{{ tag|lower|replace(" ","-")|regex_replace("[?,.!@$%&*^<>;:+]", "") }}" class="col-auto">{{ tag }}</button>
+							{% endfor %}
+						</div>
+						{% endif %}
+
+						<div class="sr-cards-filter-02-items hideitems row">
+							{% for item in module.column %}
+							<div class="sr-cards-filter-02-item {{ macros.col_size(module.column_size) }} {% for tag in item.tags %}tag-{{ tag|lower|replace(" ","-")|regex_replace("[?,.!@$%&*^<>;:+]", "") }} {% endfor %}" style="{{ '--background_color_hover: {{item.background_color_hover.css}}' if item.background_color_hover }}; {{ '--text_color_hover: {{item.text_color_hover.css}}' if item.text_color_hover }}">
+								{% if item.link.url.href %}
+								<a {{ macros.link(item.link) }}>
+								{% endif %}
+									<div class="item-card">
+										{{ macros.image(item.col_image) }}
+										{% if item.col_text %}
+										<div class="description">{{ item.col_text }}</div>
+										{% endif %}
+									</div>
+								{% if item.link.url.href %}
+								</a>
+								{% endif %}
+							</div>
+							{% endfor %}
+						</div>
+
+						{% if module.show_load_more_button %}
+						<div id="{{name}}loadMore" class="text-center load-more">
+							<a href="#" class="btn btn-{{ module.button_style }}">{{module.button_text}}</a>
+						</div>
+						{% endif %}
+
+				{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+{% endif %}

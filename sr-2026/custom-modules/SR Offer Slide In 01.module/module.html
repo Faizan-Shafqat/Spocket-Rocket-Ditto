@@ -1,0 +1,92 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% set width_class =
+		module.design_settings.container_width == 'min' ? 'col-lg-6 offset-lg-3' :
+		module.design_settings.container_width == 'narrow' ? 'col-lg-8 offset-lg-2' :
+		module.design_settings.container_width == 'wide' ? 'col-lg-10 offset-lg-1' :
+		'col-lg-12'
+	%}
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+	</style>
+	{% end_require_css %}
+
+	<div class="sr-offer-slide-in-01 overflow-hidden {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+			<div class="row">
+				<div class="{{ width_class }}">
+			{% endif %}
+					<div class="row ">
+						<div class="d-flex col-12 justify-content-center p-4 text-{{ module.design_settings.text_color }}">
+							<button role="button" class="no-button hide-button" tabindex="0">
+								<span class="hide-label">{{ module.hide_label }}</span>
+								<span class="show-label">{{ module.show_label }}</span>
+								<span role="presentation" aria-hidden="true">
+								{% icon
+									name="angle-up"
+									style="SOLID"
+									unicode="f106"
+									icon_set="fontawesome-5.14.0"
+									width="10"
+									no_wrapper=true
+								%}
+								</span>
+							</button>
+						</div>
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+				</div>
+			</div>
+		{% endif %}
+		</div>
+
+		<div class="offer" data-scroll="{{ module.slide_in_on_scroll }}">
+			<div class="{{ module.design_settings.layout }}">
+				{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+				{% endif %}
+					<div class="row align-items-end">
+						<div class="{{ macros.col_size(module.columns.left_column) }} pb-lg-4 sr-col sr-offer-slide-in-01-content text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+							<div class="sr-spacer-bottom-50">
+								{{ macros.image(module.bling_image) }}
+
+								{% if module.heading ||  module.description %}
+								<div class="sr-spacer-top-50 pr-xl-5">
+									{{ macros.heading(module.heading) }}
+									{% if module.description %}
+									<div class="description pr-xl-5{% if module.lead_text %} lead{% endif %}">
+										{{ module.description}}
+									</div>
+									{% endif %}
+								</div>
+								{% endif %}
+
+								{{ macros.cta(module.ctas, 'sr-spacer-top-25') }}
+							</div>
+						</div>
+						{% if  module.form.enabled %}
+						<div class="{{ macros.col_size(module.columns.right_column) }} sr-offer-slide-in-01-form">
+							{{ macros.form(module.form, false, true, 'Get Started') }}
+						</div>
+						{% endif %}
+					</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+			</div>
+		</div>
+	</div>
+
+	{{ require_js(get_asset_url('../../js/gsap.js'), { defer: true }) }}
+	{{ require_js(get_asset_url('../../js/ScrollTrigger.js'), { defer: true }) }}
+{% endif %}

@@ -1,0 +1,1807 @@
+[ {
+  "id" : "enabled",
+  "name" : "enabled",
+  "label" : "Enabled",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "display_width" : null,
+  "type" : "boolean",
+  "default" : true
+}, {
+  "id" : "sr_module_id",
+  "name" : "sr_module_id",
+  "label" : "ID",
+  "help_text" : "Assign a ID to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : "half_width",
+  "type" : "text"
+}, {
+  "id" : "class",
+  "name" : "class",
+  "label" : "Class",
+  "help_text" : "Assign a CLASS to the module",
+  "required" : false,
+  "locked" : false,
+  "allow_new_line" : false,
+  "display_width" : "half_width",
+  "type" : "text"
+}, {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design Settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "c3b3f9d0-afe8-9ad1-2de4-73dace5d511f",
+    "name" : "layout",
+    "label" : "Layout",
+    "help_text" : "<strong>Page:</strong> Sets a max-width at each responsive breakpoints<br><br>\n<strong>Full Width:</strong> 100% at all breakpoints",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "container", "Default Container" ], [ "container container-small", "Small Container" ], [ "container container-large", "Large Container" ], [ "container-fluid", "Full Width" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "container container-large"
+  }, {
+    "id" : "design_settings.top_bottom_padding",
+    "name" : "top_bottom_padding",
+    "label" : "Top Bottom Padding",
+    "help_text" : "<strong>Use default values:</strong> Uses any inherit padding values<br><br><strong>No Padding:</strong> Set padding to 0<br><br><strong>Small:</strong> Uses a preset small padding<br><br><strong>Large:</strong> Uses a preset large padding<br><br><strong>Custom:</strong> Custom padding",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom padding" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "full"
+  }, {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "design_settings.top_bottom_padding",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "spacing",
+    "default" : {
+      "margin" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 0
+        }
+      },
+      "padding" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 1.875
+        },
+        "left" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "right" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 1.875
+        }
+      }
+    }
+  }, {
+    "id" : "1bda5d30-d934-4e6f-8c7a-4567993c8c07",
+    "name" : "background_option",
+    "label" : "Background Option",
+    "inline_help_text" : "",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "color", "Color" ], [ "gradient", "Gradient" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "color"
+  }, {
+    "id" : "a700ae1c-9418-06bf-92ec-e6da54894966",
+    "name" : "background_color",
+    "label" : "Background Color",
+    "required" : true,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "1bda5d30-d934-4e6f-8c7a-4567993c8c07",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "color",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display" : "select",
+    "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "none", "None" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "dark"
+  }, {
+    "id" : "00bd0a5e-8b47-f485-4490-157b5fb61dc5",
+    "name" : "background_custom",
+    "label" : "Background Custom",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "1bda5d30-d934-4e6f-8c7a-4567993c8c07",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "color",
+    "default" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "3c6a497d-3d7b-bdd6-0760-afc1c66de349",
+    "name" : "background_gradient",
+    "label" : "Background Gradient",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "1bda5d30-d934-4e6f-8c7a-4567993c8c07",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "gradient",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "gradient",
+    "default" : {
+      "colors" : [ {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 99,
+          "r" : 12
+        }
+      }, {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 151,
+          "r" : 24
+        }
+      } ],
+      "side_or_corner" : {
+        "verticalSide" : "TOP",
+        "horizontalSide" : "LEFT"
+      }
+    }
+  }, {
+    "id" : "4961d921-8c51-515a-f769-4d80bd04b97b",
+    "name" : "text_align",
+    "label" : "Text Align",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "textalignment",
+    "default" : {
+      "text_align" : "LEFT"
+    }
+  }, {
+    "id" : "02fcb156-fab0-3228-52e7-48c6f9566445",
+    "name" : "text_color",
+    "label" : "Text Color",
+    "help_text" : "Set to <strong>Auto</strong> to use the default text color<br><br>Set to <strong>Custom</strong> to set a custom text color",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "white"
+  }, {
+    "id" : "d65574d0-5117-68f1-ecff-5d08c8a1735c",
+    "name" : "text_color_custom",
+    "label" : "Text Color ",
+    "required" : false,
+    "locked" : false,
+    "visibility" : {
+      "controlling_field" : "02fcb156-fab0-3228-52e7-48c6f9566445",
+      "controlling_field_path" : null,
+      "controlling_value_regex" : "custom",
+      "property" : null,
+      "operator" : "EQUAL",
+      "access" : null
+    },
+    "display_width" : null,
+    "type" : "color",
+    "default" : {
+      "color" : "#87909e",
+      "opacity" : 100
+    }
+  }, {
+    "id" : "design_settings.border",
+    "name" : "border",
+    "label" : "Border",
+    "required" : false,
+    "locked" : false,
+    "allow_custom_border_sides" : true,
+    "display_width" : null,
+    "type" : "border",
+    "default" : {
+      "top" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "bottom" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      }
+    }
+  }, {
+    "id" : "design_settings.responsive_settings",
+    "name" : "responsive_settings",
+    "label" : "Responsive Settings",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "design_settings.responsive_settings.tablet",
+      "name" : "tablet",
+      "label" : "Tablet",
+      "inline_help_text" : "Breakpoint: 992px",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.responsive_settings.tablet.tablet_top_bottom_padding",
+        "name" : "tablet_top_bottom_padding",
+        "label" : "Top Bottom Padding",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom Padding" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_spacing",
+        "name" : "tablet_spacing",
+        "label" : "Tablet Spacing",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.responsive_settings.tablet.tablet_top_bottom_padding",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display_width" : null,
+        "type" : "spacing",
+        "default" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_option",
+        "name" : "tablet_background_option",
+        "label" : "Background Option",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Auto" ], [ "custom", "Custom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_color",
+        "name" : "tablet_background_color",
+        "label" : "Background Color",
+        "required" : true,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "color",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "primary"
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_custom",
+        "name" : "tablet_background_custom",
+        "label" : "Background Color",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "custom|image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.tablet.tablet_background_gradient",
+        "name" : "tablet_background_gradient",
+        "label" : "Background Gradient",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.tablet.tablet_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "gradient",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display_width" : null,
+        "type" : "gradient",
+        "default" : {
+          "colors" : [ {
+            "color" : {
+              "r" : 12,
+              "g" : 99,
+              "b" : 255,
+              "a" : 1
+            }
+          }, {
+            "color" : {
+              "r" : 24,
+              "g" : 151,
+              "b" : 255,
+              "a" : 1
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "tablet_background_color" : "primary",
+        "tablet_background_custom" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "tablet_background_option" : "auto",
+        "tablet_background_gradient" : {
+          "colors" : [ {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 99,
+              "r" : 12
+            }
+          }, {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 151,
+              "r" : 24
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        },
+        "tablet_background_overlay_color" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        }
+      }
+    }, {
+      "id" : "design_settings.responsive_settings.mobile",
+      "name" : "mobile",
+      "label" : "Mobile",
+      "inline_help_text" : "Breakpoint: 768px",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "design_settings.responsive_settings.mobile.mobile_top_bottom_padding",
+        "name" : "mobile_top_bottom_padding",
+        "label" : "Top Bottom Padding",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Use default values" ], [ "zero", "No Padding" ], [ "half", "Small padding" ], [ "full", "Large padding" ], [ "custom", "Custom Padding" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_spacing",
+        "name" : "mobile_spacing",
+        "label" : "Mobile Spacing",
+        "required" : false,
+        "locked" : false,
+        "visibility" : {
+          "controlling_field" : "design_settings.responsive_settings.mobile.mobile_top_bottom_padding",
+          "controlling_field_path" : null,
+          "controlling_value_regex" : "custom",
+          "property" : null,
+          "operator" : "EQUAL",
+          "access" : null
+        },
+        "display_width" : null,
+        "type" : "spacing",
+        "default" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_option",
+        "name" : "mobile_background_option",
+        "label" : "Background Option",
+        "required" : true,
+        "locked" : false,
+        "display" : "select",
+        "choices" : [ [ "auto", "Auto" ], [ "custom", "Custom" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "auto"
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_color",
+        "name" : "mobile_background_color",
+        "label" : "Background Color",
+        "required" : true,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "color",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display" : "select",
+        "choices" : [ [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "none", "None" ] ],
+        "multiple" : false,
+        "reordering_enabled" : true,
+        "preset" : null,
+        "display_width" : null,
+        "type" : "choice",
+        "default" : "primary"
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_custom",
+        "name" : "mobile_background_custom",
+        "label" : "Background Color",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "custom|image|video",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "design_settings.responsive_settings.mobile.mobile_background_gradient",
+        "name" : "mobile_background_gradient",
+        "label" : "Background Gradient",
+        "required" : false,
+        "locked" : false,
+        "visibility_rules" : "ADVANCED",
+        "advanced_visibility" : {
+          "boolean_operator" : "AND",
+          "criteria" : [ {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.responsive_settings.mobile.mobile_background_option",
+            "controlling_value_regex" : "custom",
+            "property" : null,
+            "operator" : "EQUAL",
+            "access" : null
+          }, {
+            "controlling_field" : null,
+            "controlling_field_path" : "design_settings.background_option",
+            "controlling_value_regex" : "gradient",
+            "property" : null,
+            "operator" : "MATCHES_REGEX",
+            "access" : null
+          } ],
+          "children" : [ ]
+        },
+        "display_width" : null,
+        "type" : "gradient",
+        "default" : {
+          "colors" : [ {
+            "color" : {
+              "r" : 12,
+              "g" : 99,
+              "b" : 255,
+              "a" : 1
+            }
+          }, {
+            "color" : {
+              "r" : 24,
+              "g" : 151,
+              "b" : 255,
+              "a" : 1
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      } ],
+      "tab" : "STYLE",
+      "expanded" : true,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "mobile_background_color" : "primary",
+        "mobile_background_image" : {
+          "src" : "https://www.lean-labs.com/hubfs/sr-assets/pattern-library/sr-hero-01/sr-hero-01-v2.jpg",
+          "background_size" : "cover",
+          "background_position" : "MIDDLE_CENTER"
+        },
+        "mobile_background_custom" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "mobile_background_option" : "auto",
+        "mobile_background_overlay_color" : {
+          "color" : "#343a40",
+          "opacity" : 30
+        },
+        "mobile_background_gradient" : {
+          "colors" : [ {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 99,
+              "r" : 12
+            }
+          }, {
+            "color" : {
+              "a" : 1,
+              "b" : 255,
+              "g" : 151,
+              "r" : 24
+            }
+          } ],
+          "side_or_corner" : {
+            "verticalSide" : "TOP",
+            "horizontalSide" : "LEFT"
+          }
+        }
+      }
+    } ],
+    "tab" : "STYLE",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : {
+      "tablet" : {
+        "tablet_top_bottom_padding" : "auto",
+        "tablet_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      },
+      "mobile" : {
+        "mobile_top_bottom_padding" : "auto",
+        "mobile_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : {
+    "layout" : "container container-large",
+    "top_bottom_padding" : "full",
+    "spacing" : {
+      "margin" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 0
+        }
+      },
+      "padding" : {
+        "top" : {
+          "units" : "rem",
+          "value" : 1.875
+        },
+        "left" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "right" : {
+          "units" : "rem",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "rem",
+          "value" : 1.875
+        }
+      }
+    },
+    "background_option" : "color",
+    "background_color" : "dark",
+    "background_custom" : {
+      "color" : "#ffffff",
+      "opacity" : 100
+    },
+    "background_gradient" : {
+      "colors" : [ {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 99,
+          "r" : 12
+        }
+      }, {
+        "color" : {
+          "a" : 1,
+          "b" : 255,
+          "g" : 151,
+          "r" : 24
+        }
+      } ],
+      "side_or_corner" : {
+        "verticalSide" : "TOP",
+        "horizontalSide" : "LEFT"
+      }
+    },
+    "text_align" : {
+      "text_align" : "LEFT"
+    },
+    "text_color" : "white",
+    "text_color_custom" : {
+      "color" : "#87909e",
+      "opacity" : 100
+    },
+    "border" : {
+      "top" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "bottom" : {
+        "color" : "#e5e7ea",
+        "style" : "none",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      }
+    },
+    "responsive_settings" : {
+      "tablet" : {
+        "tablet_top_bottom_padding" : "auto",
+        "tablet_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      },
+      "mobile" : {
+        "mobile_top_bottom_padding" : "auto",
+        "mobile_spacing" : {
+          "margin" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 0
+            }
+          },
+          "padding" : {
+            "top" : {
+              "units" : "rem",
+              "value" : 3.25
+            },
+            "left" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "right" : {
+              "units" : "rem",
+              "value" : 0
+            },
+            "bottom" : {
+              "units" : "rem",
+              "value" : 3.25
+            }
+          }
+        }
+      }
+    }
+  }
+}, {
+  "id" : "1",
+  "name" : "tab_item",
+  "label" : "Tab Item",
+  "required" : false,
+  "locked" : false,
+  "occurrence" : {
+    "min" : null,
+    "max" : null,
+    "sorting_label_field" : "tab_item.tab_title",
+    "default" : 5
+  },
+  "children" : [ {
+    "id" : "fb0bd3eb-5ff7-1d11-8f7e-cd7abbb6a5af",
+    "name" : "styles",
+    "label" : "Styles",
+    "required" : false,
+    "locked" : false,
+    "children" : [ {
+      "id" : "2d510706-5d3f-99b4-65e5-226ab7876f9b",
+      "name" : "background",
+      "label" : "Background",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "92601cc7-4b56-99d0-9528-b9d3ba63a2bc",
+        "name" : "default",
+        "label" : "Default",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#1f293e",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "45d46097-1cc8-c31a-aa2d-293c3ded18ec",
+        "name" : "active",
+        "label" : "Active",
+        "required" : false,
+        "locked" : false,
+        "inherited_value" : {
+          "property_value_paths" : {
+            "color" : "theme.colors.primary.color"
+          }
+        },
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#0048ff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "default" : {
+          "color" : "#1f293e",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#0048ff",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "ede8ae98-d204-88b2-52c4-d3f713c5692f",
+      "name" : "heading",
+      "label" : "Heading",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "9343fa19-a4f2-8ad6-dac1-e7d8ebf2d726",
+        "name" : "default",
+        "label" : "Default",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "8f2c6b8a-f60c-2650-cac6-b0392611e978",
+        "name" : "active",
+        "label" : "Active",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }
+    }, {
+      "id" : "20807128-e3eb-4579-6b66-22bf368aa9d0",
+      "name" : "content",
+      "label" : "Content",
+      "required" : false,
+      "locked" : false,
+      "children" : [ {
+        "id" : "a66c21ea-6905-d9a3-8ba3-2a5413755184",
+        "name" : "default",
+        "label" : "Default",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }, {
+        "id" : "ddd58d05-d1e3-3dd2-c9f5-291a19ac8319",
+        "name" : "active",
+        "label" : "Active",
+        "required" : false,
+        "locked" : false,
+        "display_width" : null,
+        "type" : "color",
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      } ],
+      "tab" : "CONTENT",
+      "expanded" : false,
+      "group_occurrence_meta" : null,
+      "display_width" : null,
+      "type" : "group",
+      "default" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group",
+    "default" : {
+      "background" : {
+        "default" : {
+          "color" : "#1f293e",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#0048ff",
+          "opacity" : 100
+        }
+      },
+      "heading" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      },
+      "content" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }
+    }
+  }, {
+    "id" : "tab_item.tab_title",
+    "name" : "tab_title",
+    "label" : "Tab Title",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "display_width" : null,
+    "type" : "text",
+    "default" : "Professional Design"
+  }, {
+    "id" : "tab_item.tab_subtitle",
+    "name" : "tab_subtitle",
+    "label" : "Tab Subtitle",
+    "required" : false,
+    "locked" : false,
+    "allow_new_line" : false,
+    "display_width" : null,
+    "type" : "text",
+    "default" : "Achieve virtually any look and layout from within the template"
+  }, {
+    "id" : "tab_item.tab_image",
+    "name" : "tab_image",
+    "label" : "Tab Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "display_width" : null,
+    "type" : "image",
+    "default" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/analytics-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    }
+  }, {
+    "id" : "tab_item.tab_hover_image",
+    "name" : "tab_hover_image",
+    "label" : "Tab Active Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : true,
+    "resizable" : true,
+    "show_loading" : true,
+    "display_width" : null,
+    "type" : "image",
+    "default" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/analytics-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    }
+  }, {
+    "id" : "a3cdabb4-537c-64dc-7256-abc899a34f69",
+    "name" : "tab_icon",
+    "label" : "Icon",
+    "required" : false,
+    "locked" : false,
+    "icon_set" : "fontawesome-6.4.2",
+    "display_width" : null,
+    "type" : "icon",
+    "default" : {
+      "name" : "chevron-right",
+      "unicode" : "f054",
+      "type" : "SOLID"
+    }
+  }, {
+    "id" : "1.purpose",
+    "name" : "purpose",
+    "label" : "Purpose",
+    "help_text" : "The purpose of the icon, used for accessibility. If set to decorative, an additional attribute of aria-hidden=\"true\" will be added to the icon.",
+    "required" : true,
+    "locked" : false,
+    "display" : "select",
+    "choices" : [ [ "decorative", "Decorative" ], [ "semantic", "Semantic" ] ],
+    "multiple" : false,
+    "reordering_enabled" : true,
+    "preset" : null,
+    "display_width" : null,
+    "type" : "choice",
+    "default" : "decorative"
+  }, {
+    "id" : "heading",
+    "name" : "heading",
+    "label" : "Heading",
+    "required" : false,
+    "locked" : false,
+    "occurrence" : {
+      "min" : 0,
+      "max" : null,
+      "sorting_label_field" : "heading",
+      "default" : 0
+    },
+    "children" : [ {
+      "id" : "heading.heading",
+      "name" : "heading",
+      "label" : "Heading",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text",
+      "default" : "Professional Design"
+    }, {
+      "id" : "heading.heading_size",
+      "name" : "heading_size",
+      "label" : "Size",
+      "help_text" : "HTML heading size",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : "half_width",
+      "type" : "choice",
+      "default" : "h3"
+    }, {
+      "id" : "heading.heading_display_size",
+      "name" : "heading_display_size",
+      "label" : "Display Size",
+      "help_text" : "Size that heading is displayed at",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "h1", "H1" ], [ "h2", "H2" ], [ "h3", "H3" ], [ "h4", "H4" ], [ "h5", "H5" ], [ "h6", "H6" ], [ "p", "P" ], [ "display-4", "L" ], [ "display-3", "XL" ], [ "display-2", "XXL" ], [ "display-1", "XXXL" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : "half_width",
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "heading.heading_color",
+      "name" : "heading_color",
+      "label" : "Color",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "primary", "Primary" ], [ "secondary", "Secondary" ], [ "tertiary", "Tertiary" ], [ "white", "White" ], [ "black", "Black" ], [ "dark", "Dark" ], [ "light", "Light" ], [ "success", "Success" ], [ "info", "Info" ], [ "warning", "Warning" ], [ "danger", "Danger" ], [ "gradient_one", "Gradient One" ], [ "gradient_two", "Gradient Two" ], [ "custom", "Custom" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "heading.heading_color_custom",
+      "name" : "heading_color_custom",
+      "label" : "Color",
+      "required" : false,
+      "locked" : false,
+      "visibility" : {
+        "controlling_field" : "heading.heading_color",
+        "controlling_field_path" : null,
+        "controlling_value_regex" : "custom",
+        "property" : null,
+        "operator" : "EQUAL",
+        "access" : null
+      },
+      "display_width" : null,
+      "type" : "color",
+      "default" : {
+        "color" : "#30343b",
+        "opacity" : 100
+      }
+    }, {
+      "id" : "heading.heading_align",
+      "name" : "heading_align",
+      "label" : "Align",
+      "required" : true,
+      "locked" : false,
+      "display" : "select",
+      "choices" : [ [ "auto", "Auto" ], [ "left", "Left" ], [ "center", "Center" ], [ "right", "Right" ] ],
+      "multiple" : false,
+      "reordering_enabled" : true,
+      "preset" : null,
+      "display_width" : null,
+      "type" : "choice",
+      "default" : "auto"
+    }, {
+      "id" : "tab_item.heading.class",
+      "name" : "class",
+      "label" : "CSS Class",
+      "required" : false,
+      "locked" : false,
+      "allow_new_line" : false,
+      "display_width" : null,
+      "type" : "text"
+    } ],
+    "tab" : "CONTENT",
+    "expanded" : false,
+    "group_occurrence_meta" : null,
+    "display_width" : null,
+    "type" : "group"
+  }, {
+    "id" : "tab_item.tab_content",
+    "name" : "tab_content",
+    "label" : "Description",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "richtext",
+    "default" : "<h3>Professional Design</h3>\n<p>By the time a trend is being mass-marketed -- like many of the ones mentioned in this article -- innovators are already experimenting with new strategies behind the scenes.</p><p>With this in mind, it's important to keep trends in perspective by following the ones that compliment your business and continuing to experiment outside of mainstream practices.</p>"
+  }, {
+    "id" : "lead_text",
+    "name" : "lead_text",
+    "label" : "Lead Text",
+    "help_text" : "Turn on to make the Description text larger",
+    "required" : false,
+    "locked" : false,
+    "display" : "toggle",
+    "display_width" : null,
+    "type" : "boolean",
+    "default" : true
+  }, {
+    "id" : "tab_item.tab_side_image",
+    "name" : "tab_side_image",
+    "label" : "Tab Side Image",
+    "required" : false,
+    "locked" : false,
+    "responsive" : false,
+    "resizable" : false,
+    "show_loading" : false,
+    "display_width" : null,
+    "type" : "image",
+    "default" : {
+      "alt" : "Tab Slide Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tabs-horizontal-01-01.jpg",
+      "width" : "750",
+      "height" : "750",
+      "loading" : "lazy"
+    }
+  }, {
+    "id" : "tab_item.image_corner_radius",
+    "name" : "image_corner_radius",
+    "label" : "Image Corner Radius",
+    "help_text" : "",
+    "inline_help_text" : "",
+    "required" : false,
+    "locked" : false,
+    "display" : "text",
+    "step" : 1,
+    "suffix" : "px",
+    "display_width" : null,
+    "type" : "number",
+    "default" : "8"
+  } ],
+  "tab" : "CONTENT",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group",
+  "default" : [ {
+    "styles" : {
+      "background" : {
+        "default" : {
+          "color" : "#1f293e",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#0048ff",
+          "opacity" : 100
+        }
+      },
+      "heading" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      },
+      "content" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }
+    },
+    "tab_title" : "Professional design",
+    "tab_subtitle" : "Achieve virtually any look and layout from within the template",
+    "tab_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/analytics-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_hover_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/analytics-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_icon" : {
+      "name" : "chevron-right",
+      "unicode" : "f054",
+      "type" : "SOLID"
+    },
+    "heading" : null,
+    "tab_content" : "<h3>Professional design</h3>\n<p>By the time a trend is being mass-marketed -- like many of the ones mentioned in this article -- innovators are already experimenting with new strategies behind the scenes.</p><p>With this in mind, it's important to keep trends in perspective by following the ones that compliment your business and continuing to experiment outside of mainstream practices.</p>",
+    "lead_text" : true,
+    "tab_side_image" : {
+      "alt" : "Tab Slide Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tabs-horizontal-01-01.jpg",
+      "width" : "750",
+      "height" : "750",
+      "loading" : "lazy"
+    },
+    "image_corner_radius" : "8"
+  }, {
+    "styles" : {
+      "background" : {
+        "default" : {
+          "color" : "#1f293e",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#0048ff",
+          "opacity" : 100
+        }
+      },
+      "heading" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      },
+      "content" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }
+    },
+    "tab_title" : "Inbound strategy",
+    "tab_subtitle" : "Meet all of your inbound goals and objectives",
+    "tab_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/suitcase-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_hover_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/suitcase-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_icon" : {
+      "name" : "chevron-right",
+      "unicode" : "f054",
+      "type" : "SOLID"
+    },
+    "heading" : null,
+    "tab_content" : "<h3>Inbound strategy</h3>\n<p>By the time a trend is being mass-marketed -- like many of the ones mentioned in this article -- innovators are already experimenting with new strategies behind the scenes.</p><p>With this in mind, it's important to keep trends in perspective by following the ones that compliment your business and continuing to experiment outside of mainstream practices.</p>",
+    "lead_text" : true,
+    "tab_side_image" : {
+      "alt" : "Tab Slide Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tabs-horizontal-01-02.jpg",
+      "width" : "750",
+      "height" : "750",
+      "loading" : "lazy"
+    },
+    "image_corner_radius" : "8"
+  }, {
+    "styles" : {
+      "background" : {
+        "default" : {
+          "color" : "#1f293e",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#0048ff",
+          "opacity" : 100
+        }
+      },
+      "heading" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      },
+      "content" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }
+    },
+    "tab_title" : "Unlimited power",
+    "tab_subtitle" : "Build as many pages as you need for your high-conversion website",
+    "tab_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/ball-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_hover_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/ball-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_icon" : {
+      "name" : "chevron-right",
+      "unicode" : "f054",
+      "type" : "SOLID"
+    },
+    "heading" : null,
+    "tab_content" : "<h3>Unlimited power</h3>\n<p>By the time a trend is being mass-marketed -- like many of the ones mentioned in this article -- innovators are already experimenting with new strategies behind the scenes.</p><p>With this in mind, it's important to keep trends in perspective by following the ones that compliment your business and continuing to experiment outside of mainstream practices.</p>",
+    "lead_text" : true,
+    "tab_side_image" : {
+      "alt" : "Tab Slide Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tabs-horizontal-01-03.jpg",
+      "width" : "750",
+      "height" : "750",
+      "loading" : "lazy"
+    },
+    "image_corner_radius" : "8"
+  }, {
+    "styles" : {
+      "background" : {
+        "default" : {
+          "color" : "#1f293e",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#0048ff",
+          "opacity" : 100
+        }
+      },
+      "heading" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      },
+      "content" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }
+    },
+    "tab_title" : "Built for Everyone",
+    "tab_subtitle" : "Easy-of-use ensures new users learn to use prototyping tools",
+    "tab_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/apps-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_hover_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/apps-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_icon" : {
+      "name" : "chevron-right",
+      "unicode" : "f054",
+      "type" : "SOLID"
+    },
+    "heading" : null,
+    "tab_content" : "<h3>Built for everyone</h3>\n<p>By the time a trend is being mass-marketed -- like many of the ones mentioned in this article -- innovators are already experimenting with new strategies behind the scenes.</p><p>With this in mind, it's important to keep trends in perspective by following the ones that compliment your business and continuing to experiment outside of mainstream practices.</p>",
+    "lead_text" : true,
+    "tab_side_image" : {
+      "alt" : "Tab Slide Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tabs-horizontal-01-04.jpg",
+      "width" : "750",
+      "height" : "750",
+      "loading" : "lazy"
+    },
+    "image_corner_radius" : "8"
+  }, {
+    "styles" : {
+      "background" : {
+        "default" : {
+          "color" : "#1f293e",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#0048ff",
+          "opacity" : 100
+        }
+      },
+      "heading" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      },
+      "content" : {
+        "default" : {
+          "color" : "#fff",
+          "opacity" : 100
+        },
+        "active" : {
+          "color" : "#fff",
+          "opacity" : 100
+        }
+      }
+    },
+    "tab_title" : "White-glove service",
+    "tab_subtitle" : "The design sprints are a white glove service",
+    "tab_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/canvas-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_hover_image" : {
+      "alt" : "arrow",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Icons/canvas-icon_white.svg",
+      "width" : 36,
+      "height" : 36,
+      "loading" : "lazy",
+      "max_width" : 36,
+      "max_height" : 36
+    },
+    "tab_icon" : {
+      "name" : "chevron-right",
+      "unicode" : "f054",
+      "type" : "SOLID"
+    },
+    "heading" : null,
+    "tab_content" : "<h3>White-glove service</h3>\n<p>By the time a trend is being mass-marketed -- like many of the ones mentioned in this article -- innovators are already experimenting with new strategies behind the scenes.</p><p>With this in mind, it's important to keep trends in perspective by following the ones that compliment your business and continuing to experiment outside of mainstream practices.</p>",
+    "lead_text" : true,
+    "tab_side_image" : {
+      "alt" : "Tab Slide Image",
+      "src" : "https://www.sprocketrocket.co/hubfs/sr-assets/stack/Images/tabs-horizontal-01-05.jpg",
+      "width" : "750",
+      "height" : "750",
+      "loading" : "lazy"
+    },
+    "image_corner_radius" : "8"
+  } ]
+} ]

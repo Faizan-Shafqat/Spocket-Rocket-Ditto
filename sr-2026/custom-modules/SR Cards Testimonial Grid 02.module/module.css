@@ -1,0 +1,45 @@
+.sr-cards-testimonial-grid-02 {
+  background-position: center center;
+  background-size: cover;
+}
+
+.sr-cards-testimonial-grid-02 .team-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* margin-top: 68px; */
+}
+
+.sr-cards-testimonial-grid-02 .team-card .card-img-top {
+  width: 96px;
+  height: 96px;
+  position: absolute;
+  top: -48px;
+  border-radius: 30px;
+  background-position: center;
+  background-size: cover;
+}
+
+.sr-cards-testimonial-grid-02 .card-link-wrapper {
+  display: block;
+  width: 100%;
+}
+
+.sr-cards-testimonial-grid-02 .card-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@media (max-width: 991px) {
+  .section-content > .row {
+    row-gap: 5rem;
+  }
+}
+
+
+@media (min-width: 991px) {
+  .sr-cards-testimonial-grid-02 .team-column:nth-child(3n-4) {
+    margin: 0 0 2rem 0;
+  }
+}

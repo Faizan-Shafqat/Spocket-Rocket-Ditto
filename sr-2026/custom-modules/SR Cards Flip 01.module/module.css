@@ -1,0 +1,89 @@
+.sr-cards-flip-01 .card-icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 0.75rem;
+  top: 1rem;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.sr-cards-flip-01 .card-icon span {
+  width: 0.8125rem;
+  height: 0.1875rem;
+}
+
+.sr-cards-flip-01 .card-icon span:after {
+  content: '';
+  height: 0.8125rem;
+  width: 0.1875rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: inherit;
+}
+
+.sr-cards-flip-01 .expand .card-icon span:after,
+.sr-cards-flip-01 .trigger-hover .card-block:hover .card-icon span:after {
+  content: none;
+}
+
+.sr-cards-flip-01 .card-block {
+  min-height: 21.875rem;
+  position: relative;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.sr-cards-flip-01 .card-block.txt-left { align-items: flex-start; text-align: left; }
+.sr-cards-flip-01 .card-block.txt-right { align-items: flex-end; text-align: right; }
+.sr-cards-flip-01 .card-block.txt-center { align-items: center; text-align: center; }
+
+.sr-cards-flip-01 .card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  opacity: 0;
+  transition: 0.5s all;
+}
+
+.sr-cards-flip-01 .expand .card-overlay,
+.sr-cards-flip-01 .trigger-hover .card-block:is(:hover, :focus-within):not(.sr-cards-flip-01:has(.card-block:hover) .card-block:focus-within:not(:hover)) .card-overlay {
+  opacity: 1;
+}
+
+.sr-cards-flip-01 .card-description {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.sr-cards-flip-01 .row.sr-valign-stretch .card-column {
+  min-height: 100%;
+}
+
+.sr-cards-flip-01 .row.sr-valign-stretch .card-column .card-block {
+  height: 100%;
+}
+
+.sr-cards-flip-01 .card-overlay .cta-group {
+  pointer-events: none;
+}
+
+.sr-cards-flip-01 .expand .card-overlay .cta-group,
+.sr-cards-flip-01 .trigger-hover .card-block:is(:hover, :focus-within):not(.sr-cards-flip-01:has(.card-block:hover) .card-block:focus-within:not(:hover)) .card-overlay .cta-group {
+  pointer-events: auto;
+}

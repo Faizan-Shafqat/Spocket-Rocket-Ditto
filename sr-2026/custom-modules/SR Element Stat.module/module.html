@@ -1,0 +1,19 @@
+{% import "../../templates/macros.html" as macros %}
+
+<div class="sr-stat {{ name }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}" data-animate="{{module.animate_stats}}" data-speed="{{module.animation_speed}}" {{ "data-preview" if module_preview }}>
+    {% set heading = module.stat %}
+    {% if heading.heading >= 0 %}<{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}} class="heading mb-0{% if heading.heading_display_size != 'auto' %} {{ heading.heading_display_size }}{% endif %}{% if heading.heading_color != 'auto' %} text-{{ heading.heading_color }}{% endif %}{% if heading.heading_align != 'auto' %} text-{{ heading.heading_align }}{% endif %}{% if heading.class %} {{heading.class}}{% endif %}" {% if heading.heading_color == 'custom' %}style="color: {{ color(heading.heading_color_custom) }}"{% endif %}>{{ module.prefix }}<span class="stat-counter" data-stat="{{ heading.heading }}" data-format="{{ module.format }}">{% if module.format %}{{"%,d"|format(heading.heading)}}{% else %}{{ heading.heading }}{% endif %}</span>{{ module.suffix }}</{{heading.heading_size|int ? 'h' ~ heading.heading_size : heading.heading_size}}>{% endif %}
+    {% if module.description %}<div class="description{% if module.lead_text %} lead{% endif %}"><p role="heading" aria-level="3">{{module.description}}</p></div>{% endif %}
+</div>
+
+
+{% require_css %}
+<style>
+    {{ macros.design_settings(name, module.design_settings) }}
+	{% scope_css %}
+    .sr-stat {
+        {{ module.design_settings.spacing.css }};
+    }
+    {% end_scope_css %}
+</style>
+{% end_require_css %}

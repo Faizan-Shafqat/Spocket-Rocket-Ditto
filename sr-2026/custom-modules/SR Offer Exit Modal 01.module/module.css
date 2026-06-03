@@ -1,0 +1,56 @@
+#exit-popup .modal-header {
+    border: none;
+    padding: 0;
+}
+
+#exit-popup .modal-body {
+    padding:  4.6875rem 3.125rem;
+}
+
+#exit-popup .col-md-6 {
+    padding: 0;
+}
+
+#exit-popup .popup-right p {
+    margin: 20px 0;
+}
+
+#exit-popup .hs-form .hs_submit {
+    margin: 10px 0;
+}
+
+#exit-popup button.close {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    right: 1.25rem;
+    top: 1.25rem;
+    background: transparent;
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s ease;
+    z-index: 1;
+    appearance: none;
+    font-weight:600;
+    font-size: 1.25rem;
+    padding: 0;
+    line-height: normal;
+}
+
+#exit-popup button.close span {
+    margin-left: 1px;
+}
+
+.sr-exit-popup .modal-content {
+    border-radius: var(--border_radius);
+    background-color: #fff;
+}
+
+
+.sr-exit-popup.show {
+    display: block;
+    opacity: 1;
+}

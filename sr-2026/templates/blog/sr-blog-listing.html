@@ -1,0 +1,150 @@
+<!--
+templateType: blog_listing
+isAvailableForNewContent: true
+label: Blog Listing
+screenshotPath: ../../images/sr-blog-listing.jpg
+-->
+{% include '../header.html' %}
+
+	{% import "../../templates/macros.html" as macros %}
+	{{ require_css(get_asset_url('./css/sr-blog.css')) }}
+
+	<body data-type="{{ content.CMSContentType }}" class="blog blog-listing {{ widget_data.body_class.value }}">
+
+		{% block header %}
+			{% boolean "enabled_site_header" label='Enable Global Site Header', value=true, export_to_template_context=True %}
+			{% if widget_data.enabled_site_header.value %}
+				{% global_partial path="../../templates/partials/site_header.html" %}
+			{% endif %}
+			{% global_partial path="./partials/blog_header.html" %}
+		{% endblock header %}
+
+		{% block body %}
+			{% set blog_ns = namespace() %}
+
+			{% module "blog_setting" path="./custom-modules/Blog Settings", label="Blog Settings" %}
+
+			{% set top = blog_ns.listing.styles.top %}
+			{% set middle = blog_ns.listing.styles.middle %}
+			{% set bottom = blog_ns.listing.styles.bottom %}
+
+			{% set left = blog_ns.listing.left %}
+			{% set main = blog_ns.listing.main %}
+			{% set right = blog_ns.listing.right %}
+
+			{% require_css %}
+			<style>
+				{{ macros.design_settings('blog-top', top) }}
+				{{ macros.design_settings('blog-middle', middle) }}
+				{{ macros.design_settings('blog-bottom', bottom) }}
+			</style>
+			{% end_require_css %}
+
+			<main>
+				{# Top DnD #}
+				{% if top.enabled %}
+				<section class="blog-top {% if top.background_option == 'color' %} bg-{{ top.background_color }}{% endif %} sr-padding-{{ top.top_bottom_padding }}">
+					<div class="{{ top.layout }}">
+						<div class="row no-gutters">
+							<div class="{{ top.container_width }}">
+								{% dnd_area "top_dnd_area", class='top_dnd_area' label="Top" %}
+								    {% dnd_section %}
+								        {% dnd_module overrideable=True, widget_name='Blog Hero 01', path='./custom-modules/Blog Hero 01', label='Blog Hero 01' %}{% end_dnd_module %}
+								    {% end_dnd_section %}
+								{% end_dnd_area %}
+							</div>
+						</div>
+					</div>
+				</section>
+				{% endif %}
+				{# End Top DnD #}
+
+				{# Main Section #}
+				{% if middle.enabled %}
+				<section class="blog-middle {% if middle.background_option == 'color' %} bg-{{ middle.background_color }}{% endif %} sr-padding-{{middle.top_bottom_padding}}">
+					<div class="{{ middle.layout }}">
+						<div class="row no-gutters">
+							<div class="{{ middle.container_width }}">
+								<div class="row">
+									{# Left Sidebar DnD #}
+									{% if left.enabled %}
+									<aside class="left-sidebar {{ macros.col_size(left.column_size) }}">
+										{% dnd_area "left_dnd_area", class='left_dnd_area' label="Left Sidebar" %}
+
+										{% end_dnd_area %}
+									</aside>
+									{% endif %}
+									{# End Left Sidebar DnD #}
+
+									{# Main Content DnD #}
+									<section class="{{ macros.col_size(main.column_size) }}">
+										{% if blog_author %}
+										{% include './partials/blog_author.html' %}
+										{% elif tag %}
+										{% include './partials/blog_tag.html' %}
+                                        {% elif simple_list_page %}
+										{% include './partials/blog_all.html' %}
+										{% else %}
+										{% dnd_area "body_dnd_area", class='body_dnd_area' label="Main Content" %}
+
+											{% dnd_section %}
+												{% dnd_module overrideable=True, widget_name='Blog Listing 02', path='./custom-modules/Blog Listing 02', label='Blog Listing 02' %}{% end_dnd_module %}
+											{% end_dnd_section %}
+
+											{% dnd_section %}
+												{% dnd_module overrideable=True, widget_name='Blog Pagination', path='./custom-modules/Blog Pagination', label='Blog Pagination' %}{% end_dnd_module %}
+											{% end_dnd_section %}
+
+										{% end_dnd_area %}
+										{% endif %}
+									</section>
+									{# End Main Content DnD #}
+
+									{# Right Sidebar DnD #}
+									{% if right.enabled %}
+									<aside class="right-sidebar {{ macros.col_size(right.column_size) }} {{ 'sidebar-sticky' if right.sticky }} sidebar-sticky__{{ right.stick_to }}"{% if right.sticky %}style="--sticky-offset: {{ right.sticky_offset }}px"{% endif %}>
+										{% dnd_area "right_dnd_area", class='right_dnd_area' label="Right Sidebar" %}
+
+										{% end_dnd_area %}
+									</aside>
+									{% endif %}
+									{# End Right Sidebar DnD #}
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				{% endif %}
+				{# End Main Section #}
+
+				{# Bottom DnD #}
+				{% if bottom.enabled %}
+				<section class="blog-bottom {% if bottom.background_option == 'color' %} bg-{{ bottom.background_color }}{% endif %} sr-padding-{{ bottom.top_bottom_padding }}">
+					<div class="{{ bottom.layout }}">
+						<div class="row no-gutters">
+							<div class="{{ bottom.container_width }}">
+								{% dnd_area "bottom_dnd_area", class='bottom_dnd_area' label="Bottom" %}
+									
+								{% end_dnd_area %}
+							</div>
+						</div>
+					</div>
+				</section>
+				{% endif %}
+				{# End Bottom DnD #}
+
+			</main>
+
+		{% endblock body %}
+
+		{% block footer %}
+			{% global_partial path="./partials/blog_footer.html" %}
+			{% boolean "enabled_site_footer" label='Enable Global Site Footer', value=true, export_to_template_context=True %}
+			{% if widget_data.enabled_site_footer.value %}
+				{% global_partial path="../../templates/partials/site_footer.html" %}
+			{% endif %}
+		{% endblock footer %}
+
+		{% include '../footer-includes.html' %}
+	</body>
+</html>

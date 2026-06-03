@@ -1,0 +1,32 @@
+{% import "../../templates/macros.html" as macros %}
+
+<div class="sr-tabs {{ name }}" {{ "data-preview" if module_preview }}>
+	<ul class="nav nav-tabs unstyle-list d-flex flex-wrap" role="tablist">
+		{% for item in module.tabs %}
+		<li class="nav-item">
+			<button type="button" class="nav-link{% if module.tab_style != 'none' %} btn btn-{{ module.tab_style }}{% endif %} {% if loop.first %} active{% endif %}" data-tab="{{ name }}_tab_{{ loop.index }}" data-toggle="tab" role="tab" aria-controls="{{ name }}_tab_{{ loop.index }}" aria-selected="true">
+				{{ item.tab_label }}
+
+			</button>
+		</li>
+		{% endfor %}
+	</ul>
+	<div class="tab-content text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+		{% for item in module.tabs %}
+		<div class="tab-pane{% if loop.first %} active{% endif %}" data-tab="{{ name }}_tab_{{ loop.index }}" role="tabpanel" aria-labelledby="{{ name }}_tab_{{ loop.index }}">
+			{{ item.tab_content }}
+		</div>
+		{% endfor %}
+	</div>
+</div>
+
+{% require_css %}
+<style>
+    {{ macros.design_settings(name, module.design_settings) }}
+	{% scope_css %}
+    .sr-tabs {
+        {{ module.design_settings.spacing.css }};
+    }
+    {% end_scope_css %}
+</style>
+{% end_require_css %}

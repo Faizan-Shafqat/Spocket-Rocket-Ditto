@@ -1,0 +1,30 @@
+{% import "../../templates/macros.html" as macros %}
+<div class="sr-element-form {{ name }} {{ macros.module_background(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+	{% if module.design_settings.background_option == 'video' %}
+	{{macros.bg_video(module.background_video, module.design_settings.background_image.src)}}
+	{% endif %}
+
+
+	{% if module.description || module.heading %}
+	<div class="text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} position-relative">
+		{{ macros.heading(module.heading) }}
+		{% if module.description %}
+		<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+		{% endif %}
+	</div>
+	{% endif %}
+
+	{% if module.form.enabled %}
+	<div class="sr-spacer-top-25 position-relative">
+		{{ macros.form(module.form) }}
+	</div>
+	{% endif %}
+</div>
+{% require_css %}
+<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+	.{{name}} {
+		{{ module.design_settings.spacing.css }}
+	}
+</style>
+{% end_require_css %}

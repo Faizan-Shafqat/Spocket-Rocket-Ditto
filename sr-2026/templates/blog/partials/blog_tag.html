@@ -1,0 +1,45 @@
+<!--
+templateType: page
+isAvailableForNewContent: false
+label: Blog Tag
+-->
+
+{% set settings = blog_ns.listing.tag %}
+
+<style>
+    .tag-post:not(:first-of-type) {
+        border-top: 1px solid var(--borders);
+        padding-top: 3rem;
+        margin-top: 3rem;
+    }
+    .tag-post:hover h4 {
+        color: var(--primary);
+    }
+</style>
+
+<div class="blog-container">
+    <div class="container ">
+        <div class="row pt-5 blog-content">
+            <div class="col-lg-12 sr-spacer-bottom-100">
+                <div class="article">
+                    <h1 class="mb-5">{{ settings.heading }}{{ page_meta.html_title|split(' | ')|last }}</h1>
+                    {% for content in contents %}
+                    <div class="tag-post {% if loop.index >7 %} inactive{% endif %}">
+                        <a href="{{ content.absolute_url }}">
+                        <div class="article-meta d-flex align-items-center">
+                            <small class="date">{{ content.publish_date_localized }}</small>
+                        </div>
+                        <h4 class="mt-3 mb-2">{{ content.name }}</h4>
+                        </a>
+                        <div class="btn-wrapper btn-none-wrapper">
+                            <a href="{{ content.absolute_url }}" class="cta_button">
+                                {{ settings.button_text }}
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

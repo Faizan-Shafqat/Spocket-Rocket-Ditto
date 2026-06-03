@@ -1,0 +1,27 @@
+.sr-blog-hero-01 .container {
+	z-index: 3;
+}
+
+.sr-blog-hero-01 .blog-hero-content a {
+	color: inherit;
+}
+.sr-blog-hero-01 .blog-hero-content .data {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	font-size: .875rem;
+    line-height: 1.25;
+	gap: 1rem;
+	margin-bottom: 1rem;
+}
+
+.sr-blog-hero-01 .blog-hero-content .author-link {
+    font-weight: 600;
+}
+
+.sr-blog-hero-01 .tag {
+    display: inline-block;
+}

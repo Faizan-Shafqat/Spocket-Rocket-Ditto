@@ -1,0 +1,45 @@
+.sr-cards-slider-01 .sr-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.sr-cards-slider-01 .sr-cards-slider-01_card {
+  height: 100%;
+}
+
+.sr-cards-slider-01 .blaze-track > div p {
+  font-size: .875rem;
+  line-height: 1.35rem;
+}
+
+.sr-cards-slider-01 .paginator-center {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  margin-top: auto;
+}
+
+.sr-cards-slider-01 .blaze-arrow {
+    align-items: center;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid var(--arrows-color, var(--primary));
+    border-radius: 100%;
+    color: var(--arrows-color, var(--primary));
+    display: flex;
+    height: 2rem;
+    justify-content: center;
+    line-height: 0;
+    padding: 0;
+    transition: all .5s ease;
+    width: 2rem;
+}
+
+.sr-cards-slider-01 .blaze-arrow:is(:hover, :focus) {
+  background-color: var(--arrows-color, var(--primary));
+  color: var(--arrow-hover-color, var(--primary));
+}
+
+.sr-cards-slider-01 .blaze-arrow :is(svg,g,path) {
+  fill: currentColor;
+}

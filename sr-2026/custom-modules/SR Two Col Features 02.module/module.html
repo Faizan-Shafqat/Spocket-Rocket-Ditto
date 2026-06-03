@@ -1,0 +1,139 @@
+{% if module.enabled %}
+
+	{% import "../../templates/macros.html" as macros %}
+
+	{% if module.design_settings.container_width == "min" %}
+		{% set width_class = "col-md-6 offset-md-3" %}
+	{% elif module.design_settings.container_width == "narrow" %}
+		{% set width_class = "col-md-8 offset-md-2" %}
+	{% elif module.design_settings.container_width == "wide" %}
+		{% set width_class = "col-md-10 offset-md-1" %}
+	{% else %}
+		{% set width_class = "col-md-12" %}
+	{% endif %}
+
+	<div class="sr-two-col-features-02 {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+
+		{{ macros.module_bg_video(module) }}
+
+		<div class="{{ module.design_settings.layout }}">
+			{% if module.design_settings.container_width != 'max' %}
+				<div class="row">
+					<div class="{{ width_class }}">
+			{% endif %}
+						{% if module.heading || module.description %}
+						<div class="sr-spacer-bottom-50 text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }}">
+							{{ macros.heading(module.heading) }}
+
+							{% if module.description %}
+							<div class="description{% if module.lead_text %} lead{% endif %}">
+								{{module.description}}
+							</div>
+							{% endif %}
+						</div>
+						{% endif %}
+						<div class="section-content">
+							<div class="row">
+								{% if module.media_type != "none" %}
+								<div class="{{ macros.col_size(module.columns.left_column) }} text-center side-image">
+									<div class="sticky">
+										{% if module.col_media_type == "image" %}
+										{% if module.col_image.src and !module.use_image_as_background %}
+										<div class="responsive-image{% if module.heading || module.col_content || module.ctas %} mb-4{% endif %}">
+											{% if module.add_to_lightbox %}
+											{{ require_js(get_asset_url('../../js/fslightbox.js'), { defer: true }) }}
+											<a data-fslightbox="col-gallery" role="button" aria-label="View larger version of image" href="{{ module.col_image.src }}">
+											{% endif %}
+											{% if module.image_link.url.href && !module.add_to_lightbox %}
+											<a {{ macros.link(module.image_link) }} role="link" aria-label="{{ module.col_image.alt }}'s link {{ ' (Opens in new tab)' if module.image_link.open_in_new_tab }}">
+											{% endif %}
+											{{ macros.image(module.col_image, "{{ 'style=\"--img-corner: {{ module.image_corner_radius }}px\"' if module.image_corner_radius }}") }}
+											{% if module.image_link.url.href && !module.add_to_lightbox %}
+											</a>
+											{% endif %}
+											{% if module.add_to_lightbox %}
+											</a>
+											{% endif %}
+										</div>
+										{% endif %}
+										{% elif module.col_media_type == "form" %}
+										<div{% if module.heading || module.col_content || module.ctas %} class="mb-4"{% endif %}>
+											{{ macros.form(module.form) }}
+										</div>
+										{% elif module.col_media_type == "video" %}
+										{{ require_js(get_asset_url('../../js/video_embed.js'), { defer: true }) }}
+										{{ macros.video(module.video, '{% if module.heading || module.col_content || module.ctas %} mb-4{% endif %}') }}
+										{% elif module.col_media_type == "lottie" %}
+										{{ require_js("https://unpkg.com/@lottiefiles/dotlottie-wc@0.8.5/dist/dotlottie-wc.js", {defer:true, position: "head", type: "module"}) }}
+										<div class="lottie {% if item.heading || item.col_content || item.ctas %} mb-4{% endif %}">
+											{{item.lottie_embed_code }}
+										</div>
+										{% endif %}
+										{{ macros.heading(module.column_heading)}}
+										{% if module.col_content %}
+										<div class="col-content description{% if module.column_lead_text %} lead{% endif %}">
+											{{ module.col_content }}
+										</div>
+										{% endif %}
+										{{ macros.cta(module.ctas, '{{ "sr-spacer-top-25" if module.col_content || module.heading }}') }}
+									</div>
+								</div>
+								{% endif %}
+								<div class="{{ macros.col_size(module.columns.right_column) }} features-list">
+									{% for item in module.features %}
+										{% if item.enable_link_wrapper %}
+										{% set href = item.feature_url.url.href %}
+										{% if item.feature_url.url.type is equalto "EMAIL_ADDRESS" %}
+											{% set href = "mailto:" + href %}
+										{% endif %}
+										<a class="link-wrapper" href="{{ href }}" {% if item.link_field.open_in_new_tab %}target="_blank" aria-label="(Opens in new tab)"{% endif %}{% if item.link_field.no_follow %}rel="nofollow"{% endif %}>
+										{% endif %}
+												<div class="media sr-card sr-border text-{{ module.design_settings.card_styles.text_color }}">
+													{{ macros.image(item.feature_image, 'class="media-image"') }}
+													<div class="media-body description">
+														{{ macros.heading( item.feature_heading) }}
+														{{ item.feature_content }}
+													</div>
+												</div>
+										{% if item.enable_link_wrapper %}
+											</a>
+										{% endif %}
+									{% endfor %}
+								</div>
+							</div>
+						</div>
+			{% if module.design_settings.container_width != 'max' %}
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+	{% require_css %}
+	<style>
+		{{ macros.design_settings(name, module.design_settings) }}
+		.{{ name }} .sr-card {
+			{{ module.design_settings.card_styles.spacing.css }}
+			{%- if module.design_settings.card_styles.background_color == "gradient" -%}
+			background: {{ module.design_settings.card_styles.background_gradient.css }};
+			{%- elif module.design_settings.card_styles.background_color == "custom" -%}
+			background-color: {{ module.design_settings.card_styles.background_custom.css }};
+			{%- elif module.design_settings.card_styles.background_color != "auto" -%}
+			background-color: var(--{{ module.design_settings.card_styles.background_color }});
+			{%- endif -%}
+			{%- if module.design_settings.card_styles.text_color == "custom" %}
+			color: {{ module.design_settings.card_styles.text_color_custom.css }};
+			{%- endif -%}
+			{% if module.design_settings.card_styles.border.css %}
+			{{ module.design_settings.card_styles.border.css }}
+			{% endif %}
+			{% if module.design_settings.card_styles.border_radius >= 0 %}
+			border-radius: {{ module.design_settings.card_styles.border_radius }}px;
+			{% endif %}
+			{% if module.design_settings.card_styles.shadow %}
+			box-shadow: {{ "inset" if module.design_settings.card_styles.inset }} {{ module.design_settings.card_styles.horizontal ~ "px" }} {{ module.design_settings.card_styles.vertical ~ "px" }} {{ module.design_settings.card_styles.blur ~ "px" }} {{ module.design_settings.card_styles.spread ~ "px" }} {{ module.design_settings.card_styles.color.css }};
+			{% endif %}
+		}
+	</style>
+	{% end_require_css %}
+{% endif %}

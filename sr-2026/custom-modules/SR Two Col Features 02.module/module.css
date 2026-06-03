@@ -1,0 +1,50 @@
+.sr-two-col-features-02 .section-heading {
+  margin-bottom: 0.7rem;
+}
+
+.sr-two-col-features-02 .media {
+  transition: box-shadow 0.2s ease-in-out;
+  position: relative;
+}
+
+.sr-two-col-features-02 .link-wrapper {
+  display: block;
+  transition: box-shadow 0.2s ease-in-out;
+  color: inherit;
+}
+
+.sr-two-col-features-02 .features-list {
+	display: flex;
+	flex-direction: column;
+	gap: 1.25rem;
+}
+
+.sr-two-col-features-02 .media-image {
+  margin-right: 1.875rem;
+  height: auto;
+}
+
+.sr-two-col-features-02 .media-body p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.sr-two-col-features-02.v-align-center .media {
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.sr-two-col-features-02 .side-image img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+  .sr-two-col-features-02 .sticky {
+    position: sticky;
+    top: 6rem;
+  }
+}

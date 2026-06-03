@@ -1,0 +1,108 @@
+[ {
+  "id" : "design_settings",
+  "name" : "design_settings",
+  "label" : "Design_settings",
+  "required" : false,
+  "locked" : false,
+  "children" : [ {
+    "id" : "design_settings.spacing",
+    "name" : "spacing",
+    "label" : "Spacing",
+    "required" : false,
+    "locked" : false,
+    "display_width" : null,
+    "type" : "spacing",
+    "default" : {
+      "margin" : {
+        "top" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "px",
+          "value" : 0
+        }
+      },
+      "padding" : {
+        "top" : {
+          "units" : "px",
+          "value" : 25
+        },
+        "left" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "right" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "bottom" : {
+          "units" : "px",
+          "value" : 25
+        }
+      }
+    }
+  }, {
+    "id" : "design_settings.border",
+    "name" : "border",
+    "label" : "Border",
+    "required" : false,
+    "locked" : false,
+    "allow_custom_border_sides" : false,
+    "display_width" : null,
+    "type" : "border",
+    "default" : {
+      "top" : {
+        "color" : "#e5e7ea",
+        "style" : "solid",
+        "width" : {
+          "units" : "px",
+          "value" : 1
+        },
+        "opacity" : 100
+      },
+      "left" : {
+        "color" : "#e5e7ea",
+        "style" : "solid",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "right" : {
+        "color" : "#e5e7ea",
+        "style" : "solid",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      },
+      "bottom" : {
+        "color" : "#e5e7ea",
+        "style" : "solid",
+        "width" : {
+          "units" : "px",
+          "value" : 0
+        },
+        "opacity" : 100
+      }
+    }
+  } ],
+  "tab" : "STYLE",
+  "expanded" : false,
+  "group_occurrence_meta" : null,
+  "display_width" : null,
+  "type" : "group"
+}, {
+  "id" : "d3a3b86e-fe85-f6a3-91ef-b67ac4f3abf2",
+  "name" : "show_line",
+  "label" : "Show Line",
+  "required" : false,
+  "locked" : false,
+  "display" : "checkbox",
+  "display_width" : null,
+  "type" : "boolean",
+  "default" : true
+} ]

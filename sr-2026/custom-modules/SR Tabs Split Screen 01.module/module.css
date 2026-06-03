@@ -1,0 +1,140 @@
+.sr-tabs-split-screen-01-image__overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sr-tabs-split-screen-01-image__overlay.active::after {
+  display: block;
+}
+
+@media screen and (max-width: 991px) {
+
+  .sr-tabs-split-screen-01 .menu,
+  .sr-tabs-split-screen-01 .sr-tabs-split-screen-01-image {
+    display: none;
+  }
+
+  .sr-tabs-split-screen-01 .mobile-content {
+    position: relative;
+  }
+
+  .sr-tabs-split-screen-01 .content-scroll__info {
+    padding: 5rem 3rem;
+  }
+
+  .sr-tabs-split-screen-01 .sr-tabs-split-screen__title {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 2rem;
+  }
+
+  .sr-tabs-split-screen-01 .sr-tabs-split-screen__title>* {
+    margin-bottom: 0;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .sr-tabs-split-screen-01 .mobile-content {
+    display: none;
+  }
+
+  .sr-tabs-split-screen-01 .sr-tabs-split-screen-01-image {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-basis: 50%;
+  }
+
+  .sr-tabs-split-screen-01 .bg {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .sr-tabs-split-screen-01 .image-info {
+    position: relative;
+    width: 100%;
+    z-index: 10;
+  }
+
+  .sr-tabs-split-screen-01 [data-image] {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 250ms ease;
+  }
+
+  .sr-tabs-split-screen-01 [data-image].active {
+    opacity: 1;
+  }
+
+  .sr-tabs-split-screen-01 .content-scroll {
+    display: flex;
+    flex-basis: 50%;
+    max-width: 50%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sr-tabs-split-screen-01 [data-section] {
+    height: 100vh;
+		min-height: 650px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    padding: clamp(6rem, 10vw, 12rem) clamp(6rem, 10vw, 12rem);
+  }
+
+  .sr-tabs-split-screen-01 .menu {
+    display: block;
+    position: absolute;
+    bottom: 6.25rem;
+    right: 0;
+    z-index: 10;
+    padding: 0 0 0 15px;
+    margin: 0;
+  }
+
+  .sr-tabs-split-screen-01 .menu li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem;
+    line-height: 3;
+    list-style-type: none;
+    cursor: pointer;
+  }
+
+  .sr-tabs-split-screen-01 .menu li button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+  }
+
+  .sr-tabs-split-screen-01 .menu li::after {
+    content: '';
+    width: 6.25rem;
+    height: 2px;
+  }
+
+  .sr-tabs-split-screen-01 .menu li.active::after {
+    background-color: currentColor;
+  }
+
+  .sr-tabs-split-screen-01 .sr-tabs-split-screen__title {
+    position: absolute;
+    padding: clamp(6rem, 10vw, 12rem);
+  }
+
+  .sr-tabs-split-screen-01 .sr-tabs-split-screen__title.active {
+    display: block;
+  }
+}

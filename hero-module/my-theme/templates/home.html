@@ -1,0 +1,13 @@
+<!--
+  templateType: page
+  isAvailableForNewContent: true
+  label: Home Page
+  screenshotPath: ""
+-->
+{% extends "./layouts/base.html" %}
+
+{% block body %}
+  <main>
+    {% module "hero" path="../custom-modules/hero-module.module", label="Hero Section" %}
+  </main>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% import "../../templates/macros.html" as macros %}
+<blockquote class="blockquote blockquote-custom {{ name }} {{ macros.module_background(module.design_settings) }} {{ macros.padding(module.design_settings) }} text-{{ module.design_settings.text_color }} {{ macros.text_align(module.design_settings) }} prototype-no-background{% if module.class %} {{ module.class }}{% endif %} sr_module" {% if module.sr_module_id %}id="{{ module.sr_module_id }}"{% endif %} {{ "data-preview" if module_preview }}>
+	{% if module.icon.icon.name %}
+	<div class="blockquote-custom-icon mb-3 bg-{{ module.icon.icon_background }} shadow-sm" style="color: {{ module.icon.icon_color.css }}; {% if module.icon.icon_background == 'custom' %}background-color: {{ module.icon.background_color.color }};{% endif %}">
+		{% icon name="{{ module.icon.icon.name }}" style="{{ module.icon.icon.type }}" unicode="{{ module.icon.icon.unicode }}" no_wrapper=true %}
+	</div>
+	{% endif %}
+	{{ macros.heading(module.heading) }}
+	{% if module.description %}
+	<div class="description{% if module.lead_text %} lead{% endif %}">{{ module.description}}</div>
+	{% endif %}
+	{% if module.title || module.quote_name %}
+	<p class="pt-3 mt-3 border-top h6">
+		{% if module.quote_name %}<strong>{{ module.quote_name }}</strong>{% endif %}
+		{% if module.title %}<cite title="Source Title">{{ module.title }}</cite>{% endif %}
+	</p>
+	{% endif %}
+</blockquote>
+{% require_css %}
+<style>
+	{{ macros.design_settings(name, module.design_settings) }}
+	{% if module.design_settings.border_radius || module.design_settings.box_shadow.css %}
+	.{{ name }} {
+		{% if module.design_settings.border_radius %}
+		border-radius: {{ module.design_settings.border_radius ~ 'px' }};
+		{% endif %}
+		{% if module.design_settings.enabled_box_shadow %}
+		box-shadow: 0px 5px 20px {{module.design_settings.box_shadow.css}};
+		{% endif %}
+	}
+	{% endif %}
+	.{{name}} .blockquote-custom-icon {
+		width: {{ module.icon.icon_size ~ 'px' }};
+		height: {{ module.icon.icon_size ~ 'px' }};
+	}
+</style>
+{% end_require_css %}
